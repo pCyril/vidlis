@@ -1,0 +1,64 @@
+.icon {
+	background-image:url(../images/sprite_icon.png);
+	display:inline-block;
+	width:18px;
+	height:18px;
+}
+
+.icon-absolute {
+	background-image:url(../images/sprite_icon.png);
+	display:inline-block;
+	width:18px;
+	height:18px;
+	position:absolute;
+	top:16px;
+	left:11px;
+}
+
+.icon-absolute.dribbble, .icon.dribbble {
+	background-position:0px 0px;
+}
+
+.icon-absolute.instagram, .icon.instagram {
+	background-position:-51px 0px;
+}
+
+.icon-absolute.flickr, .icon.flickr {
+	background-position:-102px 0px;
+}
+
+.icon-absolute.reddit, .icon.reddit {
+	background-position:-154px 0px;
+}
+
+.icon-absolute.delicious, .icon.delicious {
+	background-position:-204px 0px;
+}
+
+.icon-absolute.forrst-symbol, .icon.forrst-symbol {
+	background-position:-255px 0px;
+}
+
+.icon-absolute.chart, .icon.chart {
+	background-position:-51px -335px;
+}
+
+.icon-absolute.album, .icon.album {
+	background-position:-204px -672px;
+}
+
+.icon-absolute.artiste, .icon.artiste {
+	background-position:-308px -672px;
+}
+
+.icon-absolute.radio, .icon.radio {
+	background-position:-459px -168px;
+}
+
+.icon-absolute.playlist, .icon.playlist {
+	background-position:-51px -447px;
+}
+
+.icon-absolute.calendar, .icon.calendar {
+	background-position:-408px -337px;
+}

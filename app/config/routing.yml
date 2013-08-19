@@ -1,0 +1,4 @@
+
+_routes:
+    resource: "@MyBandsCoreBundle/Controller"
+    prefix:   /{_locale}

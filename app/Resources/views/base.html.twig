@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" />
+        <script type="text/javascript">
+            var DOMAIN_NAME = 'http://localhost/myband/';
+        </script>
+    </head>
+    <body onload="addToPlaylist('3');">
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

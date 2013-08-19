@@ -1,0 +1,15 @@
+{% extends "MyBandsCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    {% include 'MyBandsCoreBundle:Default:menu.html.twig' %}
+    {% include 'MyBandsCoreBundle:Default:player.html.twig' %}
+    <div id="content">
+    {{
+        render(
+            controller('MyBandsCoreBundle:Home:content')
+        )
+    }}
+    </div>
+{% endblock %}
