@@ -62,3 +62,7 @@
 .icon-absolute.calendar, .icon.calendar {
 	background-position:-408px -337px;
 }
+
+.icon-absolute.search, .icon.search {
+	background-position:-204px -448px;
+}
