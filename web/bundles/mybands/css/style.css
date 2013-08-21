@@ -315,6 +315,11 @@ i.icon-large{
 	margin-top:15px;
 }
 
+#sidebar > ul > li.home {
+	padding-bottom:15px;
+        margin-top:10px;
+}
+
 #sidebar > ul > li.search {
 	padding-left:15px;
 	margin-top:15px;

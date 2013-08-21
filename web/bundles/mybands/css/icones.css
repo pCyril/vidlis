@@ -66,3 +66,7 @@
 .icon-absolute.search, .icon.search {
 	background-position:-204px -448px;
 }
+
+.icon-absolute.home, .icon.home {
+	background-position:-102px -280px;
+}
