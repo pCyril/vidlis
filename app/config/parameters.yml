@@ -12,4 +12,3 @@ parameters:
     mailer_password: null
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
-    domain_name: http://localhost/mybandSymfony/web/
