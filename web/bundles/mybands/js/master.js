@@ -1,28 +1,15 @@
-var retard;
 var current;
 var queue = new Array();
 
-function rechercher(){
-	clearTimeout(retard);
-	var val = $('#input-search').val();
-	if(val != '' && val.length > 2){
-		$('#rech').show();
-		$('#rech').html('<center><img src="./images/load.gif"></center>');
-		t = document.getElementById('input-search');
-		$('#rech').show();
-		$.ajax({
-				url: './content/seach/index.php',
-				type: 'get',
-				data: 'search='+val,
-				success: function(data) {
-					$('#rech').html(data);
-				}
 
-		});
-	}else{
-		$('#rech').hide();
-	}
-}
+$(document).ready(function() {
+	$('#formSearch').on('submit', function() {
+		url = '/fr/search/'+encodeURIComponent($('#search').val());
+		loadBox(url);
+		return false;
+	});
+});
+
 function timer(){
 	clearTimeout(retard);
 	retard = setTimeout("rechercher()",1000);
@@ -30,14 +17,6 @@ function timer(){
 
 function getSelectedElement(id){
 	return document.getElementById(id).options[document.getElementById(id).selectedIndex].value;
-}
-
-function getCheckedElement(id){
-	return 'test';
-}
-
-function getValue(id){
-	return document.getElementById(id).value;
 }
 
 function connexion(data){
@@ -240,6 +219,8 @@ function beforeLoad(id, dure, numQueue) {
 		}
 	});
 }
+
+
 
 
 function sendFormToAjax() {
