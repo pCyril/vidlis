@@ -3,10 +3,15 @@ var queue = new Array();
 
 
 $(document).ready(function() {
-	$('#formSearch').on('submit', function() {
+	$('#formSearch').bind('submit', function() {
 		url = '/fr/search/'+encodeURIComponent($('#search').val());
 		loadBox(url);
 		return false;
+	});
+        
+        
+	$(".mCustomScrollbar").each(function() {
+		$(this).mCustomScrollbar();
 	});
 });
 

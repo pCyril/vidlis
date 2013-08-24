@@ -5,20 +5,23 @@
     <link rel="stylesheet" href="{{ asset('bundles/mybands/css/player.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/mybands/css/leaflet.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/mybands/css/icones.css') }}" />
+    <link rel="stylesheet" href="{{ asset('bundles/mybands/css/mCustomScrollbar.css') }}" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 {% endblock %}
 
 
 
 {% block javascripts %}
-		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="{{ asset('bundles/mybands/js/master.js') }}"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
         <script type="text/javascript" src="{{ asset('bundles/mybands/js/lecteur.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mybands/js/leaflet.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/mybands/js/jquery.address-1.5.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/mybands/js/jPlayer/jquery.jplayer.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/mybands/js/scrollbar/jquery.easing.1.3.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/mybands/js/scrollbar/jquery.mousewheel.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mybands/js/scrollbar/jquery.mousewheel.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mybands/js/scrollbar/jquery.mCustomScrollbar.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('bundles/mybands/js/master.js') }}"></script>
     	<script>
 	(function () {
 		$.address.crawlable(1).state('/mybandSymfony/web/app_dev.php').init(function () {
@@ -34,6 +37,11 @@
 					document.title = data.title;
 					$('#content').html(data.content);
 					hide('loading');
+                                        $(".mCustomScrollbar").each(function() {
+                                                $(this).mCustomScrollbar(
+                                                        {scrollInertia: 0}
+                                                );
+                                        });
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					alert(textStatus);
