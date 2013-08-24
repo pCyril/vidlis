@@ -43,7 +43,7 @@ class Title
     
     /**
      *
-     * @ORM\Column(name="duration", type="integer")
+     * @ORM\Column(name="idAlbum", type="integer")
      */
     private $idAlbum;
     

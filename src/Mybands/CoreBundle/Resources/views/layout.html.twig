@@ -37,11 +37,7 @@
 					document.title = data.title;
 					$('#content').html(data.content);
 					hide('loading');
-                                        $(".mCustomScrollbar").each(function() {
-                                                $(this).mCustomScrollbar(
-                                                        {scrollInertia: 0}
-                                                );
-                                        });
+                                        setupCustomScrollbar();
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
 					alert(textStatus);

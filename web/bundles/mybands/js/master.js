@@ -8,11 +8,7 @@ $(document).ready(function() {
 		loadBox(url);
 		return false;
 	});
-        
-        
-	$(".mCustomScrollbar").each(function() {
-		$(this).mCustomScrollbar();
-	});
+        setupCustomScrollbar();
 });
 
 function timer(){
@@ -226,7 +222,14 @@ function beforeLoad(id, dure, numQueue) {
 }
 
 
-
+function setupCustomScrollbar() 
+{
+    $(".mCustomScrollbar").each(function() {
+            $(this).mCustomScrollbar(
+                    {scrollInertia: 0}
+            );
+    });
+}
 
 function sendFormToAjax() {
 	$(".form-ajax").each(function(index, element){

@@ -42,6 +42,18 @@ class Album
      */
     private $idBand;
     
+    /**
+     *
+     * @var array()
+     */
+    private $titles;
+    
+    /**
+     *
+     * @var Artist 
+     */
+    private $artist;
+    
     public function getId() {
         return $this->id;
     }
@@ -90,6 +102,24 @@ class Album
         $this->idBand = $idBand;
     }
 
-
+    public function getTitles()
+    {
+        return $this->titles;
+    }
+    
+    public function setTitles($titles)
+    {
+        $this->titles = $titles;
+    }
+    
+    public function getArtist()
+    {
+        return $this->artist;
+    }
+    
+    public function setArtist($artist)
+    {
+        $this->artist = $artist;
+    }
     
 }

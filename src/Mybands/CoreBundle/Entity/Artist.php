@@ -41,7 +41,7 @@ class Artist
     private $website;
     
     /**
-     * @ORM\Column(name="bandAdmin", type="integer")
+     * @ORM\Column(name="adminBand", type="integer")
      */
     private $bandAdmin;
     
