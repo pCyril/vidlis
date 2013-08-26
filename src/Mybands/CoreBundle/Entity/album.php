@@ -1,5 +1,5 @@
 <?php
-
+namespace MyBands\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -23,24 +23,36 @@ class Album
     private $name;
     
     /**
-     * @ORM\Column(name="name", type="DateTime")
+     * @ORM\Column(name="dateOut", type="date")
      */
     private $dateOut;
     
     /**
-     * @ORM\Column(name="name", type="text")
+     * @ORM\Column(name="description", type="text")
      */
     private $description;
     
     /**
-     * @ORM\Column(name="name", type="string", length=200)
+     * @ORM\Column(name="picture", type="string", length=200)
      */
     private $picture;
     
     /**
-     * @ORM\Column(name="name", type="integer")
+     * @ORM\Column(name="idBand", type="integer")
      */
     private $idBand;
+    
+    /**
+     *
+     * @var array()
+     */
+    private $titles;
+    
+    /**
+     *
+     * @var Artist 
+     */
+    private $artist;
     
     public function getId() {
         return $this->id;
@@ -90,6 +102,24 @@ class Album
         $this->idBand = $idBand;
     }
 
-
+    public function getTitles()
+    {
+        return $this->titles;
+    }
+    
+    public function setTitles($titles)
+    {
+        $this->titles = $titles;
+    }
+    
+    public function getArtist()
+    {
+        return $this->artist;
+    }
+    
+    public function setArtist($artist)
+    {
+        $this->artist = $artist;
+    }
     
 }

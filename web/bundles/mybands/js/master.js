@@ -3,11 +3,12 @@ var queue = new Array();
 
 
 $(document).ready(function() {
-	$('#formSearch').on('submit', function() {
+	$('#formSearch').bind('submit', function() {
 		url = '/fr/search/'+encodeURIComponent($('#search').val());
 		loadBox(url);
 		return false;
 	});
+        setupCustomScrollbar();
 });
 
 function timer(){
@@ -221,7 +222,14 @@ function beforeLoad(id, dure, numQueue) {
 }
 
 
-
+function setupCustomScrollbar() 
+{
+    $(".mCustomScrollbar").each(function() {
+            $(this).mCustomScrollbar(
+                    {scrollInertia: 0}
+            );
+    });
+}
 
 function sendFormToAjax() {
 	$(".form-ajax").each(function(index, element){

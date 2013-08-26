@@ -1,5 +1,5 @@
 <?php
-
+namespace MyBands\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -43,7 +43,7 @@ class Title
     
     /**
      *
-     * @ORM\Column(name="duration", type="integer")
+     * @ORM\Column(name="idAlbum", type="integer")
      */
     private $idAlbum;
     

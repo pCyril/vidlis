@@ -1,5 +1,5 @@
 <?php
-
+namespace MyBands\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 

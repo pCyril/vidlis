@@ -10,6 +10,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class HomeController extends Controller
 {
+    private $em;
+
+
     /**
      * @Route("/", name="_home")
      * @Template()
@@ -33,7 +36,11 @@ class HomeController extends Controller
      */
     public function contentAction()
     {
-        return array();
+        $this->em   = $this->get('doctrine')->getManager();
+        $albums     = $this->em->getRepository('MyBandsCoreBundle:Album')
+                               ->findAll();
+        
+        return array('albums', $albums);
     }
     
 }

@@ -1,5 +1,8 @@
 <?php
 
+namespace MyBands\CoreBundle\Entity;
+
+
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -38,7 +41,7 @@ class Artist
     private $website;
     
     /**
-     * @ORM\Column(name="bandAdmin", type="integer")
+     * @ORM\Column(name="adminBand", type="integer")
      */
     private $bandAdmin;
     

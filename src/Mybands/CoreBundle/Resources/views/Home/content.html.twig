@@ -1,8 +1,26 @@
 {% include 'MyBandsCoreBundle:Default:sidebar.html.twig' %}
 <div id="right_content">           
     <div class="box330 box-boreder">
-        <img src="{{ asset('bundles/mybands/images/map.png') }}">
+        <div class="mapHome" id="concert1"></div>
         <div class="boxFooter"><h2>Sigmund Stern Grove</h2></div>
+        <script>
+        var map = new L.Map('concert1', {
+                scrollWheelZoom: false
+            }
+        );
+        var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
+        cloudmadeAttribution = '',
+        cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
+        map.setView(new L.LatLng(45.756, 4.831), 16).addLayer(cloudmade);
+        map.on('click', onMapClick);
+        var popup = new L.Popup();
+        function onMapClick(e) {
+            var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
+            popup.setLatLng(e.latlng);
+            popup.setContent("You clicked the map at " + latlngStr);
+            map.openPopup(popup);
+        }
+    </script>
     </div>
     <div class="box330 box-boreder">
         <div class="boxHeader"><h2>Anti Sublime</h2></div>
@@ -13,14 +31,34 @@
         </div>
     </div>
     <div class="box330 box-boreder">
-        <img src="{{ asset('bundles/mybands/images/map.png') }}">
+        <div class="mapHome" id="concert2"></div>
         <div class="boxFooter"><h2>Sigmund Stern Grove</h2></div>
+        <script>
+        var map = new L.Map('concert2', {
+                scrollWheelZoom: false
+            }
+        );
+        var cloudmadeUrl = 'http://{s}.tile.cloudmade.com/BC9A493B41014CAABB98F0471D759707/997/256/{z}/{x}/{y}.png',
+        cloudmadeAttribution = '',
+        cloudmade = new L.TileLayer(cloudmadeUrl, {maxZoom: 18, attribution: cloudmadeAttribution});
+        map.setView(new L.LatLng(45.756, 4.831), 16).addLayer(cloudmade);
+        map.on('click', onMapClick);
+        var popup = new L.Popup();
+        function onMapClick(e) {
+            var latlngStr = '(' + e.latlng.lat.toFixed(3) + ', ' + e.latlng.lng.toFixed(3) + ')';
+            popup.setLatLng(e.latlng);
+            popup.setContent("You clicked the map at " + latlngStr);
+            map.openPopup(popup);
+        }
+        </script>
     </div>
     <div class="box330 box-boreder">
         <img src="{{ asset('bundles/mybands/images/map.png') }}">
         <div class="boxFooter"><h2>Sigmund Stern Grove</h2></div>
     </div>
     <div class="box680 box-boreder">
+        <div class="leftBox mCustomScrollbar">
+        </div>
         <div class="rightBox">
             <div class="boxHeader"><h2>Anti Sublime</h2></div>
             <div class="boxFooter dark">
