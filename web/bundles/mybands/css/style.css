@@ -1,8 +1,9 @@
 body {
     font-family: 'Lato', sans-serif;
     font-size: 12px;
-    margin:0px;
-    background-color:#fcfcfc;
+	margin:0px;
+	padding:0px;
+	background-color:#fcfcfc;
 }
 pre, code {
     font-family: 'DejaVu Sans Mono',Menlo,Consolas,monospace;
