@@ -38,7 +38,7 @@ class SearchController extends Controller
     {
     	$data = array();
         $data['searchValue'] = $searchValue;
-        $search = new YoutubeSearch($searchValue, $this->getRequest()->getLocale());
+        $search = new YoutubeSearch($searchValue);
         $data['resultsSearch'] = $search->getResults();
         return $data;
     }

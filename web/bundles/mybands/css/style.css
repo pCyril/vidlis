@@ -364,9 +364,9 @@ i.icon-large{
 }
 
 .box-boreder {
-    box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.5);
-    -moz-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.5);
-    -webkit-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.5);
+    box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
 }
 
 .boxFooter {
@@ -598,6 +598,54 @@ i.icon-large{
 
 .itemSearch {
     margin:10px;
-    border-bottom:1px solid #ccc;
+    border:1px solid #ccc;
     cursor:pointer;
+    position: relative;
+    padding-top: 9px;
+    padding-left: 9px;
+    padding-bottom: 8px;
+}
+
+.itemSearch:hover {
+    background-color: #F5F5F5;
+}
+
+.itemSearch:hover .itemSub {
+    display:block;
+}
+
+.itemSub {
+    display:none;
+    position: absolute;
+    right: 7px;
+    bottom: 5px;
+}
+
+.itemImgSearch {
+    width: 200px;
+    height:113px;
+    border:1px solid #ccc;
+}
+
+.itemImgSearch img {
+    width: 200px;
+    height:113px;
+}
+
+.itemTitleSearch {
+    position: absolute;
+    text-shadow: 0 -1px 0 rgba(255, 255, 255, .3);
+    padding-right: 10px;
+    left: 219px;
+    top: 9px;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.itemDescriptionSearch {
+    position: absolute;
+    padding-right: 10px;
+    left: 219px;
+    top: 49px;
+    font-size: 1.3em;
 }

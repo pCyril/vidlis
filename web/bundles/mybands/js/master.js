@@ -367,13 +367,13 @@ function onYouTubePlayerReady(playerId) {
   ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
   ytplayer.addEventListener("onError", "onPlayerError");
   //Load an initial video into the player
-  ytplayer.cueVideoById("jrdYgY-UiCM");
+  ytplayer.cueVideoById("OeOdMsEWbB4");
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
 function loadPlayer() {
   // Lets Flash from another domain call JavaScript
-  var params = { allowScriptAccess: "always", autostart: true };
+  var params = { allowScriptAccess: "always" };
   // The element id of the Flash embed
   var atts = { id: "ytPlayer" };
   // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)

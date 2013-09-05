@@ -18,15 +18,15 @@ class YoutubeSearch {
     
     private $type = 'video';
     
-    public function __construct($search, $locale) {
+    public function __construct($search) {
         $this->q = urlencode($search);
-        $this->regionCode = strtoupper($locale);
+        $this->regionCode = 'FR';
     }
     
     public function getUrlSearch() 
     {
         $url = $this->url.'part='.$this->part
-               .'&type=video'.$this->type
+               .'&type='.$this->type
                .'&maxResults='.$this->maxResults
                .'&q='.$this->q
                .'&regionCode='.$this->regionCode
