@@ -270,15 +270,16 @@ i.icon-large{
 }
 
 #sidebar  {
-	position: fixed;
-	z-index: 110;
-        top:0px;
-	left: 0;
-	width: 219px;
-	height: 100%;
-	border-right: 1px solid #000000;
-	background: #262626;
-	padding-top:55px;
+    position: fixed;
+    overflow: auto;
+    z-index: 110;
+    top:0px;
+    left: 0;
+    width: 219px;
+    height: 100%;
+    border-right: 1px solid #000000;
+    background: #262626;
+    padding-top:55px;
 }
 
 #sidebar  ul {
@@ -286,13 +287,13 @@ i.icon-large{
 	padding: 0;
 }
 
-#sidebar > ul > li {
+#sidebar ul li {
 	display: list-item;
 	list-style: none;
 	float:left;
 }
 
-#sidebar > ul > li a{
+#sidebar ul li a{
 	width:180px;
 	padding-left:40px;
 	padding-top:15px;
@@ -305,10 +306,10 @@ i.icon-large{
 	color: #fefefe;
 	position:relative;
 }
-#sidebar > ul > li a.first{
+#sidebar ul li a.first{
 }
 
-#sidebar > ul > li.title {
+#sidebar ul li.title {
 	padding-left:15px;
 	font-size:1.5em;
 	color: #7d7d7d;
@@ -316,17 +317,18 @@ i.icon-large{
 	margin-top:15px;
 }
 
-#sidebar > ul > li.home {
+#sidebar ul li.home {
         margin-top:10px;
 }
 
-#sidebar > ul > li.search {
+#sidebar ul li.search {
 	padding-left:15px;
 	margin-top:15px;
 }
 #right_content {
     margin-left: 220px;
-    margin-top: 60px;
+    margin-top: 70px;
+    margin-right: 481px;
 }
 
 .box330 {
@@ -553,4 +555,48 @@ i.icon-large{
 .mapHome {
     width: 330px;
     height:290px;
+}
+
+.item {
+    height:30px;
+    line-height:30px;
+    font-family: arial;
+    font-size: 14px;
+    padding: 10px 0px 10px 30px;
+    cursor:pointer;
+}
+
+.item.pair {
+    background: whiteSmoke;
+    border-bottom: 1px solid #E5E5E5;
+    border-top: 1px solid #E5E5E5;
+}
+
+.playerVideo {
+    position:fixed;
+    top:60px;
+    right:0px;
+    width:480px;
+    height:295px;
+    -moz-box-shadow: inset 0px 0px -3px 0px #151616;
+    -webkit-box-shadow: inset 0px 0px -3px 0px #151616;
+    -o-box-shadow: inset 0px 0px -3px 0px #151616;
+    box-shadow: inset 0px 0px -3px 0px #151616;
+    border-left: 1px solid #000000;
+}
+
+.playlistContent {
+    position:fixed;
+    top:355px;
+    right:0px;
+    width:480px;
+    min-height: 100%;
+    background: #262626;
+    border-left: 1px solid #000000;
+}
+
+.itemSearch {
+    margin:10px;
+    border-bottom:1px solid #ccc;
+    cursor:pointer;
 }

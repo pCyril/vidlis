@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use MyBands\CoreBundle\YoutubeSearch\YoutubeSearch;
+
 class SearchController extends Controller
 {
     /**
@@ -36,6 +38,8 @@ class SearchController extends Controller
     {
     	$data = array();
         $data['searchValue'] = $searchValue;
+        $search = new YoutubeSearch($searchValue, $this->getRequest()->getLocale());
+        $data['resultsSearch'] = $search->getResults();
         return $data;
     }
     

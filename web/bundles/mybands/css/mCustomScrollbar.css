@@ -2,7 +2,7 @@
 /* vertical scrollbar */
 .mCSB_container{
 	width:auto;
-	margin-right:30px;
+        margin-right: 16px;
 	overflow:hidden;
 }
 .mCSB_container.mCS_no_scrollbar{

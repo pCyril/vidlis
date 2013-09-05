@@ -9,8 +9,13 @@
             var DOMAIN_NAME = 'http://localhost/myband/';
         </script>
     </head>
-    <body onload="addToPlaylist('3');">
+    <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+            
+        <div class="playerVideo">
+            <div id="videoDiv">Loading...</div>
+        </div>
+        <div class="playlistContent"></div>
     </body>
 </html>

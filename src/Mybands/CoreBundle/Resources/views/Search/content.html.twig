@@ -1,21 +1,10 @@
 {% include 'MyBandsCoreBundle:Default:sidebar.html.twig' %}
 <div id="right_content">           
-    <div class="box330 box-boreder">
-        <div class="boxHeader"><h2>{{ searchValue }}</h2></div>
-        <div class="boxFooter dark">
-            <div class="subTitle">Artiste</div>
-            <h2 class="albumTitle">Psygnosis</h2>
-            <a href="#" class="btn gray">Découvrir</a>
+        {% for item in resultsSearch.items %}
+        <div class="itemSearch">
+            <div class="itemImgSearch"><img src="{{ item.snippet.thumbnails.default.url }}"></div>
+            <div class="itemTitleSearch">{{ item.snippet.title }}</div>
+            <div class="itemDescriptionSearch">{{ item.snippet.description }}</div>
         </div>
-    </div>
-    <div class="box680 box-boreder">
-        <div class="rightBox">
-            <div class="boxHeader"><h2>Anti Sublime</h2></div>
-            <div class="boxFooter dark">
-                <div class="subTitle">Artiste</div>
-                <h2 class="albumTitle">Psygnosis</h2>
-                <a href="#" class="btn gray">Découvrir</a>
-            </div>
-        </div>
-    </div>
+        {% endfor %}
 </div>

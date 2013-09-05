@@ -31,6 +31,6 @@ class EntityListener
         $repoTitle = $em->getRepository('MyBandsCoreBundle:Title');
         $entity->setTitles($repoTitle->findBy(array('idAlbum' => $entity->getId())));
         $repoArtist = $em->getRepository('MyBandsCoreBundle:Artist');
-        $entity->setArtist($repoArtist->findById($entity->getIdBand()));
+        $entity->setArtist($repoArtist->findOneById($entity->getIdBand()));
     }
 }

@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="{{ asset('bundles/mybands/css/icones.css') }}" />
     <link rel="stylesheet" href="{{ asset('bundles/mybands/css/mCustomScrollbar.css') }}" />
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <script src="//www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load("swfobject", "2.1");
+    </script>       
 {% endblock %}
 
 
@@ -45,5 +49,12 @@
 			});
 		});
 	})();
+        
+        
+      function _run() {
+        loadPlayer();
+      }
+      google.setOnLoadCallback(_run);
+        
         </script>
 {% endblock %}

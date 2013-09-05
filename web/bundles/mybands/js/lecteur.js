@@ -92,6 +92,7 @@ urlMusique = DOMAIN_NAME + 'includes/download.php';
 		});
 }
 function getTime(current){
+        current = parseInt(current);
 	if (current % 60 != current){
 		secondes = current % 60;
 		minutes = (current - secondes) / 60;
