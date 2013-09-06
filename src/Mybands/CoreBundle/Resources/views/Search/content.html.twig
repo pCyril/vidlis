@@ -2,7 +2,7 @@
 <div id="right_content">           
 <script src="https://apis.google.com/js/plusone.js"></script>
         {% for item in resultsSearch.items %}
-        <div class="itemSearch box-boreder">
+        <div class="itemSearch box-boreder" data-id="{{ item.id.videoId }}">
             <div class="itemImgSearch box-boreder"><img src="{{ item.snippet.thumbnails.medium.url }}"></div>
             <div class="itemInfos"></div>
             <div class="itemTitleSearch">{{ item.snippet.title }}</div>

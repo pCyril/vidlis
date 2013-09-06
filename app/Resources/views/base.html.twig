@@ -6,16 +6,11 @@
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" />
         <script type="text/javascript">
-            var DOMAIN_NAME = 'http://localhost/myband/';
+            var DOMAIN_NAME = 'http://localhost/mybandSymfony/web/app_dev.php';
         </script>
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
-            
-        <div class="playerVideo">
-            <div id="videoDiv">Loading...</div>
-        </div>
-        <div class="playlistContent"></div>
     </body>
 </html>

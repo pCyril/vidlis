@@ -1,7 +1,3 @@
-var current;
-var queue = new Array();
-
-
 $(document).ready(function() {
 	$('#formSearch').bind('submit', function() {
 		url = '/fr/search/'+encodeURIComponent($('#search').val());
@@ -9,6 +5,19 @@ $(document).ready(function() {
 		return false;
 	});
         setupCustomScrollbar();
+        $(".itemSearch ").live("click", function(){
+            addToQueue($(this).data('id'));
+        });
+        $(".itemPlaylist ").live("click", function(){
+            launch($(this));
+        });
+        $('#playlistContent').css('height', ($(window).height() - 355) + 'px' );
+        $('#playlistContent').mCustomScrollbar(
+                {scrollInertia: 0, mouseWheel: true, autoHideScrollbar:true,
+                 advanced:{
+                    updateOnContentResize: true
+                 }}
+        );
 });
 
 function timer(){
@@ -19,49 +28,8 @@ function timer(){
 function getSelectedElement(id){
 	return document.getElementById(id).options[document.getElementById(id).selectedIndex].value;
 }
-
-function connexion(data){
-	user = data.user;
-}
-
-function display(element){
-	$close = $("#" + element.id + " .delete");
-	$close.css('display', 'block');
-}
-
-function hideClose(element){
-$close=$("#"+element.id+" .delete");
-$close.css('display', 'none');
-}
-
-function deleteFromQueue(id, numQueue){
-	if (numQueue == current){
-		$("#jquery_jplayer_1").jPlayer("destroy");
-		$("#play_b").css('display','none');
-		$("#play_p").css('display','block');
-		$("#play").css('width', 0);
-		$("#icon_play").css('left', -10);
-		$("#time").html('--:--');
-		next();
-	}
-	queue[numQueue] = '';
-	playlistItem = $('.content .item');
-	$('#'+id).remove();
-	dragger = $(".customScrollBox .dragger");
-	container = $(".customScrollBox .container");
-	left = dragger.css('left');
-	container.css('width', (playlistItem.size() * 210));
-	mCustomScrollbars();
-	dragger.css('left', left);
-	if(left != 'auto') {
-		left = parseFloat(left.substr(0, (left.length - 2))) * 1.4;
-		container.css('left', "-"+left+"px");
-	}
-}
-
 function hide(div){$("#"+ div).hide();}
 function show(div){$("#"+ div).show();}
-
 function loadBox(url){
 	$.address.value(url);
 }
@@ -69,162 +37,16 @@ function mCustomScrollbars(){
 	//$("#list").mCustomScrollbar("horizontal",10,"easeOutCirc",1,"fixed","no","yes",20); 
 }
 
-function addToPlaylist(id){
-	$.ajax({
-		url:  DOMAIN_NAME + 'contents/getTitle.php',
-		type: 'get',
-		dataType: 'json',
-		data: { idTitle: id},
-		success: function (data, textStatus, jqXHR) {
-			formatPlaylist(data);
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			alert(textStatus);
-		}
-	});
-}
-
-function addAlbumToPlaylist(id){
-	$.ajax({
-		url:  DOMAIN_NAME + 'contents/getAlbumList.php',
-		type: 'get',
-		dataType: 'json',
-		data: { idAlbum: id},
-		success: function (data, textStatus, jqXHR) {
-			$.each(data, function() {
-				formatPlaylist(this);
-			})
-		},
-		error: function (jqXHR, textStatus, errorThrown) {
-			alert(textStatus);
-		}
-	});
-}
-
-function launch(numToLaunch){
-	if (numToLaunch != current){
-		$item = $("#" + queue[current].id + "_" + current);
-		$item.removeClass('active');
-		current = numToLaunch;
-		$("#jquery_jplayer_1").jPlayer("destroy");
-		beforeLoad( queue[current].id, queue[current].duration, current);
-	}
-}
-
-function next(){
-	nextItem = parseInt(current) + 1;
-	$item = $("#" + queue[current].id + "_" + current);
-	if(queue.length != nextItem){
-		current = parseInt(current) + 1;
-		if (queue[current] != ''){
-			$item.removeClass('active');
-			$("#jquery_jplayer_1").jPlayer("destroy");
-			beforeLoad( queue[current].id, queue[current].duration, current);
-			return true;
-		} else {
-			$item.removeClass('active');
-			next();
-		}
-	} else {
-		return false;
-	}
-}
-
-function preview(){
-	$item = $("#" + queue[current].id + "_" + current);
-	previewItem = parseInt(current) - 1;
-	if(previewItem != -1){
-		$item.removeClass('active');
-		current = parseInt(current) - 1;
-		if (queue[current] != ''){
-			$("#jquery_jplayer_1").jPlayer("destroy");
-			beforeLoad(queue[current].id, queue[current].duration, current);
-		} else {
-			preview();
-		}
-	}
-}
-
-function formatPlaylist(data){
-
-		beforeLoad(data.id, data.duration, length);
-		current = parseInt(length);
-}
-
 /* function to load new content dynamically */
 function LoadNewContent(id,file){
-$("#"+id+" .customScrollBox .content").load(file,function(){
-	mCustomScrollbars();
-});
+    $("#"+id+" .customScrollBox .content").load(file,function(){
+            mCustomScrollbars();
+    });
 }
-function clearList(){
-	queue = new Array();
-	$(".customScrollBox .container .content").html('');
-	$("#trash").css("display", "none");
-	$("#jquery_jplayer_1").jPlayer("destroy");
-	$("#play_b").css('display','none');
-	$("#play_p").css('display','block');
-	$("#play").css('width', 0);
-	$("#icon_play").css('left', -10);
-	$("#time").html('--:--');
-	if($('#list').css('top') != '-48px'){
-		upAndDown();
-	}
-	next();
-}
-
-function upAndDown(){
-	if($('#list').css('top') != '-48px'){
-		$('#list').animate({
-			top: '-48'
-		}, 500);
-		$('#main-lecteur').animate({
-			top: '53'
-		}, 500);
-		$('#arrow').animate({
-			top: '53'
-		}, 500, function(){
-			$('#arrow i').removeClass('icon-arrow-up');
-			$('#arrow i').addClass('icon-arrow-down');
-		/*$('#wrap_content').animate({
-			top: '110'
-		}, 500);*/
-		});
-	} else {
-		$('#list').animate({
-			top: '52'
-		}, 500);
-		$('#main-lecteur').animate({
-			top: '153'
-		}, 500);
-		$('#arrow').animate({
-			top: '153'
-		}, 500, function(){
-			$('#arrow i').removeClass('icon-arrow-down');
-			$('#arrow i').addClass('icon-arrow-up');
-		/*$('#wrap_content').animate({
-			top: '210'
-		}, 500);*/
-		});
-	}
-}
-
-function beforeLoad(id, dure, numQueue) {
-	$.ajax({
-		url:  DOMAIN_NAME + 'contents/ajax/secureId.php',
-		type: 'post',
-		dataType: 'json',
-		data: { idTitle: id},
-		success: function (data, textStatus, jqXHR) {
-				load_musique(id, dure, numQueue);
-		}
-	});
-}
-
 
 function setupCustomScrollbar() 
 {
-    $(".mCustomScrollbar").each(function() {
+    $(".mCustomScrollbarActiv").each(function() {
             $(this).mCustomScrollbar(
                     {scrollInertia: 0}
             );
@@ -291,6 +113,9 @@ function onPlayerStateChange(newState) {
     $("#play_p").css('display','none');
     $("#play_b").css('display','block');
   }
+  if (newState == 0) {
+      next();
+  }
 }
 
 // Display information about the current state of the player
@@ -356,6 +181,12 @@ function onYouTubePlayerReady(playerId) {
   $('#play_p').on('click', function(){
       playVideo();
   });
+  $('#next_b').on('click', function(){
+      next();
+  });
+  $('#preview_b').on('click', function(){
+      preview();
+  });
   $('#seekbar').on('click', function(){
       playVideo();
   });
@@ -367,7 +198,7 @@ function onYouTubePlayerReady(playerId) {
   ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
   ytplayer.addEventListener("onError", "onPlayerError");
   //Load an initial video into the player
-  ytplayer.cueVideoById("OeOdMsEWbB4");
+  //ytplayer.cueVideoById("OeOdMsEWbB4");
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
@@ -382,7 +213,68 @@ function loadPlayer() {
                      "videoDiv", "480", "295", "9", null, null, params, atts);
 }
 
+function addToQueue(id)
+{
+$.ajax({
+    url:  DOMAIN_NAME + '/fr/addToQueue',
+    type: 'post',
+    dataType: 'json',
+    data: { videoid: id},
+    success: function (data, textStatus, jqXHR) {
+        formatPlaylist(data.video);
+    }
+});
+}
+
+function formatPlaylist(video) {
+$.each(video.items, function() {
+    $c = $('#playlistContent .mCustomScrollBox .mCSB_container');
+    $item = $('<div class="itemPlaylist" data-id="'+this.id+'" data-title="'+this.snippet.title+'" data-channelid="'+this.snippet.title.channelId+'" data-likecount="'+this.statistics.likeCount+'" data-dislikecount="'+this.statistics.dislikeCount+'"/>');
+    $nameTitle = $('<div class="titlePlaylist"/>');
+    $nameTitle.html(this.snippet.title);
+    $thumb = $('<div class="thumbPlaylist"/>');
+    $thumb.html('<img src="' + this.snippet.thumbnails.default.url + '" width="64px" />');
+    $item.append($thumb);
+    $item.append($nameTitle);
+    $c.append($item);
+    playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
+    if (playlistItem.size() == 1){
+        ytplayer.cueVideoById(this.id);
+        $('#title').html(this.snippet.title);
+        ytplayer.playVideo();
+        $item.addClass('active');
+    }
+});
+}
 
 function _run() {
   loadPlayer();
+}
+
+function launch(element) {
+    $('.itemPlaylist.active').removeClass('active');
+    ytplayer.cueVideoById(element.data('id'));
+    $('#title').html(element.data('title'));
+    ytplayer.playVideo();
+    element.addClass('active');
+}
+
+function next() {
+    element = $('.itemPlaylist.active').next();
+    if (element.hasClass('itemPlaylist')) {
+        $('.itemPlaylist.active').removeClass('active');
+        ytplayer.cueVideoById(element.data('id'));
+        ytplayer.playVideo();
+        element.addClass('active');
+    }
+}
+
+function preview() {
+    element = $('.itemPlaylist.active').prev();
+    if (element.hasClass('itemPlaylist')) {
+        $('.itemPlaylist.active').removeClass('active');
+        ytplayer.cueVideoById(element.data('id'));
+        ytplayer.playVideo();
+        element.addClass('active');
+    }
 }

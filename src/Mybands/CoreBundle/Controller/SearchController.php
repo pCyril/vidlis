@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use MyBands\CoreBundle\YoutubeSearch\YoutubeSearch;
+use MyBands\CoreBundle\Youtube\YoutubeSearch;
 
 class SearchController extends Controller
 {

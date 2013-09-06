@@ -1,6 +1,6 @@
 <?php
 
-namespace MyBands\CoreBundle\YoutubeSearch;
+namespace MyBands\CoreBundle\Youtube;
 
 class YoutubeSearch {
     
