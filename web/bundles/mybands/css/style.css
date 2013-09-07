@@ -589,12 +589,24 @@ i.icon-large{
 #playlistContent {
     position:fixed;
     overflow: auto;
-    top:355px;
+    top:385px;
     right:0px;
     width:480px;
     height: 100%;
     background: #262626;
     border-left: 1px solid #000000;
+}
+
+.underVideo {
+    position:fixed;
+    overflow: auto;
+    top:355px;
+    right:0px;
+    width:480px;
+    height: 29px;
+    background: #262626;
+    border-left: 1px solid #000000;
+    border-bottom: 1px solid #1d1d1d;
 }
 
 .itemSearch {
@@ -689,4 +701,81 @@ i.icon-large{
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.channelPlaylist {
+    font-size: 11px;
+    color: #9E9E9E;
+    text-shadow: 0 1px 0 #000;
+    line-height: 1.4em;
+    height: 1.4em;
+    white-space: nowrap;
+}
+
+#timeSearch {
+    position: absolute;
+    top:17px;
+    left:300px;
+    display: inline-block;
+    padding: 2px 4px;
+    font-size: 11.844px;
+    font-weight: bold;
+    line-height: 14px;
+    color: #ffffff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    white-space: nowrap;
+    vertical-align: baseline;
+    background-color: #333333;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    z-index: 10000000;
+    display:none;
+}
+
+.btn-repeat {
+    position: absolute;
+    top:4px;
+    right:35px;
+}
+
+.btn-trash {
+    position: absolute;
+    top:4px;
+    right:10px;
+}
+
+.btn-grow {
+    position: absolute;
+    top:4px;
+    right:60px;
+}
+
+#vote {
+    position: absolute;
+    left: 10px;
+    top: 20px;
+    height: 2px;
+    width: 200px;
+    border-radius: 4px;
+    background-color: #ccc;
+}
+
+#vote .like {
+    background-color: #590;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    height: 2px;
+    float: left;
+}
+
+#viewCount {
+    position: absolute;
+    left: 10px;
+    top: 2px;
+    font-size: 11px;
+    color: #9E9E9E;
+    text-shadow: 0 1px 0 #000;
+    line-height: 1.4em;
+    height: 1.4em;
 }

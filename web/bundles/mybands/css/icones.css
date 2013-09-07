@@ -70,3 +70,23 @@
 .icon-absolute.home, .icon.home {
 	background-position:-102px -280px;
 }
+
+.icon-absolute.abonnement, .icon.abonnement {
+	background-position:-154px -280px;
+}
+
+.icon-absolute.trash, .icon.trash {
+	background-position:-51px -280px;
+}
+
+.icon-absolute.grow, .icon.grow {
+	background-position:-307px -503px;
+}
+
+.icon-absolute.fullscreen, .icon.fullscreen {
+	background-position:0px -839px;
+}
+
+.icon-absolute.repeat, .icon.repeat {
+	background-position:0px -895px;
+}

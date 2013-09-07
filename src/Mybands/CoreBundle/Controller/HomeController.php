@@ -36,10 +36,7 @@ class HomeController extends Controller
      */
     public function contentAction()
     {
-        $this->em   = $this->get('doctrine')->getManager();
-        $albums     = $this->em->getRepository('MyBandsCoreBundle:Album')
-                               ->findAll();
-        return array('albums' => $albums);
+        return array();
     }
     
 }
