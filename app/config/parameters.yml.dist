@@ -13,3 +13,8 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+
+twig:
+    globals:
+        crawlable: "/mybandSymfony/web/app_dev.php"
+        domain_name: "http://localhost/mybandSymfony/web/app_dev.php"

@@ -28,12 +28,12 @@
         <script type="text/javascript" src="{{ asset('bundles/mybands/js/master.js') }}"></script>
     	<script>
 	(function () {
-		$.address.crawlable(1).state('/mybandSymfony/web/app_dev.php').init(function () {
+		$.address.crawlable(1).state('{{ crawlable }}').init(function () {
 		}).change(function (e) {
 			$.address.state() + decodeURI(e.path).replace(/\/\//, '/');
 			show('loading');
 			$.ajax({
-				url: 'http://localhost/mybandSymfony/web/app_dev.php'+e.path,
+				url: '{{ domain_name }}'+e.path,
 				type: 'POST',
 				dataType: 'json',
 				cache: true,

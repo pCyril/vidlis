@@ -8,8 +8,14 @@ $(document).ready(function() {
         $(".itemSearch ").live("click", function(){
             addToQueue($(this).data('id'));
         });
-        $(".itemPlaylist ").live("click", function(){
+        $(".itemPlaylist").live("click", function(){
             launch($(this));
+        });
+        $(".deleteItemPlaylist").live("click", function(){
+            deleteItem($(this));
+        });
+        $(".btn-repeat").on("click", function(){
+            return setRepeat($(this));
         });
         $('#playlistContent').css('height', ($(window).height() - 385) + 'px' );
         $('#playlistContent').mCustomScrollbar(
@@ -257,8 +263,10 @@ $.ajax({
 function formatPlaylist(video) {
 $.each(video.items, function() {
     $c = $('#playlistContent .mCustomScrollBox .mCSB_container');
+    $container = $('<div class="itemContainer" />');
     $item = $('<div class="itemPlaylist" data-id="'+this.id+'" data-viewcount="'+this.statistics.viewCount+'" data-title="'+this.snippet.title+'" data-channelid="'+this.snippet.title.channelId+'" data-likecount="'+this.statistics.likeCount+'" data-dislikecount="'+this.statistics.dislikeCount+'"/>');
     $nameTitle = $('<div class="titlePlaylist"/>');
+    $deleteItem = $('<div class="deleteItemPlaylist"/>');
     $nameTitle.html(this.snippet.title);
     $nameChannel = $('<div class="channelPlaylist"/>');
     $nameChannel.html('De ' + this.snippet.channelTitle);
@@ -267,15 +275,20 @@ $.each(video.items, function() {
     $thumb.html('<img src="' + this.snippet.thumbnails.default.url + '" width="64px" />');
     $item.append($thumb);
     $item.append($nameTitle);
-    $c.append($item);
+    $container.append($item);
+    $container.append($deleteItem);
+    $c.append($container);
     playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
     if (playlistItem.size() == 1){
         ytplayer.cueVideoById(this.id);
         $('#title').html(this.snippet.title);
         ytplayer.playVideo();
         $item.addClass('active');
-        $('#viewCount span').html(this.statistics.viewCount);
-        $('#vote .like').css('width', Math.round(this.statistics.likeCount / (this.statistics.likeCount+this.statistics.dislikeCount) * 100) + '%');
+        $('#viewCount span').html(makeSeperator(this.statistics.viewCount, ' '));
+        $('#viewCount').css('display', 'block');
+        $('#vote').css('display', 'block');
+        totLike = parseInt(this.statistics.likeCount) + parseInt(this.statistics.dislikeCount);
+        $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
     }
 });
 }
@@ -288,35 +301,49 @@ function launch(element) {
     $('.itemPlaylist.active').removeClass('active');
     ytplayer.cueVideoById(element.data('id'));
     $('#title').html(element.data('title'));
-    $('#viewCount span').html(element.data('viewcount'));
+    $('#viewCount span').html(makeSeperator(element.data('viewcount'), ' '));
     $('#vote .like').css('width', Math.round(element.data('likecount') / (element.data('likecount')+element.data('dislikecount')) * 100) + '%');
     ytplayer.playVideo();
     element.addClass('active');
 }
 
 function next() {
-    element = $('.itemPlaylist.active').next();
-    if (element.hasClass('itemPlaylist')) {
+    element = $('.itemPlaylist.active').parent().next().children( ".itemPlaylist" )[0];
+    if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
-        ytplayer.cueVideoById(element.data('id'));
-        $('#title').html(element.data('title'));
-        $('#vote .like').css('width', Math.round(element.data('likecount') / (element.data('likecount')+element.data('dislikecount')) * 100) + '%');
-        $('#viewCount span').html(element.data('viewcount'));
+        ytplayer.cueVideoById($(element).data('id'));
+        $('#title').html($(element).data('title'));
+        $('#vote .like').css('width', Math.round($(element).data('likecount') / ($(element).data('likecount')+$(element).data('dislikecount')) * 100) + '%');
+        $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
         ytplayer.playVideo();
-        element.addClass('active');
+        $(element).addClass('active');
+        return true;
+    } else {
+        if ($(".btn-repeat").hasClass('active')) {
+            element = $('.itemPlaylist').first();
+            $('.itemPlaylist.active').removeClass('active');
+            ytplayer.cueVideoById(element.data('id'));
+            $('#title').html(element.data('title'));
+            $('#vote .like').css('width', Math.round(element.data('likecount') / (element.data('likecount')+element.data('dislikecount')) * 100) + '%');
+            $('#viewCount span').html(makeSeperator(element.data('viewcount'), ' '));
+            ytplayer.playVideo();
+            element.addClass('active');
+            return true;
+        }
     }
+    return false;
 }
 
 function preview() {
-    element = $('.itemPlaylist.active').prev();
-    if (element.hasClass('itemPlaylist')) {
+    element = $('.itemPlaylist.active').parent().prev().children( ".itemPlaylist" )[0];
+    if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
-        ytplayer.cueVideoById(element.data('id'));
-        $('#title').html(element.data('title'));
-        $('#vote .like').css('width', Math.round(element.data('likecount') / (element.data('likecount')+element.data('dislikecount')) * 100) + '%');
-        $('#viewCount span').html(element.data('viewcount'));
+        ytplayer.cueVideoById($(element).data('id'));
+        $('#title').html($(element).data('title'));
+        $('#vote .like').css('width', Math.round($(element).data('likecount') / ($(element).data('likecount')+$(element).data('dislikecount')) * 100) + '%');
+        $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
         ytplayer.playVideo();
-        element.addClass('active');
+        $(element).addClass('active');
     }
 }
 
@@ -329,6 +356,60 @@ function clearPlaylist() {
     $('#play').css('width', '0px');
     $('#vote .like').css('width', '0px');
     $('#viewCount span').html('');
+    $('#viewCount').css('display', 'none');
+    $('#vote').css('display', 'none');
     ytplayer.cueVideoById('');
     return false;
+}
+function setRepeat(element) {
+    if (element.hasClass('active')) {
+        element.removeClass('active');
+    } else {
+        element.addClass('active');
+    }
+    return false;
+}
+
+function makeSeperator(n, seperator){
+    var rx=  /(\d+)(\d{3})/;
+    return String(n).replace(/^\d+/, function(w){
+        while(rx.test(w)){
+            w= w.replace(rx, '$1'+seperator+'$2');
+        }
+        return w;
+    });
+}
+
+function deleteItem(element) {
+    if ($('.itemContainer').length === 1) {
+        clearPlaylist();
+    } else {
+        elementItem = element.parent().children('.itemPlaylist')[0];
+        if ($(elementItem).hasClass('active')) {
+            if (next()) {
+                element.parent().remove();
+            } else {
+                $('#title').html('');
+                $('#time').html('00:00');
+                $('#preload').css('width', '0px');
+                $('#play').css('width', '0px');
+                $('#vote .like').css('width', '0px');
+                $('#viewCount span').html('');
+                $('#viewCount').css('display', 'none');
+                $('#vote').css('display', 'none');
+                ytplayer.cueVideoById('');
+                element.parent().remove();
+            }
+        } else {
+            element.parent().remove();
+        }
+    }
+}
+
+function auth(connected) {
+    if (connected == 'true') {
+        $('.youtubeAuthen').html('Authentifié');
+    } else {
+        $('.youtubeAuthen').html('Echec de l\'authentification');
+    }
 }

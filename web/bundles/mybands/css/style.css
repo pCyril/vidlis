@@ -439,7 +439,7 @@ i.icon-large{
 
 #loading {
     position: absolute;
-    right: 250px;
+    right: 350px;
     z-index: 20000;
     top: 18px;
     width: 40px;
@@ -695,6 +695,7 @@ i.icon-large{
     position: absolute;
     top: 10px;
     left: 80px;
+    padding-right: 28px;
 }
 
 .truncate {
@@ -739,6 +740,17 @@ i.icon-large{
     right:35px;
 }
 
+.btn-repeat.active {
+    position: absolute;
+    top:3px;
+    right:31px;
+    background-color: #000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 1px 4px;
+}
+
 .btn-trash {
     position: absolute;
     top:4px;
@@ -759,6 +771,7 @@ i.icon-large{
     width: 200px;
     border-radius: 4px;
     background-color: #ccc;
+    display:none;
 }
 
 #vote .like {
@@ -778,4 +791,46 @@ i.icon-large{
     text-shadow: 0 1px 0 #000;
     line-height: 1.4em;
     height: 1.4em;
+    display:none;
+}
+
+.deleteItemPlaylist {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width : 25px;
+    height: 25px;
+    background-image: url("../images/close.png");
+    display:none;
+    cursor:pointer;
+}
+
+.itemContainer {
+    position:relative;
+}
+
+.itemContainer:hover .deleteItemPlaylist {
+    display:block;
+}
+
+.youtubeAuthen {
+    -moz-box-shadow: inset 0 1px 0 rgba(0,0,0,.30);
+    -ms-box-shadow: inset 0 1px 0 rgba(0,0,0,.30);
+    -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.30);
+    box-shadow: inset 0 1px 0 rgba(0,0,0,.30);
+    background-image: -moz-linear-gradient(bottom,#b01d13 0,#c6282c 100%);
+    background-image: -ms-linear-gradient(bottom,#b01d13 0,#c6282c 100%);
+    background-image: -o-linear-gradient(bottom,#b01d13 0,#c6282c 100%);
+    background-image: -webkit-gradient(linear,left bottom,left top,color-stop(0,#b01d13),color-stop(100%,#c6282c));
+    background-image: -webkit-linear-gradient(bottom,#b01d13 0,#c6282c 100%);
+    background-image: linear-gradient(to top,#b01d13 0,#c6282c 100%);
+    filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0,StartColorStr=#c6282c,EndColorStr=#b01d13);
+    position: absolute;
+    right: 250px;
+    z-index: 20000;
+    top: 18px;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor:pointer;
 }
