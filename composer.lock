@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "8a722459691f8aeeb50f3af86ee591dc",
+    "hash": "c62a0760fd1861a98cd58bbfea8ea8cf",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -603,6 +603,50 @@
                 "orm"
             ],
             "time": "2013-05-11 07:51:12"
+        },
+        {
+            "name": "evert/google-api-php-client",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/evert/google-api-php-client.git",
+                "reference": "6522ef6b9b089eddf66ef6081db639430da317dc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/evert/google-api-php-client/zipball/6522ef6b9b089eddf66ef6081db639430da317dc",
+                "reference": "6522ef6b9b089eddf66ef6081db639430da317dc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "GoogleApi": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache 2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Evert Pot",
+                    "email": "evert@rooftopsolutions.nl",
+                    "homepage": "http://www.rooftopsolutions.nl/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Google API library for PHP",
+            "homepage": "https://github.com/evert/google-api-php-client",
+            "keywords": [
+                "gdata",
+                "google"
+            ],
+            "time": "2012-12-15 17:08:12"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1501,9 +1545,9 @@
 
     ],
     "minimum-stability": "stable",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "evert/google-api-php-client": 20
+    },
     "platform": {
         "php": ">=5.3.3"
     },
