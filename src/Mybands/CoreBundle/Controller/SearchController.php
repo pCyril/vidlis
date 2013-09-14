@@ -50,7 +50,7 @@ class SearchController extends AuthController
     {
     	$data = array();
         $data['searchValue'] = $searchValue;
-        $search = new YoutubeSearch($searchValue);
+        $search = new YoutubeSearch($searchValue, $this->container->getParameter('memcache_active'));
         $data['resultsSearch'] = $search->getResults();
         return $data;
     }
