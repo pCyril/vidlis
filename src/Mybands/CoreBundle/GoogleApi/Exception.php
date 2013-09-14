@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi;
+namespace Mybands\CoreBundle\GoogleApi;
 
 /**
  * The Google API Base exception 

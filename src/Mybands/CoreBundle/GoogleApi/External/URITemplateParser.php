@@ -1,6 +1,6 @@
 <?php
 
-namespace MyBands\CoreBundle\GoogleApi\External;
+namespace Mybands\CoreBundle\GoogleApi\External;
 
 /*
 Copyright (c) 2010 Kevin M Burns Jr, http://kevburnsjr.com/

@@ -1,6 +1,6 @@
 <?php
 
-namespace MyBands\CoreBundle\Controller;
+namespace Mybands\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
@@ -8,9 +8,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use MyBands\CoreBundle\Youtube\YoutubeSearch;
+use Mybands\CoreBundle\Youtube\YoutubeSearch;
 
-use MyBands\CoreBundle\Controller\AuthController;
+use Mybands\CoreBundle\Controller\AuthController;
 
 class SearchController extends AuthController
 {
@@ -24,7 +24,7 @@ class SearchController extends AuthController
         $data['title'] = 'Recherche - Site de promotion musicale';
         $data['searchValue'] = $searchValue;
         if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('MyBandsCoreBundle:Search:content.html.twig', $this->contentAction($searchValue));
+            $data['content'] = $this->renderView('MybandsCoreBundle:Search:content.html.twig', $this->contentAction($searchValue));
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;

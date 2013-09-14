@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Cache;
+namespace Mybands\CoreBundle\GoogleApi\Cache;
 
 /**
  * The Google API Cache exception 
@@ -22,4 +22,4 @@ namespace MyBands\CoreBundle\GoogleApi\Cache;
  *
  * @author Evert Pot (http://www.rooftopsolutions.nl/)
  */
-class Exception extends \MyBands\CoreBundle\GoogleApi\Exception {}
+class Exception extends \Mybands\CoreBundle\GoogleApi\Exception {}

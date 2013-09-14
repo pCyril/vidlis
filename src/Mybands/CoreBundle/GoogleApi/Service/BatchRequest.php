@@ -14,13 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Service;
+namespace Mybands\CoreBundle\GoogleApi\Service;
 
-use MyBands\CoreBundle\GoogleApi\Io\HttpRequest;
-use MyBands\CoreBundle\GoogleApi\Client;
-use MyBands\CoreBundle\GoogleApi\Io\CurlIO;
-use MyBands\CoreBundle\GoogleApi\Io\REST;
-use MyBands\CoreBundle\GoogleApi\Config;
+use Mybands\CoreBundle\GoogleApi\Io\HttpRequest;
+use Mybands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Io\CurlIO;
+use Mybands\CoreBundle\GoogleApi\Io\REST;
+use Mybands\CoreBundle\GoogleApi\Config;
 
 /**
  * @author Chirag Shah <chirags@google.com>

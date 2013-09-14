@@ -28,9 +28,9 @@ class EntityListener
     
     public function albumPostLoad($entity, $em)
     {
-        $repoTitle = $em->getRepository('MyBandsCoreBundle:Title');
+        $repoTitle = $em->getRepository('MybandsCoreBundle:Title');
         $entity->setTitles($repoTitle->findBy(array('idAlbum' => $entity->getId())));
-        $repoArtist = $em->getRepository('MyBandsCoreBundle:Artist');
+        $repoArtist = $em->getRepository('MybandsCoreBundle:Artist');
         $entity->setArtist($repoArtist->findOneById($entity->getIdBand()));
     }
 }

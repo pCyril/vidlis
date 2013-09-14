@@ -1,6 +1,6 @@
 <?php
 
-namespace MyBands\CoreBundle\Controller;
+namespace Mybands\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-use MyBands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Client;
 
 
 class AuthController extends Controller

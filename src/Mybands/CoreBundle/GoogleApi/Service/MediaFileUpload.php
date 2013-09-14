@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Service;
+namespace Mybands\CoreBundle\GoogleApi\Service;
 
-use MyBands\CoreBundle\GoogleApi\Io\HttpRequest;
-use MyBands\CoreBundle\GoogleApi\Client;
-use MyBands\CoreBundle\GoogleApi\Io\REST;
+use Mybands\CoreBundle\GoogleApi\Io\HttpRequest;
+use Mybands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Io\REST;
 
 /**
  * @author Chirag Shah <chirags@google.com>
@@ -166,7 +166,7 @@ class MediaFileUpload {
    */
   public static function getUploadType($meta, &$payload, &$params) {
     if (isset($params['mediaUpload'])
-        && get_class($params['mediaUpload']['value']) == '\MyBands\CoreBundle\GoogleApi\\Service\\MediaFileUpload') {
+        && get_class($params['mediaUpload']['value']) == '\Mybands\CoreBundle\GoogleApi\\Service\\MediaFileUpload') {
       $upload = $params['mediaUpload']['value'];
       unset($params['mediaUpload']);
       $payload['content-type'] = $upload->mimeType;
@@ -244,6 +244,6 @@ class MediaFileUpload {
     if (200 == $code && true == $location) {
       return $location;
     }
-    throw new \MyBands\CoreBundle\GoogleApi\Exception("Failed to start the resumable upload");
+    throw new \Mybands\CoreBundle\GoogleApi\Exception("Failed to start the resumable upload");
   }
 }

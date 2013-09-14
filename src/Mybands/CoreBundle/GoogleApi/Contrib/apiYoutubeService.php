@@ -13,12 +13,12 @@
  * the License.
  */
 
-namespace MyBands\CoreBundle\GoogleApi\Contrib;
+namespace Mybands\CoreBundle\GoogleApi\Contrib;
 
-use MyBands\CoreBundle\GoogleApi\Client;
-use MyBands\CoreBundle\GoogleApi\Service\Model;
-use MyBands\CoreBundle\GoogleApi\Service\Service;
-use MyBands\CoreBundle\GoogleApi\Service\ServiceResource;
+use Mybands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Service\Model;
+use Mybands\CoreBundle\GoogleApi\Service\Service;
+use Mybands\CoreBundle\GoogleApi\Service\ServiceResource;
 
   /**
    * The "activities" collection of methods.

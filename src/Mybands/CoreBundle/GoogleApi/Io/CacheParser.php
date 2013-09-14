@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Io;
+namespace Mybands\CoreBundle\GoogleApi\Io;
 
 /**
  * Implement the caching directives specified in rfc2616. This

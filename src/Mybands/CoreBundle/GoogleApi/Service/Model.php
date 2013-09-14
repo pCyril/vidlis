@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Service;
+namespace Mybands\CoreBundle\GoogleApi\Service;
 
-use MyBands\CoreBundle\GoogleApi\Config;
+use Mybands\CoreBundle\GoogleApi\Config;
 
 /**
  * This class defines attributes, valid values, and usage which is generated from
@@ -93,7 +93,7 @@ class Model {
    * @return object The object from the item.
    */
   private function createObjectFromName($name, $item) {
-    $type = '\MyBands\CoreBundle\GoogleApi\Contrib\\' . $this->$name;
+    $type = '\Mybands\CoreBundle\GoogleApi\Contrib\\' . $this->$name;
     return new $type($item);
   }
 
@@ -110,7 +110,7 @@ class Model {
    */
   protected function assertIsArray($obj, $type, $method) {
     if ($obj && !is_array($obj)) {
-      throw new \MyBands\CoreBundle\GoogleApi\Exception("Incorrect parameter type passed to $method(), expected an"
+      throw new \Mybands\CoreBundle\GoogleApi\Exception("Incorrect parameter type passed to $method(), expected an"
           . " array containing items of type $type.");
     }
   }

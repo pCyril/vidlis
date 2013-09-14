@@ -15,12 +15,12 @@
  * the License.
  */
 
-namespace MyBands\CoreBundle\GoogleApi\Contrib;
+namespace Mybands\CoreBundle\GoogleApi\Contrib;
 
-use MyBands\CoreBundle\GoogleApi\Client;
-use MyBands\CoreBundle\GoogleApi\Service\Model;
-use MyBands\CoreBundle\GoogleApi\Service\Service;
-use MyBands\CoreBundle\GoogleApi\Service\ServiceResource;
+use Mybands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Service\Model;
+use Mybands\CoreBundle\GoogleApi\Service\Service;
+use Mybands\CoreBundle\GoogleApi\Service\ServiceResource;
 
   /**
    * The "trainedmodels" collection of methods.
@@ -194,7 +194,7 @@ class apiPredictionService extends Service {
 }
 
 class Input extends Model {
-  protected $__inputType = 'MyBands\CoreBundle\GoogleApi\Contrib\InputInput';
+  protected $__inputType = 'Mybands\CoreBundle\GoogleApi\Contrib\InputInput';
   protected $__inputDataType = '';
   public $input;
   public function setInput(InputInput $input) {
@@ -220,7 +220,7 @@ class Output extends Model {
   public $kind;
   public $outputLabel;
   public $id;
-  protected $__outputMultiType = 'MyBands\CoreBundle\GoogleApi\Contrib\OutputOutputMulti';
+  protected $__outputMultiType = 'Mybands\CoreBundle\GoogleApi\Contrib\OutputOutputMulti';
   protected $__outputMultiDataType = 'array';
   public $outputMulti;
   public $outputValue;
@@ -285,11 +285,11 @@ class Training extends Model {
   public $kind;
   public $storageDataLocation;
   public $storagePMMLModelLocation;
-  protected $__dataAnalysisType = 'MyBands\CoreBundle\GoogleApi\Contrib\TrainingDataAnalysis';
+  protected $__dataAnalysisType = 'Mybands\CoreBundle\GoogleApi\Contrib\TrainingDataAnalysis';
   protected $__dataAnalysisDataType = '';
   public $dataAnalysis;
   public $trainingStatus;
-  protected $__modelInfoType = 'MyBands\CoreBundle\GoogleApi\Contrib\TrainingModelInfo';
+  protected $__modelInfoType = 'Mybands\CoreBundle\GoogleApi\Contrib\TrainingModelInfo';
   protected $__modelInfoDataType = '';
   public $modelInfo;
   public $storagePMMLLocation;
@@ -451,7 +451,7 @@ class ListModel extends Model {
   public $kind;
   public $selfLink;
   public $items;
-  protected $__itemsType = 'MyBands\CoreBundle\GoogleApi\Contrib\Training';
+  protected $__itemsType = 'Mybands\CoreBundle\GoogleApi\Contrib\Training';
   protected $__itemsDataType = 'array';
 
   public function setKind($kind) {
@@ -467,7 +467,7 @@ class ListModel extends Model {
     return $this->selfLink;
   }
   public function setItems(/* array(Webproperty) */ $items) {
-    $this->assertIsArray($items, 'MyBands\CoreBundle\GoogleApi\Contrib\Training', __METHOD__);
+    $this->assertIsArray($items, 'Mybands\CoreBundle\GoogleApi\Contrib\Training', __METHOD__);
     $this->items = $items;
   }
   public function getItems() {

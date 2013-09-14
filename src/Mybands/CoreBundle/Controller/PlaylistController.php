@@ -1,6 +1,6 @@
 <?php
 
-namespace MyBands\CoreBundle\Controller;
+namespace Mybands\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +21,7 @@ class PlaylistController extends Controller
         $data['title'] = 'Playlists - Site de promotion musicale';
         
         if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('MyBandsCoreBundle:Playlist:content.html.twig', $this->contentAction());
+            $data['content'] = $this->renderView('MybandsCoreBundle:Playlist:content.html.twig', $this->contentAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;

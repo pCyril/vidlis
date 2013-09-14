@@ -1,14 +1,14 @@
 <?php
 
-namespace MyBands\CoreBundle\Controller;
+namespace Mybands\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use MyBands\CoreBundle\Controller\AuthController;
-use MyBands\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
+use Mybands\CoreBundle\Controller\AuthController;
+use Mybands\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 
 class SubscriptionController extends AuthController
 {
@@ -21,11 +21,11 @@ class SubscriptionController extends AuthController
     public function indexAction()
     {
         $data = array();
-        $data['title'] = 'MyBands - Site de promotion musicale';
+        $data['title'] = 'Mybands - Site de promotion musicale';
         
         
         if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('MyBandsCoreBundle:Subscription:content.html.twig', $this->contentAction());
+            $data['content'] = $this->renderView('MybandsCoreBundle:Subscription:content.html.twig', $this->contentAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;

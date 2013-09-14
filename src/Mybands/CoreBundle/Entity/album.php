@@ -1,11 +1,11 @@
 <?php
-namespace MyBands\CoreBundle\Entity;
+namespace Mybands\CoreBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
 /**
  * @ORM\Table(name="album")
- * @ORM\Entity(repositoryClass="MyBands\CoreBundle\Entity\AlbumRepository")
+ * @ORM\Entity(repositoryClass="Mybands\CoreBundle\Entity\AlbumRepository")
  */
 class Album 
 {

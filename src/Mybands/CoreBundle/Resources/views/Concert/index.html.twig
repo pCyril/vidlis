@@ -1,16 +1,16 @@
-{% extends "MyBandsCoreBundle::layout.html.twig" %}
+{% extends "MybandsCoreBundle::layout.html.twig" %}
 
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    {% include 'MyBandsCoreBundle:Default:menu.html.twig' %}
-    {% include 'MyBandsCoreBundle:Default:player.html.twig' %}
+    {% include 'MybandsCoreBundle:Default:menu.html.twig' %}
+    {% include 'MybandsCoreBundle:Default:player.html.twig' %}
     <div id="content">
     {{
         render(
-            controller('MyBandsCoreBundle:Concert:content')
+            controller('MybandsCoreBundle:Concert:content')
         )
     }}
     </div>
-    {% include 'MyBandsCoreBundle:Default:playervideo.html.twig' %}
+    {% include 'MybandsCoreBundle:Default:playervideo.html.twig' %}
 {% endblock %}

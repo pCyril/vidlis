@@ -16,5 +16,5 @@ parameters:
 
 twig:
     globals:
-        crawlable: "/mybandSymfony/web/app_dev.php"
-        domain_name: "http://localhost/mybandSymfony/web/app_dev.php"
+        crawlable: "/Mybandsymfony/web/app_dev.php"
+        domain_name: "http://localhost/Mybandsymfony/web/app_dev.php"

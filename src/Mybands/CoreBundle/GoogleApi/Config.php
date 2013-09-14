@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-namespace MyBands\CoreBundle\GoogleApi;
+namespace Mybands\CoreBundle\GoogleApi;
 
 /**
- * This class stores all the configuration information that is needed for running an MyBands\CoreBundle\GoogleApi/Client.
+ * This class stores all the configuration information that is needed for running an Mybands\CoreBundle\GoogleApi/Client.
  * Since this project was shifted to PSR-0 standard, Its required to stop using "global" and use an OO method.
  *
  * @author Asaf David <asafdav@gmail.com>
@@ -61,9 +61,9 @@ class Config {
       'site_name' => 'www.example.org',
 
       // Which Authentication, Storage and HTTP IO classes to use.
-      'authClass'    => 'MyBands\CoreBundle\GoogleApi\Auth\OAuth2',
-      'ioClass'      => 'MyBands\CoreBundle\GoogleApi\Io\CurlIO',
-      'cacheClass'   => 'MyBands\CoreBundle\GoogleApi\Cache\FileCache',
+      'authClass'    => 'Mybands\CoreBundle\GoogleApi\Auth\OAuth2',
+      'ioClass'      => 'Mybands\CoreBundle\GoogleApi\Io\CurlIO',
+      'cacheClass'   => 'Mybands\CoreBundle\GoogleApi\Cache\FileCache',
 
       // If you want to run the test suite (by running # phpunit AllTests.php in the tests/ directory), fill in the settings below
       'oauth_test_token' => '', // the oauth access token to use (which you can get by runing authenticate() as the test user and copying the token value), ie '{"key":"foo","secret":"bar","callback_url":null}'

@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Service;
+namespace Mybands\CoreBundle\GoogleApi\Service;
 
 /**
  * Collection of static utility methods used for convenience across

@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Cache;
+namespace Mybands\CoreBundle\GoogleApi\Cache;
 
-use MyBands\CoreBundle\GoogleApi\Config;
+use Mybands\CoreBundle\GoogleApi\Config;
 
 /*
  * This class implements a basic on disk storage. While that does

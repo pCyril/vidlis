@@ -14,11 +14,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Io;
+namespace Mybands\CoreBundle\GoogleApi\Io;
 
-use MyBands\CoreBundle\GoogleApi\Client;
-use MyBands\CoreBundle\GoogleApi\Service;
-use MyBands\CoreBundle\GoogleApi\External\URITemplateParser;
+use Mybands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Service;
+use Mybands\CoreBundle\GoogleApi\External\URITemplateParser;
 
 /**
  * This class implements the RESTful transport of Service\ServiceRequest()'s

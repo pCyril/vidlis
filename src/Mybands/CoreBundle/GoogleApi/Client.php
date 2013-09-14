@@ -15,12 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi;
+namespace Mybands\CoreBundle\GoogleApi;
 
-use MyBands\CoreBundle\GoogleApi\Auth;
-use MyBands\CoreBundle\GoogleApi\Io;
-use MyBands\CoreBundle\GoogleApi\Cache;
-use MyBands\CoreBundle\GoogleApi;
+use Mybands\CoreBundle\GoogleApi\Auth;
+use Mybands\CoreBundle\GoogleApi\Io;
+use Mybands\CoreBundle\GoogleApi\Cache;
+use Mybands\CoreBundle\GoogleApi;
 
 /**
  * The Google API Client
@@ -32,18 +32,18 @@ use MyBands\CoreBundle\GoogleApi;
 class Client {
 
   /**
-   * @var \MyBands\CoreBundle\GoogleApi\Auth\Auth $auth
+   * @var \Mybands\CoreBundle\GoogleApi\Auth\Auth $auth
    */
   static $auth;
 
   /**
-   * @var \MyBands\CoreBundle\GoogleApi\Io\Io $io
+   * @var \Mybands\CoreBundle\GoogleApi\Io\Io $io
    */
   static $io;
 
   /**
    * @static
-   * @var \MyBands\CoreBundle\GoogleApi\Cache\Cache $cache
+   * @var \Mybands\CoreBundle\GoogleApi\Cache\Cache $cache
    */
   static $cache;
 
@@ -79,7 +79,7 @@ class Client {
   public function addService($service, $version = false) {
     $apiConfig = Config::getAll();
     if ($this->authenticated) {
-      throw new \MyBands\CoreBundle\GoogleApi\Exception('Cant add services after having authenticated');
+      throw new \Mybands\CoreBundle\GoogleApi\Exception('Cant add services after having authenticated');
     }
     $this->services[$service] = array();
     if (isset($apiConfig['services'][$service])) {
@@ -324,7 +324,7 @@ class Client {
   }
 
   /**
-   * @return \MyBands\CoreBundle\GoogleApi\Cache\Cache the implementation of Cache\Cache.
+   * @return \Mybands\CoreBundle\GoogleApi\Cache\Cache the implementation of Cache\Cache.
    */
   public function getCache() {
     return Client::$cache;

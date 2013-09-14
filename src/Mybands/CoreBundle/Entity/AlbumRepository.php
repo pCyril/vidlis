@@ -1,5 +1,5 @@
 <?php
-namespace MyBands\CoreBundle\Entity;
+namespace Mybands\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

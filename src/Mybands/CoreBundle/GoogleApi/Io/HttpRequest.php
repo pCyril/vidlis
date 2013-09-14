@@ -14,10 +14,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Io;
+namespace Mybands\CoreBundle\GoogleApi\Io;
 
-use MyBands\CoreBundle\GoogleApi\Service\Utils;
-use MyBands\CoreBundle\GoogleApi\Config;
+use Mybands\CoreBundle\GoogleApi\Service\Utils;
+use Mybands\CoreBundle\GoogleApi\Config;
 
 /**
  * HTTP Request to be executed by IO classes. Upon execution, the

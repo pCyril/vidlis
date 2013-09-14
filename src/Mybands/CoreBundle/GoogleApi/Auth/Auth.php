@@ -14,9 +14,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Auth;
+namespace Mybands\CoreBundle\GoogleApi\Auth;
 
-use MyBands\CoreBundle\GoogleApi\Io\HttpRequest;
+use Mybands\CoreBundle\GoogleApi\Io\HttpRequest;
 
 /**
  * Abstract class for the Authentication in the API client

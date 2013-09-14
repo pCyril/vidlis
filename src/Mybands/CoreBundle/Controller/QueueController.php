@@ -1,6 +1,6 @@
 <?php
 
-namespace MyBands\CoreBundle\Controller;
+namespace Mybands\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use MyBands\CoreBundle\Youtube\YoutubeVideo;
+use Mybands\CoreBundle\Youtube\YoutubeVideo;
 
 class QueueController extends Controller
 {

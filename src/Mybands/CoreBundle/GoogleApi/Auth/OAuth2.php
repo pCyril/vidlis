@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Auth;
+namespace Mybands\CoreBundle\GoogleApi\Auth;
 
-use MyBands\CoreBundle\GoogleApi\Client;
-use MyBands\CoreBundle\GoogleApi\Io\HttpRequest;
-use MyBands\CoreBundle\GoogleApi\Service\Utils;
-use MyBands\CoreBundle\GoogleApi\Config;
+use Mybands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Io\HttpRequest;
+use Mybands\CoreBundle\GoogleApi\Service\Utils;
+use Mybands\CoreBundle\GoogleApi\Config;
 
 /**
  * Authentication class that deals with the OAuth 2 web-server authentication flow

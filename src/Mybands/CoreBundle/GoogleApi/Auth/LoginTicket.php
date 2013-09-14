@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Auth;
+namespace Mybands\CoreBundle\GoogleApi\Auth;
 
 /**
  * Class to hold information about an authenticated login.

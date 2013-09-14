@@ -14,12 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-namespace MyBands\CoreBundle\GoogleApi\Service;
+namespace Mybands\CoreBundle\GoogleApi\Service;
 
-use MyBands\CoreBundle\GoogleApi\Io\HttpRequest;
-use MyBands\CoreBundle\GoogleApi\Io\REST;
-use MyBands\CoreBundle\GoogleApi\Client;
-use MyBands\CoreBundle\GoogleApi\Config;
+use Mybands\CoreBundle\GoogleApi\Io\HttpRequest;
+use Mybands\CoreBundle\GoogleApi\Io\REST;
+use Mybands\CoreBundle\GoogleApi\Client;
+use Mybands\CoreBundle\GoogleApi\Config;
 
 /**
  * Implements the actual methods/resources of the discovered Google API using magic function
@@ -69,11 +69,11 @@ class ServiceResource {
    * @param $name
    * @param $arguments
    * @return HttpRequest|array
-   * @throws \MyBands\CoreBundle\GoogleApi\Exception
+   * @throws \Mybands\CoreBundle\GoogleApi\Exception
    */
   public function __call($name, $arguments) {
     if (! isset($this->methods[$name])) {
-      throw new \MyBands\CoreBundle\GoogleApi\Exception("Unknown function: {$this->serviceName}->{$this->resourceName}->{$name}()");
+      throw new \Mybands\CoreBundle\GoogleApi\Exception("Unknown function: {$this->serviceName}->{$this->resourceName}->{$name}()");
     }
     $method = $this->methods[$name];
     $parameters = $arguments[0];
@@ -113,13 +113,13 @@ class ServiceResource {
     $method['parameters'] = array_merge($method['parameters'], $this->stackParameters);
     foreach ($parameters as $key => $val) {
       if ($key != 'postBody' && ! isset($method['parameters'][$key])) {
-        throw new \MyBands\CoreBundle\GoogleApi\Exception("($name) unknown parameter: '$key'");
+        throw new \Mybands\CoreBundle\GoogleApi\Exception("($name) unknown parameter: '$key'");
       }
     }
     if (isset($method['parameters'])) {
       foreach ($method['parameters'] as $paramName => $paramSpec) {
         if (isset($paramSpec['required']) && $paramSpec['required'] && ! isset($parameters[$paramName])) {
-          throw new \MyBands\CoreBundle\GoogleApi\Exception("($name) missing required param: '$paramName'");
+          throw new \Mybands\CoreBundle\GoogleApi\Exception("($name) missing required param: '$paramName'");
         }
         if (isset($parameters[$paramName])) {
           $value = $parameters[$paramName];
