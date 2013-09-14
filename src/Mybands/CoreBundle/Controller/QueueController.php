@@ -21,7 +21,7 @@ class QueueController extends Controller
     {
         $data = array();
         if ($this->getRequest()->isMethod('POST')) {
-            $video = new YoutubeVideo($this->getRequest()->request->get('videoid'));
+            $video = new YoutubeVideo($this->getRequest()->request->get('videoid'), $this->container->getParameter('memcache_active'));
             $data['video'] = $video->getResult();
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
