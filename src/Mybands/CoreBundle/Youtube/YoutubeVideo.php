@@ -2,6 +2,8 @@
 
 namespace Mybands\CoreBundle\Youtube;
 
+use Mybands\CoreBundle\Memcache\MemcacheService;
+
 class YoutubeVideo {
     
     private $url = 'https://www.googleapis.com/youtube/v3/videos?';
@@ -12,8 +14,11 @@ class YoutubeVideo {
     
     private $id;
     
-    public function __construct($id) {
+    private $memcache_active;
+    
+    public function __construct($id, $memcache_active) {
         $this->id = $id;
+        $this->memcache_active = $memcache_active;
     }
     
     public function getUrlSearch() 
@@ -27,7 +32,12 @@ class YoutubeVideo {
     
     public function getResult()
     {
-        $result = json_decode(file_get_contents($this->getUrlSearch()));
+        $memcache = new MemcacheService($this->memcache_active);
+        $result = $memcache->get($this->id);
+        if (!$result) {
+            $result = json_decode(file_get_contents($this->getUrlSearch()));
+            $memcache->set($this->id, $result);
+        }
         return $result;
     }
 }
