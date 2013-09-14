@@ -29,7 +29,7 @@ class MemcacheService {
     public function set($key, $data, $ttl = 300)
     {
         if ($this->active) {
-            return $this->memcache->set($key, $data, $ttl);
+            return $this->memcache->set($key, $data, false, $ttl);
         } else {
             return false;
         }
