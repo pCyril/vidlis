@@ -304,6 +304,8 @@ function launch(element) {
     $('#viewCount span').html(makeSeperator(element.data('viewcount'), ' '));
     $('#vote .like').css('width', Math.round(element.data('likecount') / (element.data('likecount')+element.data('dislikecount')) * 100) + '%');
     ytplayer.playVideo();
+    $('#viewCount').css('display', 'block');
+    $('#vote').css('display', 'block');
     element.addClass('active');
 }
 
