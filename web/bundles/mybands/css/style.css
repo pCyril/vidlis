@@ -622,14 +622,14 @@ i.icon-large{
     background-color: #F5F5F5;
 }
 
-.itemSearch:hover .itemSub {
+.relative:hover .itemSub {
     display:block;
 }
 
 .itemSub {
     display:none;
     position: absolute;
-    right: 7px;
+    right: 15px;
     bottom: 5px;
 }
 
@@ -832,4 +832,8 @@ i.icon-large{
     padding: 5px 10px;
     border-radius: 5px;
     cursor:pointer;
+}
+
+.relative {
+    position: relative;
 }
