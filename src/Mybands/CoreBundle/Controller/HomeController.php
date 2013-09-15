@@ -20,7 +20,7 @@ class HomeController extends AuthController
     public function indexAction()
     {
         $data = array();
-        $data['title'] = 'Mybands - Site de promotion musicale';
+        $data['title'] = 'Vidlis - Site de promotion musicale';
         
         
         if ($this->getRequest()->isMethod('POST')) {

@@ -1,6 +1,6 @@
 #main-lecteur{
 	position:fixed;
-        z-index: 10000;
+        z-index: 1000;
 	top:0px;
 	left:240px;
 	background-color: #629ec4;

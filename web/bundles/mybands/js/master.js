@@ -26,7 +26,7 @@ $(document).ready(function() {
         );
 });
 $(".modal .close").live('click', function(){
-    $('.modal').hide();
+    $('.modal, .overlay').hide();
 });
 $(".toModal").live('click', function(){
     element = $(this);
@@ -36,11 +36,9 @@ $(".toModal").live('click', function(){
         cache: false,
         dataType : 'json',
         beforeSend: function (){
-           $(".modal-header h3").html('Chargement en cours');
-           $(".modal-body").html('<p><img src="' + DOMAIN_NAME + 'images/load.gif"></p>');
-           if (!element.data('callback')) {
-              $('.modal').show();
-           }
+           $(".modal-header h4").html('Chargement en cours');
+           $(".modal-body").html('');
+           $('.modal, .overlay').show();
         },
         success: function(data){
           if (data.result) {
