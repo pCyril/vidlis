@@ -17,7 +17,7 @@ $(document).ready(function() {
         $(".btn-repeat").on("click", function(){
             return setRepeat($(this));
         });
-        $('#playlistContent').css('height', ($(window).height() - 385) + 'px' );
+        $('#playlistContent').css('height', ($(window).height() - 384) + 'px' );
         $('#playlistContent').mCustomScrollbar(
                 {scrollInertia: 0, mouseWheel: true, autoHideScrollbar:true,
                  advanced:{

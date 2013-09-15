@@ -276,7 +276,7 @@ i.icon-large{
     z-index: 110;
     top:0px;
     left: 0;
-    width: 219px;
+    width: 220px;
     height: 100%;
     border-right: 1px solid #000000;
     background: #262626;
@@ -466,10 +466,9 @@ i.icon-large{
  
 /* Form text input */
  
-.form-wrapper input {
-    width: 150px;
-    height: 20px;
-    padding: 10px 5px;
+.form-wrapper #search {
+    width: 160px;
+    padding: 11px 5px;
     float: left;    
     font: 15px 'lucida sans', 'trebuchet MS', 'Tahoma';
     border: 0;
@@ -478,25 +477,25 @@ i.icon-large{
     border-radius: 3px 0 0 3px;      
 }
  
-.form-wrapper input:focus {
+.form-wrapper #search:focus {
     outline: 0;
     background: #fff;
     box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
 }
  
-.form-wrapper input::-webkit-input-placeholder {
+.form-wrapper #search::-webkit-input-placeholder {
    color: #999;
    font-weight: normal;
    font-style: italic;
 }
  
-.form-wrapper input:-moz-placeholder {
+.form-wrapper #search:-moz-placeholder {
     color: #999;
     font-weight: normal;
     font-style: italic;
 }
  
-.form-wrapper input:-ms-input-placeholder {
+.form-wrapper #search:-ms-input-placeholder {
     color: #999;
     font-weight: normal;
     font-style: italic;
@@ -589,7 +588,7 @@ i.icon-large{
 #playlistContent {
     position:fixed;
     overflow: auto;
-    top:385px;
+    top:384px;
     right:0px;
     width:480px;
     height: 100%;

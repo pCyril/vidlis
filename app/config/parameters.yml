@@ -3,7 +3,7 @@ parameters:
     database_driver: pdo_mysql
     database_host: 127.0.0.1
     database_port: null
-    database_name: mybands
+    database_name: Mybands
     database_user: root
     database_password: null
     mailer_transport: smtp
@@ -12,3 +12,9 @@ parameters:
     mailer_password: null
     locale: en
     secret: ThisTokenIsNotSoSecretChangeIt
+    memcache_active: false
+
+twig:
+    globals:
+        crawlable: "/mybandSymfony/web/app_dev.php"
+        domain_name: "http://localhost/mybandSymfony/web/app_dev.php"
