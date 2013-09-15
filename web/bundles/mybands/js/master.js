@@ -25,6 +25,48 @@ $(document).ready(function() {
                  }}
         );
 });
+$(".modal .close").live('click', function(){
+    $('.modal').hide();
+});
+$(".toModal").live('click', function(){
+    element = $(this);
+    $.ajax({
+        type : 'GET',
+        url: this,
+        cache: false,
+        dataType : 'json',
+        beforeSend: function (){
+           $(".modal-header h3").html('Chargement en cours');
+           $(".modal-body").html('<p><img src="' + DOMAIN_NAME + 'images/load.gif"></p>');
+           if (!element.data('callback')) {
+              $('.modal').show();
+           }
+        },
+        success: function(data){
+          if (data.result) {
+              if (element.data('callback')) {
+                  eval(element.data('callback'));
+              } else {
+                  $('.modal').show();  
+                  $(".modal-header h4").html(data.title);
+                  $(".modal-body").html(data.content);
+              }
+          } else {
+              $('.modal').show();  
+              $(".modal-header h3").html(data.title);
+              $(".modal-body").html(data.content);
+           }
+        },
+        error: function(){
+          $(".modal-header h3").html('Oups :\'(');
+          $(".modal-body").html('Une erreur c\'est produite');
+        }
+    }).done(function() {
+            sendFormToAjax();
+    });
+    return false;
+    }
+);
 
 function timer(){
 	clearTimeout(retard);
