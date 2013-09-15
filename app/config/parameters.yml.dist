@@ -13,6 +13,7 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
+    memcache_active: false
 
 twig:
     globals:
