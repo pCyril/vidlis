@@ -850,3 +850,27 @@ i.icon-large{
     filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70);
     opacity: 0.7;
 }
+
+.modal-content {
+    padding: 10px;
+    background: rgba(54, 25, 25, .5) !important;
+}
+
+.modal-body {
+    background-color: #fff;
+}
+
+.modal-header {
+    background-color: #629ec4;
+    moz-box-shadow: inset 0px -3px 0px 0px #27658d;
+    -webkit-box-shadow: inset 0px -3px 0px 0px #27658d;
+    -o-box-shadow: inset 0px -3px 0px 0px #27658d;
+    box-shadow: inset 0px -3px 0px 0px #27658d;
+}
+
+.modal-header h4 {
+    color: #fff;
+    top: 12px;
+    font-size: 1.25em;
+    text-shadow: -1px 1px 2px #27658d;
+}
