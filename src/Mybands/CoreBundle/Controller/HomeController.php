@@ -12,7 +12,6 @@ use Mybands\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 
 class HomeController extends AuthController
 {
-    private $em;
 
     /**
      * @Route("/", name="_home")
