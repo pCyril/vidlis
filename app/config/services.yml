@@ -1,4 +1,5 @@
-
-_routes:
-    resource: "@MybandsCoreBundle/Controller"
-    prefix:   /{_locale}
+services:
+    mybands.twig.vidlis_extension:
+        class: Mybands\CoreBundle\Twig\VidlisExtension
+        tags:
+            - { name: twig.extension }
