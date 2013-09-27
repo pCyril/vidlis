@@ -7,7 +7,7 @@
                     <div class="itemImgSearch box-boreder"><img src="{{ item.snippet.thumbnails.medium.url }}"></div>
                     <div class="itemInfos"></div>
                     <div class="itemTitleSearch">{{ item.snippet.title }}</div>
-                    <div class="itemDescriptionSearch">{{ item.snippet.description }}</div>
+                    <div class="itemDescriptionSearch">{{ item.snippet.description|makeClickable }}</div>
                 </div>
                 <div class="itemSub">
                     <div class="btn-group">
