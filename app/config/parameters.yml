@@ -13,9 +13,9 @@ parameters:
 
     locale:            en
     secret:            ThisTokenIsNotSoSecretChangeIt
-    memcache_active: true
+    memcache_active: false
 
 twig:
     globals:
-        crawlable: "/youtube/app_dev.php"
-        domain_name: "http://xavierp.synology.me/youtube/app_dev.php"
+        crawlable: "/mybandSymfony/web/app_dev.php"
+        domain_name: "http://localhost/mybandSymfony/web/app_dev.php"
