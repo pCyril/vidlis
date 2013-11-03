@@ -1,16 +1,46 @@
 <?php
-
 namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-class Playlist {
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="playlist")
+ */
+class Playlist
+{
 
-    protected $id;
-    protected $name;
-    protected $description;
-    protected $category;
-    protected $private;
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(name="name", type="string", length=100)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
+     * @var
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(name="private", type="boolean")
+     */
+    private $private;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Playlistitem", mappedBy="playlist", cascade={"remove", "persist"})
+     */
+    private $items;
 
     public function getId() 
     {
@@ -60,6 +90,22 @@ class Playlist {
     public function setPrivate($private) 
     {
         $this->private = $private;
+    }
+
+    /**
+     * @param mixed $items
+     */
+    public function setItems($items)
+    {
+        $this->items = $items;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItems()
+    {
+        return $this->items;
     }
 
 }
