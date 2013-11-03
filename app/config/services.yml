@@ -1,5 +1,5 @@
 services:
-    mybands.twig.vidlis_extension:
-        class: Mybands\CoreBundle\Twig\VidlisExtension
+    Vidlis.twig.vidlis_extension:
+        class: Vidlis\CoreBundle\Twig\VidlisExtension
         tags:
             - { name: twig.extension }

@@ -17,5 +17,5 @@ parameters:
 
 twig:
     globals:
-        crawlable: "/Mybandsymfony/web/app_dev.php"
-        domain_name: "http://localhost/Mybandsymfony/web/app_dev.php"
+        crawlable: "/Vidlisymfony/web/app_dev.php"
+        domain_name: "http://localhost/Vidlisymfony/web/app_dev.php"

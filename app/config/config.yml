@@ -31,7 +31,7 @@ twig:
 assetic:
     debug:          %kernel.debug%
     use_controller: false
-    bundles:        [ MybandsCoreBundle ]
+    bundles:        [ VidlisCoreBundle ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -69,7 +69,7 @@ swiftmailer:
     
 services:
     my.listener:
-        class: Mybands\CoreBundle\Listener\EntityListener
+        class: Vidlis\CoreBundle\Listener\EntityListener
         tags:
             - { name: doctrine.event_listener, event: postLoad, method: postLoad, connection: default }
 

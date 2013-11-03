@@ -1,0 +1,33 @@
+<div id="timeSearch">00:00</div>
+<div id="main-lecteur">
+    <div id="jquery_jplayer_1" style="background-color: rgb(0, 0, 0); "></div>
+    <div id="prog">
+        <div id="buttons">
+            <div id="play_b"></div>
+            <div id="play_p"></div>
+            <div id="preview_b"></div>
+            <div id="next_b"></div>
+        </div>
+        <div id="volume">
+            <div id="icon_v"></div>
+            <div id="bar_v">
+                <div id="current_v" style="width: 66px; "></div>
+                <div id="cursor_v" style="left: 60px; "></div>
+            </div>
+        </div>
+        <div id="time">--:--</div>
+        <div id="title" class="truncate"></div>
+        <div id="seekbar">
+            <div id="preload"></div>
+            <div id="play">
+                <div id="icon_play"></div>
+            </div>
+        </div>
+    </div>
+    <div id="loading"><img src="{{ asset('bundles/Vidlis/images/load.gif') }}"></div>
+    {% if authUrl != '' %}
+        <div class="youtubeAuthen" onclick="window.open ('{{ authUrl }}', 'authotentication', config='height=400, width=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no');">Authentification</div>
+    {% else %}
+        <div class="youtubeAuthen" >Authentifié</div>
+    {% endif %}
+</div>

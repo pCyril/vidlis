@@ -1,0 +1,25 @@
+{% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
+<div id="right_content">           
+<script src="https://apis.google.com/js/plusone.js"></script>
+        {% for item in resultsSearch.items %}
+            <div class="relative">
+                <div class="itemSearch box-boreder" data-id="{{ item.id.videoId }}">
+                    <div class="itemImgSearch box-boreder"><img src="{{ item.snippet.thumbnails.medium.url }}"></div>
+                    <div class="itemInfos"></div>
+                    <div class="itemTitleSearch">{{ item.snippet.title }}</div>
+                    <div class="itemDescriptionSearch">{{ item.snippet.description|makeClickable }}</div>
+                </div>
+                <div class="itemSub">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="icon playlist"></i></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="{{ url('_formAddToPlaylist',{'vidId':item.id.videoId}) }}"  class="toModal">Ajouter à une playlist existante</a></li>
+                            <li><a href="{{ url('_formCreatePlaylist',{'vidId':item.id.videoId}) }}" class="toModal">Créer une playlist</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Lire juste après</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+</div>
