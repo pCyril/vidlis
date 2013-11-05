@@ -843,3 +843,207 @@ th.visible-print,td.visible-print{display:none !important;}
 @media print{.visible-print{display:block !important;}tr.visible-print{display:table-row !important;} th.visible-print,td.visible-print{display:table-cell !important;} .hidden-print{display:none !important;}tr.hidden-print{display:none !important;} th.hidden-print,td.hidden-print{display:none !important;}}.fade{opacity:0;-webkit-transition:opacity 0.15s linear;transition:opacity 0.15s linear;}.fade.in{opacity:1;}
 .collapse{display:none;}.collapse.in{display:block;}
 .collapsing{position:relative;height:0;overflow:hidden;-webkit-transition:height 0.35s ease;transition:height 0.35s ease;}
+
+
+.form-horizontal select,
+.form-horizontal textarea,
+.form-horizontal input[type="text"],
+.form-horizontal input[type="password"],
+.form-horizontal input[type="datetime"],
+.form-horizontal input[type="datetime-local"],
+.form-horizontal input[type="date"],
+.form-horizontal input[type="month"],
+.form-horizontal input[type="time"],
+.form-horizontal input[type="week"],
+.form-horizontal input[type="number"],
+.form-horizontal input[type="email"],
+.form-horizontal input[type="url"],
+.form-horizontal input[type="search"],
+.form-horizontal input[type="tel"],
+.form-horizontal input[type="color"],
+.uneditable-input {
+    display: inline-block;
+    height: 20px;
+    padding: 4px 6px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    color: #555555;
+    vertical-align: middle;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.form-horizontal input,
+.form-horizontal textarea,
+.uneditable-input {
+    width: 206px;
+}
+
+.form-horizontal textarea {
+    height: auto;
+}
+
+.form-horizontal textarea,
+.form-horizontal input[type="text"],
+.form-horizontal input[type="password"],
+.form-horizontal input[type="datetime"],
+.form-horizontal input[type="datetime-local"],
+.form-horizontal input[type="date"],
+.form-horizontal input[type="month"],
+.form-horizontal input[type="time"],
+.form-horizontal input[type="week"],
+.form-horizontal input[type="number"],
+.form-horizontal input[type="email"],
+.form-horizontal input[type="url"],
+.form-horizontal input[type="search"],
+.form-horizontal input[type="tel"],
+.form-horizontal input[type="color"],
+.uneditable-input {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+}
+
+.form-horizontal textarea:focus,
+.form-horizontal input[type="text"]:focus,
+.form-horizontal input[type="password"]:focus,
+.form-horizontal input[type="datetime"]:focus,
+.form-horizontal input[type="datetime-local"]:focus,
+.form-horizontal input[type="date"]:focus,
+.form-horizontal input[type="month"]:focus,
+.form-horizontal input[type="time"]:focus,
+.form-horizontal input[type="week"]:focus,
+.form-horizontal input[type="number"]:focus,
+.form-horizontal input[type="email"]:focus,
+.form-horizontal input[type="url"]:focus,
+.form-horizontal input[type="search"]:focus,
+.form-horizontal input[type="tel"]:focus,
+.form-horizontal input[type="color"]:focus,
+.uneditable-input:focus {
+    border-color: rgba(82, 168, 236, 0.8);
+    outline: 0;
+    outline: thin dotted \9;
+    /* IE6-9 */
+
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.form-horizontal input[type="radio"],
+.form-horizontal input[type="checkbox"] {
+    margin: 4px 0 0;
+    margin-top: 1px \9;
+    *margin-top: 0;
+    line-height: normal;
+}
+
+.form-horizontal input[type="file"],
+.form-horizontal input[type="image"],
+.form-horizontal input[type="submit"],
+.form-horizontal input[type="reset"],
+.form-horizontal input[type="button"],
+.form-horizontal input[type="radio"],
+.form-horizontal input[type="checkbox"] {
+    width: auto;
+}
+
+.form-horizontal select,
+.form-horizontal input[type="file"] {
+    height: 30px;
+    /* In IE7, the height of the select element cannot be changed by height, only font-size */
+
+    *margin-top: 4px;
+    /* For IE7, add top margin to align select with labels */
+
+    line-height: 30px;
+}
+
+.form-horizontal select {
+    width: 220px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+}
+
+.form-horizontal select[multiple],
+.form-horizontal select[size] {
+    height: auto;
+}
+
+.form-horizontal select:focus,
+.form-horizontal input[type="file"]:focus,
+.form-horizontal input[type="radio"]:focus,
+.form-horizontal input[type="checkbox"]:focus {
+    outline: thin dotted #333;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+
+.form-horizontal .control-group {
+    margin-bottom: 20px;
+    *zoom: 1;
+}
+
+.form-horizontal .control-group:before,
+.form-horizontal .control-group:after {
+    display: table;
+    line-height: 0;
+    content: "";
+}
+
+.form-horizontal .control-group:after {
+    clear: both;
+}
+
+.form-horizontal .control-label {
+    float: left;
+    width: 160px;
+    padding-top: 5px;
+    text-align: right;
+}
+
+.form-horizontal .controls {
+    *display: inline-block;
+    *padding-left: 20px;
+    margin-left: 180px;
+    *margin-left: 0;
+}
+
+.form-horizontal .controls:first-child {
+    *padding-left: 180px;
+}
+
+.form-horizontal .help-block {
+    margin-bottom: 0;
+}
+
+.form-horizontal input + .help-block,
+.form-horizontal select + .help-block,
+.form-horizontal textarea + .help-block,
+.form-horizontal .uneditable-input + .help-block,
+.form-horizontal .input-prepend + .help-block,
+.form-horizontal .input-append + .help-block {
+    margin-top: 10px;
+}
+
+.form-horizontal .form-actions {
+    padding-left: 180px;
+}
+
+.form-horizontal {
+    margin: 10px 0;
+    font-size: 1.1em;
+}
+
+.form-horizontal input {
+    height: inherit !important;
+}

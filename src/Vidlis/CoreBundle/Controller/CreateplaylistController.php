@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Vidlis\CoreBundle\Form\PlaylistType;
 
 class CreateplaylistController extends Controller
 {
@@ -20,7 +21,8 @@ class CreateplaylistController extends Controller
     {
         $data['result'] = true;
         $data['title'] = 'Créer une nouvelle playlist';
-        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig');
+        $form = $this->createForm(new PlaylistType());
+        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', array('form' => $form->createView()));
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
         return $response;

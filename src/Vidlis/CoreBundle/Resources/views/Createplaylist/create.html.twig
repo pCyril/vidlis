@@ -2,3 +2,18 @@
     <a href="#" class="btn btn-primary">Création libre</a>
     <a href="#" class="btn btn-success">Création d'un album</a>
 </div>
+
+<form action="" class="form-horizontal">
+    <div class="control-group">
+        <label class="control-label">Nom de la playlist :</label>
+        <div class="controls">
+            {{ form_widget(form.name) }}
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Nom de la playlist :</label>
+        <div class="controls">
+            {{ form_widget(form.description) }}
+        </div>
+    </div>
+</form>
