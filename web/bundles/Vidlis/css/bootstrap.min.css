@@ -1047,3 +1047,7 @@ th.visible-print,td.visible-print{display:none !important;}
 .form-horizontal input {
     height: inherit !important;
 }
+
+.modal-body .form-horizontal .controls {
+    margin-left: 320px;
+}

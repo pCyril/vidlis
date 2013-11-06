@@ -25,7 +25,7 @@ class Playlistitem
      * @ORM\ManyToOne(targetEntity="Playlist", inversedBy="items", cascade={"remove"})
      * @ORM\JoinColumn(name="idPlaylist", referencedColumnName="id")
      */
-    private $idPlaylist;
+    private $playlist;
 
     /**
      * @param mixed $id
@@ -46,17 +46,17 @@ class Playlistitem
     /**
      * @param mixed $idPlaylist
      */
-    public function setIdPlaylist($idPlaylist)
+    public function setPlaylist($playlist)
     {
-        $this->idPlaylist = $idPlaylist;
+        $this->playlist = $playlist;
     }
 
     /**
      * @return mixed
      */
-    public function getIdPlaylist()
+    public function getPlaylist()
     {
-        return $this->idPlaylist;
+        return $this->playlist;
     }
 
     /**

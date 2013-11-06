@@ -11,7 +11,10 @@ class PlaylistType extends AbstractType
     {
         $builder
             ->add('name',   'text')
-            ->add('description', 'textarea');
+            ->add('private', 'checkbox', array(
+                'required' => false,
+                )
+            );
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

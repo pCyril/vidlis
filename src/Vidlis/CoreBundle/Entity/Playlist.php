@@ -23,16 +23,6 @@ class Playlist
     private $name;
 
     /**
-     * @ORM\Column(name="description", type="text")
-     */
-    private $description;
-
-    /**
-     * @var
-     */
-    private $category;
-
-    /**
      * @ORM\Column(name="private", type="boolean")
      */
     private $private;

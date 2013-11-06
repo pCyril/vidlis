@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Vidlis\CoreBundle\Entity\Playlistitem;
 use Vidlis\CoreBundle\Form\PlaylistType;
 
 class CreateplaylistController extends Controller
@@ -22,12 +23,29 @@ class CreateplaylistController extends Controller
         $data['result'] = true;
         $data['title'] = 'Créer une nouvelle playlist';
         $form = $this->createForm(new PlaylistType());
-        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', array('form' => $form->createView()));
-        $response = new Response(json_encode($data));
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->handleRequest($this->getRequest());
+            $playlist = $form->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($playlist);
+            $em->flush();
+            $playlistItem = new Playlistitem();
+            $playlistItem->setPlaylist($playlist);
+            $playlistItem->setIdVideo($vidId);
+            $em->persist($playlistItem);
+            $em->flush();
+            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', array('form' => $form->createView(), 'idVideo' => $vidId));
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', array('form' => $form->createView(), 'idVideo' => $vidId));
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
     }
-        
+
     /**
      * @Route("/add-to-playlist/{vidId}", name="_formAddToPlaylist")
      * @Template()

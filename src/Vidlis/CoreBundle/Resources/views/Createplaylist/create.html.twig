@@ -1,19 +1,24 @@
-<div class="btn-group btn-group-justified">
+<!--<div class="btn-group btn-group-justified">
     <a href="#" class="btn btn-primary">Création libre</a>
     <a href="#" class="btn btn-success">Création d'un album</a>
-</div>
+</div>-->
 
-<form action="" class="form-horizontal">
+<form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" class="form-horizontal form-ajax">
     <div class="control-group">
         <label class="control-label">Nom de la playlist :</label>
         <div class="controls">
             {{ form_widget(form.name) }}
         </div>
+    </div><div class="control-group">
+        <div class="controls">
+            <label>
+            {{ form_widget(form.private) }} Rendre cette playlist privé
+            </label>
+        </div>
     </div>
     <div class="control-group">
-        <label class="control-label">Nom de la playlist :</label>
         <div class="controls">
-            {{ form_widget(form.description) }}
+            <input type="submit" value="Sauvegarder" class="btn btn-primary">
         </div>
     </div>
 </form>
