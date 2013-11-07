@@ -66,6 +66,39 @@ $(".toModal").live('click', function(){
     }
 );
 
+
+$(".toModalHTML").live('click', function(){
+        element = $(this);
+        $.ajax({
+            type : 'GET',
+            url: this,
+            cache: false,
+            dataType : 'html',
+            beforeSend: function (){
+                $(".modal-header h4").html('Chargement en cours');
+                $(".modal-body").html('');
+                $('.modal, .overlay').show();
+            },
+            success: function(data){
+                if (element.data('callback')) {
+                    eval(element.data('callback'));
+                } else {
+                    $('.modal').show();
+                    $(".modal-header h4").html('');
+                    $(".modal-body").html(data);
+                }
+            },
+            error: function(){
+                $(".modal-header h3").html('Oups :\'(');
+                $(".modal-body").html('Une erreur c\'est produite');
+            }
+        }).done(function() {
+                sendFormToAjax();
+            });
+        return false;
+    }
+);
+
 function timer(){
 	clearTimeout(retard);
 	retard = setTimeout("rechercher()",1000);

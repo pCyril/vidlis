@@ -812,7 +812,7 @@ i.icon-large{
     display:block;
 }
 
-.youtubeAuthen {
+.youtubeAuthen, .register {
     -moz-box-shadow: inset 0 1px 0 rgba(0,0,0,.30);
     -ms-box-shadow: inset 0 1px 0 rgba(0,0,0,.30);
     -webkit-box-shadow: inset 0 1px 0 rgba(0,0,0,.30);
@@ -832,6 +832,10 @@ i.icon-large{
     padding: 5px 10px;
     border-radius: 5px;
     cursor:pointer;
+}
+
+.register {
+    right: 370px;
 }
 
 .relative {

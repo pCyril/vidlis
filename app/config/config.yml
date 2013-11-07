@@ -5,7 +5,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -73,3 +73,7 @@ services:
         tags:
             - { name: doctrine.event_listener, event: postLoad, method: postLoad, connection: default }
 
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Vidlis\UserBundle\Entity\User
