@@ -80,13 +80,8 @@ $(".toModalHTML").live('click', function(){
                 $('.modal, .overlay').show();
             },
             success: function(data){
-                if (element.data('callback')) {
-                    eval(element.data('callback'));
-                } else {
-                    $('.modal').show();
-                    $(".modal-header h4").html('');
-                    $(".modal-body").html(data);
-                }
+                $('.modal').show();
+                $(".modal-content").html(data);
             },
             error: function(){
                 $(".modal-header h3").html('Oups :\'(');
@@ -133,6 +128,8 @@ function setupCustomScrollbar()
 }
 
 function sendFormToAjax() {
+    $(".form-ajax").unbind();
+    $(".form-ajaxHTML").unbind();
 	$(".form-ajax").each(function(index, element){
 		form = $( element );
         $( element ).submit(function() {
@@ -167,6 +164,30 @@ function sendFormToAjax() {
         	return false;
         });
 	});
+
+    $(".form-ajaxHTML").each(function(index, element){
+        form = $( element );
+        $( element ).submit(function() {
+            post = $(element).serialize();
+            $.ajax({
+                type : 'post',
+                url: $(element).attr('action'),
+                cache: false,
+                dataType : 'html',
+                data : post,
+                success: function(data){
+                    idContainer = form.data('container');
+                    $('.'+idContainer).html(data);
+                    sendFormToAjax();
+                },
+                error: function(){
+                    $(".modal-header h3").html('Oups :\\');
+                    $(".modal-body").html('Une erreur c\'est produite');
+                }
+            });
+            return false;
+        });
+    });
 }
 
 /*

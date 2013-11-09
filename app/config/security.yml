@@ -15,12 +15,15 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
+                remember_me: true
+                success_handler: authentication_handler
             remember_me:
                 key: %secret%
                 lifetime: 2592000
                 path: /%locale%/
                 domain: ~
-            logout:       true
+            logout:
+                success_handler: logout_handler
             anonymous:    true
 
     access_control:

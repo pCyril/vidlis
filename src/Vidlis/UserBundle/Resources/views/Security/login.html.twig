@@ -1,0 +1,38 @@
+{% extends "VidlisUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+{% if error %}
+    <div class="alert alert-danger">{{ error|trans }}</div>
+{% endif %}
+<form action="{{ path("fos_user_security_check") }}" data-container="modal-content"  method="post" class=" form-horizontal form-ajaxHTML">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <div class="control-group">
+        <label class="control-label" for="username">{{ 'security.login.username'|trans }}</label>
+        <div class="controls">
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="password">{{ 'security.login.password'|trans }}</label>
+        <div class="controls">
+            <input type="password" id="password" name="_password" required="required" />
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <label>
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" /> {{ 'security.login.remember_me'|trans }}
+            </label>
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="{{ 'security.login.submit'|trans }}" />
+        </div>
+    </div>
+</form>
+{% endblock fos_user_content %}

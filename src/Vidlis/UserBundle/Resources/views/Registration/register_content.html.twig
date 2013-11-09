@@ -1,28 +1,32 @@
-<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register form-horizontal">
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} data-container="modal-content" method="POST" class="fos_user_registration_register form-horizontal form-ajaxHTML">
     <div class="control-group">
         <label class="control-label">{{ form_label(form.username) }}</label>
         <div class="controls">
             {{ form_widget(form.username) }}
         </div>
     </div>
+    {{ form_errors(form.username) }}
     <div class="control-group">
         <label class="control-label">{{ form_label(form.email) }}</label>
         <div class="controls">
             {{ form_widget(form.email) }}
         </div>
     </div>
+    {{ form_errors(form.email) }}
     <div class="control-group">
         <label class="control-label">{{ form_label(form.plainPassword.first) }}</label>
         <div class="controls">
             {{ form_widget(form.plainPassword.first) }}
         </div>
     </div>
+    {{ form_errors(form.plainPassword.first) }}
     <div class="control-group">
         <label class="control-label">{{ form_label(form.plainPassword.second) }}</label>
         <div class="controls">
             {{ form_widget(form.plainPassword.second) }}
         </div>
     </div>
+    {{ form_errors(form.plainPassword.second) }}
     {{ form_rest(form) }}
     <div class="control-group">
         <div class="controls">

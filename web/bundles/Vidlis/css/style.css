@@ -439,7 +439,7 @@ i.icon-large{
 
 #loading {
     position: absolute;
-    right: 350px;
+    right: 450px;
     z-index: 20000;
     top: 18px;
     width: 40px;
@@ -836,6 +836,11 @@ i.icon-large{
 
 .register {
     right: 370px;
+}
+
+.register:hover {
+    color:#fff;
+    text-decoration: none;
 }
 
 .relative {
