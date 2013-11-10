@@ -2,6 +2,7 @@
 namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vidlis\CoreBundle\Youtube\YoutubeVideo;
 
 /**
  * @ORM\Entity()
@@ -17,9 +18,19 @@ class Playlistitem
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=20)
      */
     private $idVideo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $videoName;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $videoDuration;
 
     /**
      * @ORM\ManyToOne(targetEntity="Playlist", inversedBy="items", cascade={"remove"})
@@ -49,6 +60,7 @@ class Playlistitem
     public function setPlaylist($playlist)
     {
         $this->playlist = $playlist;
+        return $this;
     }
 
     /**
@@ -65,6 +77,7 @@ class Playlistitem
     public function setIdVideo($idVideo)
     {
         $this->idVideo = $idVideo;
+        return $this;
     }
 
     /**
@@ -73,6 +86,36 @@ class Playlistitem
     public function getIdVideo()
     {
         return $this->idVideo;
+    }
+
+    public function getVideoName()
+    {
+        return $this->videoName;
+    }
+
+    public function setVideoName($videoName)
+    {
+        $this->videoName = $videoName;
+        return $this;
+    }
+
+    public function getVideoDuration()
+    {
+        return $this->videoDuration;
+    }
+
+    public function setVideoDuration($videoDuration)
+    {
+        $this->videoDuration = $videoDuration;
+        return $this;
+    }
+
+    public function getVideoInformation($memcacheActif)
+    {
+        $youtubeVideo = new YoutubeVideo($this->idVideo, $memcacheActif);
+        $result = $youtubeVideo->getResult();
+        $this->videoDuration = $result->items[0]->contentDetails->duration;
+        $this->videoName = $result->items[0]->snippet->title;
     }
 
 } 

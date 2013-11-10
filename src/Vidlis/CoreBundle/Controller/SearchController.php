@@ -52,6 +52,7 @@ class SearchController extends AuthController
         $data['searchValue'] = $searchValue;
         $search = new YoutubeSearch($searchValue, $this->container->getParameter('memcache_active'));
         $data['resultsSearch'] = $search->getResults();
+        $data['user'] = $this->getUser();
         return $data;
     }
     

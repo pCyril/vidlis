@@ -3,13 +3,37 @@
     <a href="#" class="btn btn-success">Création d'un album</a>
 </div>-->
 
-<form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" class="form-horizontal form-ajax">
+
+
+{% if created %}
+<div class="alert alert-success">Votre playlist a bien été créée</div>
+<script>
+    $(document).ready(function(){
+        $('.dropdown-submenu').each(function() {
+            idVideo = this.id;
+            if ($(this).find('ul').length) {
+                ul = $(this).find('ul').first();
+            } else {
+                $(this).append('<ul class="dropdown-menu"></ul>');
+                ul = $(this).find('ul').first();
+            }
+            $(ul).append('<li><a href="{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}/'+idVideo+'" class="toModal">{{ playlist.name }}</a></li>');
+        });
+    });
+</script>
+{% endif %}
+<form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
     <div class="control-group">
         <label class="control-label">Nom de la playlist :</label>
         <div class="controls">
             {{ form_widget(form.name) }}
         </div>
     </div>
+    {% if form.vars.errors|length %}
+    <div class="alert alert-danger">
+        {{ form_errors(form.name) }}
+    </div>
+    {% endif %}
     <div class="control-group">
         <div class="controls">
             <label>
@@ -17,6 +41,7 @@
             </label>
         </div>
     </div>
+    {{ form_rest(form) }}
     <div class="control-group">
         <div class="controls">
             <input type="submit" value="Sauvegarder" class="btn btn-primary">

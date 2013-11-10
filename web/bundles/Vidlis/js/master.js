@@ -145,16 +145,9 @@ function sendFormToAjax() {
   		  			form.find('.callbackDiv').html(html)
       		  	},
       		  	success: function(data){
-      		  		if (data.result) {
-      		  			html = '<div class="alert alert-success">' + data.message + '<button type="button" class="close closeAlert" data-dismiss="alert">×</button></div>';
-      		  			form.find('.callbackDiv').html(html);
-      		  			if (data.callback !== 'undifined') {
-      		  				eval(data.callback);
-      		  			}
-      		  		} else {
-      		  			html = '<div class="alert alert-error">' + data.message + '<button type="button" class="close closeAlert" data-dismiss="alert">×</button></div>';
-      		  			form.find('.callbackDiv').html(html);
-      		  		}
+                    idContainer = form.data('container');
+                    $('.'+idContainer).html(data.content);
+                    sendFormToAjax();
       		  	},
       		  	error: function(){
       		  		$(".modal-header h3").html('Oups :\\');
