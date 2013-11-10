@@ -26,6 +26,7 @@ class CreateplaylistController extends Controller
         if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($this->getRequest());
             $playlist = $form->getData();
+            $playlist->setUser($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($playlist);
             $em->flush();
@@ -54,7 +55,7 @@ class CreateplaylistController extends Controller
     {
         $data['result'] = true;
         $data['title'] = 'Ajout ce titre à une playlist';
-        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:addto.html.twig');
+        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:addto.html.twig', array('playlists' => $this->getUser()->getPlaylists()));
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
         return $response;

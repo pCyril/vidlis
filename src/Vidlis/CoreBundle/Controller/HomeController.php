@@ -49,15 +49,17 @@ class HomeController extends AuthController
     public function contentAction()
     {
         $this->initialize();
+        $data = array();
         if ($this->getRequest()->getSession()->get('token')) {
             $this->client->setAccessToken($this->getRequest()->getSession()->get('token'));
             $youtube = new apiYouTubeService($this->client);
             $activites = $youtube->activities->listActivities('contentDetails', array(
                 'mine' => 'true', 'maxResults' => 10 
                 ));
-            return array('activites', $activites);
+            $data['activites'] = $activites;
         }
-        return array();
+        //$data['user'] = $this->getUser();
+        return $data;
     }
     
 }

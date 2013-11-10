@@ -9,6 +9,7 @@
                     <div class="itemTitleSearch">{{ item.snippet.title }}</div>
                     <div class="itemDescriptionSearch">{{ item.snippet.description|makeClickable }}</div>
                 </div>
+                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <div class="itemSub">
                     <div class="btn-group">
                         <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="icon playlist"></i></button>
@@ -20,6 +21,7 @@
                         </ul>
                     </div>
                 </div>
+                {% endif %}
             </div>
         {% endfor %}
 </div>

@@ -32,6 +32,12 @@ class Playlist
      */
     private $items;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Vidlis\UserBundle\Entity\User", inversedBy="playlists", cascade={"remove", "persist"})
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     */
+    private $user;
+
     public function getId() 
     {
         return $this->id;
@@ -96,6 +102,16 @@ class Playlist
     public function getItems()
     {
         return $this->items;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
 }
