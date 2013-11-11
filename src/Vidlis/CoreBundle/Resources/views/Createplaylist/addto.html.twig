@@ -1,3 +1,5 @@
-{% for playlist in playlists %}
-{{ playlist.id~playlist.name }}
-{% endfor %}
+{% if result %}
+    <div class="alert alert-success">La vidéo {{ playlistItem.videoName }} a bien été ajoutée</div>
+{% else %}
+    <div class="alert alert-danger">Es-tu sûr que cette playlist est à toi ?</div>
+{% endif %}

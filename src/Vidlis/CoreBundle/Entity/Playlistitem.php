@@ -101,7 +101,10 @@ class Playlistitem
 
     public function getVideoDuration()
     {
-        return $this->videoDuration;
+        $this->videoDuration = substr($this->videoDuration, 2);
+        $minutes = substr($this->videoDuration, 0, strpos($this->videoDuration, 'M'));
+        $secondes = substr($this->videoDuration, strpos($this->videoDuration, 'M') + 1, -1);
+        return $minutes.':'.$secondes;
     }
 
     public function setVideoDuration($videoDuration)

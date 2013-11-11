@@ -30,6 +30,16 @@ class Playlist
     private $private;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $creationDate;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $numberLike = 0;
+
+    /**
      * @ORM\OneToMany(targetEntity="Playlistitem", mappedBy="playlist", cascade={"remove", "persist"})
      */
     private $items;
@@ -115,5 +125,38 @@ class Playlist
     {
         $this->user = $user;
     }
+
+    /**
+     * @param mixed $creationDate
+     */
+    public function setCreationDate($creationDate)
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCreationDate()
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param mixed $numberLike
+     */
+    public function setNumberLike($numberLike)
+    {
+        $this->numberLike = $numberLike;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNumberLike()
+    {
+        return $this->numberLike;
+    }
+
 
 }

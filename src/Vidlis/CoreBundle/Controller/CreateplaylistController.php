@@ -31,6 +31,7 @@ class CreateplaylistController extends Controller
             if ($form->isValid()) {
                 $playlist = $form->getData();
                 $playlist->setUser($this->getUser());
+                $playlist->setCreationDate(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($playlist);
                 $em->flush();
@@ -62,7 +63,20 @@ class CreateplaylistController extends Controller
     {
         $data['result'] = true;
         $data['title'] = 'Ajout ce titre à une playlist';
-        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:addto.html.twig', array('playlists' => $this->getUser()->getPlaylists()));
+        $em = $this->getDoctrine()->getManager();
+        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $playlistItem = new Playlistitem();
+        if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
+            $playlistItem->setPlaylist($playlist)
+                ->setIdVideo($vidId)
+                ->getVideoInformation($this->container->getParameter('memcache_active'));
+            $em->persist($playlistItem);
+            $em->flush();
+            $result = true;
+        } else {
+            $result = false;
+        }
+        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:addto.html.twig', array('playlistItem' => $playlistItem, 'result' => $result));
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
         return $response;

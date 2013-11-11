@@ -45,7 +45,7 @@ class PlaylistController extends AuthController
      */
     public function contentAction()
     {
-        return array();
+        return array('user' => $this->getUser());
     }
 
     /**
