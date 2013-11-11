@@ -7,8 +7,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Vidlis\CoreBundle\Controller\AuthController;
 
-class PlaylistController extends Controller
+class PlaylistController extends AuthController
 {
     /**
      * @Route("/playlists", name="_homePlaylists")
@@ -24,6 +25,17 @@ class PlaylistController extends Controller
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
+        } else {
+            if (!$this->getRequest()->getSession()->get('token')) {
+                $this->initialize();
+                $state = mt_rand();
+                $this->client->setState($state);
+                $this->getRequest()->getSession()->set('stateYoutube', $state);
+                $authUrl = $this->client->createAuthUrl();
+                $data['authUrl'] = $authUrl;
+            } else {
+                $data['authUrl'] = '';
+            }
         }
         return $data;
     }
@@ -32,6 +44,43 @@ class PlaylistController extends Controller
      * @Template()
      */
     public function contentAction()
+    {
+        return array();
+    }
+
+    /**
+     * @Route("/playlists/all", name="_homePlaylistsAll")
+     * @Template()
+     */
+    public function indexallAction()
+    {
+        $data = array();
+        $data['title'] = 'Playlists - Site de promotion musicale';
+
+        if ($this->getRequest()->isMethod('POST')) {
+            $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentall.html.twig', $this->contentallAction());
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            if (!$this->getRequest()->getSession()->get('token')) {
+                $this->initialize();
+                $state = mt_rand();
+                $this->client->setState($state);
+                $this->getRequest()->getSession()->set('stateYoutube', $state);
+                $authUrl = $this->client->createAuthUrl();
+                $data['authUrl'] = $authUrl;
+            } else {
+                $data['authUrl'] = '';
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @Template()
+     */
+    public function contentallAction()
     {
         return array();
     }
