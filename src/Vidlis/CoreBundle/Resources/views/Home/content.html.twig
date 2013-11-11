@@ -1,3 +1,32 @@
 {% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
 
-<div id="right_content"></div>
+<div id="right_content">
+    <div class="presentation">
+        <h2 style="text-align: center;margin:40px;padding-top:40px;">Découvrez une nouvelle façon d'écouter la musique gratuitement</h2>
+        <div class="searchZoneHome">
+            <form class="formSearchHome" id="formSearchHome">
+            <div class="search-input-bg">
+                <input type="text" placeholder="Rechercher votre musique" name="q" id="q" class="search-input ui-autocomplete-input">
+            </div>
+            <div class="search-button">
+                <button type="submit" style="border:0px;background: transparent;">
+                    <input type="image" class="search-button-item" src="{{ asset('bundles/Vidlis/images/search-big.png') }}" alt="Chercher">
+                </button>
+            </div>
+            </form>
+        </div>
+        <hr style="width: 80%; margin:50px auto;">
+        <div style="width: 80%; margin:50px auto;">
+            <div style="width:50%;float: left;">&nbsp;</div>
+            <div style="width:50%;float: left; border-left:1px solid #ccc;">
+            <ul class="checked">
+                <li><p>L'inscription est gratuite !</p></li>
+                <li><p>Aucune restriction de temps !</p></li>
+                <li><p>Le contenu est illimité !</p></li>
+            </ul>
+            </div>
+        </div>
+        <div style="clear:both;"></div>
+        <hr style="width: 80%; margin:50px auto;">
+    </div>
+</div>

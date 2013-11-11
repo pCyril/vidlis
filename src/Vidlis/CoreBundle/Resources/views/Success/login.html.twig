@@ -1,1 +1,10 @@
 {% extends "VidlisUserBundle::layout.html.twig" %}
+
+
+{% block fos_user_content %}
+<script>
+    $(document).ready(function(){
+        $('.register').html('Déconnexion');
+    });
+</script>
+{% endblock %}

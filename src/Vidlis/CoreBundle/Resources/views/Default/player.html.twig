@@ -25,10 +25,16 @@
         </div>
     </div>
     <div id="loading"><img src="{{ asset('bundles/Vidlis/images/load.gif') }}"></div>
-    {% if authUrl != '' %}
+    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <a href="{{ path('fos_user_security_login') }}" class="toModalHTML register">Déconnexion</a>
+    {% else %}
         <a href="{{ path('fos_user_security_login') }}" class="toModalHTML register">Connexion</a>
+    {% endif %}
+    <!--
+    {% if authUrl != '' %}
         <div class="youtubeAuthen" onclick="window.open ('{{ authUrl }}', 'authotentication', config='height=400, width=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no');">Authentification</div>
     {% else %}
         <div class="youtubeAuthen" >Authentifié</div>
     {% endif %}
+    -->
 </div>

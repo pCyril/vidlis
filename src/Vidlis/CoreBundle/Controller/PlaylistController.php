@@ -45,7 +45,11 @@ class PlaylistController extends AuthController
      */
     public function contentAction()
     {
-        return array('user' => $this->getUser());
+        if ($this->getUser()) {
+            return array('user' => $this->getUser(), 'connected' => true);
+        } else {
+            return array('connected' => false);
+        }
     }
 
     /**
@@ -82,7 +86,9 @@ class PlaylistController extends AuthController
      */
     public function contentallAction()
     {
-        return array();
+        $em = $this->getDoctrine()->getManager();
+        $playlists = $em->getRepository('VidlisCoreBundle:Playlist')->findByPrivate(false);
+        return array('playlists' => $playlists);
     }
     
 }

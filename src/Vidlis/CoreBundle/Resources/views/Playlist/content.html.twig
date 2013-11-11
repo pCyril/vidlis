@@ -13,24 +13,25 @@
             </ul>
         </div>
     </div>
-
-    {% for playlist in user.playlists %}
-    <div class="box330 box-boreder">
-        <div class="boxHeader"><h2>{{ playlist.name }}</h2></div>
-        <div class="boxBody mCustomScrollbarActiv">
-            {% for item in playlist.items %}
-                <div class="rowItem" data-id="{{ item.idVideo }}">
-                    <div class="itemNumber">{{ loop.index }}</div>
-                    <div class="videoName">{{ item.videoName }}</div>
-                    <div class="videoDuration">{{ item.videoDuration }}</div>
-                </div>
-            {% endfor %}
+    {% if connected %}
+        {% for playlist in user.playlists %}
+        <div class="box330 box-boreder">
+            <div class="boxHeader"><h2>{{ playlist.name }}</h2></div>
+            <div class="boxBody mCustomScrollbarActiv">
+                {% for item in playlist.items %}
+                    <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}" data-id="{{ item.idVideo }}">
+                        <div class="itemNumber">{{ loop.index }}</div>
+                        <div class="videoName">{{ item.videoName }}</div>
+                        <div class="videoDuration">{{ item.videoDuration }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="boxFooter dark">
+                <a href="#" class="btn gray">écouter</a>
+            </div>
         </div>
-        <div class="boxFooter dark">
-            <div class="subTitle">Artiste</div>
-            <h2 class="albumTitle">Psygnosis</h2>
-            <a href="#" class="btn gray">écouter</a>
-        </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-danger" style="margin:10px;">Vous devez vous identifier pour pouvoir afficher vos playlists.</div>
+    {% endif %}
 </div>

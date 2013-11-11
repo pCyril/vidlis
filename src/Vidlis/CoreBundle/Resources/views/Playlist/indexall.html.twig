@@ -1,0 +1,16 @@
+{% extends "VidlisCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    {% include 'VidlisCoreBundle:Default:menu.html.twig' %}
+    {% include 'VidlisCoreBundle:Default:player.html.twig' %}
+    <div id="content">
+    {{
+        render(
+            controller('VidlisCoreBundle:Playlist:contentall')
+        )
+    }}
+    </div>
+    {% include 'VidlisCoreBundle:Default:playervideo.html.twig' %}
+{% endblock %}

@@ -380,18 +380,26 @@ i.icon-large{
 }
 
 .boxBody {
-    height:262px;
+    height:276px;
     overflow: auto;
 }
 
 .boxBody .rowItem .videoName, .boxBody .rowItem .itemNumber {
     display: inline;
 }
+.boxBody .rowItem .videoName {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+}
 .boxBody .rowItem .itemNumber {
     padding-right: 10px;
 }
 .boxBody .rowItem.pair {
     background-color: #ededed;
+}
+.boxBody .rowItem.pair:hover {
+    background-color: #ccc;
 }
 .boxBody .rowItem .videoDuration {
     position: absolute;
@@ -403,7 +411,7 @@ i.icon-large{
     position:absolute;
     left:0px;
     bottom:0px;
-    height:74px;
+    height:60px;
     width:100%;
     padding:10px 15px;
 }
@@ -451,7 +459,7 @@ i.icon-large{
 .boxFooter .btn {
     position:absolute;
     right:10px;
-    top:25px;
+    top:10px;
     height: 40px;
     text-align: center;
     line-height: 25px;
@@ -468,7 +476,7 @@ i.icon-large{
 
 #loading {
     position: absolute;
-    right: 450px;
+    right: 350px;
     z-index: 20000;
     top: 18px;
     width: 40px;
@@ -864,7 +872,7 @@ i.icon-large{
 }
 
 .register {
-    right: 370px;
+    right: 250px;
 }
 
 .register:hover {
@@ -924,4 +932,59 @@ i.icon-large{
     position: absolute;
     left: 222px;
     top: 130px;
+}
+
+.presentation {
+    padding: 0px 10px;
+}
+
+.presentation p {
+    font-size:1.3em;
+}
+.search-input-bg input {
+    height: 53px;
+    font-size: 13.22pt;
+    padding-left: 20px;
+    padding-top: 10px;
+    margin-left: 20px;
+    margin-top: 5px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    width: 300px;
+    background: none;
+    border: 0 none;
+    padding: 0;
+    float: left;
+    color: #666;
+}
+.search-input-bg input:focus {
+    outline: 0;
+}
+.searchZoneHome {
+    width:400px;
+    margin:10px auto;
+    border: 1px solid #ccc;
+}
+
+.searchZoneHome .search-button-item {
+    display: inline-block;
+    float:left;
+}
+
+.checked {
+    margin:0px;
+    padding: 0px;
+}
+
+.checked li {
+    list-style: none;
+    margin:10px;
+}
+.checked li p {
+    padding-left: 55px;
+    background-image: url('../images/check_icon.gif');
+    background-repeat: no-repeat;
+    background-position: 15px 5px;
+    margin: 0px;
 }

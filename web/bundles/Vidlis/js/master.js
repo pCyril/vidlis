@@ -1,9 +1,14 @@
 $(document).ready(function() {
-	$('#formSearch').bind('submit', function() {
+	$('.formSearch').live('submit', function() {
 		url = '/fr/search/'+encodeURIComponent($('#search').val());
 		loadBox(url);
 		return false;
 	});
+    $('.formSearchHome').live('submit', function() {
+        url = '/fr/search/'+encodeURIComponent($('#q').val());
+        loadBox(url);
+        return false;
+    });
         setupCustomScrollbar();
         $(".itemSearch ").live("click", function(){
             addToQueue($(this).data('id'));
