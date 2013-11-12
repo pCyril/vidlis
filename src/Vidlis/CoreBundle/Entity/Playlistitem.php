@@ -104,6 +104,9 @@ class Playlistitem
         $this->videoDuration = substr($this->videoDuration, 2);
         $minutes = substr($this->videoDuration, 0, strpos($this->videoDuration, 'M'));
         $secondes = substr($this->videoDuration, strpos($this->videoDuration, 'M') + 1, -1);
+        if ($secondes < 10) {
+            $secondes = '0'.$secondes;
+        }
         return $minutes.':'.$secondes;
     }
 
