@@ -36,7 +36,7 @@ class YoutubeVideo {
         $result = $memcache->get($this->id);
         if (!$result) {
             $result = json_decode(file_get_contents($this->getUrlSearch()));
-            $memcache->set($this->id, $result, 3600);
+            $memcache->set($this->id, $result, 10800);
         }
         return $result;
     }
