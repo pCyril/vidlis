@@ -32,6 +32,11 @@ $(document).ready(function() {
                     updateOnContentResize: true
                  }}
         );
+    $('.loadPlaylist').live('click', function() {
+        $('#'+$(this).data('idplaylist')+' .rowItem').each(function() {
+            addToQueue($(this).data('id'));
+        });
+    });
 });
 $(".modal .close").live('click', function(){
     $('.modal, .overlay').hide();

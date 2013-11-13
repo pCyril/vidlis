@@ -15,7 +15,7 @@
     </div>
     {% if connected %}
         {% for playlist in user.playlists %}
-        <div class="box330 box-boreder">
+        <div class="box330 box-boreder" id="{{ playlist.id }}">
             <div class="boxHeader">
                 <h2>{{ playlist.name }}</h2>
                 <div class="removePl">
@@ -32,7 +32,7 @@
                 {% endfor %}
             </div>
             <div class="boxFooter dark">
-                <a href="#" class="btn gray">écouter</a>
+                <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
             </div>
         </div>
         {% endfor %}
