@@ -18,7 +18,7 @@ class TopController extends Controller
     public function indexAction()
     {
         $data = array();
-        $data['title'] = 'Le top des écoutes - Site de promotion musicale';
+        $data['title'] = 'Le top des écoutes';
         
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Top:content.html.twig', $this->contentAction());

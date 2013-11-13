@@ -16,7 +16,12 @@
     {% if connected %}
         {% for playlist in user.playlists %}
         <div class="box330 box-boreder">
-            <div class="boxHeader"><h2>{{ playlist.name }}</h2></div>
+            <div class="boxHeader">
+                <h2>{{ playlist.name }}</h2>
+                <div class="removePl">
+                    <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></a>
+                </div>
+            </div>
             <div class="boxBody mCustomScrollbarActiv">
                 {% for item in playlist.items %}
                     <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}" data-id="{{ item.idVideo }}">

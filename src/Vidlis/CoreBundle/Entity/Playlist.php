@@ -45,7 +45,7 @@ class Playlist
     private $items;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Vidlis\UserBundle\Entity\User", inversedBy="playlists", cascade={"remove", "persist"})
+     * @ORM\ManyToOne(targetEntity="Vidlis\UserBundle\Entity\User", inversedBy="playlists")
      * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
      */
     private $user;

@@ -18,7 +18,7 @@ class RadioController extends Controller
     public function indexAction()
     {
         $data = array();
-        $data['title'] = 'Radios - Site de promotion musicale';
+        $data['title'] = 'Radios';
         
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Radio:content.html.twig', $this->contentAction());

@@ -113,7 +113,11 @@ function getSelectedElement(id){
 function hide(div){$("#"+ div).hide();}
 function show(div){$("#"+ div).show();}
 function loadBox(url){
-	$.address.value(url);
+    if ($.address.value() != url) {
+	    $.address.value(url);
+    } else {
+        forceLoad(url);
+    }
 }
 function mCustomScrollbars(){
 	//$("#list").mCustomScrollbar("horizontal",10,"easeOutCirc",1,"fixed","no","yes",20); 
@@ -138,8 +142,10 @@ function setupCustomScrollbar()
 function sendFormToAjax() {
     $(".form-ajax").unbind();
     $(".form-ajaxHTML").unbind();
+    var isLoding = false
 	$(".form-ajax").each(function(index, element){
 		form = $( element );
+        if (!isLoding) {
         $( element ).submit(function() {
         	post = $(element).serialize();
         	$.ajax({
@@ -149,25 +155,30 @@ function sendFormToAjax() {
       		  	dataType : 'json',
       		  	data : post,
       		  	beforeSend: function (){
-  		  			html = '<div class="alert alert-info">Envoi en cours.</div>';
-  		  			form.find('.callbackDiv').html(html)
+                    isLoding = true;
       		  	},
       		  	success: function(data){
                     idContainer = form.data('container');
                     $('.'+idContainer).html(data.content);
                     sendFormToAjax();
+                    isLoding = false;
       		  	},
       		  	error: function(){
       		  		$(".modal-header h3").html('Oups :\\');
       		  		$(".modal-body").html('Une erreur c\'est produite');
+                    isLoding = false;
       		  	}
         	});
         	return false;
         });
+        } else {
+            return false;
+        }
 	});
 
     $(".form-ajaxHTML").each(function(index, element){
         form = $( element );
+        if (!isLoding) {
         $( element ).submit(function() {
             post = $(element).serialize();
             $.ajax({
@@ -176,18 +187,26 @@ function sendFormToAjax() {
                 cache: false,
                 dataType : 'html',
                 data : post,
+                beforeSend: function (){
+                    isLoding = true;
+                },
                 success: function(data){
                     idContainer = form.data('container');
                     $('.'+idContainer).html(data);
                     sendFormToAjax();
+                    isLoding = false;
                 },
                 error: function(){
                     $(".modal-header h3").html('Oups :\\');
                     $(".modal-body").html('Une erreur c\'est produite');
+                    isLoding = false;
                 }
             });
             return false;
         });
+        } else {
+            return false;
+        }
     });
 }
 

@@ -419,6 +419,12 @@ i.icon-large{
 .boxHeader {
     background-color: #ededed;
     height:50px;
+    position: relative;
+}
+.removePl{
+    position: absolute;
+    right: 10px;
+    top: 10px;
 }
 
 .boxHeader h2{

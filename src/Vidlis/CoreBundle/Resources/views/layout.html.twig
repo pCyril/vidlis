@@ -46,12 +46,32 @@
                                         setupCustomScrollbar();
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
-					alert(textStatus);
+					//alert(textStatus);
 				}
 			});
 		});
 	})();
       google.setOnLoadCallback(_run);
-        
+
+    function forceLoad(url) {
+        show('loading');
+        $.ajax({
+            url: '{{ domain_name }}'+url,
+            type: 'POST',
+            dataType: 'json',
+            cache: true,
+            success: function (data, textStatus, jqXHR) {
+                document.title = data.title;
+                $('#content').html(data.content);
+                hide('loading');
+                setupCustomScrollbar();
+                return false;
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                //alert(textStatus);
+                return false;
+            }
+        });
+    }
         </script>
 {% endblock %}

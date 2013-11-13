@@ -1,0 +1,11 @@
+{% if result %}
+    <div class="alert alert-success">la playlist a bien été supprimée</div>
+    <script>
+        $(document).ready(function(){
+            loadBox('/fr/playlists');
+            return false;
+        });
+    </script>
+{% else %}
+    <div class="alert alert-danger">Es-tu sûr que cette playlist est à toi ? (Si oui il y a eu une erreur)</div>
+{% endif %}
