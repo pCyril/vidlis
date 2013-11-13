@@ -368,6 +368,9 @@ $.ajax({
     type: 'post',
     dataType: 'json',
     data: { videoid: id},
+    beforeSend: function (){
+        $('.loadQueue').show();
+    },
     success: function (data, textStatus, jqXHR) {
         formatPlaylist(data.video);
     }
@@ -404,6 +407,7 @@ $.each(video.items, function() {
         totLike = parseInt(this.statistics.likeCount) + parseInt(this.statistics.dislikeCount);
         $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
     }
+    $('.loadQueue').hide();
 });
 }
 

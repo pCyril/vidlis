@@ -424,7 +424,7 @@ i.icon-large{
 .removePl{
     position: absolute;
     right: 10px;
-    top: 10px;
+    top: 12px;
 }
 
 .boxHeader h2{
@@ -720,6 +720,12 @@ i.icon-large{
     cursor:pointer;
 }
 
+.itemPlaylistLoad div{
+    position: absolute;
+    left: 220px;
+    top: 15px;
+}
+
 .itemPlaylist.active {
     border-color: #4f4f4f;
     background: #4f4f4f;
@@ -780,6 +786,13 @@ i.icon-large{
     position: absolute;
     top:4px;
     right:35px;
+}
+
+.loadQueue {
+    position: absolute;
+    top:5px;
+    right:60px;
+    display: none;
 }
 
 .btn-repeat.active {
