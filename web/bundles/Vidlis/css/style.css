@@ -1012,3 +1012,26 @@ i.icon-large{
     width: 730px;
     margin: 10px auto;
 }
+
+.btn-register-home {
+    background-color: #629ec4;
+    padding: 20px;
+    border-radius: 4px;
+    font-size:1.3em;
+    color: white;
+    height:60px;
+    moz-box-shadow: inset 0px -3px 0px 0px #27658d;
+    -webkit-box-shadow: inset 0px -3px 0px 0px #27658d;
+    -o-box-shadow: inset 0px -3px 0px 0px #27658d;
+    box-shadow: inset 0px -3px 0px 0px #27658d;
+    margin-top:40px;
+}
+
+.btn-register-home:hover {
+    color: white;
+    text-decoration: none;
+    moz-box-shadow: inset 0px -2px 0px 0px #27658d;
+    -webkit-box-shadow: inset 0px -2px 0px 0px #27658d;
+    -o-box-shadow: inset 0px -2px 0px 0px #27658d;
+    box-shadow: inset 0px -2px 0px 0px #27658d;
+}
