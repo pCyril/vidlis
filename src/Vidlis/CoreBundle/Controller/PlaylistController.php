@@ -59,7 +59,7 @@ class PlaylistController extends AuthController
     public function allAction()
     {
         $data = array();
-        $data['title'] = 'Playlists';
+        $data['title'] = 'Toutes les playlists';
 
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentall.html.twig', $this->contentallAction());
@@ -104,7 +104,7 @@ class PlaylistController extends AuthController
     public function favorisAction()
     {
         $data = array();
-        $data['title'] = 'Playlists';
+        $data['title'] = 'Mes playlists favorites';
 
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentfavorite.html.twig', $this->contentfavoriteAction());
