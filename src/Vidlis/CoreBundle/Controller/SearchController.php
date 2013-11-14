@@ -21,7 +21,7 @@ class SearchController extends AuthController
     public function indexAction($searchValue)
     {
         $data = array();
-        $data['title'] = 'Recherche';
+        $data['title'] = 'Recherche '.$searchValue;
         $data['searchValue'] = $searchValue;
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Search:content.html.twig', $this->contentAction($searchValue));
