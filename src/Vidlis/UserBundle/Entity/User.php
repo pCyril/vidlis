@@ -25,10 +25,16 @@ class User extends BaseUser
      */
     private $playlists;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Vidlis\CoreBundle\Entity\Playlist", cascade={"persist"})
+     */
+    private $favoritePlaylists;
+
     public function __construct()
     {
         parent::__construct();
         $this->playlists = new ArrayCollection();
+        $this->favoritePlaylists = new ArrayCollection();
     }
 
     public function getPlaylists()
@@ -44,6 +50,21 @@ class User extends BaseUser
     public function setPlayslists(ArrayCollection $playlists)
     {
         $this->playlists = $playlists;
+    }
+
+    public function addFavoritePlaylist(Playlist $playlist)
+    {
+        $this->favoritePlaylists[] = $playlist;
+    }
+
+    public function removeFavoritePlaylist(Playlist $playlist)
+    {
+        $this->favoritePlaylists->removeElement($playlist);
+    }
+
+    public function getFavoritePlaylists()
+    {
+        return $this->favoritePlaylists;
     }
 
 }

@@ -1035,3 +1035,9 @@ i.icon-large{
     -o-box-shadow: inset 0px -2px 0px 0px #27658d;
     box-shadow: inset 0px -2px 0px 0px #27658d;
 }
+
+.addToFavorite {
+    position: absolute;
+    top: 21px;
+    left: 10px;
+}

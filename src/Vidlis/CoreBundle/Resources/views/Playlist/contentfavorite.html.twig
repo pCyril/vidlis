@@ -4,14 +4,14 @@
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav">
-                <li class="active">
+                <li>
                     <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/fr/playlists');  return false;">Mes playlists</a>
                 </li>
                 <li>
                     <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/fr/playlists/all');  return false;">Toutes les playlists</a>
                 </li>
                 {% if connected %}
-                    <li>
+                    <li class="active">
                         <a href="{{ url('_homePlaylistsFavorite') }}" onclick="loadBox('/fr/playlists/favoris');  return false;">Mes playlists favorites</a>
                     </li>
                 {% endif %}
@@ -32,27 +32,24 @@
     </div>
 
     {% if connected %}
-        {% for playlist in user.playlists %}
-        <div class="box330 box-boreder" id="{{ playlist.id }}">
-            <div class="boxHeader">
-                <h2>{{ playlist.name }}</h2>
-                <div class="removePl">
-                    <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></a>
+        {% for playlist in user.favoritePlaylists %}
+            <div class="box330 box-boreder" id="{{ playlist.id }}">
+                <div class="boxHeader">
+                    <h2>{{ playlist.name }}</h2>
+                </div>
+                <div class="boxBody mCustomScrollbarActiv">
+                    {% for item in playlist.items %}
+                        <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}" data-id="{{ item.idVideo }}">
+                            <div class="itemNumber">{{ loop.index }}</div>
+                            <div class="videoName">{{ item.videoName }}</div>
+                            <div class="videoDuration">{{ item.videoDuration }}</div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="boxFooter dark">
+                    <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
                 </div>
             </div>
-            <div class="boxBody mCustomScrollbarActiv">
-                {% for item in playlist.items %}
-                    <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}" data-id="{{ item.idVideo }}">
-                        <div class="itemNumber">{{ loop.index }}</div>
-                        <div class="videoName">{{ item.videoName }}</div>
-                        <div class="videoDuration">{{ item.videoDuration }}</div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="boxFooter dark">
-                <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
-            </div>
-        </div>
         {% endfor %}
     {% else %}
         <div class="alert alert-danger" style="margin:10px;">Vous devez vous identifier pour pouvoir afficher vos playlists.</div>
