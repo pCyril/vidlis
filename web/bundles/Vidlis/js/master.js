@@ -4,6 +4,14 @@ $(document).ready(function() {
 		loadBox(url);
 		return false;
 	});
+    $('.closeShowPlaylist').live('click', function() {
+        $('#playlistContent, .underVideo, .closeShowPlaylist').toggleClass('open', 500);
+        if ($('.closeShowPlaylist').hasClass('open')) {
+            $('.closeShowPlaylist').html('>');
+        } else {
+            $('.closeShowPlaylist').html('<');
+        }
+    });
     $('.formSearchHome').live('submit', function() {
         url = '/fr/search/'+encodeURIComponent($('#q').val());
         loadBox(url);
@@ -25,7 +33,7 @@ $(document).ready(function() {
         $(".btn-repeat").on("click", function(){
             return setRepeat($(this));
         });
-        $('#playlistContent').css('height', ($(window).height() - 289) + 'px' );
+        $('#playlistContent').css('height', ($(window).height() - 89) + 'px' );
         $('#playlistContent').mCustomScrollbar(
                 {scrollInertia: 0, mouseWheel: true, autoHideScrollbar:true,
                  advanced:{
@@ -363,7 +371,7 @@ function loadPlayer() {
   // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
   swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
                      "version=3&enablejsapi=1&playerapiid=player1", 
-                     "videoDiv", "280", "200", "9", null, null, params, atts);
+                     "videoDiv", "219", "200", "9", null, null, params, atts);
 }
 
 function addToQueue(id)

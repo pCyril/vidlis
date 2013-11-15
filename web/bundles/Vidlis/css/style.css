@@ -140,7 +140,7 @@ p {
 	height:60px;
 	background-color: #1d1d1d;
 	position:fixed;
-	top:0;
+	top:200px;
         width: 220px
 }
 #right-sidebar {
@@ -274,7 +274,7 @@ i.icon-large{
     position: fixed;
     overflow: auto;
     z-index: 110;
-    top:0px;
+    top:200px;
     left: 0;
     width: 220px;
     height: 100%;
@@ -329,7 +329,6 @@ i.icon-large{
 #right_content {
     margin-left: 220px;
     margin-top: 70px;
-    margin-right: 281px;
 }
 
 .box330 {
@@ -617,10 +616,11 @@ i.icon-large{
 
 .playerVideo {
     position:fixed;
-    top:60px;
-    right:0px;
-    width:280px;
+    top:0px;
+    left:0px;
+    width:219px;
     height:200px;
+    z-index: 1008;
     -moz-box-shadow: inset 0px 0px -3px 0px #151616;
     -webkit-box-shadow: inset 0px 0px -3px 0px #151616;
     -o-box-shadow: inset 0px 0px -3px 0px #151616;
@@ -629,25 +629,28 @@ i.icon-large{
 }
 
 #playlistContent {
-    position:fixed;
+    position: fixed;
     overflow: auto;
-    top:289px;
-    right:0px;
-    width:280px;
+    top: 89px;
+    left: -160px;
+    width: 380px;
     height: 100%;
     background: #262626;
-    border-left: 1px solid #000000;
+    border-right: 1px solid #000000
+}
+#playlistContent.open, .underVideo.open{
+    left: 220px;
 }
 
 .underVideo {
-    position:fixed;
+    position: fixed;
     overflow: auto;
-    top:260px;
-    right:0px;
-    width:280px;
+    top: 60px;
+    left: -160px;
+    width: 380px;
     height: 29px;
     background: #262626;
-    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
     border-bottom: 1px solid #1d1d1d;
 }
 
@@ -942,15 +945,15 @@ i.icon-large{
 
 #videoDiv {
     background-color: #000000;
-    height: 295px;
+    height: 200px;
     vertical-align: middle;
     position: relative;
 }
 
 #videoDiv img {
     position: absolute;
-    left: 222px;
-    top: 130px;
+    left: 100px;
+    top: 80px;
 }
 
 .presentation {
@@ -1040,4 +1043,26 @@ i.icon-large{
     position: absolute;
     top: 21px;
     left: 10px;
+}
+
+.closeShowPlaylist {
+    position:fixed;
+    top: 80px;
+    left:220px;
+    height: 40px;
+    width:30px;
+    background-color:#262626;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    cursor: pointer;
+    line-height: 38px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ccc;
+    padding-left: 4px;
+    text-shadow: 0 1px 0 #ededed;
+}
+
+.closeShowPlaylist.open {
+    left:600px;
 }
