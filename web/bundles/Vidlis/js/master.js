@@ -25,7 +25,7 @@ $(document).ready(function() {
         $(".btn-repeat").on("click", function(){
             return setRepeat($(this));
         });
-        $('#playlistContent').css('height', ($(window).height() - 384) + 'px' );
+        $('#playlistContent').css('height', ($(window).height() - 289) + 'px' );
         $('#playlistContent').mCustomScrollbar(
                 {scrollInertia: 0, mouseWheel: true, autoHideScrollbar:true,
                  advanced:{
@@ -363,7 +363,7 @@ function loadPlayer() {
   // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
   swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
                      "version=3&enablejsapi=1&playerapiid=player1", 
-                     "videoDiv", "480", "295", "9", null, null, params, atts);
+                     "videoDiv", "280", "200", "9", null, null, params, atts);
 }
 
 function addToQueue(id)
@@ -389,7 +389,15 @@ $.each(video.items, function() {
     $item = $('<div class="itemPlaylist" data-id="'+this.id+'" data-viewcount="'+this.statistics.viewCount+'" data-title="'+this.snippet.title+'" data-channelid="'+this.snippet.title.channelId+'" data-likecount="'+this.statistics.likeCount+'" data-dislikecount="'+this.statistics.dislikeCount+'"/>');
     $nameTitle = $('<div class="titlePlaylist"/>');
     $deleteItem = $('<div class="deleteItemPlaylist"/>');
-    $nameTitle.html(this.snippet.title);
+
+    len=this.snippet.title.length;
+    if(len>46)
+    {
+        title = (this.snippet.title.substr(0,46)+' ...');
+    } else {
+        title = this.snippet.title
+    }
+    $nameTitle.html(title);
     $nameChannel = $('<div class="channelPlaylist"/>');
     $nameChannel.html('De ' + this.snippet.channelTitle);
     $nameTitle.append($nameChannel);
@@ -400,6 +408,7 @@ $.each(video.items, function() {
     $container.append($item);
     $container.append($deleteItem);
     $c.append($container);
+
     playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
     if (playlistItem.size() == 1){
         ytplayer.cueVideoById(this.id);

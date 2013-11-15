@@ -329,7 +329,7 @@ i.icon-large{
 #right_content {
     margin-left: 220px;
     margin-top: 70px;
-    margin-right: 481px;
+    margin-right: 281px;
 }
 
 .box330 {
@@ -619,8 +619,8 @@ i.icon-large{
     position:fixed;
     top:60px;
     right:0px;
-    width:480px;
-    height:295px;
+    width:280px;
+    height:200px;
     -moz-box-shadow: inset 0px 0px -3px 0px #151616;
     -webkit-box-shadow: inset 0px 0px -3px 0px #151616;
     -o-box-shadow: inset 0px 0px -3px 0px #151616;
@@ -631,9 +631,9 @@ i.icon-large{
 #playlistContent {
     position:fixed;
     overflow: auto;
-    top:384px;
+    top:289px;
     right:0px;
-    width:480px;
+    width:280px;
     height: 100%;
     background: #262626;
     border-left: 1px solid #000000;
@@ -642,9 +642,9 @@ i.icon-large{
 .underVideo {
     position:fixed;
     overflow: auto;
-    top:355px;
+    top:260px;
     right:0px;
-    width:480px;
+    width:280px;
     height: 29px;
     background: #262626;
     border-left: 1px solid #000000;
@@ -739,7 +739,7 @@ i.icon-large{
 .titlePlaylist {
     color: #fff;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 1em;
     position: absolute;
     top: 10px;
     left: 80px;
@@ -823,7 +823,7 @@ i.icon-large{
     left: 10px;
     top: 20px;
     height: 2px;
-    width: 200px;
+    width: 170px;
     border-radius: 4px;
     background-color: #ccc;
     display:none;
