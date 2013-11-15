@@ -4,7 +4,7 @@ parameters:
     database_port:     ~
     database_name:     vidlis
     database_user:     root
-    database_password: toor
+    database_password: GyVEQbRgzxx3
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
@@ -17,5 +17,5 @@ parameters:
 
 twig:
     globals:
-        crawlable: "/app_dev.php"
-        domain_name: "http://vidlis.local/app_dev.php"
+        crawlable: ""
+        domain_name: "http://vidlis.fr"
