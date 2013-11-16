@@ -47,6 +47,7 @@ class HomeController extends AuthController
     
     /**
      * @Template()
+     * @Cache(expires="tomorrow")
      */
     public function contentAction()
     {
