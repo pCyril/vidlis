@@ -677,7 +677,7 @@ i.icon-large{
 .itemSub {
     display:none;
     position: absolute;
-    right: 15px;
+    left: 15px;
     bottom: 5px;
 }
 
@@ -1068,4 +1068,17 @@ i.icon-large{
 
 .closeShowPlaylist.open {
     left:600px;
+}
+
+.successAddedToQueue {
+    position:fixed;
+    top: 10px;
+    left:850px;
+    z-index: 1009;
+    color: #468847;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
 }

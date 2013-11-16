@@ -382,7 +382,8 @@ $.ajax({
     dataType: 'json',
     data: { videoid: id},
     beforeSend: function (){
-        $('.loadQueue').show();
+        $('.loadQueue, .successAddedToQueue').show();
+        $('.successAddedToQueue').html('Ajout en cours à la playlist');
     },
     success: function (data, textStatus, jqXHR) {
         formatPlaylist(data.video);
@@ -430,6 +431,8 @@ $.each(video.items, function() {
         $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
     }
     $('.loadQueue').hide();
+    $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
+    $('.successAddedToQueue').delay( 800 ).fadeOut();
 });
 }
 
