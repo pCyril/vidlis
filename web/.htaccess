@@ -8,6 +8,11 @@ DirectoryIndex app_dev.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
+    RewriteCond %{HTTP_HOST} ^www\.vidlis\.fr [NC]
+    RewriteRule ^(.*)$ http://vidlis.fr/$1 [L,R=301]
+    
+    RewriteCond %{REQUEST_URI} ^/$ [NC]
+    RewriteRule ^(.*)$ http://vidlis.fr/fr/ [L,R=301]
 
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
@@ -30,8 +35,8 @@ DirectoryIndex app_dev.php
     # - disable this feature by commenting the following 2 lines or
     # - use Apache >= 2.3.9 and replace all L flags by END flags and remove the
     #   following RewriteCond (best solution)
-    RewriteCond %{ENV:REDIRECT_STATUS} ^$
-    RewriteRule ^app\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]
+    # RewriteCond %{ENV:REDIRECT_STATUS} ^$
+    # RewriteRule ^app\.php(/(.*)|$) %{ENV:BASE}/$2 [R=301,L]
 
     # If the requested filename exists, simply serve it.
     # We only want to let Apache serve files and not directories.
