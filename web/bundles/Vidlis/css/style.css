@@ -141,7 +141,7 @@ p {
 	background-color: #1d1d1d;
 	position:fixed;
 	top:200px;
-        width: 220px
+    width: 219px
 }
 #right-sidebar {
 	float:right;
@@ -1083,4 +1083,11 @@ i.icon-large{
     padding: 10px;
     border-radius: 4px;
     display: none;
+}
+
+.powered {
+    position: absolute;
+    bottom: 20px;
+    left: 50px;
+    z-index: 990;
 }
