@@ -1091,3 +1091,7 @@ i.icon-large{
     left: 50px;
     z-index: 990;
 }
+
+.clear {
+    clear:both;
+}

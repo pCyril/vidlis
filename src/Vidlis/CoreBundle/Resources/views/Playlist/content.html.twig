@@ -56,5 +56,18 @@
         {% endfor %}
     {% else %}
         <div class="alert alert-danger" style="margin:10px;">Vous devez vous identifier pour pouvoir afficher vos playlists.</div>
+        <div style="width: 80%; margin:50px auto;">
+            <div style="width:50%;float: left;padding: 40px;text-align: center;">
+                <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Créer un compte</a>
+            </div>
+            <div style="width:50%;float: left; border-left:1px solid #ccc;">
+                <ul class="checked">
+                    <li><p>L'inscription est gratuite !</p></li>
+                    <li><p>Aucune restriction de temps !</p></li>
+                    <li><p>Le contenu est illimité !</p></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
     {% endif %}
 </div>

@@ -5,6 +5,10 @@
 <script>
     $(document).ready(function(){
         $('.register').html('Déconnexion');
+        $(document).ready(function(){
+            loadBox($.address.value());
+            return false;
+        });
     });
 </script>
 {% endblock %}
