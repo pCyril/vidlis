@@ -1085,8 +1085,22 @@ i.icon-large{
     display: none;
 }
 
+.errorMessage {
+    position:fixed;
+    top: 10px;
+    left:850px;
+    color: #ffffff;
+    background-color: #c6282c;
+    border-color: #b01d13;
+    padding: 10px;
+    border-radius: 4px;
+    display: none;
+    font-weight: bold;
+    z-index: 1009;
+}
+
 .powered {
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     left: 50px;
     z-index: 990;

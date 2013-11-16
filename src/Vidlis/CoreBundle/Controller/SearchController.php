@@ -15,7 +15,7 @@ use Vidlis\CoreBundle\Controller\AuthController;
 class SearchController extends AuthController
 {
     /**
-     * @Route("/search/{searchValue}", name="_homeSearch")
+     * @Route("/search/{searchValue}", name="_homeSearch", requirements={"searchValue" = ".+"})
      * @Template()
      */
     public function indexAction($searchValue)

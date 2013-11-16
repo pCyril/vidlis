@@ -1,7 +1,11 @@
 $(document).ready(function() {
 	$('.formSearch').live('submit', function() {
-		url = '/fr/search/'+encodeURIComponent($('#search').val());
-		loadBox(url);
+        if ($('#search').val()) {
+            url = '/fr/search/'+encodeURIComponent($('#search').val());
+            loadBox(url);
+        } else {
+            showError('Oui, mais tu cherches quoi exactement ?');
+        }
 		return false;
 	});
     $('.closeShowPlaylist').live('click', function() {
@@ -13,8 +17,12 @@ $(document).ready(function() {
         }
     });
     $('.formSearchHome').live('submit', function() {
-        url = '/fr/search/'+encodeURIComponent($('#q').val());
-        loadBox(url);
+        if ($('#search').val()) {
+            url = '/fr/search/'+encodeURIComponent($('#q').val());
+            loadBox(url);
+        } else {
+            showError('Oui, mais tu cherches quoi exactement ?');
+        }
         return false;
     });
         setupCustomScrollbar();
@@ -557,4 +565,8 @@ function auth(connected) {
     } else {
         $('.youtubeAuthen').html('Echec de l\'authentification');
     }
+}
+
+function showError(message) {
+    $('.errorMessage').html(message).show().delay(3000).fadeOut();
 }
