@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Vidlis\CoreBundle\Controller\AuthController;
 use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class HomeController extends AuthController
 {
@@ -16,6 +17,7 @@ class HomeController extends AuthController
     /**
      * @Route("/", name="_home")
      * @Template()
+     * @Cache(expires="tomorrow")
      */
     public function indexAction()
     {
