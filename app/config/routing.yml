@@ -20,4 +20,4 @@ fos_user_change_password:
 
 _routes:
     resource: "@VidlisCoreBundle/Controller"
-    prefix:   /{_locale}
+    prefix:   /

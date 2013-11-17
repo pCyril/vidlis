@@ -16,6 +16,7 @@ class HomeController extends AuthController
 
     /**
      * @Route("/", name="_home")
+     * @Route("/fr/")
      * @Template()
      * @Cache(expires="tomorrow")
      */
