@@ -54,6 +54,9 @@ $(document).ready(function() {
         });
     });
 });
+$( window ).resize(function() {
+    $('#playlistContent').css('height', ($(window).height() - 89) + 'px' );
+});
 $(".modal .close").live('click', function(){
     $('.modal, .overlay').hide();
 });
