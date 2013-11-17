@@ -12,6 +12,7 @@ DirectoryIndex app_dev.php
     RewriteRule ^(.*)$ http://vidlis.fr/$1 [L,R=301]
     
     RewriteCond %{REQUEST_URI} ^/$ [NC]
+    RewriteCond %{HTTP_USER_AGENT} !MSIE\ ([59])\.
     RewriteRule ^(.*)$ http://vidlis.fr/fr/ [L,R=301]
 
     # Determine the RewriteBase automatically and set it as environment variable.
