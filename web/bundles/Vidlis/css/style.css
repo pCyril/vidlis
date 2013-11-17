@@ -981,12 +981,20 @@ i.icon-large{
     background: none;
     border: 0 none;
     padding: 0;
+    padding-top:4px;
     float: left;
     color: #666;
 }
 .search-input-bg input:focus {
     outline: 0;
 }
+
+.btn-home-search {
+    border:0px;
+    background: transparent;
+    padding: 4px 0px 0px 0px;
+}
+
 .searchZoneHome {
     width:400px;
     margin:10px auto;
@@ -1077,11 +1085,12 @@ i.icon-large{
     top: 10px;
     left:850px;
     z-index: 1009;
-    color: #468847;
-    background-color: #dff0d8;
+    color: #ffffff;
+    background-color: #468847;
     border-color: #d6e9c6;
     padding: 10px;
     border-radius: 4px;
+    font-weight: bold;
     display: none;
 }
 
