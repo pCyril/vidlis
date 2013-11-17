@@ -1118,3 +1118,9 @@ i.icon-large{
 .clear {
     clear:both;
 }
+
+@media only screen and (min-width: 1500px) {
+    .box330 {
+        width: 29%;
+    }
+}

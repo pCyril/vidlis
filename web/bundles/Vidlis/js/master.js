@@ -17,7 +17,7 @@ $(document).ready(function() {
         }
     });
     $('.formSearchHome').live('submit', function() {
-        if ($('#search').val()) {
+        if ($('#q').val()) {
             url = '/search/'+encodeURIComponent($('#q').val());
             loadBox(url);
         } else {
