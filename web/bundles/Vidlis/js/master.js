@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	$('.formSearch').live('submit', function() {
         if ($('#search').val()) {
-            url = '/fr/search/'+encodeURIComponent($('#search').val());
+            url = '/search/'+encodeURIComponent($('#search').val());
             loadBox(url);
         } else {
             showError('Oui, mais tu cherches quoi exactement ?');
@@ -18,7 +18,7 @@ $(document).ready(function() {
     });
     $('.formSearchHome').live('submit', function() {
         if ($('#search').val()) {
-            url = '/fr/search/'+encodeURIComponent($('#q').val());
+            url = '/search/'+encodeURIComponent($('#q').val());
             loadBox(url);
         } else {
             showError('Oui, mais tu cherches quoi exactement ?');
@@ -388,7 +388,7 @@ function loadPlayer() {
 function addToQueue(id)
 {
 $.ajax({
-    url:  DOMAIN_NAME + '/fr/addToQueue',
+    url:  DOMAIN_NAME + '/addToQueue',
     type: 'post',
     dataType: 'json',
     data: { videoid: id},
