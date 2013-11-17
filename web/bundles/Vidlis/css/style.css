@@ -336,7 +336,7 @@ i.icon-large{
     height:386px;
     position:relative;
     float:left;
-    margin:0 2%;
+    margin: 0px 2% 20px 2%;
     margin-bottom:20px;
 }
 
@@ -1121,6 +1121,7 @@ i.icon-large{
 
 @media only screen and (min-width: 1500px) {
     .box330 {
-        width: 29%;
+        width: 31%;
+        margin: 0px 1% 20px 1%;
     }
 }
