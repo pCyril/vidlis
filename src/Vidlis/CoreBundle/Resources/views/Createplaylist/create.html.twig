@@ -3,66 +3,70 @@
     <a href="#" class="btn btn-success">Création d'un album</a>
 </div>-->
 
-{% if created %}
-<div class="alert alert-success">Votre playlist a bien été créée</div>
-<script>
-    $(document).ready(function(){
-        $('.dropdown-submenu').each(function() {
-            idVideo = this.id;
-            if ($(this).find('ul').length) {
-                ul = $(this).find('ul').first();
-            } else {
-                $(this).append('<ul class="dropdown-menu"></ul>');
-                ul = $(this).find('ul').first();
-            }
-            $(ul).append('<li><a href="{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}/'+idVideo+'" class="toModal">{{ playlist.name }}</a></li>');
-        });
-        {% if savePlaylist %}
-        $('#savePlaylist').html('Ajout en cours des éléments à la playlist').removeClass('hide');
-        $('.itemPlaylist').each(function() {
-            var idVideo = $(this).data('id');
-            var path = '{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}' + '/' + idVideo;
-            $.ajax({
-                type : 'GET',
-                url: path,
-                cache: false,
-                dataType : 'json',
-                beforeSend: function (){
-                },
-                success: function(data){
+{% if connected %}
+    {% if created %}
+    <div class="alert alert-success">Votre playlist a bien été créée</div>
+    <script>
+        $(document).ready(function(){
+            $('.dropdown-submenu').each(function() {
+                idVideo = this.id;
+                if ($(this).find('ul').length) {
+                    ul = $(this).find('ul').first();
+                } else {
+                    $(this).append('<ul class="dropdown-menu"></ul>');
+                    ul = $(this).find('ul').first();
                 }
-            }).done(function() {
-                $('#savePlaylist').html('Votre playlist a été  sauvegardée.');
+                $(ul).append('<li><a href="{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}/'+idVideo+'" class="toModal">{{ playlist.name }}</a></li>');
             });
+            {% if savePlaylist %}
+            $('#savePlaylist').html('Ajout en cours des éléments à la playlist').removeClass('hide');
+            $('.itemPlaylist').each(function() {
+                var idVideo = $(this).data('id');
+                var path = '{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}' + '/' + idVideo;
+                $.ajax({
+                    type : 'GET',
+                    url: path,
+                    cache: false,
+                    dataType : 'json',
+                    beforeSend: function (){
+                    },
+                    success: function(data){
+                    }
+                }).done(function() {
+                    $('#savePlaylist').html('Votre playlist a été  sauvegardée.');
+                });
+            });
+            {% endif %}
         });
-        {% endif %}
-    });
-</script>
-<div class="alert alert-success hide" id="savePlaylist">Votre playlist a été  sauvegardé</div>
-{% endif %}
-<form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
-    <div class="control-group">
-        <label class="control-label">Nom de la playlist :</label>
-        <div class="controls">
-            {{ form_widget(form.name) }}
-        </div>
-    </div>
-    {% if form.vars.errors|length %}
-    <div class="alert alert-danger">
-        {{ form_errors(form.name) }}
-    </div>
+    </script>
+    <div class="alert alert-success hide" id="savePlaylist">Votre playlist a été  sauvegardé</div>
     {% endif %}
-    <div class="control-group">
-        <div class="controls">
-            <label>
-            {{ form_widget(form.private) }} Rendre cette playlist privé
-            </label>
+    <form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
+        <div class="control-group">
+            <label class="control-label">Nom de la playlist :</label>
+            <div class="controls">
+                {{ form_widget(form.name) }}
+            </div>
         </div>
-    </div>
-    {{ form_rest(form) }}
-    <div class="control-group">
-        <div class="controls">
-            <input type="submit" value="Sauvegarder" class="btn btn-primary">
+        {% if form.vars.errors|length %}
+        <div class="alert alert-danger">
+            {{ form_errors(form.name) }}
         </div>
-    </div>
-</form>
+        {% endif %}
+        <div class="control-group">
+            <div class="controls">
+                <label>
+                {{ form_widget(form.private) }} Rendre cette playlist privé
+                </label>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" value="Sauvegarder" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+{% else %}
+    <div class="alert alert-danger" id="savePlaylist">Vous devez vous connecter pour créer une playlist</div>
+{% endif %}

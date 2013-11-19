@@ -24,10 +24,17 @@ class CreateplaylistController extends Controller
         $data['result'] = true;
         $data['title'] = 'Créer une nouvelle playlist';
         $created = false;
+
+        $dataContent = array();
+        if ($this->getUser()) {
+            $dataContent['connected']= true;
+            $dataContent['user']=  $this->getUser();
+        } else {
+            $dataContent['connected']= false;
+        }
         $playlist = new Playlist();
         $form = $this->createForm(new PlaylistType());
         if ($this->getRequest()->isMethod('POST')) {
-            $dataContent = array();
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
                 $playlist = $form->getData();
@@ -57,7 +64,8 @@ class CreateplaylistController extends Controller
             $response->headers->set('Content-Type', 'application/json');
             return $response;
         } else {
-            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', array('form' => $form->createView(), 'idVideo' => $vidId, 'created' => $created));
+            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'idVideo' => $vidId, 'created' => $created));
+            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', $dataContent);
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
