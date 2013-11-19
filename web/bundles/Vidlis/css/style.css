@@ -436,6 +436,12 @@ i.icon-large{
     font-size: 1.6em;
 }
 
+.boxHeader .playlistCreatorName {
+    position:absolute;
+    top:15px;
+    right: 10px;
+}
+
 .boxFooter h2 {
     color:#5d5d5d;
     padding:0px;
@@ -1076,7 +1082,7 @@ i.icon-large{
 
 .closeShowPlaylist {
     position:fixed;
-    top: 80px;
+    top: 120px;
     left:220px;
     height: 40px;
     width:30px;
