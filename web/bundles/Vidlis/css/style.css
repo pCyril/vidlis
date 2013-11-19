@@ -463,20 +463,30 @@ i.icon-large{
 
 .boxFooter .btn {
     position:absolute;
-    right:10px;
-    top:10px;
-    height: 40px;
+    right:15px;
+    top:17px;
     text-align: center;
-    line-height: 25px;
-    font-size:1em;
+    font-size:0.9em;
     text-transform: uppercase;
     text-decoration: none;
+    font-weight: bold;
+    background-color: #629ec4;
+    padding:9px;
+    moz-box-shadow: inset 0px -2px 0px 0px #27658d;
+    -webkit-box-shadow: inset 0px -2px 0px 0px #27658d;
+    -o-box-shadow: inset 0px -2px 0px 0px #27658d;
+    box-shadow: inset 0px -2px 0px 0px #27658d;
+    color: white;
 }
 
-.boxFooter .btn.gray{
-    background-color: #8b8b7f;
-    color: #fff;
-    text-shadow: 0px 1px 0px #40403f;
+.boxFooter .btn:hover {
+    color: white;
+    text-decoration: none;
+    padding:10px 9px 8px 9px;
+    moz-box-shadow: inset 0px -1px 0px 0px #27658d;
+    -webkit-box-shadow: inset 0px -1px 0px 0px #27658d;
+    -o-box-shadow: inset 0px -1px 0px 0px #27658d;
+    box-shadow: inset 0px -1px 0px 0px #27658d;
 }
 
 #loading {

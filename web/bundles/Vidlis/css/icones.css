@@ -5,6 +5,10 @@
 	height:18px;
 }
 
+.icon.blue {
+     background-image:url(../images/sprite_icon_blue.png);
+ }
+
 .icon-absolute {
 	background-image:url(../images/sprite_icon.png);
 	display:inline-block;
@@ -13,6 +17,10 @@
 	position:absolute;
 	top:16px;
 	left:11px;
+}
+
+.icon-absolute.blue {
+    background-image:url(../images/sprite_icon_blue.png);
 }
 
 .icon-absolute.dribbble, .icon.dribbble {
@@ -93,4 +101,8 @@
 
 .icon-absolute.grow, .icon.save {
     background-position:-460px -503px;
+}
+
+.icon-absolute.grow, .icon.heart {
+    background-position:-255px -112px;
 }
