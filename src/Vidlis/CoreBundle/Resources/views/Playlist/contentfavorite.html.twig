@@ -36,6 +36,7 @@
             <div class="box330 box-boreder" id="{{ playlist.id }}">
                 <div class="boxHeader">
                     <h2>{{ playlist.name }}</h2>
+                    <div class="playlistCreatorName">Par {{ playlist.user.username }}</div>
                 </div>
                 <div class="boxBody mCustomScrollbarActiv">
                     {% for item in playlist.items %}

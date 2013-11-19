@@ -374,6 +374,7 @@ i.icon-large{
     position:relative;
     cursor: pointer;
 }
+
 .boxBody .rowItem:hover {
     background-color: #ccc;
 }
