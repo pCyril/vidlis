@@ -19,7 +19,7 @@ class CreateplaylistController extends Controller
      * @Route("/create-playlist/{vidId}", name="_formCreatePlaylist")
      * @Template()
      */
-    public function createAction($vidId)
+    public function createAction($vidId=null)
     {
         $data['result'] = true;
         $data['title'] = 'Créer une nouvelle playlist';
@@ -27,6 +27,7 @@ class CreateplaylistController extends Controller
         $playlist = new Playlist();
         $form = $this->createForm(new PlaylistType());
         if ($this->getRequest()->isMethod('POST')) {
+            $dataContent = array();
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
                 $playlist = $form->getData();
@@ -35,15 +36,23 @@ class CreateplaylistController extends Controller
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($playlist);
                 $em->flush();
-                $playlistItem = new Playlistitem();
-                $playlistItem->setPlaylist($playlist)
-                    ->setIdVideo($vidId)
-                    ->getVideoInformation($this->container->getParameter('memcache_active'));
-                $em->persist($playlistItem);
-                $em->flush();
+                if ($vidId != null) {
+                    $playlistItem = new Playlistitem();
+                    $playlistItem->setPlaylist($playlist)
+                        ->setIdVideo($vidId)
+                        ->getVideoInformation($this->container->getParameter('memcache_active'));
+                    $em->persist($playlistItem);
+                    $em->flush();
+                    $dataContent['savePlaylist'] = false;
+                } else {
+                    $dataContent['savePlaylist'] = true;
+                }
                 $created = true;
             }
-            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', array('form' => $form->createView(), 'idVideo' => $vidId, 'created' => $created, 'playlist' => $playlist));
+
+            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'idVideo' => $vidId, 'created' => $created, 'playlist' => $playlist));
+
+            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', $dataContent);
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;

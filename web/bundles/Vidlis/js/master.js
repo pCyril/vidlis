@@ -442,6 +442,7 @@ $.each(video.items, function() {
         $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
     }
     $('.loadQueue').hide();
+    $('.btn-save').show();
     $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
     $('.successAddedToQueue').delay( 800 ).fadeOut();
 });
@@ -515,6 +516,7 @@ function clearPlaylist() {
     $('#viewCount').css('display', 'none');
     $('#vote').css('display', 'none');
     ytplayer.cueVideoById('');
+    $('.btn-save').hide();
     return false;
 }
 function setRepeat(element) {

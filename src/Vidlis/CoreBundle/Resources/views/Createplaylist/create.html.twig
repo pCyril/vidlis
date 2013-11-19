@@ -17,8 +17,28 @@
             }
             $(ul).append('<li><a href="{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}/'+idVideo+'" class="toModal">{{ playlist.name }}</a></li>');
         });
+        {% if savePlaylist %}
+        $('#savePlaylist').html('Ajout en cours des éléments à la playlist').removeClass('hide');
+        $('.itemPlaylist').each(function() {
+            var idVideo = $(this).data('id');
+            var path = '{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}' + '/' + idVideo;
+            $.ajax({
+                type : 'GET',
+                url: path,
+                cache: false,
+                dataType : 'json',
+                beforeSend: function (){
+                },
+                success: function(data){
+                }
+            }).done(function() {
+                $('#savePlaylist').html('Votre playlist a été  sauvegardée.');
+            });
+        });
+        {% endif %}
     });
 </script>
+<div class="alert alert-success hide" id="savePlaylist">Votre playlist a été  sauvegardé</div>
 {% endif %}
 <form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
     <div class="control-group">

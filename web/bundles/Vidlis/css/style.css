@@ -793,10 +793,17 @@ i.icon-large{
     right:35px;
 }
 
+.btn-save {
+    position: absolute;
+    top:4px;
+    right:60px;
+    display:none;
+}
+
 .loadQueue {
     position: absolute;
     top:5px;
-    right:60px;
+    right:85px;
     display: none;
 }
 

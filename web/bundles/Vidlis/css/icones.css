@@ -90,3 +90,7 @@
 .icon-absolute.repeat, .icon.repeat {
 	background-position:0px -895px;
 }
+
+.icon-absolute.grow, .icon.save {
+    background-position:-460px -503px;
+}
