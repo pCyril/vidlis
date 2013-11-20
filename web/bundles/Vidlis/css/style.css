@@ -383,7 +383,7 @@ i.icon-large{
     background-color: #ccc;
 }
 
-.boxBody .rowItem:hover .videoDuration {
+.boxBody .rowItem.mine:hover .videoDuration {
     display:none;
 }
 

@@ -42,7 +42,7 @@
             </div>
             <div class="boxBody mCustomScrollbarActiv">
                 {% for item in playlist.items %}
-                    <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
+                    <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %} mine">
                         <div class="itemNumber">{{ loop.index }}</div>
                         <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
                         <div class="videoDuration">{{ item.videoDuration }}</div>
