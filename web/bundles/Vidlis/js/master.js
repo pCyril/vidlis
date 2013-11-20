@@ -29,7 +29,7 @@ $(document).ready(function() {
         $(".itemSearch ").live("click", function(){
             addToQueue($(this).data('id'));
         });
-    $(".rowItem ").live("click", function(){
+    $(".playButtonRow, .videoName").live("click", function(){
         addToQueue($(this).data('id'));
     });
         $(".itemPlaylist").live("click", function(){

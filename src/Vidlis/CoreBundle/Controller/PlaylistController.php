@@ -165,6 +165,31 @@ class PlaylistController extends AuthController
         return $response;
     }
 
+
+        /**
+         * @Route("/delete-item/{idPlaylist}/{idItem}", requirements={"idPlaylist" = "\d+", "idItem" = "\d+"}, name="_deleteItemPlaylist")
+         * @Template()
+         */
+    public function deleteitemAction($idPlaylist, $idItem)
+    {
+        $data['result'] = true;
+        $data['title'] = 'Suppression de l\'élément';
+        $em = $this->getDoctrine()->getManager();
+        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $playlistIem = $em->getRepository('VidlisCoreBundle:PlaylistItem')->find($idItem);
+        if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
+            $em->remove($playlistIem);
+            $em->flush();
+            $result = true;
+        } else {
+            $result = false;
+        }
+        $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:deleteitem.html.twig', array('result' => $result));
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
     /**
      * @Route("/add-to-favorite/{idPlaylist}", requirements={"idPlaylist" = "\d+"}, name="_addFavoritePlaylist")
      * @Template()

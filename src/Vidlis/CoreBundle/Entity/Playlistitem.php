@@ -33,7 +33,7 @@ class Playlistitem
     private $videoDuration;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Playlist", inversedBy="items", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Playlist", inversedBy="items")
      * @ORM\JoinColumn(name="idPlaylist", referencedColumnName="id")
      */
     private $playlist;

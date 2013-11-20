@@ -106,3 +106,7 @@
 .icon-absolute.grow, .icon.heart {
     background-position:-255px -112px;
 }
+
+.icon-absolute.grow, .icon.play {
+    background-position: -308px -896px;
+}

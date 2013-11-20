@@ -1,0 +1,12 @@
+{% if result %}
+    <div class="alert alert-success">Elément supprimé</div>
+    <script>
+        $(document).ready(function(){
+            loadBox('/playlists');
+            $('.modal, .overlay').delay( 800 ).fadeOut();
+            return false;
+        });
+    </script>
+{% else %}
+    <div class="alert alert-danger">Es-tu sûr que cette playlist est à toi ? (Si oui il y a eu une erreur)</div>
+{% endif %}

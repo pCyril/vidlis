@@ -372,11 +372,35 @@ i.icon-large{
 .boxBody .rowItem{
     padding:10px;
     position:relative;
-    cursor: pointer;
 }
 
 .boxBody .rowItem:hover {
     background-color: #ccc;
+}
+
+.boxBody .rowItem:hover .playButtonRow, .boxBody .rowItem:hover .trashButtonRow{
+    display: block;
+    background-color: #ccc;
+}
+
+.boxBody .rowItem:hover .videoDuration {
+    display:none;
+}
+
+.boxBody .rowItem .playButtonRow {
+    position: absolute;
+    left: 6px;
+    top: 10px;
+    display: none;
+    cursor: pointer;
+}
+
+.boxBody .rowItem .trashButtonRow {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    display: none;
+    cursor: pointer;
 }
 
 .boxBody {
@@ -387,10 +411,9 @@ i.icon-large{
 .boxBody .rowItem .videoName, .boxBody .rowItem .itemNumber {
     display: inline;
 }
-.boxBody .rowItem .videoName {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-
+.boxBody .rowItem .videoName:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 .boxBody .rowItem .itemNumber {
     padding-right: 10px;
