@@ -57,9 +57,17 @@ $(document).ready(function() {
 $( window ).resize(function() {
     $('#playlistContent').css('height', ($(window).height() - 89) + 'px' );
 });
-$(".modal .close").live('click', function(){
+$(".modal .close, .overlay").live('click', function(){
     $('.modal, .overlay').hide();
 });
+
+$('body').bind('click', function(e){
+    if ($('.overlay').css('display') == 'block'
+        && $(e.target).is('.modal, .modal-dialog')) {
+            $('.modal, .overlay').hide();
+    }
+});
+
 $(".toModal").live('click', function(){
     element = $(this);
     $.ajax({
