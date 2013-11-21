@@ -3,6 +3,7 @@ $(document).ready(function() {
         if ($('#search').val()) {
             url = '/search/'+encodeURIComponent($('#search').val());
             loadBox(url);
+            $(window).scrollTop(0);
         } else {
             showError('Oui, mais tu cherches quoi exactement ?');
         }
@@ -20,6 +21,7 @@ $(document).ready(function() {
         if ($('#q').val()) {
             url = '/search/'+encodeURIComponent($('#q').val());
             loadBox(url);
+            $(window).scrollTop(0);
         } else {
             showError('Oui, mais tu cherches quoi exactement ?');
         }
