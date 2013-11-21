@@ -49,7 +49,7 @@ $(document).ready(function() {
                  }}
         );
     $('.loadPlaylist').live('click', function() {
-        $('#'+$(this).data('idplaylist')+' .rowItem').each(function() {
+        $('#'+$(this).data('idplaylist')+' .rowItem .playButtonRow').each(function() {
             addToQueue($(this).data('id'));
         });
     });
