@@ -17,7 +17,7 @@ $(document).ready(function() {
             $('.closeShowPlaylist').html('<');
         }
     });
-    $('.formSearchHome').live('submit', function() {
+    $('.formSearchHome').live('submit', function() {cd
         if ($('#q').val()) {
             url = '/search/'+encodeURIComponent($('#q').val());
             loadBox(url);
@@ -416,7 +416,7 @@ function formatPlaylist(video) {
 $.each(video.items, function() {
     $c = $('#playlistContent .mCustomScrollBox .mCSB_container');
     $container = $('<div class="itemContainer" />');
-    $item = $('<div class="itemPlaylist" data-id="'+this.id+'" data-viewcount="'+this.statistics.viewCount+'" data-title="'+this.snippet.title+'" data-channelid="'+this.snippet.title.channelId+'" data-likecount="'+this.statistics.likeCount+'" data-dislikecount="'+this.statistics.dislikeCount+'"/>');
+    $item = $('<div class="itemPlaylist" data-id="'+this.id+'" data-viewcount="'+this.statistics.viewCount+'" data-title="'+this.snippet.title.replace(/"/g,"&quot;")+'" data-channelid="'+this.snippet.title.channelId+'" data-likecount="'+this.statistics.likeCount+'" data-dislikecount="'+this.statistics.dislikeCount+'"/>');
     $nameTitle = $('<div class="titlePlaylist"/>');
     $deleteItem = $('<div class="deleteItemPlaylist"/>');
 
@@ -425,7 +425,7 @@ $.each(video.items, function() {
     {
         title = (this.snippet.title.substr(0,46)+' ...');
     } else {
-        title = this.snippet.title
+        title = this.snippet.title;
     }
     $nameTitle.html(title);
     $nameChannel = $('<div class="channelPlaylist"/>');
