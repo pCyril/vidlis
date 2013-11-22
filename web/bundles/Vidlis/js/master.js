@@ -17,7 +17,7 @@ $(document).ready(function() {
             $('.closeShowPlaylist').html('<');
         }
     });
-    $('.formSearchHome').live('submit', function() {cd
+    $('.formSearchHome').live('submit', function() {
         if ($('#q').val()) {
             url = '/search/'+encodeURIComponent($('#q').val());
             loadBox(url);
