@@ -668,6 +668,22 @@ i.icon-large{
     border-left: 1px solid #000000;
 }
 
+
+.playerVideo.grow {
+    left:20px;
+    top:20px;
+    z-index: 1020;
+    padding: 10px;
+    background: rgba(54, 25, 25, .5);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 3px 9px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
+    -moz-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
+    -webkit-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
+}
+
 #playlistContent {
     position: fixed;
     overflow: auto;
@@ -836,14 +852,14 @@ i.icon-large{
 .btn-save {
     position: absolute;
     top:4px;
-    right:60px;
+    right:85px;
     display:none;
 }
 
 .loadQueue {
     position: absolute;
     top:5px;
-    right:85px;
+    right:105px;
     display: none;
 }
 
