@@ -4,11 +4,11 @@
     <div class="navbar">
         <div class="navbar-inner">
             <ul class="nav">
-                <li class="active">
-                    <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/playlists');  return false;">Mes playlists</a>
-                </li>
                 <li>
                     <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;">Toutes les playlists</a>
+                </li>
+                <li class="active">
+                    <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/playlists');  return false;">Mes playlists</a>
                 </li>
                 {% if connected %}
                     <li>
