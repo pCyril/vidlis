@@ -862,8 +862,8 @@ i.icon-large{
 
 .loadQueue {
     position: absolute;
-    top:5px;
-    right:105px;
+    top: 4px;
+    right: 110px;
     display: none;
 }
 
