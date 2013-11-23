@@ -684,7 +684,7 @@ i.icon-large{
     -webkit-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
 }
 
-#playlistContent {
+#playlistContent, #suggestionContent {
     position: fixed;
     overflow: auto;
     top: 89px;
@@ -695,7 +695,10 @@ i.icon-large{
     z-index: 900;
     border-right: 1px solid #000000
 }
-#playlistContent.open, .underVideo.open{
+#suggestionContent {
+    display: none;
+}
+#playlistContent.open, .underVideo.open, #suggestionContent.open{
     left: 220px;
 }
 
@@ -843,10 +846,11 @@ i.icon-large{
     display:none;
 }
 
-.btn-repeat {
+.btn-suggestion {
     position: absolute;
-    top:4px;
-    right:35px;
+    top:3px;
+    right:61px;
+    display: none;
 }
 
 .btn-save {
@@ -863,10 +867,9 @@ i.icon-large{
     display: none;
 }
 
-.btn-repeat.active {
-    position: absolute;
-    top:3px;
-    right:31px;
+.btn-suggestion.active {
+    top:2px;
+    right:57px;
     background-color: #000;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -883,7 +886,7 @@ i.icon-large{
 .btn-grow {
     position: absolute;
     top:4px;
-    right:60px;
+    right:35px;
 }
 
 #vote {

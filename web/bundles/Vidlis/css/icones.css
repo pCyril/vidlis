@@ -99,14 +99,19 @@
 	background-position:0px -895px;
 }
 
-.icon-absolute.grow, .icon.save {
+.icon-absolute.save, .icon.save {
     background-position:-460px -503px;
 }
 
-.icon-absolute.grow, .icon.heart {
+.icon-absolute.heart, .icon.heart {
     background-position:-255px -112px;
 }
 
-.icon-absolute.grow, .icon.play {
+.icon-absolute.play, .icon.play {
     background-position: -308px -896px;
 }
+
+.icon-absolute.suggestion, .icon.suggestion {
+    background-position: -460px -1006px;
+}
+

@@ -10,7 +10,7 @@ $(document).ready(function() {
 		return false;
 	});
     $('.closeShowPlaylist').live('click', function() {
-        $('#playlistContent, .underVideo, .closeShowPlaylist').toggleClass('open', 500);
+        $('#playlistContent, .underVideo, .closeShowPlaylist, #suggestionContent').toggleClass('open', 500);
         if ($('.closeShowPlaylist').hasClass('open')) {
             $('.closeShowPlaylist').html('>');
         } else {
@@ -31,20 +31,29 @@ $(document).ready(function() {
         $(".itemSearch ").live("click", function(){
             addToQueue($(this).data('id'));
         });
-    $(".playButtonRow, .videoName").live("click", function(){
+    $(".playButtonRow, .videoName, #suggestionContent .itemPlaylist").live("click", function(){
         addToQueue($(this).data('id'));
     });
-        $(".itemPlaylist").live("click", function(){
+        $("#playlistContent .itemPlaylist").live("click", function(){
             launch($(this));
         });
         $(".deleteItemPlaylist").live("click", function(){
             deleteItem($(this));
         });
-        $(".btn-repeat").on("click", function(){
-            return setRepeat($(this));
+        $(".btn-suggestion").on("click", function(){
+            $(this).toggleClass('active');
+            if ($('.btn-suggestion').hasClass('active')) {
+                $('#playlistContent').hide();
+                $('#suggestionContent').show();
+                getSuggestion($('.itemPlaylist.active').data('id'));
+            } else {
+                $('#suggestionContent').hide();
+                $('#playlistContent').show();
+            }
+            return false;
         });
-        $('#playlistContent').css('height', ($(window).height() - 89) + 'px' );
-        $('#playlistContent').mCustomScrollbar(
+        $('#playlistContent, #suggestionContent').css('height', ($(window).height() - 89) + 'px' );
+        $('#playlistContent, #suggestionContent').mCustomScrollbar(
                 {scrollInertia: 0, mouseWheel: true, autoHideScrollbar:true,
                  advanced:{
                     updateOnContentResize: true
@@ -66,7 +75,7 @@ $(document).ready(function() {
     });
 });
 $( window ).resize(function() {
-    $('#playlistContent').css('height', ($(window).height() - 89) + 'px' );
+    $('#playlistContent, #suggestionContent').css('height', ($(window).height() - 89) + 'px' );
 });
 $(".modal .close, .overlay").live('click', function(){
     $('.modal, .overlay').hide();
@@ -482,6 +491,7 @@ $.each(video.items, function() {
     }
     $('.loadQueue').hide();
     $('.btn-save').show();
+    $('.btn-suggestion').show();
     $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
     $('.successAddedToQueue').delay( 800 ).fadeOut();
 });
@@ -558,6 +568,7 @@ function clearPlaylist() {
     $('#vote').css('display', 'none');
     ytplayer.cueVideoById('');
     $('.btn-save').hide();
+    $('.btn-suggestion').hide();
     return false;
 }
 function setRepeat(element) {
@@ -603,6 +614,56 @@ function deleteItem(element) {
             element.parent().remove();
         }
     }
+}
+
+function getSuggestion(id)
+{
+    $c = $('#suggestionContent .mCustomScrollBox .mCSB_container');
+    $c.html('');
+    $.ajax({
+        url:  DOMAIN_NAME + '/getSuggestion',
+        type: 'post',
+        dataType: 'json',
+        data: { videoid: id},
+        beforeSend: function (){
+            $('.loadQueue, .successAddedToQueue').show();
+            $('.successAddedToQueue').html('Chargement de la suggestion');
+        },
+        success: function (data, textStatus, jqXHR) {
+            formatSuggestion(data.suggestion);
+        }
+    });
+}
+
+
+function formatSuggestion(video) {
+    $c = $('#suggestionContent .mCustomScrollBox .mCSB_container');
+    $.each(video.items, function() {
+        $container = $('<div class="itemContainer ui-state-default" />');
+        $item = $('<div class="itemPlaylist" data-id="'+this.id.videoId+'" data-title="'+this.snippet.title.replace(/"/g,"&quot;")+'" data-channelid="'+this.snippet.title.channelId+'"/>');
+        $nameTitle = $('<div class="titlePlaylist"/>');
+
+        len=this.snippet.title.length;
+        if(len>46)
+        {
+            title = (this.snippet.title.substr(0,46)+' ...');
+        } else {
+            title = this.snippet.title;
+        }
+        $nameTitle.html(title);
+        $nameChannel = $('<div class="channelPlaylist"/>');
+        $nameChannel.html('De ' + this.snippet.channelTitle);
+        $nameTitle.append($nameChannel);
+        $thumb = $('<div class="thumbPlaylist"/>');
+        $thumb.html('<img src="' + this.snippet.thumbnails.default.url + '" width="64px" />');
+        $item.append($thumb);
+        $item.append($nameTitle);
+        $container.append($item);
+        $c.append($container);
+
+        $('.loadQueue').hide();
+        $('.successAddedToQueue').delay( 800 ).fadeOut();
+    });
 }
 
 function auth(connected) {
