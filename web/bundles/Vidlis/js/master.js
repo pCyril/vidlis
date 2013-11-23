@@ -43,12 +43,12 @@ $(document).ready(function() {
         $(".btn-suggestion").on("click", function(){
             $(this).toggleClass('active');
             if ($('.btn-suggestion').hasClass('active')) {
-                $('#playlistContent').hide();
+                $('#playlistContent, .btn-save').hide();
                 $('#suggestionContent').show();
                 getSuggestion($('.itemPlaylist.active').data('id'));
             } else {
                 $('#suggestionContent').hide();
-                $('#playlistContent').show();
+                $('#playlistContent, .btn-save').show();
             }
             return false;
         });
