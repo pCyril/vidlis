@@ -444,7 +444,7 @@ $.ajax({
 function formatPlaylist(video) {
 $.each(video.items, function() {
     $c = $('#playlistContent .mCustomScrollBox .mCSB_container');
-    $container = $('<div class="itemContainer" />');
+    $container = $('<div class="itemContainer ui-state-default" />');
     $item = $('<div class="itemPlaylist" data-id="'+this.id+'" data-viewcount="'+this.statistics.viewCount+'" data-title="'+this.snippet.title.replace(/"/g,"&quot;")+'" data-channelid="'+this.snippet.title.channelId+'" data-likecount="'+this.statistics.likeCount+'" data-dislikecount="'+this.statistics.dislikeCount+'"/>');
     $nameTitle = $('<div class="titlePlaylist"/>');
     $deleteItem = $('<div class="deleteItemPlaylist"/>');
@@ -485,6 +485,8 @@ $.each(video.items, function() {
     $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
     $('.successAddedToQueue').delay( 800 ).fadeOut();
 });
+    $( "#playlistContent .mCSB_container" ).sortable({ axis: "y" });
+    $( "#playlistContent .mCSB_container" ).disableSelection();
 }
 
 function _run() {
