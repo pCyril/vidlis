@@ -76,7 +76,7 @@ $(document).ready(function () {
 });
 
 $('.mouseoverInfo').live('mousemove', function (e) {
-    $('#infoLabel').css('top', (e.pageY - 25) + 'px').css('left', (e.pageX - 25) + 'px').css('display', 'block');
+    $('#infoLabel').css('top', (e.pageY - 30) + 'px').css('left', (e.pageX - 25) + 'px').css('display', 'block');
     $('#infoLabel').html($(e.target).data('info'));
     console.log($(e.target).data('info'));
 });

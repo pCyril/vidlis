@@ -48,7 +48,7 @@
                             <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
                             <div class="videoDuration">{{ item.videoDuration }}</div>
                             <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
-                            <a href="{{ path('_deleteItemPlaylist', {'idPlaylist':playlist.id, 'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue mouseoverInfo" data-info="Supprimer l'élément de la playlist"></i></a>
+                            <a href="{{ path('_deleteItemPlaylist', {'idPlaylist':playlist.id, 'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
                         </div>
                     {% endfor %}
                 </div>
