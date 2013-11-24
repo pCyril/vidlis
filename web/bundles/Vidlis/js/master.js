@@ -476,7 +476,7 @@ function formatPlaylist(video, after) {
         $item.append($nameTitle);
         $container.append($item);
         $container.append($deleteItem);
-        if (!after) {
+        if (!after || $('#playlistContent .itemPlaylist.active').length == 0) {
             $c.append($container);
         } else {
             $('#playlistContent .itemPlaylist.active').parent().after($container);
