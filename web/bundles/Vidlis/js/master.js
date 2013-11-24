@@ -28,11 +28,11 @@ $(document).ready(function () {
         return false;
     });
     setupCustomScrollbar();
-    $(".itemSearch ").live("click", function () {
+    $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist").live("click", function () {
         addToQueue($(this).data('id'));
     });
-    $(".playButtonRow, .videoName, #suggestionContent .itemPlaylist").live("click", function () {
-        addToQueue($(this).data('id'));
+    $(".readAfter").live("click", function () {
+        addToQueue($(this).data('id'), true);
     });
     $("#playlistContent .itemPlaylist").live("click", function () {
         launch($(this));
@@ -433,7 +433,7 @@ function loadPlayer() {
         "videoDiv", "219", "200", "9", null, null, params, atts);
 }
 
-function addToQueue(id) {
+function addToQueue(id, after) {
     $.ajax({
         url: DOMAIN_NAME + '/addToQueue',
         type: 'post',
@@ -444,12 +444,15 @@ function addToQueue(id) {
             $('.successAddedToQueue').html('Ajout en cours à la playlist');
         },
         success: function (data, textStatus, jqXHR) {
-            formatPlaylist(data.video);
+            formatPlaylist(data.video, after);
         }
     });
 }
 
-function formatPlaylist(video) {
+function formatPlaylist(video, after) {
+    if ( typeof after === 'undefined') {
+        after = false;
+    }
     $.each(video.items, function () {
         $c = $('#playlistContent .mCustomScrollBox .mCSB_container');
         $container = $('<div class="itemContainer ui-state-default" />');
@@ -473,7 +476,11 @@ function formatPlaylist(video) {
         $item.append($nameTitle);
         $container.append($item);
         $container.append($deleteItem);
-        $c.append($container);
+        if (!after) {
+            $c.append($container);
+        } else {
+            $('#playlistContent .itemPlaylist.active').parent().after($container);
+        }
 
         playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
         if (playlistItem.size() == 1) {
