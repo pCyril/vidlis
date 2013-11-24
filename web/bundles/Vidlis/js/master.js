@@ -83,6 +83,9 @@ $(window).resize(function () {
     $('#playlistContent, #suggestionContent').css('height', ($(window).height() - 89) + 'px');
 });
 
+$(".modal .close, .overlay").live('click', function(){
+    $('.modal, .overlay').hide();
+});
 $('body').bind('click', function (e) {
     if ($('.overlay').css('display') == 'block'
         && $(e.target).is('.modal, .modal-dialog')) {
