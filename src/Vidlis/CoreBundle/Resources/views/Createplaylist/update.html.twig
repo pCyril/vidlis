@@ -1,0 +1,44 @@
+<!--<div class="btn-group btn-group-justified">
+    <a href="#" class="btn btn-primary">Création libre</a>
+    <a href="#" class="btn btn-success">Création d'un album</a>
+</div>-->
+
+{% if connected %}
+    {% if updated %}
+    <div class="alert alert-success">Votre playlist a bien été mise à jour.</div>
+        <script>
+            $(document).ready(function(){
+                loadBox($.address.value());
+                $('.modal, .overlay').delay( 800 ).fadeOut();
+            });
+        </script>
+    {% endif %}
+    <form action="{{ path('_formUpdatePlaylist', {'playlistId': playlist.id}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
+        <div class="control-group">
+            <label class="control-label">Nom de la playlist :</label>
+            <div class="controls">
+                {{ form_widget(form.name) }}
+            </div>
+        </div>
+        {% if form.vars.errors|length %}
+        <div class="alert alert-danger">
+            {{ form_errors(form.name) }}
+        </div>
+        {% endif %}
+        <div class="control-group">
+            <div class="controls">
+                <label>
+                {{ form_widget(form.private) }} Rendre cette playlist privé
+                </label>
+            </div>
+        </div>
+        {{ form_rest(form) }}
+        <div class="control-group">
+            <div class="controls">
+                <input type="submit" value="Sauvegarder" class="btn btn-primary">
+            </div>
+        </div>
+    </form>
+{% else %}
+    <div class="alert alert-danger" id="savePlaylist">Vous devez vous connecter pour modifier votre playlist</div>
+{% endif %}

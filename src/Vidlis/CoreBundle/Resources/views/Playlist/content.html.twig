@@ -35,7 +35,7 @@
         {% for playlist in user.playlists %}
         <div class="box330 box-boreder" id="{{ playlist.id }}">
             <div class="boxHeader">
-                <h2>{{ playlist.name }}</h2>
+                <h2>{{ playlist.name }}<a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue"></i></a></h2>
                 <div class="removePl">
                     <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></a>
                 </div>

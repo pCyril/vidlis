@@ -73,6 +73,53 @@ class CreateplaylistController extends Controller
     }
 
     /**
+     * @Route("/update-playlist/{playlistId}", name="_formUpdatePlaylist")
+     * @Template()
+     */
+    public function updateAction($playlistId)
+    {
+        $data['result'] = true;
+        $data['title'] = 'Modification de votre playlist';
+        $updated = false;
+
+        $dataContent = array();
+        if ($this->getUser()) {
+            $dataContent['connected']= true;
+            $dataContent['user']=  $this->getUser();
+        } else {
+            $dataContent['connected']= false;
+        }
+        $em = $this->getDoctrine()->getManager();
+        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($playlistId);
+        $form = $this->createForm(new PlaylistType(), $playlist);
+        if ($this->getRequest()->isMethod('POST')) {
+            $form->handleRequest($this->getRequest());
+            if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
+                if ($form->isValid()) {
+                    $playlist = $form->getData();
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($playlist);
+                    $em->flush();
+                    $updated = true;
+                }
+            } else {
+                $updated = false;
+            }
+            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'updated' => $updated, 'playlist' => $playlist));
+            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:update.html.twig', $dataContent);
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'updated' => $updated, 'playlist' => $playlist));
+            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:update.html.twig', $dataContent);
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+    }
+
+    /**
      * @Route("/add-to-playlist/{idPlaylist}/{vidId}", requirements={"idPlaylist" = "\d+"}, name="_formAddToPlaylist")
      * @Template()
      */

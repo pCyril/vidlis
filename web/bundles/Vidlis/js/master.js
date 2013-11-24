@@ -488,9 +488,9 @@ $.each(video.items, function() {
         $('#vote').css('display', 'block');
         totLike = parseInt(this.statistics.likeCount) + parseInt(this.statistics.dislikeCount);
         $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
+        $('.btn-save').show();
     }
     $('.loadQueue').hide();
-    $('.btn-save').show();
     $('.btn-suggestion').show();
     $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
     $('.successAddedToQueue').delay( 800 ).fadeOut();
