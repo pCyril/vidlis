@@ -32,30 +32,34 @@
     </div>
 
     {% if connected %}
-        {% for playlist in user.playlists %}
-        <div class="box330 box-boreder" id="{{ playlist.id }}">
-            <div class="boxHeader">
-                <h2>{{ playlist.name }}<a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue"></i></a></h2>
-                <div class="removePl">
-                    <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></a>
+        {% if user.playlists|length %}
+            {% for playlist in user.playlists %}
+            <div class="box330 box-boreder" id="{{ playlist.id }}">
+                <div class="boxHeader">
+                    <h2>{{ playlist.name }}<a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue"></i></a></h2>
+                    <div class="removePl">
+                        <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></a>
+                    </div>
+                </div>
+                <div class="boxBody mCustomScrollbarActiv">
+                    {% for item in playlist.items %}
+                        <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %} mine">
+                            <div class="itemNumber">{{ loop.index }}</div>
+                            <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
+                            <div class="videoDuration">{{ item.videoDuration }}</div>
+                            <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+                            <a href="{{ path('_deleteItemPlaylist', {'idPlaylist':playlist.id, 'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="boxFooter dark">
+                    <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
                 </div>
             </div>
-            <div class="boxBody mCustomScrollbarActiv">
-                {% for item in playlist.items %}
-                    <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %} mine">
-                        <div class="itemNumber">{{ loop.index }}</div>
-                        <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
-                        <div class="videoDuration">{{ item.videoDuration }}</div>
-                        <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
-                        <a href="{{ path('_deleteItemPlaylist', {'idPlaylist':playlist.id, 'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="boxFooter dark">
-                <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
-            </div>
-        </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-success" style="margin:10px;">Vous n'avez pas de playlists pour le moment.</div>
+        {% endif %}
     {% else %}
         <div class="alert alert-danger" style="margin:10px;">Vous devez vous identifier pour pouvoir afficher vos playlists.</div>
         <div style="width: 80%; margin:50px auto;">

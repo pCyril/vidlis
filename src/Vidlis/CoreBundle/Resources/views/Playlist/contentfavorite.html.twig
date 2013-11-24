@@ -32,27 +32,31 @@
     </div>
 
     {% if connected %}
-        {% for playlist in user.favoritePlaylists %}
-            <div class="box330 box-boreder" id="{{ playlist.id }}">
-                <div class="boxHeader">
-                    <h2>{{ playlist.name }}</h2>
-                    <div class="playlistCreatorName">Par {{ playlist.user.username }}</div>
+        {% if user.favoritePlaylists|length %}
+            {% for playlist in user.favoritePlaylists %}
+                <div class="box330 box-boreder" id="{{ playlist.id }}">
+                    <div class="boxHeader">
+                        <h2>{{ playlist.name }}</h2>
+                        <div class="playlistCreatorName">Par {{ playlist.user.username }}</div>
+                    </div>
+                    <div class="boxBody mCustomScrollbarActiv">
+                        {% for item in playlist.items %}
+                            <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
+                                <div class="itemNumber">{{ loop.index }}</div>
+                                <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
+                                <div class="videoDuration">{{ item.videoDuration }}</div>
+                                <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="boxFooter dark">
+                        <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
+                    </div>
                 </div>
-                <div class="boxBody mCustomScrollbarActiv">
-                    {% for item in playlist.items %}
-                        <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
-                            <div class="itemNumber">{{ loop.index }}</div>
-                            <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
-                            <div class="videoDuration">{{ item.videoDuration }}</div>
-                            <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="boxFooter dark">
-                    <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-success" style="margin:10px;">Vous ne suivez aucune playlist.</div>
+        {% endif %}
     {% else %}
         <div class="alert alert-danger" style="margin:10px;">Vous devez vous identifier pour pouvoir afficher vos playlists.</div>
     {% endif %}
