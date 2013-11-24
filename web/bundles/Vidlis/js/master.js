@@ -74,6 +74,16 @@ $(document).ready(function () {
         return false;
     });
 });
+
+$('.mouseoverInfo').live('mousemove', function (e) {
+    $('#infoLabel').css('top', (e.pageY - 25) + 'px').css('left', (e.pageX - 25) + 'px').css('display', 'block');
+    $('#infoLabel').html($(e.target).data('info'));
+    console.log($(e.target).data('info'));
+});
+
+$('.mouseoverInfo').live('mouseout', function () {
+    $('#infoLabel').css('display', 'none');
+});
 window.onbeforeunload = function() {
     if ($('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist').length > 0) {
         return 'En quittant cette page vous allez perdre votre playlist en cours';

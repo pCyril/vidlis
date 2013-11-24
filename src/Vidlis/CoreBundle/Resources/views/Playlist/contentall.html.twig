@@ -47,7 +47,7 @@
             <div class="boxFooter dark">
                 {% if connected %}
                     {% if playlist.user.id != user.id %}
-                        <a href="{{ path('_addFavoritePlaylist', {'idPlaylist': playlist.id}) }}" class="toModal addToFavorite"><i class="icon heart blue"></i></a>
+                        <a href="{{ path('_addFavoritePlaylist', {'idPlaylist': playlist.id}) }}" class="toModal addToFavorite"><i class="icon heart blue mouseoverInfo" data-info="Ajouter à mes favoris"></i></a>
                     {% endif %}
                 {% endif %}
                 <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>

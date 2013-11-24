@@ -36,9 +36,9 @@
             {% for playlist in user.playlists %}
             <div class="box330 box-boreder" id="{{ playlist.id }}">
                 <div class="boxHeader">
-                    <h2>{{ playlist.name }}<a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue"></i></a></h2>
+                    <h2>{{ playlist.name }}<a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue mouseoverInfo" data-info="Modifier la playlist"></i></a></h2>
                     <div class="removePl">
-                        <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button></a>
+                        <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close mouseoverInfo" data-info="Supprimer la playlist" data-dismiss="modal" aria-hidden="true">×</button></a>
                     </div>
                 </div>
                 <div class="boxBody mCustomScrollbarActiv">
@@ -48,7 +48,7 @@
                             <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
                             <div class="videoDuration">{{ item.videoDuration }}</div>
                             <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
-                            <a href="{{ path('_deleteItemPlaylist', {'idPlaylist':playlist.id, 'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
+                            <a href="{{ path('_deleteItemPlaylist', {'idPlaylist':playlist.id, 'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue mouseoverInfo" data-info="Supprimer l'élément de la playlist"></i></a>
                         </div>
                     {% endfor %}
                 </div>
