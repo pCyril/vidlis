@@ -235,6 +235,7 @@ class PlaylistController extends AuthController
                     $em = $this->getDoctrine()->getManager();
                     $playlist = new Playlist();
                     $playlist->setName($youtubePlaylist->getSingleResult()->snippet->title);
+                    $playlist->setPrivate(false);
                     $playlist->setUser($this->getUser());
                     $playlist->setCreationDate(new \DateTime());
                     $em->persist($playlist);
