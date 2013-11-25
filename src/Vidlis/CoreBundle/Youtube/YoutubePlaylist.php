@@ -27,7 +27,7 @@ class YoutubePlaylist {
     {
         $url = $this->url.'part='.$this->part
             .'&maxResults='.$this->maxResults
-            .'&id='.$this->playlistId
+            .'&id='.$this->id
             .'&key='.$this->key;
 
         return $url;

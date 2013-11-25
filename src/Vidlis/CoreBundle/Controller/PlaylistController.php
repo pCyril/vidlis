@@ -229,9 +229,7 @@ class PlaylistController extends AuthController
             if ($this->getRequest()->isMethod('POST')) {
                 $playlistIds = $this->getRequest()->request->get('playlistIds');
                 foreach ($playlistIds as $id) {
-                    $youtubePlaylistItems = new YoutubePlaylistItems($id, $this->container->getParameter('memcache_active'));
                     $youtubePlaylist = new YoutubePlaylist($id, $this->container->getParameter('memcache_active'));
-                    $results = $youtubePlaylistItems->getResults();
                     $em = $this->getDoctrine()->getManager();
                     $playlist = new Playlist();
                     $playlist->setName($youtubePlaylist->getSingleResult()->snippet->title);
@@ -240,10 +238,12 @@ class PlaylistController extends AuthController
                     $playlist->setCreationDate(new \DateTime());
                     $em->persist($playlist);
                     $em->flush();
+                    $youtubePlaylistItems = new YoutubePlaylistItems($id, $this->container->getParameter('memcache_active'));
+                    $results = $youtubePlaylistItems->getResults();
                     foreach ($results->items as $item){
                         $playlistItem = new Playlistitem();
                         $playlistItem->setPlaylist($playlist)
-                            ->setIdVideo($item->resourceId->videoId)
+                            ->setIdVideo($item->snippet->resourceId->videoId)
                             ->getVideoInformation($this->container->getParameter('memcache_active'));
                         $em->persist($playlistItem);
                         $em->flush();
