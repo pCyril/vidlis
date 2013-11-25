@@ -664,13 +664,14 @@ function formatSuggestion(video) {
 function auth(connected) {
     if (connected == 'true') {
         $('.reloadAfterAuth').each(function(){
+            var container = $(this).data('container');
             $.ajax({
                 type: 'GET',
                 url: $(this).data('url'),
                 cache: false,
                 dataType: 'html',
                 success: function (data) {
-                    $($(this).data('container')).html(data);
+                    $('.' + container).html(data);
                 }
             }).done(function () {
                 sendFormToAjax();
