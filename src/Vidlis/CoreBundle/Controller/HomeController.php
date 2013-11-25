@@ -31,17 +31,6 @@ class HomeController extends AuthController
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-        } else {
-            if (!$this->getRequest()->getSession()->get('token')) {
-                $this->initialize();
-                $state = mt_rand();
-                $this->client->setState($state);
-                $this->getRequest()->getSession()->set('stateYoutube', $state);
-                $authUrl = $this->client->createAuthUrl();
-                $data['authUrl'] = $authUrl;
-            } else {
-                $data['authUrl'] = '';
-            }
         }
         return $data;
     }

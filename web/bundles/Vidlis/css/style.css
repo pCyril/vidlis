@@ -1140,6 +1140,29 @@ i.icon-large{
     box-shadow: inset 0px -2px 0px 0px #27658d;
 }
 
+
+.btn-red-big {
+    background-color: #c6282c;
+    padding: 10px;
+    border-radius: 4px;
+    font-size:1.3em;
+    color: white;
+    height:60px;
+    moz-box-shadow: inset 0px -3px 0px 0px #b01d13;
+    -webkit-box-shadow: inset 0px -3px 0px 0px #b01d13;
+    -o-box-shadow: inset 0px -3px 0px 0px #b01d13;
+    box-shadow: inset 0px -3px 0px 0px #b01d13;
+}
+
+.btn-red-big:hover {
+    color: white;
+    text-decoration: none;
+    moz-box-shadow: inset 0px -2px 0px 0px #b01d13;
+    -webkit-box-shadow: inset 0px -2px 0px 0px #b01d13;
+    -o-box-shadow: inset 0px -2px 0px 0px #b01d13;
+    box-shadow: inset 0px -2px 0px 0px #b01d13;
+}
+
 .addToFavorite {
     position: absolute;
     top: 21px;
@@ -1216,4 +1239,8 @@ i.icon-large{
 }
 .boxHeader h2:hover .editPlaylistLink {
     display: block;
+}
+
+.textAlignCenter {
+    text-align: center;
 }

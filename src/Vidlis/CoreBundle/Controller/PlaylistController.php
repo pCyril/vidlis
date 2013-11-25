@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 use Vidlis\CoreBundle\Controller\AuthController;
 
 class PlaylistController extends AuthController
@@ -211,6 +212,32 @@ class PlaylistController extends AuthController
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+    /**
+     * @Route("/add-to-favorite", name="_importPlaylist")
+     * @Template()
+     */
+    public function importAction()
+    {
+        $this->initialize();
+        $data = array();
+        if ($this->getRequest()->getSession()->get('token')) {
+            $this->client->setAccessToken($this->getRequest()->getSession()->get('token'));
+            $youtube = new apiYouTubeService($this->client);
+            $playlists = $youtube->playlists->listPlaylists('snippet', array(
+                'mine' => 'true', 'maxResults' => 20
+            ));
+            $data['playlists'] = $playlists;
+        } else {
+            $this->initialize();
+            $state = mt_rand();
+            $this->client->setState($state);
+            $this->getRequest()->getSession()->set('stateYoutube', $state);
+            $authUrl = $this->client->createAuthUrl();
+            $data['authUrl'] = $authUrl;
+        }
+        return $data;
     }
     
 }

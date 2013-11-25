@@ -32,6 +32,13 @@
     </div>
 
     {% if connected %}
+        <div class="textAlignCenter">
+            <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Importer mes playlists Youtube</a>
+        </div>
+    {% endif %}
+
+
+    {% if connected %}
         {% if user.playlists|length %}
             {% for playlist in user.playlists %}
             <div class="box330 box-boreder" id="{{ playlist.id }}">
@@ -58,7 +65,7 @@
             </div>
             {% endfor %}
         {% else %}
-            <div class="alert alert-success" style="margin:10px;">Vous n'avez pas de playlists pour le moment.</div>
+            <div class="alert alert-success" style="margin:20px;">Vous n'avez pas de playlists pour le moment.</div>
         {% endif %}
     {% else %}
         <div class="alert alert-danger" style="margin:10px;">Vous devez vous identifier pour pouvoir afficher vos playlists.</div>

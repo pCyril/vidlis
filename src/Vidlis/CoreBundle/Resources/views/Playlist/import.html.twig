@@ -1,0 +1,16 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">Importer mes playlists Youtube</h4>
+</div>
+<div class="modal-body">
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            {% if authUrl is defined %}
+                <div class="textAlignCenter">
+                    <a href="#" class="btn-red-big" onclick="window.open ('{{ authUrl }}', 'authotentication', config='height=400, width=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no'); return false;">Me connecter à Youtube</a>
+                </div>
+            {% else %}
+            {% endif %}
+        {% else %}
+            <div class="alert alert-danger">Vous devez être connecter pour importer vos playlists</div>
+        {% endif %}
+</div>
