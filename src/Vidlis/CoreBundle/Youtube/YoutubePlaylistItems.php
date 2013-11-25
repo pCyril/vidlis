@@ -6,7 +6,7 @@ use Vidlis\CoreBundle\Memcache\MemcacheService;
 
 class YoutubePlaylistItems {
 
-    private $url = 'https://www.googleapis.com/youtube/v3/search?';
+    private $url = 'https://www.googleapis.com/youtube/v3/playlistItems?';
 
     private $key = 'AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M';
 
