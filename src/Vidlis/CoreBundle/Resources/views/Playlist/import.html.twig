@@ -9,7 +9,16 @@
                     <a href="#" class="btn-red-big" onclick="window.open ('{{ authUrl }}', 'authotentication', config='height=400, width=500, toolbar=no, menubar=no, scrollbars=no, resizable=no, location=no, directories=no, status=no'); return false;">Me connecter à Youtube</a>
                 </div>
             {% else %}
-                <form action="{{ path('_importPlaylist') }}" data-container="modal-body" class="form-horizontal form-ajaxHTML" novalidate>
+                {% if playlistImported is defined %}
+                    <div class="alert alert-success">Vos playlists ont été importées</div>
+                    <script>
+                        $(document).ready(function(){
+                            loadBox($.address.value());
+                            $('.modal, .overlay').delay( 800 ).fadeOut();
+                        });
+                    </script>
+                {% else %}
+                <form action="{{ path('_importPlaylist') }}" data-container="modal-content" class="form-horizontal form-ajaxHTML" novalidate>
                     {% for playlist in playlists.items %}
                         <div class="control-group">
                             <label>
@@ -23,6 +32,7 @@
                         </div>
                     </div>
                 </form>
+                {% endif %}
             {% endif %}
         {% else %}
             <div class="alert alert-danger">Vous devez être connecter pour importer vos playlists</div>

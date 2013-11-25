@@ -7,8 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Vidlis\CoreBundle\Entity\Playlist;
 use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 use Vidlis\CoreBundle\Controller\AuthController;
+use Vidlis\CoreBundle\Youtube\YoutubePlaylistItems;
+use Vidlis\CoreBundle\Youtube\YoutubePlaylist;
 
 class PlaylistController extends AuthController
 {
@@ -215,7 +218,7 @@ class PlaylistController extends AuthController
     }
 
     /**
-     * @Route("/add-to-favorite", name="_importPlaylist")
+     * @Route("/import-playlist", name="_importPlaylist")
      * @Template()
      */
     public function importAction()
@@ -223,12 +226,37 @@ class PlaylistController extends AuthController
         $this->initialize();
         $data = array();
         if ($this->getRequest()->getSession()->get('token')) {
-            $this->client->setAccessToken($this->getRequest()->getSession()->get('token'));
-            $youtube = new apiYouTubeService($this->client);
-            $playlists = $youtube->playlists->listPlaylists('snippet', array(
-                'mine' => 'true', 'maxResults' => 20
-            ));
-            $data['playlists'] = $playlists;
+            if ($this->getRequest()->isMethod('POST')) {
+                $playlistIds = $this->getRequest()->request->get('playlistIds');
+                foreach ($playlistIds as $id) {
+                    $youtubePlaylistItems = new YoutubePlaylistItems($id, $this->container->getParameter('memcache_active'));
+                    $youtubePlaylist = new YoutubePlaylist($id, $this->container->getParameter('memcache_active'));
+                    $results = $youtubePlaylistItems->getResults();
+                    $em = $this->getDoctrine()->getManager();
+                    $playlist = new Playlist();
+                    $playlist->setName($youtubePlaylist->getSingleResult()->snippet->title);
+                    $playlist->setUser($this->getUser());
+                    $playlist->setCreationDate(new \DateTime());
+                    $em->persist($playlist);
+                    $em->flush();
+                    foreach ($results->items as $item){
+                        $playlistItem = new Playlistitem();
+                        $playlistItem->setPlaylist($playlist)
+                            ->setIdVideo($item->resourceId->videoId)
+                            ->getVideoInformation($this->container->getParameter('memcache_active'));
+                        $em->persist($playlistItem);
+                        $em->flush();
+                    }
+                }
+                $data['playlistImported'] = true;
+            } else {
+                $this->client->setAccessToken($this->getRequest()->getSession()->get('token'));
+                $youtube = new apiYouTubeService($this->client);
+                $playlists = $youtube->playlists->listPlaylists('snippet', array(
+                    'mine' => 'true', 'maxResults' => 20
+                ));
+                $data['playlists'] = $playlists;
+            }
         } else {
             $this->initialize();
             $state = mt_rand();

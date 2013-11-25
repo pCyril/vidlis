@@ -4,7 +4,7 @@ namespace Vidlis\CoreBundle\Youtube;
 
 use Vidlis\CoreBundle\Memcache\MemcacheService;
 
-class YoutubePlaylistItems {
+class YoutubePlaylist {
 
     private $url = 'https://www.googleapis.com/youtube/v3/search?';
 
@@ -14,20 +14,20 @@ class YoutubePlaylistItems {
 
     private $maxResults = 50;
 
-    private $playlistId;
+    private $id;
 
     private $memcache_active;
 
     public function __construct($playlistId, $memcache_active) {
-        $this->playlistId = urlencode($playlistId);
+        $this->id = urlencode($playlistId);
         $this->memcache_active = $memcache_active;
     }
 
-    public function getUrlPlaylistItems()
+    public function getUrlPlaylist()
     {
         $url = $this->url.'part='.$this->part
             .'&maxResults='.$this->maxResults
-            .'&playlistId='.$this->playlistId
+            .'&id='.$this->playlistId
             .'&key='.$this->key;
 
         return $url;
@@ -36,13 +36,18 @@ class YoutubePlaylistItems {
     public function getResults()
     {
         $memcache = new MemcacheService($this->memcache_active);
-        $key = 'playlistItemsId_'.$this->playlistId;
+        $key = 'playlistId_'.$this->playlistId;
         $result = $memcache->get($key);
         if (!$result) {
-            $result = json_decode(file_get_contents($this->getUrlPlaylistItems()));
+            $result = json_decode(file_get_contents($this->getUrlPlaylist()));
             $memcache->set($key, $result, 1500);
         }
         return $result;
+    }
+
+    public function getSingleResult(){
+        $results = $this->getResults();
+        return $results->items[0];
     }
 }
 
