@@ -663,9 +663,19 @@ function formatSuggestion(video) {
 
 function auth(connected) {
     if (connected == 'true') {
-        $('.youtubeAuthen').html('Authentifié');
-    } else {
-        $('.youtubeAuthen').html('Echec de l\'authentification');
+        $('.reloadAfterAuth').each(function(){
+            $.ajax({
+                type: 'GET',
+                url: $(this).data('url'),
+                cache: false,
+                dataType: 'html',
+                success: function (data) {
+                    $($(this).data('container')).html(data);
+                }
+            }).done(function () {
+                sendFormToAjax();
+            });
+        });
     }
 }
 
