@@ -1241,6 +1241,10 @@ i.icon-large{
     display: block;
 }
 
-.textAlignCenter {
-    text-align: center;
+.textAlignRight {
+    text-align: right;
+}
+
+.contentRight {
+    margin:10px;
 }

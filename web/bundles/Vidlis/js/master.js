@@ -76,9 +76,9 @@ $(document).ready(function () {
 });
 
 $('.mouseoverInfo').live('mousemove', function (e) {
-    $('#infoLabel').css('top', (e.pageY - 30) + 'px').css('left', (e.pageX - 25) + 'px').css('display', 'block');
+    $('#infoLabel').css('top', ($(e.target).offset().top - 30) + 'px').css('left', ($(e.target).offset().left - 30) + 'px').css('display', 'block');
     $('#infoLabel').html($(e.target).data('info'));
-    console.log($(e.target).data('info'));
+    console.log($(e.target).offset().top);
 });
 
 $('.mouseoverInfo').live('mouseout', function () {
