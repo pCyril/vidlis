@@ -43,7 +43,7 @@
             {% for playlist in user.playlists %}
             <div class="box330 box-boreder" id="{{ playlist.id }}">
                 <div class="boxHeader">
-                    <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/'{{ playlist.id }});  return false;">{{ playlist.name }}</a><a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue mouseoverInfo" data-info="Modifier la playlist"></i></a></h2>
+                    <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a><a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue mouseoverInfo" data-info="Modifier la playlist"></i></a></h2>
                     <div class="removePl">
                         <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close mouseoverInfo" data-info="Supprimer la playlist" data-dismiss="modal" aria-hidden="true">×</button></a>
                     </div>
