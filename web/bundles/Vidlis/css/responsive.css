@@ -3,4 +3,12 @@
         width: 31%;
         margin: 0px 1% 20px 1%;
     }
+
+    .disqus {
+        width:64%;
+        position:relative;
+        float:left;
+        margin: 0px 1% 20px 1%;
+        margin-bottom:20px;
+    }
 }

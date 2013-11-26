@@ -1,24 +1,6 @@
 {% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
 
 <div id="right_content">
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li class="active">
-                    <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;">Toutes les playlists</a>
-                </li>
-                <li>
-                    <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/playlists');  return false;">Mes playlists</a>
-                </li>
-                {% if connected %}
-                    <li>
-                        <a href="{{ url('_homePlaylistsFavorite') }}" onclick="loadBox('/playlists/favoris');  return false;">Mes playlists favorites</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-
     <div class="publicity">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <!-- Playlist -->
@@ -31,11 +13,8 @@
         </script>
     </div>
 
-    {% for playlist in playlists %}
         <div class="box330 box-boreder" id="{{ playlist.id }}">
-            <div class="boxHeader">
-                <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/'{{ playlist.id }});  return false;">{{ playlist.name }}</a></h2>
-            <div class="playlistCreatorName">Par {{ playlist.user.username }}</div></div>
+            <div class="boxHeader"><h2>{{ playlist.name }}</h2><div class="playlistCreatorName">Par {{ playlist.user.username }}</div></div>
             <div class="boxBody mCustomScrollbarActiv">
                 {% for item in playlist.items %}
                     <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
@@ -55,5 +34,21 @@
                 <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
             </div>
         </div>
-    {% endfor %}
+        <div class="disqus box-boreder">
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                var disqus_shortname = 'vidlis'; // required: replace example with your forum shortname
+
+                /* * * DON'T EDIT BELOW THIS LINE * * */
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+            <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+        </div>
 </div>

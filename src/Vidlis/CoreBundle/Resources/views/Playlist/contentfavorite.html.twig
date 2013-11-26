@@ -36,7 +36,7 @@
             {% for playlist in user.favoritePlaylists %}
                 <div class="box330 box-boreder" id="{{ playlist.id }}">
                     <div class="boxHeader">
-                        <h2>{{ playlist.name }}</h2>
+                        <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/'{{ playlist.id }});  return false;">{{ playlist.name }}</a></h2>
                         <div class="playlistCreatorName">Par {{ playlist.user.username }}</div>
                     </div>
                     <div class="boxBody mCustomScrollbarActiv">

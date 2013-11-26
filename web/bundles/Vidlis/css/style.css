@@ -340,6 +340,15 @@ i.icon-large{
     margin-bottom:20px;
 }
 
+.disqus {
+    width:46%;
+    position:relative;
+    float:left;
+    margin: 0px 2% 20px 2%;
+    margin-bottom:20px;
+    padding:20px;
+}
+
 .box680 {
     width:680px;
     height:386px;

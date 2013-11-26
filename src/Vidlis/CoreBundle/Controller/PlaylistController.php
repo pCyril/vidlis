@@ -30,17 +30,6 @@ class PlaylistController extends AuthController
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-        } else {
-            if (!$this->getRequest()->getSession()->get('token')) {
-                $this->initialize();
-                $state = mt_rand();
-                $this->client->setState($state);
-                $this->getRequest()->getSession()->set('stateYoutube', $state);
-                $authUrl = $this->client->createAuthUrl();
-                $data['authUrl'] = $authUrl;
-            } else {
-                $data['authUrl'] = '';
-            }
         }
         return $data;
     }
@@ -71,17 +60,6 @@ class PlaylistController extends AuthController
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-        } else {
-            if (!$this->getRequest()->getSession()->get('token')) {
-                $this->initialize();
-                $state = mt_rand();
-                $this->client->setState($state);
-                $this->getRequest()->getSession()->set('stateYoutube', $state);
-                $authUrl = $this->client->createAuthUrl();
-                $data['authUrl'] = $authUrl;
-            } else {
-                $data['authUrl'] = '';
-            }
         }
         return $data;
     }
@@ -103,6 +81,45 @@ class PlaylistController extends AuthController
     }
 
     /**
+     * @Route("/playlist/{idPlaylist}", name="_commentPlaylist")
+     * @Template()
+     */
+    public function commentAction($idPlaylist)
+    {
+        $data = array();
+        $em = $this->getDoctrine()->getManager();
+        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $data['title'] = $playlist->getName().' - Playlist';
+        if ($this->getRequest()->isMethod('POST')) {
+            $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentcomment.html.twig', $this->contentcommentAction($idPlaylist));
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            $data['idPlaylist'] = $idPlaylist;
+        }
+        return $data;
+    }
+
+    /**
+     * @Template()
+     */
+    public function contentcommentAction($idPlaylist)
+    {
+        $data = array();
+        $em = $this->getDoctrine()->getManager();
+        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $data['playlist'] = $playlist;
+        if ($this->getUser()) {
+            $data['connected'] = true;
+            $data['user'] = $this->getUser();
+        } else {
+            $data['connected'] = false;
+        }
+        return $data;
+    }
+
+    /**
      * @Route("/playlists/favoris", name="_homePlaylistsFavorite")
      * @Template()
      */
@@ -116,17 +133,6 @@ class PlaylistController extends AuthController
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
-        } else {
-            if (!$this->getRequest()->getSession()->get('token')) {
-                $this->initialize();
-                $state = mt_rand();
-                $this->client->setState($state);
-                $this->getRequest()->getSession()->set('stateYoutube', $state);
-                $authUrl = $this->client->createAuthUrl();
-                $data['authUrl'] = $authUrl;
-            } else {
-                $data['authUrl'] = '';
-            }
         }
         return $data;
     }
@@ -259,13 +265,6 @@ class PlaylistController extends AuthController
                 ));
                 $data['playlists'] = $playlists;
             }
-        } else {
-            $this->initialize();
-            $state = mt_rand();
-            $this->client->setState($state);
-            $this->getRequest()->getSession()->set('stateYoutube', $state);
-            $authUrl = $this->client->createAuthUrl();
-            $data['authUrl'] = $authUrl;
         }
         return $data;
     }
