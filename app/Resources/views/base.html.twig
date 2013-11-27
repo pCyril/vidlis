@@ -9,11 +9,20 @@
         <meta name="description" content="{% block description %}{% endblock %}" />
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/png" href="{{ asset('logo.png') }}" />
+        <meta property="fb:app_id" content="483746685074343"/>
         <script type="text/javascript">
             var DOMAIN_NAME = '{{ domain_name }}';
         </script>
     </head>
     <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=483746685074343";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
     <script type="text/javascript">
 
         var _gaq = _gaq || [];
