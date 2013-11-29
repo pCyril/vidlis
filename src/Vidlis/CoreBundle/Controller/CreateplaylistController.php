@@ -10,6 +10,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Vidlis\CoreBundle\Entity\Playlist;
 use Vidlis\CoreBundle\Entity\Playlistitem;
+use Vidlis\CoreBundle\Entity\PlaylistItemQuery;
+use Vidlis\CoreBundle\Entity\PlaylistQuery;
 use Vidlis\CoreBundle\Form\PlaylistType;
 
 class CreateplaylistController extends Controller
@@ -41,15 +43,15 @@ class CreateplaylistController extends Controller
                 $playlist->setUser($this->getUser());
                 $playlist->setCreationDate(new \DateTime());
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($playlist);
-                $em->flush();
+                $playlistQuery = new PlaylistQuery($em);
+                $playlistQuery->persist($playlist);
                 if ($vidId != null) {
                     $playlistItem = new Playlistitem();
                     $playlistItem->setPlaylist($playlist)
                         ->setIdVideo($vidId)
                         ->getVideoInformation($this->container->getParameter('memcache_active'));
-                    $em->persist($playlistItem);
-                    $em->flush();
+                    $playlistItemQuery = new PlaylistItemQuery($em);
+                    $playlistItemQuery->persist($playlistItem);
                     $dataContent['savePlaylist'] = false;
                 } else {
                     $dataContent['savePlaylist'] = true;
@@ -90,16 +92,15 @@ class CreateplaylistController extends Controller
             $dataContent['connected']= false;
         }
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($playlistId);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlist = $playlistQuery->setId($playlistId)->getSingle('playlist_'.$playlistId);
         $form = $this->createForm(new PlaylistType(), $playlist);
         if ($this->getRequest()->isMethod('POST')) {
             $form->handleRequest($this->getRequest());
             if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
                 if ($form->isValid()) {
                     $playlist = $form->getData();
-                    $em = $this->getDoctrine()->getManager();
-                    $em->persist($playlist);
-                    $em->flush();
+                    $playlistQuery->persist($playlist);
                     $updated = true;
                 }
             } else {
@@ -128,14 +129,16 @@ class CreateplaylistController extends Controller
         $data['result'] = true;
         $data['title'] = 'Ajout ce titre à une playlist';
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlistItemQuery = new PlaylistItemQuery($em);
+        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
         $playlistItem = new Playlistitem();
         if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
             $playlistItem->setPlaylist($playlist)
                 ->setIdVideo($vidId)
                 ->getVideoInformation($this->container->getParameter('memcache_active'));
-            $em->persist($playlistItem);
-            $em->flush();
+            $playlistItemQuery->persist($playlistItem);
+            $playlistQuery->prePersist($playlist);
             $result = true;
         } else {
             $result = false;

@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Vidlis\CoreBundle\Entity\Playlist;
 use Vidlis\CoreBundle\Entity\PlaylistItem;
+use Vidlis\CoreBundle\Entity\PlaylistItemQuery;
+use Vidlis\CoreBundle\Entity\PlaylistQuery;
 use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 use Vidlis\CoreBundle\Controller\AuthController;
 use Vidlis\CoreBundle\Youtube\YoutubePlaylistItems;
@@ -70,7 +72,8 @@ class PlaylistController extends AuthController
     public function contentallAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $playlists = $em->getRepository('VidlisCoreBundle:Playlist')->findByPrivate(false);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlists = $playlistQuery->setPrivate(false)->getList('playlist_unprivate');
         if ($this->getUser()) {
             $data = array('user' => $this->getUser(), 'connected' => true);
         } else {
@@ -88,7 +91,8 @@ class PlaylistController extends AuthController
     {
         $data = array();
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
         $data['title'] = $playlist->getName().' - Playlist';
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentcomment.html.twig', $this->contentcommentAction($idPlaylist));
@@ -108,7 +112,8 @@ class PlaylistController extends AuthController
     {
         $data = array();
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
         $data['playlist'] = $playlist;
         if ($this->getUser()) {
             $data['connected'] = true;
@@ -142,14 +147,11 @@ class PlaylistController extends AuthController
      */
     public function contentfavoriteAction()
     {
-        $em = $this->getDoctrine()->getManager();
-        $playlists = $em->getRepository('VidlisCoreBundle:Playlist')->findByPrivate(false);
         if ($this->getUser()) {
             $data = array('user' => $this->getUser(), 'connected' => true);
         } else {
             $data = array('connected' => false);
         }
-        $data['playlists'] = $playlists;
         return $data;
     }
 
@@ -162,10 +164,10 @@ class PlaylistController extends AuthController
         $data['result'] = true;
         $data['title'] = 'Suppression de votre playlist';
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
         if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
-            $em->remove($playlist);
-            $em->flush();
+            $playlistQuery->remove($playlist);
             $result = true;
         } else {
             $result = false;
@@ -186,11 +188,13 @@ class PlaylistController extends AuthController
         $data['result'] = true;
         $data['title'] = 'Suppression de l\'élément';
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
-        $playlistIem = $em->getRepository('VidlisCoreBundle:PlaylistItem')->find($idItem);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlistItemQuery = new PlaylistItemQuery($em);
+        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
+        $playlistIem = $playlistItemQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
         if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
-            $em->remove($playlistIem);
-            $em->flush();
+            $playlistItemQuery->remove($playlistIem);
+            $playlistQuery->prePersist($playlist);
             $result = true;
         } else {
             $result = false;
@@ -210,7 +214,8 @@ class PlaylistController extends AuthController
         $data['result'] = true;
         $data['title'] = 'Ajout aux favoris';
         $em = $this->getDoctrine()->getManager();
-        $playlist = $em->getRepository('VidlisCoreBundle:Playlist')->find($idPlaylist);
+        $playlistQuery = new PlaylistQuery($em);
+        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
         if ($playlist->getUser()->getId() != $this->getUser()->getId()) {
             $this->getUser()->addFavoritePlaylist($playlist);
             $em->flush();
@@ -243,17 +248,18 @@ class PlaylistController extends AuthController
                     $playlist->setPrivate(false);
                     $playlist->setUser($this->getUser());
                     $playlist->setCreationDate(new \DateTime());
-                    $em->persist($playlist);
-                    $em->flush();
+                    $playlistQuery = new PlaylistQuery($em);
+                    $playlistQuery->persist($playlist);
                     $youtubePlaylistItems = new YoutubePlaylistItems($id, $this->container->getParameter('memcache_active'));
                     $results = $youtubePlaylistItems->getResults();
                     foreach ($results->items as $item){
                         $playlistItem = new Playlistitem();
+                        $playlistItemQuery = new PlaylistItemQuery($em);
                         $playlistItem->setPlaylist($playlist)
                             ->setIdVideo($item->snippet->resourceId->videoId)
                             ->getVideoInformation($this->container->getParameter('memcache_active'));
-                        $em->persist($playlistItem);
-                        $em->flush();
+                        $playlistItemQuery->persist($playlistItem);
+                        $playlistQuery->preRemove($playlist);
                     }
                 }
                 $data['playlistImported'] = true;
