@@ -11,9 +11,7 @@ abstract class AbstractQuery extends AbstractCache
 
     private $cacheResults = false;
 
-    private $context;
-
-    private $lifetime = 300;
+    private $lifetime = 84600;
 
     private $em;
 
