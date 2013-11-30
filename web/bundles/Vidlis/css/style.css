@@ -835,7 +835,7 @@ i.icon-large{
 }
 
 #timeSearch {
-    position: absolute;
+    position: fixed;
     top:17px;
     left:300px;
     display: inline-block;

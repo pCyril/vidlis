@@ -44,7 +44,6 @@ $(document).ready(function () {
         $(this).toggleClass('active');
         if ($('.btn-suggestion').hasClass('active')) {
             $('#playlistContent, .btn-save').hide();
-            $('#suggestionContent').show();
             getSuggestion($('.itemPlaylist.active').data('id'));
         } else {
             $('#suggestionContent').hide();
@@ -293,7 +292,13 @@ function updateHTML(elmId, value) {
 
 // This function is called when an error is thrown by the player
 function onPlayerError(errorCode) {
-    alert("An error occured of type:" + errorCode);
+    if (errorCode == 150 || errorCode == 101) {
+        showError("Le propriétaire de la vidéo ne souhaite qu'elle soit lancé en dehors de Youtube.");
+    } else if (errorCode == 100) {
+        showError("L'id de la vidéo n'a pas été trouvé.");
+    } else {
+        showError("Une erreur s'est produite avec le lecteur.");
+    }
 }
 
 // This function is called when the player changes state
@@ -378,9 +383,6 @@ function onYouTubePlayerReady(playerId) {
     $('#preview_b').on('click', function () {
         preview();
     });
-    $('#seekbar').on('click', function () {
-        playVideo();
-    });
     $('.btn-trash').on('click', function () {
         clearPlaylist();
     });
@@ -394,14 +396,14 @@ function onYouTubePlayerReady(playerId) {
         var widthSeek = $('#seekbar').width();
         ytplayer.seekTo(Math.round(ytplayer.getDuration() * (eLeft / widthSeek)));
     });
-    $('#preload,#play').mousemove(function (event) {
+    $('#preload,#play').live('mousemove',function (event) {
         eLeft = event.pageX - $('#seekbar').offset().left;
         var widthSeek = $('#seekbar').width();
         $('#timeSearch').html(getTime(Math.round(ytplayer.getDuration() * (eLeft / widthSeek))));
         $('#timeSearch').css('display', 'block');
         $('#timeSearch').css('left', (event.pageX - ($('#timeSearch').width() / 2)) + 'px');
     });
-    $('#preload,#play').mouseout(function () {
+    $('#preload,#play').live('mouseout', function () {
         $('#timeSearch').css('display', 'none');
     });
     $('#bar_v,#current_v').on('click', function (event) {
@@ -494,6 +496,10 @@ function formatPlaylist(video, after) {
             totLike = parseInt(this.statistics.likeCount) + parseInt(this.statistics.dislikeCount);
             $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
             $('.btn-save').show();
+            if (!$('.closeShowPlaylist').hasClass('open')) {
+                $('#playlistContent, .underVideo, .closeShowPlaylist, #suggestionContent').toggleClass('open', 500);
+                $('.closeShowPlaylist').html('<');
+            }
         }
         $('.loadQueue').hide();
         $('.btn-suggestion').show();
@@ -530,19 +536,11 @@ function next() {
         $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
         ytplayer.playVideo();
         $(element).addClass('active');
-        return true;
-    } else {
-        if ($(".btn-repeat").hasClass('active')) {
-            element = $('.itemPlaylist').first();
-            $('.itemPlaylist.active').removeClass('active');
-            ytplayer.cueVideoById(element.data('id'));
-            $('#title').html(element.data('title'));
-            $('#vote .like').css('width', Math.round(element.data('likecount') / (element.data('likecount') + element.data('dislikecount')) * 100) + '%');
-            $('#viewCount span').html(makeSeperator(element.data('viewcount'), ' '));
-            ytplayer.playVideo();
-            element.addClass('active');
-            return true;
+
+        if ($('.btn-suggestion').hasClass('active')) {
+            getSuggestion($(element).data('id'));
         }
+        return true;
     }
     return false;
 }
@@ -557,6 +555,10 @@ function preview() {
         $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
         ytplayer.playVideo();
         $(element).addClass('active');
+        if ($('.btn-suggestion').hasClass('active')) {
+            getSuggestion($(element).data('id'));
+        }
+        return true;
     }
 }
 
@@ -614,6 +616,7 @@ function deleteItem(element) {
 }
 
 function getSuggestion(id) {
+    $('#suggestionContent').show();
     $c = $('#suggestionContent .mCustomScrollBox .mCSB_container');
     $c.html('');
     $.ajax({
