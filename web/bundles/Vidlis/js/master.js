@@ -32,6 +32,7 @@ $(document).ready(function () {
         addToQueue($(this).data('id'));
         if ($('.btn-suggestion').hasClass('active')) {
             $('#suggestionContent').hide();
+            $('.btn-suggestion').removeClass('active');
             $('#playlistContent, .btn-save').show();
         }
     });
