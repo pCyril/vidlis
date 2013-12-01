@@ -271,6 +271,13 @@ class PlaylistController extends AuthController
                 ));
                 $data['playlists'] = $playlists;
             }
+        } else {
+            $this->initialize();
+            $state = mt_rand();
+            $this->client->setState($state);
+            $this->getRequest()->getSession()->set('stateYoutube', $state);
+            $authUrl = $this->client->createAuthUrl();
+            $data['authUrl'] = $authUrl;
         }
         return $data;
     }
