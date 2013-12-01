@@ -738,6 +738,23 @@ i.icon-large{
     background-color: #F5F5F5;
 }
 
+.itemSearch:hover .buttonPlay{
+    display:block;
+}
+.itemSearch .buttonPlay:hover {
+    background-position: -44px 0px;
+}
+
+.itemSearch .buttonPlay {
+    position: absolute;
+    top: 45px;
+    left: 87px;
+    width: 44px;
+    height: 44px;
+    display: none;
+    background-image: url('../images/buttonPlay.png');
+}
+
 .relative:hover .itemSub {
     display:block;
 }
@@ -807,6 +824,25 @@ i.icon-large{
 .itemPlaylist:hover {
     border-color: #353535;
     background: #353535;
+}
+
+.itemPlaylist:hover .buttonPlayPlaylist, .itemPlaylist:hover .buttonPlaySuggestion {
+    display: block;
+}
+
+.buttonPlayPlaylist, .buttonPlaySuggestion {
+    position: absolute;
+    display: none;
+    top: 18px;
+    left: 27px;
+    background-image: url('../images/buttonPlay.png');
+    width: 30px;
+    height: 30px;
+    background-position: 0px -132px;
+}
+
+.buttonPlaySuggestion {
+    background-position: 0px -162px;
 }
 
 .titlePlaylist {

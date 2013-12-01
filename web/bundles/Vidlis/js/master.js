@@ -30,6 +30,10 @@ $(document).ready(function () {
     setupCustomScrollbar();
     $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist").live("click", function () {
         addToQueue($(this).data('id'));
+        if ($('.btn-suggestion').hasClass('active')) {
+            $('#suggestionContent').hide();
+            $('#playlistContent, .btn-save').show();
+        }
     });
     $(".readAfter").live("click", function () {
         addToQueue($(this).data('id'), true);
@@ -460,6 +464,7 @@ function formatPlaylist(video, after) {
         $container = $('<div class="itemContainer ui-state-default" />');
         $item = $('<div class="itemPlaylist" data-id="' + this.id + '" data-viewcount="' + this.statistics.viewCount + '" data-title="' + this.snippet.title.replace(/"/g, "&quot;") + '" data-channelid="' + this.snippet.title.channelId + '" data-likecount="' + this.statistics.likeCount + '" data-dislikecount="' + this.statistics.dislikeCount + '"/>');
         $nameTitle = $('<div class="titlePlaylist"/>');
+        $playIcon = $('<div class="buttonPlayPlaylist"/>');
         $deleteItem = $('<div class="deleteItemPlaylist"/>');
 
         len = this.snippet.title.length;
@@ -476,6 +481,7 @@ function formatPlaylist(video, after) {
         $thumb.html('<img src="' + this.snippet.thumbnails.default.url + '" width="64px" />');
         $item.append($thumb);
         $item.append($nameTitle);
+        $item.append($playIcon);
         $container.append($item);
         $container.append($deleteItem);
         if (!after || $('#playlistContent .itemPlaylist.active').length == 0) {
@@ -641,6 +647,7 @@ function formatSuggestion(video) {
         $container = $('<div class="itemContainer ui-state-default" />');
         $item = $('<div class="itemPlaylist" data-id="' + this.id.videoId + '" data-title="' + this.snippet.title.replace(/"/g, "&quot;") + '" data-channelid="' + this.snippet.title.channelId + '"/>');
         $nameTitle = $('<div class="titlePlaylist"/>');
+        $playIcon = $('<div class="buttonPlaySuggestion"/>');
 
         len = this.snippet.title.length;
         if (len > 46) {
@@ -655,6 +662,7 @@ function formatSuggestion(video) {
         $thumb = $('<div class="thumbPlaylist"/>');
         $thumb.html('<img src="' + this.snippet.thumbnails.default.url + '" width="64px" />');
         $item.append($thumb);
+        $item.append($playIcon);
         $item.append($nameTitle);
         $container.append($item);
         $c.append($container);

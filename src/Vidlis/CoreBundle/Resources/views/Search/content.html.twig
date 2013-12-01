@@ -8,6 +8,7 @@
                     <div class="itemInfos"></div>
                     <div class="itemTitleSearch">{{ item.snippet.title }}</div>
                     <div class="itemDescriptionSearch">{{ item.snippet.description|makeClickable }}</div>
+                    <div class="buttonPlay"></div>
                 </div>
                 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                 <div class="itemSub">
