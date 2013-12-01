@@ -833,7 +833,7 @@ i.icon-large{
 .buttonPlayPlaylist, .buttonPlaySuggestion {
     position: absolute;
     display: none;
-    top: 18px;
+    top: 19px;
     left: 27px;
     background-image: url('../images/buttonPlay.png');
     width: 30px;

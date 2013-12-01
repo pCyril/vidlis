@@ -22,12 +22,6 @@ class SuggestionController extends Controller
     {
         $data = array();
         if ($this->getRequest()->isMethod('POST')) {
-            $played = new Played();
-            $played->setIdVideo($this->getRequest()->request->get('videoid'));
-            $played->setDatePlayed(new \DateTime());
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($played);
-            $em->flush();
             $video = new YoutubeSuggestion($this->getRequest()->request->get('videoid'), $this->container->getParameter('memcache_active'));
             $data['suggestion'] = $video->getResults();
             $response = new Response(json_encode($data));
