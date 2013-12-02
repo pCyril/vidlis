@@ -35,4 +35,20 @@ class QueueController extends Controller
             return $response;
         }
     }
+
+    /**
+     * @Route("/getVideoInfo/{videoId}", name="_getInfoVideo")
+     * @Template()
+     */
+    public function getinfovideoAction($videoId)
+    {
+        $data = array();
+        if ($this->getRequest()->isMethod('POST')) {
+            $video = new YoutubeVideo($videoId, $this->container->getParameter('memcache_active'));
+            $data['video'] = $video->getResult();
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+    }
 }

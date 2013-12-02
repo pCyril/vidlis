@@ -29,6 +29,7 @@
         <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.mCustomScrollbar.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/master.js') }}"></script>
+        <script type="text/javascript" src="http://localhost:8080/socket.io/socket.io.js"></script>
     	<script>
 	(function () {
 		$.address.crawlable(1).state('{{ crawlable }}').init(function () {
@@ -73,6 +74,46 @@
                 return false;
             }
         });
+    }
+    // On se connecte au serveur
+    var socket = io.connect('http://localhost:8080/');
+    socket.on('getLaunched', function (info) {
+        console.log(info.videoId);
+        $.ajax({
+            url: '{{ domain_name }}/getVideoInfo/'+info.videoId ,
+            type: 'POST',
+            dataType: 'json',
+            cache: true,
+            success: function (data) {
+                $.each(data.video.items, function () {
+                    $c = $('body');
+                    $container = $('<div class="launched" />');
+                    $item = $('<div class="itemLaunched" data-id="' + this.id + '" data-viewcount="' + this.statistics.viewCount + '" data-title="' + this.snippet.title.replace(/"/g, "&quot;") + '" data-channelid="' + this.snippet.title.channelId + '" data-likecount="' + this.statistics.likeCount + '" data-dislikecount="' + this.statistics.dislikeCount + '"/>');
+                    $nameTitle = $('<div class="titleLaunched"/>');
+                    len = this.snippet.title.length;
+                    if (len > 46) {
+                        title = (this.snippet.title.substr(0, 40) + ' ...');
+                    } else {
+                        title = this.snippet.title;
+                    }
+                    $nameTitle.html(title);
+                    $nameChannel = $('<div class="channelLaunched"/>');
+                    $nameChannel.html('De ' + this.snippet.channelTitle);
+                    $nameTitle.append($nameChannel);
+                    $thumb = $('<div class="thumbLaunched"/>');
+                    $thumb.html('<img src="' + this.snippet.thumbnails.default.url + '" width="64px" />');
+                    $item.append($thumb);
+                    $item.append($nameTitle);
+                    $container.append($item);
+                    $c.append($container);
+                    $('.itemLaunched').delay(3000).fadeOut();
+                });
+            }
+        });
+    });
+    function launched(videoId) {
+        socket.emit('launch', {'videoId': videoId, 'pseudo': $('#nameUser').val()});
+        return false;
     }
         </script>
 {% endblock %}

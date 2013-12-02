@@ -1293,3 +1293,36 @@ i.icon-large{
 .contentRight {
     margin:10px;
 }
+
+
+
+
+.itemLaunched {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 250px;
+    padding: 10px;
+    background-color: #262626;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.titleLaunched {
+    color: #fff;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 3px 0px;
+    position: absolute;
+    top: 5px;
+    left: 80px;
+}
+
+.channelLaunched {
+    font-size: 11px;
+    color: #9E9E9E;
+    text-shadow: 0 1px 0 #000;
+    line-height: 1.4em;
+    height: 1.4em;
+    white-space: nowrap;
+}

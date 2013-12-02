@@ -28,7 +28,7 @@ $(document).ready(function () {
         return false;
     });
     setupCustomScrollbar();
-    $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist").live("click", function () {
+    $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist, .itemLaunched").live("click", function () {
         addToQueue($(this).data('id'));
         if ($('.btn-suggestion').hasClass('active')) {
             $('#suggestionContent').hide();
@@ -494,6 +494,7 @@ function formatPlaylist(video, after) {
         playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
         if (playlistItem.size() == 1) {
             ytplayer.cueVideoById(this.id);
+            launched(this.id);
             $('#title').html(this.snippet.title);
             ytplayer.playVideo();
             $item.addClass('active');
@@ -524,6 +525,7 @@ function _run() {
 function launch(element) {
     $('.itemPlaylist.active').removeClass('active');
     ytplayer.cueVideoById(element.data('id'));
+    launched(element.data('id'));
     $('#title').html(element.data('title'));
     $('#viewCount span').html(makeSeperator(element.data('viewcount'), ' '));
     $('#vote .like').css('width', Math.round(element.data('likecount') / (element.data('likecount') + element.data('dislikecount')) * 100) + '%');
@@ -538,6 +540,7 @@ function next() {
     if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
         ytplayer.cueVideoById($(element).data('id'));
+        launched($(element).data('id'));
         $('#title').html($(element).data('title'));
         $('#vote .like').css('width', Math.round($(element).data('likecount') / ($(element).data('likecount') + $(element).data('dislikecount')) * 100) + '%');
         $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
@@ -557,6 +560,7 @@ function preview() {
     if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
         ytplayer.cueVideoById($(element).data('id'));
+        launched($(element).data('id'));
         $('#title').html($(element).data('title'));
         $('#vote .like').css('width', Math.round($(element).data('likecount') / ($(element).data('likecount') + $(element).data('dislikecount')) * 100) + '%');
         $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
