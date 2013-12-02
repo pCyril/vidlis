@@ -76,9 +76,8 @@
         });
     }
     // On se connecte au serveur
-    var socket = io.connect('http://localhost:8080/');
+    var socket = io.connect('37.59.63.129:8080/');
     socket.on('getLaunched', function (info) {
-        console.log(info.videoId);
         $.ajax({
             url: '{{ domain_name }}/getVideoInfo/'+info.videoId ,
             type: 'POST',
