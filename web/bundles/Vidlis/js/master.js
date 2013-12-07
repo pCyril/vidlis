@@ -177,7 +177,7 @@ $(".toModal").live('click', function () {
             },
             error: function () {
                 $(".modal-header h3").html('Oups :\'(');
-                $(".modal-body").html('Une erreur c\'est produite');
+                $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
             }
         }).done(function () {
                 sendFormToAjax();
@@ -205,7 +205,7 @@ $(".toModalHTML").live('click', function () {
             },
             error: function () {
                 $(".modal-header h3").html('Oups :\'(');
-                $(".modal-body").html('Une erreur c\'est produite');
+                $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
             }
         }).done(function () {
                 sendFormToAjax();
@@ -319,7 +319,7 @@ function updateHTML(elmId, value) {
 // This function is called when an error is thrown by the player
 function onPlayerError(errorCode) {
     if (errorCode == 150 || errorCode == 101) {
-        showError("Le propriétaire de la vidéo ne souhaite qu'elle soit lancé en dehors de Youtube.");
+        showError("Le propriétaire de la vidéo ne souhaite qu'elle soit lancée en dehors de Youtube.");
     } else if (errorCode == 100) {
         showError("L'id de la vidéo n'a pas été trouvé.");
     } else {
