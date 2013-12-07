@@ -29,7 +29,7 @@
         <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.mCustomScrollbar.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/bootstrap.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/master.js') }}"></script>
-        <script type="text/javascript" src="http://localhost:8080/socket.io/socket.io.js"></script>
+        <script type="text/javascript" src="http://37.59.63.129:8080/socket.io/socket.io.js"></script>
     	<script>
 	(function () {
 		$.address.crawlable(1).state('{{ crawlable }}').init(function () {
@@ -80,7 +80,7 @@
         videoId : ''
     };
     // On se connecte au serveur
-    var socket = io.connect('http://localhost:8080/');
+    var socket = io.connect('http://37.59.63.129:8080/');
     socket.on('getLaunched', function (info) {
         $('#'+info.id).remove();
         $.ajax({
