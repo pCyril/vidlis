@@ -821,16 +821,16 @@ i.icon-large{
     background: #4f4f4f;
 }
 
-.itemPlaylist:hover {
+.itemPlaylist:hover, .itemLaunched:hover {
     border-color: #353535;
     background: #353535;
 }
 
-.itemPlaylist:hover .buttonPlayPlaylist, .itemPlaylist:hover .buttonPlaySuggestion {
+.itemPlaylist:hover .buttonPlayPlaylist, .itemPlaylist:hover .buttonPlaySuggestion, .itemLaunched:hover .buttonPlaying {
     display: block;
 }
 
-.buttonPlayPlaylist, .buttonPlaySuggestion {
+.buttonPlayPlaylist, .buttonPlaySuggestion, .buttonPlaying {
     position: absolute;
     display: none;
     top: 19px;
@@ -841,7 +841,7 @@ i.icon-large{
     background-position: 0px -132px;
 }
 
-.buttonPlaySuggestion {
+.buttonPlaySuggestion, .buttonPlaying {
     background-position: 0px -162px;
 }
 
@@ -1294,17 +1294,14 @@ i.icon-large{
     margin:10px;
 }
 
-
-
-
 .itemLaunched {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    width: 250px;
+    position: relative;
     padding: 10px;
     background-color: #262626;
-    border-radius: 4px;
+    border-top: 1px solid #393939;
+    border-bottom: 1px solid #1d1d1d;
+    border-left: 1px solid #1d1d1d;
+    border-right: 1px solid #1d1d1d;
     cursor: pointer;
 }
 
@@ -1325,4 +1322,49 @@ i.icon-large{
     line-height: 1.4em;
     height: 1.4em;
     white-space: nowrap;
+}
+
+.infoPlayed {
+    position: fixed;
+    bottom: -300px;
+    right: 20px;
+    width: 350px;
+    height: 300px;
+    padding: 10px;
+    background-color: #262626;
+    border-top-left-radius: 4px;
+}
+.infoPlayed h2 {
+    margin: 0px 0px 10px 0px;
+    color: #ccc;
+    font-size: 1.3em;
+}
+
+.infoPlayed.open {
+    bottom: 0px;
+}
+.showPlaying.open {
+    bottom: 300px;
+}
+
+.showPlaying {
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background-color: #262626;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #ccc;
+    text-align: center;
+    cursor: pointer;
+}
+
+.infoPlayed .contentPlayed {
+    height: 263px;
+    width: 330px;
+    overflow: auto;
 }

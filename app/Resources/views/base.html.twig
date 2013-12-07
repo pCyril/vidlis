@@ -39,6 +39,11 @@
     </script>
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
-        <input type="hidden" value="Anonyme" id="nameUser">
+        <div class="showPlaying">+</div>
+        <div class="infoPlayed">
+            <h2>Qui écoute quoi ?</h2>
+            <div class="contentPlayed mCustomScrollbarExist">
+            </div>
+        </div>
     </body>
 </html>

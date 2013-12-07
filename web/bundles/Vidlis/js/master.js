@@ -17,6 +17,14 @@ $(document).ready(function () {
             $('.closeShowPlaylist').html('<');
         }
     });
+    $('.showPlaying').live('click', function () {
+        $('.infoPlayed, .showPlaying').toggleClass('open', 500);
+        if ($('.showPlaying').hasClass('open')) {
+            $('.showPlaying').html('+');
+        } else {
+            $('.showPlaying').html('-');
+        }
+    });
     $('.formSearchHome').live('submit', function () {
         if ($('#q').val()) {
             url = '/search/' + encodeURIComponent($('#q').val());
@@ -28,6 +36,16 @@ $(document).ready(function () {
         return false;
     });
     setupCustomScrollbar();
+    $(".mCustomScrollbarExist").each(function () {
+        $(this).mCustomScrollbar(
+            {
+                scrollInertia: 0,
+                advanced:{
+                    updateOnContentResize: true
+                }
+            }
+        );
+    });
     $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist, .itemLaunched").live("click", function () {
         addToQueue($(this).data('id'));
         if ($('.btn-suggestion').hasClass('active')) {
@@ -89,6 +107,9 @@ $('.mouseoverInfo').live('mouseout', function () {
     $('#infoLabel').css('display', 'none');
 });
 window.onbeforeunload = function() {
+    if (typeof socket != 'undefined') {
+        socket.disconnect();
+    }
     if ($('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist').length > 0) {
         return 'En quittant cette page vous allez perdre votre playlist en cours';
     }
