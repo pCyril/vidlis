@@ -32,7 +32,7 @@ class YoutubePlaylistItems {
     {
         $url = $this->url.'part='.$this->part
             .'&maxResults='.$this->maxResults
-            .'&playlistId='.$this->playlistId
+            .'&playlistId='.$this->idPlaylist
             .'&key='.$this->key;
 
         return $url;

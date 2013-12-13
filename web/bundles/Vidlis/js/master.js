@@ -723,7 +723,7 @@ function showError(message) {
 
 function formatPlayingList(info) {
     $.ajax({
-        url: '{{ domain_name }}/getVideoInfo/'+info.videoId ,
+        url: DOMAIN_NAME + '/getVideoInfo/'+info.videoId ,
         type: 'POST',
         dataType: 'json',
         cache: true,
