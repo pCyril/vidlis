@@ -15,7 +15,6 @@ class AuthController extends Controller
 
     /**
      * @Route("/authconfirmation", name="_youtubeauthentication")
-     * @Template()
      */
     public function authAction()
     {
@@ -40,7 +39,7 @@ class AuthController extends Controller
         }
         
         $data['auth'] = $auth;
-        return $data;
+        return $this->render('VidlisCoreBundle:Auth:auth.html.twig', $data);
     }
     
     public function initialize() {
