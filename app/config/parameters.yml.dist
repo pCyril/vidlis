@@ -14,6 +14,11 @@ parameters:
     locale:            fr
     secret:            ThisTokenIsNotSoSecretChangeIt
     memcache_active: true
+    hostMemcache: localhost
+    portMemcache: 11211
+    youtubeAPIKey:
+    OAUTH2_CLIENT_ID:
+    OAUTH2_CLIENT_SECRET:
 
 twig:
     globals:
