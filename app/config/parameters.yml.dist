@@ -1,26 +1,29 @@
 parameters:
-    database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     vidlis
-    database_user:     root
-    database_password: toor
+    database_driver:        pdo_mysql
+    database_host:          127.0.0.1
+    database_port:          ~
+    database_name:          vidlis
+    database_user:          root
+    database_password:      toor
 
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
+    mailer_transport:       smtp
+    mailer_host:            127.0.0.1
+    mailer_user:            ~
+    mailer_password:        ~
 
-    locale:            fr
-    secret:            ThisTokenIsNotSoSecretChangeIt
-    memcache_active: true
-    hostMemcache: localhost
-    portMemcache: 11211
-    youtubeAPIKey:
-    OAUTH2_CLIENT_ID:
-    OAUTH2_CLIENT_SECRET:
+    locale:                 fr
+    secret:                 ThisTokenIsNotSoSecretChangeIt
+    memcache_active:        true
+    hostMemcache:           localhost
+    portMemcache:           11211
+    youtubeAPIKey:          ~
+    OAUTH2_CLIENT_ID:       ~
+    OAUTH2_CLIENT_SECRET:   ~
+    urlNode:                localhost:8080
 
 twig:
     globals:
-        crawlable: "/app_dev.php"
-        domain_name: "http://vidlis.local/app_dev.php"
+        crawlable:          "/app_dev.php"
+        domain_name:        "http://vidlis.local/app_dev.php"
+        urlNode:            %urlNode%
+        ua_google_analytics: ""

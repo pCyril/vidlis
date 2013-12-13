@@ -18,6 +18,7 @@ parameters:
     youtubeAPIKey: AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M
     OAUTH2_CLIENT_ID: 645324087510.apps.googleusercontent.com
     OAUTH2_CLIENT_SECRET: r-fE2OtqjhEmWedynoFRzoaa
+    urlNode: localhost:8080
 
 
 twig:
@@ -25,3 +26,4 @@ twig:
         crawlable: "/app_dev.php"
         ua_google_analytics: ""
         domain_name: "http://vidlis.local/app_dev.php"
+        urlNode:      %urlNode%

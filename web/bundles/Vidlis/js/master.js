@@ -720,3 +720,46 @@ function auth(connected) {
 function showError(message) {
     $('.errorMessage').html(message).show().delay(3000).fadeOut();
 }
+
+function formatPlayingList(info) {
+    $.ajax({
+        url: '{{ domain_name }}/getVideoInfo/'+info.videoId ,
+        type: 'POST',
+        dataType: 'json',
+        cache: true,
+        success: function (data) {
+            $.each(data.video.items, function () {
+                $c = $('.infoPlayed .contentPlayed .mCSB_container');
+                $container = $('<div class="launched" id="'+info.id+'"  />');
+                $item = $('<div class="itemLaunched" data-id="' + this.id + '" data-viewcount="' + this.statistics.viewCount + '" data-title="' + this.snippet.title.replace(/"/g, "&quot;") + '" data-channelid="' + this.snippet.title.channelId + '" data-likecount="' + this.statistics.likeCount + '" data-dislikecount="' + this.statistics.dislikeCount + '"/>');
+                $nameTitle = $('<div class="titleLaunched"/>');
+                $playIcon = $('<div class="buttonPlaying"/>');
+                len = this.snippet.title.length;
+                if (len > 46) {
+                    title = (this.snippet.title.substr(0, 40) + ' ...');
+                } else {
+                    title = this.snippet.title;
+                }
+                $nameTitle.html(title);
+                $nameChannel = $('<div class="channelLaunched"/>');
+                $nameChannel.html('De ' + this.snippet.channelTitle);
+                $nameTitle.append($nameChannel);
+                $thumb = $('<div class="thumbLaunched"/>');
+                $thumb.html('<img src="' + this.snippet.thumbnails.default.url + '" width="64px" />');
+                $item.append($thumb);
+                $item.append($playIcon);
+                $item.append($nameTitle);
+                $container.append($item);
+                $c.prepend($container);
+            });
+        }
+    });
+}
+
+function launched(videoId) {
+    if (typeof socket != 'undefined') {
+        user.videoId = videoId
+        socket.emit('launch', user);
+    }
+    return false;
+}

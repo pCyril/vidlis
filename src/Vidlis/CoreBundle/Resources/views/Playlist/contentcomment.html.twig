@@ -1,6 +1,7 @@
 {% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
 
 <div id="right_content">
+    {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': ''} %}
     {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
     <div class="box330 box-boreder" id="{{ playlist.id }}">
         <div class="boxHeader"><h2>{{ playlist.name }}</h2><div class="playlistCreatorName">Par {{ playlist.user.username }}</div></div>
