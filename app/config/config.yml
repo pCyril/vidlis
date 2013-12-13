@@ -71,12 +71,27 @@ swiftmailer:
     username:  %mailer_user%
     password:  %mailer_password%
     spool:     { type: memory }
-    
+
 services:
-    my.listener:
-        class: Vidlis\CoreBundle\Listener\EntityListener
-        tags:
-            - { name: doctrine.event_listener, event: postLoad, method: postLoad, connection: default }
+    memcache:
+        class: Vidlis\CoreBundle\Memcache\MemcacheService
+        arguments:    ["%memcache_active%", "%hostMemcache%", "%portMemcache%"]
+    youtubePlaylist:
+        class: Vidlis\CoreBundle\Youtube\YoutubePlaylist
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubePlaylistItems:
+        class: Vidlis\CoreBundle\Youtube\YoutubePlaylistItems
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeVideo:
+        class: Vidlis\CoreBundle\Youtube\YoutubeVideo
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeSearch:
+        class: Vidlis\CoreBundle\Youtube\YoutubeSearch
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeSuggestion:
+        class: Vidlis\CoreBundle\Youtube\YoutubeSuggestion
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+
 
 fos_user:
     db_driver: orm

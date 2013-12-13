@@ -1,46 +1,35 @@
 {% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
 
 <div id="right_content">
-    <div class="publicity">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Playlist -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-8877688962043608"
-             data-ad-slot="9005035845"></ins>
+    {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
+    <div class="box330 box-boreder" id="{{ playlist.id }}">
+        <div class="boxHeader"><h2>{{ playlist.name }}</h2><div class="playlistCreatorName">Par {{ playlist.user.username }}</div></div>
+        <div class="boxBody mCustomScrollbarActiv">
+            {% for item in playlist.items %}
+                <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
+                    <div class="itemNumber">{{ loop.index }}</div>
+                    <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
+                    <div class="videoDuration">{{ item.videoDuration }}</div>
+                    <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="boxFooter dark">
+            {% if connected %}
+                {% if playlist.user.id != user.id %}
+                    <a href="{{ path('_addFavoritePlaylist', {'idPlaylist': playlist.id}) }}" class="toModal addToFavorite"><i class="icon heart blue"></i></a>
+                {% endif %}
+            {% endif %}
+            <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
+        </div>
+    </div>
+    <div class="disqus box-boreder">
+        <div id="disqus_thread"></div>
         <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
+            $('document').ready(function(){
+                $('.disqus').append('<div class="fb-comments" data-href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" data-width="' + $('.disqus').width() + '" data-numposts="5" data-colorscheme="light"></div>')
+                FB.XFBML.parse();
+            });
         </script>
     </div>
-
-        <div class="box330 box-boreder" id="{{ playlist.id }}">
-            <div class="boxHeader"><h2>{{ playlist.name }}</h2><div class="playlistCreatorName">Par {{ playlist.user.username }}</div></div>
-            <div class="boxBody mCustomScrollbarActiv">
-                {% for item in playlist.items %}
-                    <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
-                        <div class="itemNumber">{{ loop.index }}</div>
-                        <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
-                        <div class="videoDuration">{{ item.videoDuration }}</div>
-                        <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
-                    </div>
-                {% endfor %}
-            </div>
-            <div class="boxFooter dark">
-                {% if connected %}
-                    {% if playlist.user.id != user.id %}
-                        <a href="{{ path('_addFavoritePlaylist', {'idPlaylist': playlist.id}) }}" class="toModal addToFavorite"><i class="icon heart blue"></i></a>
-                    {% endif %}
-                {% endif %}
-                <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
-            </div>
-        </div>
-        <div class="disqus box-boreder">
-            <div id="disqus_thread"></div>
-            <script>
-                $('document').ready(function(){
-                    $('.disqus').append('<div class="fb-comments" data-href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" data-width="' + $('.disqus').width() + '" data-numposts="5" data-colorscheme="light"></div>')
-                    FB.XFBML.parse();
-                });
-            </script>
-        </div>
 </div>

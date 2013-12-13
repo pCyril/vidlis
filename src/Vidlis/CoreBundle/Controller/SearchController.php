@@ -3,16 +3,12 @@
 namespace Vidlis\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-
-// these import the "@Route" and "@Template" annotations
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Vidlis\CoreBundle\Youtube\YoutubeSearch;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Vidlis\CoreBundle\Controller\AuthController;
-
-class SearchController extends AuthController
+class SearchController extends Controller
 {
     /**
      * @Route("/search/{searchValue}", name="_homeSearch", requirements={"searchValue" = ".+"})
@@ -39,8 +35,7 @@ class SearchController extends AuthController
     {
     	$data = array();
         $data['searchValue'] = $searchValue;
-        $search = new YoutubeSearch($searchValue, $this->container->getParameter('memcache_active'));
-        $data['resultsSearch'] = $search->getResults();
+        $data['resultsSearch'] = $this->get('youtubeSearch')->setQuery($searchValue)->getResults();
         $data['user'] = $this->getUser();
         return $data;
     }

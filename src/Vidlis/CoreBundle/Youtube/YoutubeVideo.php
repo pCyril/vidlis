@@ -1,24 +1,29 @@
 <?php
-
 namespace Vidlis\CoreBundle\Youtube;
 
-use Vidlis\CoreBundle\Memcache\MemcacheService;
 
 class YoutubeVideo {
     
     private $url = 'https://www.googleapis.com/youtube/v3/videos?';
     
-    private $key = 'AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M';
+    private $key;
     
     private $part = 'snippet,contentDetails,statistics';
     
     private $id;
     
-    private $memcache_active;
+    private $memcacheService;
     
-    public function __construct($id, $memcache_active) {
+    public function __construct($memcacheService, $apiKey)
+    {
+        $this->key = $apiKey;
+         $this->memcacheService = $memcacheService;
+    }
+
+    public function setId($id)
+    {
         $this->id = $id;
-        $this->memcache_active = $memcache_active;
+        return $this;
     }
     
     public function getUrlSearch() 
@@ -32,11 +37,10 @@ class YoutubeVideo {
     
     public function getResult()
     {
-        $memcache = new MemcacheService($this->memcache_active);
-        $result = $memcache->get($this->id);
+        $result = $this->memcacheService->get($this->id);
         if (!$result) {
             $result = json_decode(file_get_contents($this->getUrlSearch()));
-            $memcache->set($this->id, $result, 10800);
+            $this->memcacheService->set($this->id, $result, 10800);
         }
         return $result;
     }

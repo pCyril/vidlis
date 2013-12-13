@@ -1,21 +1,27 @@
+# This file is auto-generated during the composer install
 parameters:
-    database_driver:   pdo_mysql
-    database_host:     127.0.0.1
-    database_port:     ~
-    database_name:     vidlis
-    database_user:     root
-    database_password: GyVEQbRgzxx3
-
-    mailer_transport:  smtp
-    mailer_host:       127.0.0.1
-    mailer_user:       ~
-    mailer_password:   ~
-
-    locale:            fr
-    secret:            ThisTokenIsNotSoSecretChangeIt
+    database_driver: pdo_mysql
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: vidlis
+    database_user: root
+    database_password: toor
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    locale: fr
+    secret: ThizsTokenIsNotSoSecretChangeIt
     memcache_active: true
+    hostMemcache: localhost
+    portMemcache: 11211
+    youtubeAPIKey: AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M
+    OAUTH2_CLIENT_ID: 645324087510.apps.googleusercontent.com
+    OAUTH2_CLIENT_SECRET: r-fE2OtqjhEmWedynoFRzoaa
+
 
 twig:
     globals:
-        crawlable: ""
-        domain_name: "http://vidlis.fr"
+        crawlable: "/app_dev.php"
+        ua_google_analytics: ""
+        domain_name: "http://vidlis.local/app_dev.php"

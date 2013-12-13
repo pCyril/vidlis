@@ -1,5 +1,4 @@
 <?php
-
 namespace Vidlis\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,8 +44,8 @@ class AuthController extends Controller
     }
     
     public function initialize() {
-        $OAUTH2_CLIENT_ID = '645324087510.apps.googleusercontent.com';
-        $OAUTH2_CLIENT_SECRET = 'r-fE2OtqjhEmWedynoFRzoaa';
+        $OAUTH2_CLIENT_ID = $this->container->getParameter('OAUTH2_CLIENT_ID');
+        $OAUTH2_CLIENT_SECRET = $this->container->getParameter('OAUTH2_CLIENT_SECRET');
         $this->client = new Client();
         $this->client->setClientId($OAUTH2_CLIENT_ID);
         $this->client->setClientSecret($OAUTH2_CLIENT_SECRET);

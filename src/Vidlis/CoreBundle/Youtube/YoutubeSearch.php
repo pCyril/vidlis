@@ -1,14 +1,12 @@
 <?php
-
 namespace Vidlis\CoreBundle\Youtube;
 
-use Vidlis\CoreBundle\Memcache\MemcacheService;
 
 class YoutubeSearch {
     
     private $url = 'https://www.googleapis.com/youtube/v3/search?';
     
-    private $key = 'AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M';
+    private $key;
     
     private $part = 'snippet';
     
@@ -19,13 +17,21 @@ class YoutubeSearch {
     private $regionCode;
     
     private $type = 'video';
+
+    private $memcacheService;
     
-    private $memcache_active;
-    
-    public function __construct($search, $memcache_active) {
-        $this->q = urlencode($search);
+    public function __construct($memcacheService, $apiKey)
+    {
+        $this->key = $apiKey;
         $this->regionCode = 'FR';
-        $this->memcache_active = $memcache_active;
+        $this->memcacheService = $memcacheService;
+    }
+
+
+    public function setQuery($q)
+    {
+        $this->q = urlencode($q);
+        return $this;
     }
     
     public function getUrlSearch() 
@@ -42,11 +48,10 @@ class YoutubeSearch {
     
     public function getResults()
     {
-        $memcache = new MemcacheService($this->memcache_active);
-        $result = $memcache->get($this->q);
+        $result = $this->memcacheService->get($this->q);
         if (!$result) {
             $result = json_decode(file_get_contents($this->getUrlSearch()));
-            $memcache->set($this->q, $result, 900);
+            $this->memcacheService->set($this->q, $result, 900);
         }
         return $result;
     }

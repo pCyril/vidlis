@@ -13,7 +13,7 @@ abstract class AbstractQuery extends AbstractCache
 
     private $lifetime = 84600;
 
-    private $em;
+    private  $em;
 
     protected function __construct(EntityManager $entityManager)
     {

@@ -13,8 +13,6 @@ use Vidlis\CoreBundle\Entity\PlaylistItemQuery;
 use Vidlis\CoreBundle\Entity\PlaylistQuery;
 use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 use Vidlis\CoreBundle\Controller\AuthController;
-use Vidlis\CoreBundle\Youtube\YoutubePlaylistItems;
-use Vidlis\CoreBundle\Youtube\YoutubePlaylist;
 
 class PlaylistController extends AuthController
 {
@@ -56,7 +54,6 @@ class PlaylistController extends AuthController
     {
         $data = array();
         $data['title'] = 'Toutes les playlists';
-
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentall.html.twig', $this->contentallAction());
             $response = new Response(json_encode($data));
@@ -128,7 +125,7 @@ class PlaylistController extends AuthController
      * @Route("/playlists/favoris", name="_homePlaylistsFavorite")
      * @Template()
      */
-    public function favorisAction()
+    public function favoriteAction()
     {
         $data = array();
         $data['title'] = 'Mes playlists favorites';
@@ -179,22 +176,19 @@ class PlaylistController extends AuthController
     }
 
 
-        /**
-         * @Route("/delete-item/{idPlaylist}/{idItem}", requirements={"idPlaylist" = "\d+", "idItem" = "\d+"}, name="_deleteItemPlaylist")
-         * @Template()
-         */
-    public function deleteitemAction($idPlaylist, $idItem)
+    /**
+     * @Route("/delete-item/{idItem}", requirements={"idItem" = "\d+"}, name="_deleteItemPlaylist")
+     * @Template()
+     */
+    public function deleteitemAction($idItem)
     {
         $data['result'] = true;
         $data['title'] = 'Suppression de l\'élément';
         $em = $this->getDoctrine()->getManager();
-        $playlistQuery = new PlaylistQuery($em);
         $playlistItemQuery = new PlaylistItemQuery($em);
-        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
-        $playlistIem = $playlistItemQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
-        if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
+        $playlistIem = $playlistItemQuery->setId($idItem)->getSingle('playlistItem_'.$idItem);
+        if ($playlistIem->getPlaylist()->getUser()->getId() == $this->getUser()->getId()) {
             $playlistItemQuery->remove($playlistIem);
-            $playlistQuery->prePersist($playlist);
             $result = true;
         } else {
             $result = false;
@@ -240,26 +234,23 @@ class PlaylistController extends AuthController
         if ($this->getRequest()->getSession()->get('token')) {
             if ($this->getRequest()->isMethod('POST')) {
                 $playlistIds = $this->getRequest()->request->get('playlistIds');
+                $em = $this->getDoctrine()->getManager();
+                $playlistQuery = new PlaylistQuery($em);
+                $playlistItemQuery = new PlaylistItemQuery($em);
                 foreach ($playlistIds as $id) {
-                    $youtubePlaylist = new YoutubePlaylist($id, $this->container->getParameter('memcache_active'));
-                    $em = $this->getDoctrine()->getManager();
                     $playlist = new Playlist();
-                    $playlist->setName($youtubePlaylist->getSingleResult()->snippet->title);
-                    $playlist->setPrivate(false);
-                    $playlist->setUser($this->getUser());
-                    $playlist->setCreationDate(new \DateTime());
-                    $playlistQuery = new PlaylistQuery($em);
+                    $playlist->setName($this->get('youtubePlaylist')->setId($id)->getSingleResult()->snippet->title)
+                        ->setPrivate(false)
+                        ->setUser($this->getUser())
+                        ->setCreationDate(new \DateTime());
                     $playlistQuery->persist($playlist);
-                    $youtubePlaylistItems = new YoutubePlaylistItems($id, $this->container->getParameter('memcache_active'));
-                    $results = $youtubePlaylistItems->getResults();
+                    $results = $this->get('youtubePlaylistItems')->setIdPlaylist($id)->getResults();
                     foreach ($results->items as $item){
                         $playlistItem = new Playlistitem();
-                        $playlistItemQuery = new PlaylistItemQuery($em);
                         $playlistItem->setPlaylist($playlist)
                             ->setIdVideo($item->snippet->resourceId->videoId)
-                            ->getVideoInformation($this->container->getParameter('memcache_active'));
+                            ->getVideoInformation($this->get('youtubeVideo'));
                         $playlistItemQuery->persist($playlistItem);
-                        $playlistQuery->preRemove($playlist);
                     }
                 }
                 $data['playlistImported'] = true;

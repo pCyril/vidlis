@@ -58,6 +58,7 @@ class Playlist
     public function setId($id) 
     {
         $this->id = $id;
+        return $this;
     }
 
     public function getName() 
@@ -68,6 +69,7 @@ class Playlist
     public function setName($name) 
     {
         $this->name = $name;
+        return $this;
     }
 
     public function getDescription() 
@@ -78,6 +80,7 @@ class Playlist
     public function setDescription($description) 
     {
         $this->description = $description;
+        return $this;
     }
 
     public function getCategory() 
@@ -88,6 +91,7 @@ class Playlist
     public function setCategory($category) 
     {
         $this->category = $category;
+        return $this;
     }
 
     public function isPrivate() 
@@ -98,6 +102,7 @@ class Playlist
     public function setPrivate($private) 
     {
         $this->private = $private;
+        return $this;
     }
 
     /**
@@ -106,6 +111,7 @@ class Playlist
     public function setItems($items)
     {
         $this->items = $items;
+        return $this;
     }
 
     /**
@@ -114,6 +120,7 @@ class Playlist
     public function getItems()
     {
         return $this->items;
+        return $this;
     }
 
     public function getUser()
@@ -124,6 +131,7 @@ class Playlist
     public function setUser($user)
     {
         $this->user = $user;
+        return $this;
     }
 
     /**
@@ -132,6 +140,7 @@ class Playlist
     public function setCreationDate($creationDate)
     {
         $this->creationDate = $creationDate;
+        return $this;
     }
 
     /**
@@ -148,6 +157,7 @@ class Playlist
     public function setNumberLike($numberLike)
     {
         $this->numberLike = $numberLike;
+        return $this;
     }
 
     /**

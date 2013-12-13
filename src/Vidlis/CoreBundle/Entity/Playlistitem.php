@@ -44,6 +44,7 @@ class Playlistitem
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -116,12 +117,12 @@ class Playlistitem
         return $this;
     }
 
-    public function getVideoInformation($memcacheActif)
+    public function getVideoInformation($youtubeService)
     {
-        $youtubeVideo = new YoutubeVideo($this->idVideo, $memcacheActif);
-        $result = $youtubeVideo->getResult();
+        $result = $youtubeService->setId($this->idVideo)->getResult();
         $this->videoDuration = $result->items[0]->contentDetails->duration;
         $this->videoName = $result->items[0]->snippet->title;
+        return $this;
     }
 
 } 

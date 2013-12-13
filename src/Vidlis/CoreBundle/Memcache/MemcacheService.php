@@ -8,12 +8,12 @@ class MemcacheService {
     
     private $memcache;
     
-    public function __construct($active) 
+    public function __construct($active, $host, $port)
     {
         $this->active = $active;
         if ($active) {
             $this->memcache = new \Memcache;
-            $this->memcache->connect('localhost', 11211);
+            $this->memcache->connect($host, $port);
         }
     }
     

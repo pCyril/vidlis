@@ -1,12 +1,9 @@
 <?php
-
 namespace Vidlis\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Vidlis\CoreBundle\Entity\Playlist;
 use Vidlis\CoreBundle\Entity\Playlistitem;
@@ -25,6 +22,8 @@ class CreateplaylistController extends Controller
     {
         $data['result'] = true;
         $data['title'] = 'Créer une nouvelle playlist';
+        $em = $this->getDoctrine()->getManager();
+        $playlistQuery = new PlaylistQuery($em);
         $created = false;
 
         $dataContent = array();
@@ -40,16 +39,14 @@ class CreateplaylistController extends Controller
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
                 $playlist = $form->getData();
-                $playlist->setUser($this->getUser());
-                $playlist->setCreationDate(new \DateTime());
-                $em = $this->getDoctrine()->getManager();
-                $playlistQuery = new PlaylistQuery($em);
+                $playlist->setUser($this->getUser())
+                    ->setCreationDate(new \DateTime());
                 $playlistQuery->persist($playlist);
                 if ($vidId != null) {
                     $playlistItem = new Playlistitem();
                     $playlistItem->setPlaylist($playlist)
                         ->setIdVideo($vidId)
-                        ->getVideoInformation($this->container->getParameter('memcache_active'));
+                        ->getVideoInformation($this->get('youtubeVideo'));
                     $playlistItemQuery = new PlaylistItemQuery($em);
                     $playlistItemQuery->persist($playlistItem);
                     $dataContent['savePlaylist'] = false;
@@ -58,20 +55,13 @@ class CreateplaylistController extends Controller
                 }
                 $created = true;
             }
-
-            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'idVideo' => $vidId, 'created' => $created, 'playlist' => $playlist));
-
-            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', $dataContent);
-            $response = new Response(json_encode($data));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        } else {
-            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'idVideo' => $vidId, 'created' => $created));
-            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', $dataContent);
-            $response = new Response(json_encode($data));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
+            $dataContent['playlist'] = $playlist;
         }
+        $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'idVideo' => $vidId, 'created' => $created));
+        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:create.html.twig', $dataContent);
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -82,6 +72,8 @@ class CreateplaylistController extends Controller
     {
         $data['result'] = true;
         $data['title'] = 'Modification de votre playlist';
+        $em = $this->getDoctrine()->getManager();
+        $playlistQuery = new PlaylistQuery($em);
         $updated = false;
 
         $dataContent = array();
@@ -91,8 +83,6 @@ class CreateplaylistController extends Controller
         } else {
             $dataContent['connected']= false;
         }
-        $em = $this->getDoctrine()->getManager();
-        $playlistQuery = new PlaylistQuery($em);
         $playlist = $playlistQuery->setId($playlistId)->getSingle('playlist_'.$playlistId);
         $form = $this->createForm(new PlaylistType(), $playlist);
         if ($this->getRequest()->isMethod('POST')) {
@@ -106,18 +96,12 @@ class CreateplaylistController extends Controller
             } else {
                 $updated = false;
             }
-            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'updated' => $updated, 'playlist' => $playlist));
-            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:update.html.twig', $dataContent);
-            $response = new Response(json_encode($data));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        } else {
-            $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'updated' => $updated, 'playlist' => $playlist));
-            $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:update.html.twig', $dataContent);
-            $response = new Response(json_encode($data));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
         }
+        $dataContent = array_merge($dataContent, array('form' => $form->createView(), 'updated' => $updated, 'playlist' => $playlist));
+        $data['content'] = $this->renderView('VidlisCoreBundle:Createplaylist:update.html.twig', $dataContent);
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -132,13 +116,12 @@ class CreateplaylistController extends Controller
         $playlistQuery = new PlaylistQuery($em);
         $playlistItemQuery = new PlaylistItemQuery($em);
         $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
-        $playlistItem = new Playlistitem();
         if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
+            $playlistItem = new Playlistitem();
             $playlistItem->setPlaylist($playlist)
                 ->setIdVideo($vidId)
-                ->getVideoInformation($this->container->getParameter('memcache_active'));
+                ->getVideoInformation($this->get('youtubeVideo'));
             $playlistItemQuery->persist($playlistItem);
-            $playlistQuery->prePersist($playlist);
             $result = true;
         } else {
             $result = false;

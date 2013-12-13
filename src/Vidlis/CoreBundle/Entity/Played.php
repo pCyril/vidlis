@@ -48,6 +48,7 @@ class Played {
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
     /**
@@ -64,6 +65,7 @@ class Played {
     public function setIdVideo($idVideo)
     {
         $this->idVideo = $idVideo;
+        return $this;
     }
 
     /**

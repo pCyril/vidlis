@@ -1,0 +1,17 @@
+<div class="navbar">
+    <div class="navbar-inner">
+        <ul class="nav">
+            <li {% if tab == 'all' %}class="active"{% endif %}>
+                <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;">Toutes les playlists</a>
+            </li>
+            <li {% if tab == 'mine' %}class="active"{% endif %}>
+                <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/playlists');  return false;">Mes playlists</a>
+            </li>
+            {% if connected %}
+                <li {% if tab == 'favorite' %}class="active"{% endif %}>
+                    <a href="{{ url('_homePlaylistsFavorite') }}" onclick="loadBox('/playlists/favoris');  return false;">Mes playlists favorites</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>

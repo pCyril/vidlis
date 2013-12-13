@@ -3,14 +3,19 @@ namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Vidlis\CoreBundle\Entity\AbstractQuery;
+use Vidlis\CoreBundle\Entity\PlaylistQuery;
 
 class PlaylistItemQuery extends AbstractQuery
 {
     private $unreadQueryBuilder;
 
+    private $playlistQuery;
+
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
+
+        $this->playlistQuery = new PlaylistQuery($entityManager);
 
         $this->unreadQueryBuilder = $entityManager->createQueryBuilder();
 
@@ -35,10 +40,12 @@ class PlaylistItemQuery extends AbstractQuery
     public  function prePersist($entity)
     {
         $this->deleteKeyCache('playlistItem_'.$entity->getId());
+        $this->playlistQuery->preRemove($entity->getPlaylist());
     }
 
     public function preRemove($entity)
     {
         $this->deleteKeyCache('playlistItem_'.$entity->getId());
+        $this->playlistQuery->preRemove($entity->getPlaylist());
     }
 }

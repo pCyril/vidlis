@@ -1,14 +1,12 @@
 <?php
-
 namespace Vidlis\CoreBundle\Youtube;
 
-use Vidlis\CoreBundle\Memcache\MemcacheService;
 
 class YoutubePlaylist {
 
     private $url = 'https://www.googleapis.com/youtube/v3/playlists?';
 
-    private $key = 'AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M';
+    private $key;
 
     private $part = 'snippet';
 
@@ -16,11 +14,18 @@ class YoutubePlaylist {
 
     private $id;
 
-    private $memcache_active;
+    private $memcacheService;
 
-    public function __construct($playlistId, $memcache_active) {
-        $this->id = urlencode($playlistId);
-        $this->memcache_active = $memcache_active;
+    public function __construct($memcacheService, $apiKey)
+    {
+        $this->key = $apiKey;
+        $this->memcacheService = $memcacheService;
+    }
+
+    public function setId($id)
+    {
+        $this->id = urlencode($id);
+        return $this;
     }
 
     public function getUrlPlaylist()
@@ -35,12 +40,11 @@ class YoutubePlaylist {
 
     public function getResults()
     {
-        $memcache = new MemcacheService($this->memcache_active);
         $key = 'playlistId_'.$this->playlistId;
-        $result = $memcache->get($key);
+        $result = $this->memcacheService->get($key);
         if (!$result) {
             $result = json_decode(file_get_contents($this->getUrlPlaylist()));
-            $memcache->set($key, $result, 1500);
+            $this->memcacheService->set($key, $result, 1500);
         }
         return $result;
     }

@@ -1,36 +1,8 @@
 {% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
 
 <div id="right_content">
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li>
-                    <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;">Toutes les playlists</a>
-                </li>
-                <li class="active">
-                    <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/playlists');  return false;">Mes playlists</a>
-                </li>
-                {% if connected %}
-                    <li>
-                        <a href="{{ url('_homePlaylistsFavorite') }}" onclick="loadBox('/playlists/favoris');  return false;">Mes playlists favorites</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
-
-    <div class="publicity">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Playlist -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-8877688962043608"
-             data-ad-slot="9005035845"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
+    {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'mine'} %}
+    {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
     {% if connected %}
         <div class="textAlignRight contentRight" style="margin-bottom: 30px">
             <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Importer mes playlists Youtube</a>
@@ -55,7 +27,7 @@
                             <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
                             <div class="videoDuration">{{ item.videoDuration }}</div>
                             <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
-                            <a href="{{ path('_deleteItemPlaylist', {'idPlaylist':playlist.id, 'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
+                            <a href="{{ path('_deleteItemPlaylist', {'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
                         </div>
                     {% endfor %}
                 </div>

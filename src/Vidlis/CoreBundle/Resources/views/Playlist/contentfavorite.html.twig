@@ -1,35 +1,10 @@
 {% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
 
 <div id="right_content">
-    <div class="navbar">
-        <div class="navbar-inner">
-            <ul class="nav">
-                <li>
-                    <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;">Toutes les playlists</a>
-                </li>
-                <li>
-                    <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/playlists');  return false;">Mes playlists</a>
-                </li>
-                {% if connected %}
-                    <li class="active">
-                        <a href="{{ url('_homePlaylistsFavorite') }}" onclick="loadBox('/playlists/favoris');  return false;">Mes playlists favorites</a>
-                    </li>
-                {% endif %}
-            </ul>
-        </div>
-    </div>
 
-    <div class="publicity">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <!-- Playlist -->
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-8877688962043608"
-             data-ad-slot="9005035845"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'favorite'} %}
+
+    {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
 
     {% if connected %}
         {% if user.favoritePlaylists|length %}
