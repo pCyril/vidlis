@@ -5,6 +5,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Vidlis\CoreBundle\Entity\PlaylistItemQuery;
 use Vidlis\CoreBundle\Entity\PlaylistQuery;
+use Vidlis\CoreBundle\Entity\Playlist;
+use Vidlis\CoreBundle\Entity\PlaylistItem;
 use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 use Vidlis\CoreBundle\Controller\AuthController;
 
