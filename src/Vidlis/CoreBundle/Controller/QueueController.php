@@ -1,5 +1,4 @@
 <?php
-
 namespace Vidlis\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -8,7 +7,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Vidlis\CoreBundle\Entity\Played;
 use Vidlis\CoreBundle\Entity\PlayedQuery;
-use Vidlis\CoreBundle\Youtube\YoutubeVideo;
 
 class QueueController extends Controller
 {
@@ -27,9 +25,7 @@ class QueueController extends Controller
             $em = $this->getDoctrine()->getManager();
             $playedQuery = new PlayedQuery($em);
             $playedQuery->persist($played);
-            $video = $this->get('youtubeVideo');
-            $video->setId($idVideo);
-            $data['video'] = $video->getResult();
+            $data['video'] = $this->get('youtubeVideo')->setId($idVideo)->getResult();
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;

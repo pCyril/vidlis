@@ -233,16 +233,16 @@ p {
 	float:left;
 }
 #main-menu > li .radios{
-	background:url('../images/radios.png') no-repeat;
+	background:url('/images/radios.png') no-repeat;
 }
 #main-menu > li .concerts{
-	background:url('../images/concerts.png') no-repeat;
+	background:url('/images/concerts.png') no-repeat;
 }
 #main-menu > li .home{
-	background:url('../images/home.png') no-repeat;
+	background:url('/images/home.png') no-repeat;
 }
 #main-menu > li .search{
-	background:url('../images/search.png') no-repeat;
+	background:url('/images/search.png') no-repeat;
 }
 #main-menu > li > a {
 	display:block;
@@ -752,7 +752,7 @@ i.icon-large{
     width: 44px;
     height: 44px;
     display: none;
-    background-image: url('../images/buttonPlay.png');
+    background-image: url('/images/buttonPlay.png');
 }
 
 .relative:hover .itemSub {
@@ -835,7 +835,7 @@ i.icon-large{
     display: none;
     top: 19px;
     left: 27px;
-    background-image: url('../images/buttonPlay.png');
+    background-image: url('/images/buttonPlay.png');
     width: 30px;
     height: 30px;
     background-position: 0px -132px;
@@ -994,7 +994,7 @@ i.icon-large{
     top: 5px;
     width : 25px;
     height: 25px;
-    background-image: url("../images/close.png");
+    background-image: url("/images/close.png");
     display:none;
     cursor:pointer;
 }
@@ -1151,7 +1151,7 @@ i.icon-large{
 }
 .checked li p {
     padding-left: 55px;
-    background-image: url('../images/check_icon.gif');
+    background-image: url('/images/check_icon.gif');
     background-repeat: no-repeat;
     background-position: 15px 5px;
     margin: 0px;

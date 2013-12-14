@@ -39,7 +39,7 @@
 	left:17px;
 	width:3px;
 	height:11px;
-	background-image:url(../images/prog_lr.png);
+	background-image:url(../../../images/prog_lr.png);
 }
 
 #prog_center{
@@ -47,7 +47,7 @@
 	top:14px;
 	left:20px;
 	height:11px;
-	background-image:url(../images/prog_inner.png);
+	background-image:url(../../../images/prog_inner.png);
 }
 
 #prog_right{
@@ -56,7 +56,6 @@
 	right:-14px;
 	width:26px;
 	height:26px;
-	background-image:url(../images/prog_r.png);
 	background-position:right;
 }
 
@@ -64,7 +63,6 @@
 	position:relative;
 	position:fixed;
 	background-color: #222;
-	background-image:url(../images/last_long.png);
 	height:101px;
 	z-index:1000;
 	top:-48px;
@@ -132,7 +130,7 @@
 	top:-3px;
 	width:25px;
 	height:25px;
-	background-image:url('../images/close.png');
+	background-image:url('../bundles/vidlis/images/close.png');
 	cursor:pointer;
 	display:none;
 }
@@ -192,7 +190,6 @@
 	position:absolute;
 	top:-6px;
 	left:-10px;
-	background-image:url(../images/prog_r.png);
         display:none;
 }
 
@@ -202,7 +199,7 @@
     position:absolute;
     left:54px;
     top:19px;
-    background-image:url(../images/pause.png);
+    background-image:url(../../../images/pause.png);
     background-position: -7px -4px;
     cursor:pointer;
     display:none;
@@ -214,7 +211,7 @@
 	position:absolute;
 	left:52px;
 	top:19px;
-	background-image:url(../images/play.png);
+	background-image:url(../../../images/play.png);
 	background-position:-6px -9px;
 	cursor:pointer;
 	#display:none;
@@ -226,7 +223,7 @@
 	position:absolute;
 	left:20px;
 	top:18px;
-	background-image:url(../images/prev.png);
+	background-image:url(../../../images/prev.png);
         background-position: -5px -6px;
 	cursor:pointer;
 }
@@ -237,7 +234,7 @@
 	position:absolute;
 	left:80px;
 	top:18px;
-	background-image:url(../images/next.png);
+	background-image:url(../../../images/next.png);
         background-position: -5px -8px;
 	cursor:pointer;
 }
@@ -254,7 +251,7 @@
 	position:absolute;
 	left:0px;
 	top:0px;
-	background-image:url(../images/max_volume.png);
+	background-image:url(../../../images/max_volume.png);
 	cursor:pointer;
 }
 

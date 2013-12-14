@@ -1,11 +1,9 @@
 <?php
-
 namespace Vidlis\CoreBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Vidlis\CoreBundle\Youtube\YoutubeSearch;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class SearchController extends Controller

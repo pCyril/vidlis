@@ -1,5 +1,4 @@
 <?php
-
 namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityManager;

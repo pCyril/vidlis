@@ -1,41 +1,34 @@
 {% extends "::base.html.twig" %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ asset('bundles/Vidlis/css/style.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/Vidlis/css/player.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/Vidlis/css/leaflet.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/Vidlis/css/icones.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/Vidlis/css/bootstrap.min.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/Vidlis/css/mCustomScrollbar.css') }}" />
-    <link rel="stylesheet" href="{{ asset('bundles/Vidlis/css/responsive.css') }}" />
+    {% stylesheets 'bundles/Vidlis/css/*' filter='yui_css' %}
+    <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-    <script src="//www.google.com/jsapi" type="text/javascript"></script>
-    <script type="text/javascript">
-      google.load("swfobject", "2.1");
-    </script>
 {% endblock %}
 
-
-
 {% block javascripts %}
+    <script src="//www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+        google.load("swfobject", "2.1");
+    </script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/lecteur.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/leaflet.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/jquery.address-1.5.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/jPlayer/jquery.jplayer.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.easing.1.3.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.mousewheel.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.mCustomScrollbar.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/bootstrap.min.js') }}"></script>
-        <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/master.js') }}"></script>
-        <script type="text/javascript" src="http://{{ urlNode }}/socket.io/socket.io.js"></script>
-    	<script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/lecteur.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/jquery.address-1.5.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/jPlayer/jquery.jplayer.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.easing.1.3.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.mousewheel.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.mCustomScrollbar.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/bootstrap.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/master.js') }}"></script>
+    <script type="text/javascript" src="http://{{ urlNode }}/socket.io/socket.io.js"></script>
+    <script>
 	(function () {
 		$.address.crawlable(1).state('{{ crawlable }}').init(function () {
 		}).change(function (e) {
 			$.address.state() + decodeURI(e.path).replace(/\/\//, '/');
-			show('loading');
+			$('#loading').show();
 			$.ajax({
 				url: '{{ domain_name }}'+e.path,
 				type: 'POST',
@@ -44,8 +37,8 @@
 				success: function (data, textStatus, jqXHR) {
 					document.title = data.title;
 					$('#content').html(data.content);
-					hide('loading');
-                                        setupCustomScrollbar();
+                    $('#loading').hide();
+                    setupCustomScrollbar();
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
                     showError('Oh Mince ! Une erreur est survenue pendant le chargement de la page :\'(');
@@ -56,26 +49,6 @@
 	})();
       google.setOnLoadCallback(_run);
 
-    function forceLoad(url) {
-        show('loading');
-        $.ajax({
-            url: '{{ domain_name }}'+url,
-            type: 'POST',
-            dataType: 'json',
-            cache: true,
-            success: function (data, textStatus, jqXHR) {
-                document.title = data.title;
-                $('#content').html(data.content);
-                hide('loading');
-                setupCustomScrollbar();
-                return false;
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                showError('Oh Mince ! Une erreur est survenue pendant le chargement de la page :\'(');
-                return false;
-            }
-        });
-    }
     var user = {
         id : 0,
         videoId : ''

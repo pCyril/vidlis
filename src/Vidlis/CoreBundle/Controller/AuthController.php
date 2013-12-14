@@ -3,17 +3,22 @@ namespace Vidlis\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Vidlis\CoreBundle\GoogleApi\Client;
 
 
+/**
+ * Class AuthController
+ *
+ * Manage Youtube Connexion
+ */
 class AuthController extends Controller
 {
     
     protected $client;
 
     /**
+     * GET youtube connextion token
      * @Route("/authconfirmation", name="_youtubeauthentication")
      */
     public function authAction()
@@ -41,7 +46,10 @@ class AuthController extends Controller
         $data['auth'] = $auth;
         return $this->render('VidlisCoreBundle:Auth:auth.html.twig', $data);
     }
-    
+
+    /**
+     * Init YoutubeAuthentication Token
+     */
     public function initialize() {
         $OAUTH2_CLIENT_ID = $this->container->getParameter('OAUTH2_CLIENT_ID');
         $OAUTH2_CLIENT_SECRET = $this->container->getParameter('OAUTH2_CLIENT_SECRET');

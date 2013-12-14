@@ -1,5 +1,2 @@
-services:
-    Vidlis.twig.vidlis_extension:
-        class: Vidlis\CoreBundle\Twig\VidlisExtension
-        tags:
-            - { name: twig.extension }
+imports:
+    - { resource: "@VidlisCoreBundle/Resources/config/services.yml" }

@@ -17,8 +17,8 @@ class SuggestionController extends Controller
     {
         $data = array();
         if ($this->getRequest()->isMethod('POST')) {
-            $video = $this->get('youtubeSuggestion')->setRelatedToVideoId($this->getRequest()->request->get('videoid'));
-            $data['suggestion'] = $video->getResults();
+            $idVideo = $this->getRequest()->request->get('videoid');
+            $data['suggestion'] = $this->get('youtubeSuggestion')->setRelatedToVideoId($idVideo)->getResults();
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;

@@ -161,19 +161,9 @@ $(".toModal").live('click', function () {
                 $('.modal, .overlay').show();
             },
             success: function (data) {
-                if (data.result) {
-                    if (element.data('callback')) {
-                        eval(element.data('callback'));
-                    } else {
-                        $('.modal').show();
-                        $(".modal-header h4").html(data.title);
-                        $(".modal-body").html(data.content);
-                    }
-                } else {
-                    $('.modal').show();
-                    $(".modal-header h3").html(data.title);
-                    $(".modal-body").html(data.content);
-                }
+                $('.modal').show();
+                $(".modal-header h3").html(data.title);
+                $(".modal-body").html(data.content);
             },
             error: function () {
                 $(".modal-header h3").html('Oups :\'(');
@@ -214,12 +204,6 @@ $(".toModalHTML").live('click', function () {
     }
 );
 
-function hide(div) {
-    $("#" + div).hide();
-}
-function show(div) {
-    $("#" + div).show();
-}
 function loadBox(url) {
     if ($.address.value() != url) {
         $.address.value(url);
@@ -762,4 +746,25 @@ function launched(videoId) {
         socket.emit('launch', user);
     }
     return false;
+}
+
+function forceLoad(url) {
+    $('#loading').show();
+    $.ajax({
+        url: DOMAIN_NAME + url,
+        type: 'POST',
+        dataType: 'json',
+        cache: true,
+        success: function (data, textStatus, jqXHR) {
+            document.title = data.title;
+            $('#content').html(data.content);
+            $('#loading').hide();
+            setupCustomScrollbar();
+            return false;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            showError('Oh Mince ! Une erreur est survenue pendant le chargement de la page :\'(');
+            return false;
+        }
+    });
 }

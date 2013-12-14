@@ -1,0 +1,23 @@
+services:
+    memcache:
+        class: Vidlis\CoreBundle\Memcache\MemcacheService
+        arguments:    ["%memcache_active%", "%hostMemcache%", "%portMemcache%"]
+    youtubePlaylist:
+        class: Vidlis\CoreBundle\Youtube\YoutubePlaylist
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubePlaylistItems:
+        class: Vidlis\CoreBundle\Youtube\YoutubePlaylistItems
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeVideo:
+        class: Vidlis\CoreBundle\Youtube\YoutubeVideo
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeSearch:
+        class: Vidlis\CoreBundle\Youtube\YoutubeSearch
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeSuggestion:
+        class: Vidlis\CoreBundle\Youtube\YoutubeSuggestion
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    Vidlis.twig.vidlis_extension:
+        class: Vidlis\CoreBundle\Twig\VidlisExtension
+        tags:
+            - { name: twig.extension }

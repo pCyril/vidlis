@@ -1,16 +1,16 @@
 .icon {
-	background-image:url(../images/sprite_icon.png);
+	background-image:url(/images/sprite_icon.png);
 	display:inline-block;
 	width:18px;
 	height:18px;
 }
 
 .icon.blue {
-     background-image:url(../images/sprite_icon_blue.png);
+     background-image:url(/images/sprite_icon_blue.png);
  }
 
 .icon-absolute {
-	background-image:url(../images/sprite_icon.png);
+	background-image:url(/images/sprite_icon.png);
 	display:inline-block;
 	width:18px;
 	height:18px;
@@ -20,7 +20,7 @@
 }
 
 .icon-absolute.blue {
-    background-image:url(../images/sprite_icon_blue.png);
+    background-image:url(/images/sprite_icon_blue.png);
 }
 
 .icon-absolute.dribbble, .icon.dribbble {
