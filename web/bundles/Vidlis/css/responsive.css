@@ -1,14 +1,14 @@
 @media only screen and (min-width: 1500px) {
     .box330 {
-        width: 31%;
-        margin: 0px 1% 20px 1%;
+        width: 31% !important;
+        margin: 0px 1% 20px 1% !important;
     }
 
     .disqus {
-        width:64%;
+        width:64% !important;
         position:relative;
         float:left;
-        margin: 0px 1% 20px 1%;
+        margin: 0px 1% 20px 1% !important;
         margin-bottom:20px;
     }
 }
