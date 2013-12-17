@@ -3,12 +3,10 @@ var fs      =   require('fs');
 
 // Variables globales
 // Ces variables resteront durant toute la vie du seveur et sont communes pour chaque client (node server.js)
-// Liste des messages de la forme { pseudo : 'Mon pseudo', message : 'Mon message' }
 var app = http.createServer(function (req, res) {
 });
 var users = [];
 var i = 0;
-
 var io      =   require('socket.io');
 
 io = io.listen(app);
@@ -55,8 +53,4 @@ io.sockets.on('connection', function (socket) {
     });
 });
 
-///////////////////
-
-// Notre application écoute sur le port 8080
 app.listen(8080);
-console.log('Live Chat App running at http://localhost:8080/');
