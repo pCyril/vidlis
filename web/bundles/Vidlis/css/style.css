@@ -450,6 +450,7 @@ i.icon-large{
 
 .boxHeader {
     background-color: #ededed;
+    min-height:50px;
     position: relative;
 }
 .removePl{

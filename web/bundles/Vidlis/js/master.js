@@ -218,6 +218,11 @@ function setupCustomScrollbar() {
             {scrollInertia: 0}
         );
     });
+    $(".boxHeader").each(function () {
+        if ($(this).height() > 50) {
+            $(this).parent().find('.boxBody').css('height', (276 - $(this).height() + 50)+'px');
+        }
+    });
     $(".playlistCreatorName").each(function () {
         $(this).parent().find('h2').css('padding-right', ($(this).width() + 15)+'px');
     });
