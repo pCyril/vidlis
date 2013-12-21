@@ -218,6 +218,9 @@ function setupCustomScrollbar() {
             {scrollInertia: 0}
         );
     });
+    $(".playlistCreatorName").each(function () {
+        $(this).parent().find('h2').css('padding-right', ($(this).width() + 15)+'px');
+    });
 }
 
 function sendFormToAjax() {
@@ -513,6 +516,9 @@ function formatPlaylist(video, after) {
                 $('#playlistContent, .underVideo, .closeShowPlaylist, #suggestionContent').toggleClass('open', 500);
                 $('.closeShowPlaylist').html('<');
             }
+        }
+        if (ytplayer.getPlayerState() == 0) {
+            next();
         }
         $('.loadQueue').hide();
         $('.btn-suggestion').show();
