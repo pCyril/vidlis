@@ -1,3 +1,11 @@
+
+
+// 3. This function creates an <iframe> (and YouTube player)
+//    after the API code downloads.
+var ytplayer;
+var tag = document.createElement('script');
+var firstScriptTag;
+
 $(document).ready(function () {
     $('.formSearch').live('submit', function () {
         if ($('#search').val()) {
@@ -321,14 +329,14 @@ function onPlayerError(errorCode) {
 
 // This function is called when the player changes state
 function onPlayerStateChange(newState) {
-    if (newState == -1 || newState == 0 || newState == 2 || newState == 3) {
+    if (newState.data == -1 || newState.data == 0 || newState.data == 2 || newState.data == 3) {
         $("#play_b").css('display', 'none');
         $("#play_p").css('display', 'block');
     } else {
         $("#play_p").css('display', 'none');
         $("#play_b").css('display', 'block');
     }
-    if (newState == 0) {
+    if (newState.data == 0) {
         next();
     }
 }
@@ -388,7 +396,7 @@ function unMuteVideo() {
 
 
 // This function is automatically called by the player once it loads
-function onYouTubePlayerReady(playerId) {
+function onYouTubeIframeAPIReady() {
     $('#play_b').on('click', function () {
         pauseVideo();
     });
@@ -430,13 +438,22 @@ function onYouTubePlayerReady(playerId) {
         $('#current_v').css('width', (Math.round((eLeft / widthSeek) * $('#bar_v').width()) + 'px'));
         setVideoVolume(Math.round((eLeft / widthSeek) * 100));
     });
-    ytplayer = document.getElementById("ytPlayer");
+    ytplayer = new YT.Player('playerYt', {
+        height: '200',
+        width: '219',
+        playerVars: {
+            controls: '0'
+        },
+        events: {
+            'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
+        }
+    });
+
     // This causes the updatePlayerInfo function to be called every 250ms to
     // get fresh data from the player
     setInterval(updatePlayerInfo, 250);
     updatePlayerInfo();
-    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-    ytplayer.addEventListener("onError", "onPlayerError");
     //Load an initial video into the player
     //ytplayer.cueVideoById("OeOdMsEWbB4");
 }
@@ -448,9 +465,13 @@ function loadPlayer() {
     // The element id of the Flash embed
     var atts = { id: "ytPlayer" };
     // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-    swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+    /*swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
         "version=3&enablejsapi=1&playerapiid=player1",
-        "videoDiv", "219", "200", "9", null, null, params, atts);
+        "videoDiv", "219", "200", "9", null, null, params, atts);*/
+    tag.src = "https://www.youtube.com/iframe_api";
+    firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 }
 
 function addToQueue(id, after) {
