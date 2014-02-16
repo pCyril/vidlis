@@ -19,6 +19,7 @@ parameters:
     OAUTH2_CLIENT_ID: 645324087510.apps.googleusercontent.com
     OAUTH2_CLIENT_SECRET: r-fE2OtqjhEmWedynoFRzoaa
     urlNode: localhost:8080
+    javaBin: /usr/lib/jvm/java-8-oracle/bin/java
 
 
 twig:
