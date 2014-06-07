@@ -17,7 +17,7 @@ class PlayedQuery extends AbstractQuery
         $this->cacheResults(true);
 
         $this->queryBuilder
-            ->select('p', 'pI', 'u')
+            ->select('p')
             ->from('VidlisCoreBundle:Played', 'p');
     }
 

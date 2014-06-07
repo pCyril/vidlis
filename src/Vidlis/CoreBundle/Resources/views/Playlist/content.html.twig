@@ -1,58 +1,49 @@
-{% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
-
 <div id="right_content">
-    {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'mine'} %}
-    {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
-    {% if connected %}
-        <div class="textAlignRight contentRight" style="margin-bottom: 30px">
-            <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Importer mes playlists Youtube</a>
-        </div>
-    {% endif %}
-
-
-    {% if connected %}
-        {% if user.playlists|length %}
-            {% for playlist in user.playlists %}
-            <div class="box330 box-boreder" id="{{ playlist.id }}">
-                <div class="boxHeader">
-                    <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a><a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue mouseoverInfo" data-info="Modifier la playlist"></i></a></h2>
-                    <div class="removePl">
-                        <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close mouseoverInfo" data-info="Supprimer la playlist" data-dismiss="modal" aria-hidden="true">×</button></a>
+    <div id="feeds">
+        {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'mine'} %}
+        {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
+        {% if connected %}
+            <div class="textAlignRight contentRight" style="margin-bottom: 30px">
+                <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Importer mes playlists Youtube</a>
+            </div>
+        {% endif %}
+        {% if connected %}
+            {% if user.playlists|length %}
+                {% for playlist in user.playlists %}
+                <div class="box330 box-boreder" id="{{ playlist.id }}">
+                    <div class="boxHeader">
+                        <div class="playlistCreatorName"><a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue mouseoverInfo" data-info="Modifier la playlist">&nbsp;</i></a></div>
+                        <div class="clear"></div>
+                        <div class="images">
+                            <img src="{{ playlist.items.first.idVideo|videoImage }}">
+                            <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a></h2>
+                        </div>
+                        <div class="removePl">
+                            <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close mouseoverInfo" data-info="Supprimer la playlist" data-dismiss="modal" aria-hidden="true">×</button></a>
+                        </div>
+                    </div>
+                    <div class="boxBody mCustomScrollbarActiv">
+                        {% for item in playlist.items %}
+                            <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %} mine">
+                                <div class="itemNumber">{{ loop.index }}</div>
+                                <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
+                                <div class="videoDuration">{{ item.videoDuration }}</div>
+                                <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+                                <a href="{{ path('_deleteItemPlaylist', {'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="boxFooter dark">
+                        <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
                     </div>
                 </div>
-                <div class="boxBody mCustomScrollbarActiv">
-                    {% for item in playlist.items %}
-                        <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %} mine">
-                            <div class="itemNumber">{{ loop.index }}</div>
-                            <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
-                            <div class="videoDuration">{{ item.videoDuration }}</div>
-                            <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
-                            <a href="{{ path('_deleteItemPlaylist', {'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
-                        </div>
-                    {% endfor %}
-                </div>
-                <div class="boxFooter dark">
-                    <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
-                </div>
-            </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-success" style="margin:20px;">Vous n'avez pas de playlists pour le moment.</div>
+            {% endif %}
         {% else %}
-            <div class="alert alert-success" style="margin:20px;">Vous n'avez pas de playlists pour le moment.</div>
+            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Créer un compte gratuitement</a>
         {% endif %}
-    {% else %}
-        <div class="alert alert-danger" style="margin:10px;">Vous devez vous identifier pour pouvoir afficher vos playlists.</div>
-        <div style="width: 80%; margin:50px auto;">
-            <div style="width:50%;float: left;padding: 40px;text-align: center;">
-                <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Créer un compte</a>
-            </div>
-            <div style="width:50%;float: left; border-left:1px solid #ccc;">
-                <ul class="checked">
-                    <li><p>L'inscription est gratuite !</p></li>
-                    <li><p>Aucune restriction de temps !</p></li>
-                    <li><p>Le contenu est illimité !</p></li>
-                </ul>
-            </div>
-        </div>
-        <div class="clear"></div>
-    {% endif %}
+    </div>
 </div>
+{% include 'VidlisCoreBundle:Default:menu.html.twig'%}

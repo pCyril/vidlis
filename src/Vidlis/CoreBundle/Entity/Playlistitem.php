@@ -2,7 +2,6 @@
 namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Vidlis\CoreBundle\Youtube\YoutubeVideo;
 
 /**
  * @ORM\Entity()

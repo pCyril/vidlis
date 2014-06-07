@@ -38,6 +38,7 @@
 					document.title = data.title;
 					$('#content').html(data.content);
                     $('#loading').hide();
+                    $('#playlistContent, #suggestionContent').css('height', ($('#right_content').height()-30) + 'px');
                     setupCustomScrollbar();
 				},
 				error: function (jqXHR, textStatus, errorThrown) {

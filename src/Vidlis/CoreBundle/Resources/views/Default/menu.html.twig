@@ -1,8 +1,5 @@
-<div id="topbar">
-    <nav id="main-nav">
-            <form class="form-wrapper cf formSearch" id="formSearch">
-                <input type="text" placeholder="Recherche" name="search" id="search" autocomplete="off">
-                <button type="submit"><i class="icon search"></i></button>
-            </form> 
-    </nav>
-</div>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+    <a href="{{ path('fos_user_security_login') }}" class="toModalHTML register"><i class="fa fa-sign-out"></i>&nbsp;Déconnexion</a>
+{% else %}
+    <a href="{{ path('fos_user_security_login') }}" class="toModalHTML register"><i class="fa fa-sign-in"></i>&nbsp;Connexion</a>
+{% endif %}

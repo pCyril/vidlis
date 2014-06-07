@@ -1,37 +1,39 @@
-{% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
-<div id="right_content">           
-<script src="https://apis.google.com/js/plusone.js"></script>
-        {% for item in resultsSearch.items %}
-            <div class="relative">
-                <div class="itemSearch box-boreder" data-id="{{ item.id.videoId }}">
-                    <div class="itemImgSearch box-boreder"><img src="{{ item.snippet.thumbnails.medium.url }}"></div>
-                    <div class="itemInfos"></div>
-                    <div class="itemTitleSearch">{{ item.snippet.title }}</div>
-                    <div class="itemDescriptionSearch">{{ item.snippet.description|makeClickable }}</div>
-                    <div class="buttonPlay"></div>
-                </div>
-                {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                <div class="itemSub">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="icon playlist"></i></button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li class="dropdown-submenu" id="{{ item.id.videoId }}">
-                                <a tabindex="-1" href="#">Ajouter à une playlist</a>
-                                {% if user.playlists|length %}
-                                    <ul class="dropdown-menu">
-                                        {% for playlist in user.playlists %}
-                                        <li><a href="{{ url('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':item.id.videoId}) }}" class="toModal">{{ playlist.name }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}
-                            </li>
-                            <li><a href="#" class="readAfter" data-id="{{ item.id.videoId }}">Lire juste après</a></li>
-                            <li class="divider"></li>
-                            <li><a href="{{ url('_formCreatePlaylist', {'vidId':item.id.videoId}) }}" class="toModal">Créer une playlist</a></li>
-                        </ul>
+<div id="right_content">
+    <div id="feeds">
+    <script src="https://apis.google.com/js/plusone.js"></script>
+            {% for item in resultsSearch.items %}
+                <div class="relative">
+                    <div class="itemSearch box-boreder" data-id="{{ item.id.videoId }}">
+                        <div class="itemImgSearch box-boreder"><img src="{{ item.snippet.thumbnails.medium.url }}"></div>
+                        <div class="itemInfos"></div>
+                        <div class="itemTitleSearch">{{ item.snippet.title }}</div>
+                        <div class="itemDescriptionSearch">{{ item.snippet.description|makeClickable }}</div>
+                        <div class="buttonPlay"></div>
                     </div>
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <div class="itemSub">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="icon playlist"></i></button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li class="dropdown-submenu" id="{{ item.id.videoId }}">
+                                    <a tabindex="-1" href="#">Ajouter à une playlist</a>
+                                    {% if user.playlists|length %}
+                                        <ul class="dropdown-menu">
+                                            {% for playlist in user.playlists %}
+                                            <li><a href="{{ url('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':item.id.videoId}) }}" class="toModal">{{ playlist.name }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                </li>
+                                <li><a href="#" class="readAfter" data-id="{{ item.id.videoId }}">Lire juste après</a></li>
+                                <li class="divider"></li>
+                                <li><a href="{{ url('_formCreatePlaylist', {'vidId':item.id.videoId}) }}" class="toModal">Créer une playlist</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
-                {% endif %}
-            </div>
-        {% endfor %}
+            {% endfor %}
+    </div>
 </div>
+{% include 'VidlisCoreBundle:Default:menu.html.twig'%}

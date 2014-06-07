@@ -3,8 +3,7 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    {% include 'VidlisCoreBundle:Default:menu.html.twig' %}
-    {% include 'VidlisCoreBundle:Default:player.html.twig' %}
+    {% include 'VidlisCoreBundle:Default:header.html.twig' with {'tab': 'playlist'}  %}
     <div id="content">
     {{
         render(
@@ -12,5 +11,4 @@
         )
     }}
     </div>
-    {% include 'VidlisCoreBundle:Default:playervideo.html.twig' %}
 {% endblock %}

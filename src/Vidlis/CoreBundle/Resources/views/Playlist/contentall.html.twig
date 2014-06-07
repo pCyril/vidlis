@@ -1,31 +1,39 @@
-{% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
 
 <div id="right_content">
-    {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'all'} %}
-    {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
-    {% for playlist in playlists %}
-        <div class="box330 box-boreder" id="{{ playlist.id }}">
-            <div class="boxHeader">
-                <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a></h2>
-            <div class="playlistCreatorName">Par {{ playlist.user.username }}</div></div>
-            <div class="boxBody mCustomScrollbarActiv">
-                {% for item in playlist.items %}
-                    <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
-                        <div class="itemNumber">{{ loop.index }}</div>
-                        <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
-                        <div class="videoDuration">{{ item.videoDuration }}</div>
-                        <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+    <div id="feeds">
+        {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'all'} %}
+        {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
+        {% for playlist in playlists %}
+            <div class="box330 box-boreder" id="{{ playlist.id }}">
+                <div class="boxHeader">
+                    <div class="playlistCreatorName"><i>Par </i>{{ playlist.user.username }}</div>
+                    <div class="playlistCreatorDate">{{ playlist.creationDate|date("d/m/Y") }}</div>
+                    <div class="clear"></div>
+                    <div class="images">
+                        <img src="{{ playlist.items.first.idVideo|videoImage }}">
+                        <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a></h2>
                     </div>
-                {% endfor %}
-            </div>
-            <div class="boxFooter dark">
-                {% if connected %}
-                    {% if playlist.user.id != user.id %}
-                        <a href="{{ path('_addFavoritePlaylist', {'idPlaylist': playlist.id}) }}" class="toModal addToFavorite"><i class="icon heart blue"></i></a>
+                </div>
+                <div class="boxBody mCustomScrollbarActiv">
+                    {% for item in playlist.items %}
+                        <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
+                            <div class="itemNumber">{{ loop.index }}</div>
+                            <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
+                            <div class="videoDuration">{{ item.videoDuration }}</div>
+                            <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="boxFooter dark">
+                    {% if connected %}
+                        {% if playlist.user.id != user.id %}
+                            <a href="{{ path('_addFavoritePlaylist', {'idPlaylist': playlist.id}) }}" class="toModal addToFavorite"><i class="icon heart blue"></i></a>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
-                <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
+                    <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
+                </div>
             </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
 </div>
+{% include 'VidlisCoreBundle:Default:menu.html.twig'%}
