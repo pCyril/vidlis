@@ -1,11 +1,3 @@
-
-
-// 3. This function creates an <iframe> (and YouTube player)
-//    after the API code downloads.
-var ytplayer;
-var tag = document.createElement('script');
-var firstScriptTag;
-
 $(document).ready(function () {
     $('.formSearch').live('submit', function () {
         if ($('#search').val()) {
@@ -20,9 +12,9 @@ $(document).ready(function () {
     $('.closeShowPlaylist').live('click', function () {
         $('#playlistContent, .underVideo, .closeShowPlaylist, #suggestionContent').toggleClass('open', 500);
         if ($('.closeShowPlaylist').hasClass('open')) {
-            $('.closeShowPlaylist').html('>');
+            $('.closeShowPlaylist i').removeClass('fa-chevron-left').addClass('fa-chevron-right');
         } else {
-            $('.closeShowPlaylist').html('<');
+            $('.closeShowPlaylist i').removeClass('fa-chevron-right').addClass('fa-chevron-left');
         }
     });
     $('.showPlaying').live('click', function () {
@@ -54,7 +46,7 @@ $(document).ready(function () {
             }
         );
     });
-    $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist, .itemLaunched").live("click", function () {
+    $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist, .itemLaunched, .boxplayed").live("click", function () {
         addToQueue($(this).data('id'));
         if ($('.btn-suggestion').hasClass('active')) {
             $('#suggestionContent').hide();
@@ -138,9 +130,9 @@ $('body').bind('click', function (e) {
         && $(e.target).is('.overlay')) {
         $('.overlay').hide();
         $('.playerVideo').removeClass('grow');
-        $('#ytPlayer').attr('width', 219);
+        $('#ytPlayer').attr('width', 200);
         $('#ytPlayer').attr('height', 200);
-        $('.playerVideo').css('width', 219 + 'px');
+        $('.playerVideo').css('width', 200 + 'px');
         $('.playerVideo').css('height', 200 + 'px');
     }
 });
@@ -149,9 +141,9 @@ $(document).keyup(function (e) {
         && e.keyCode == 27) {
         $('.overlay').hide();
         $('.playerVideo').removeClass('grow');
-        $('#ytPlayer').attr('width', 219);
+        $('#ytPlayer').attr('width', 200);
         $('#ytPlayer').attr('height', 200);
-        $('.playerVideo').css('width', 219 + 'px');
+        $('.playerVideo').css('width', 200 + 'px');
         $('.playerVideo').css('height', 200 + 'px');
     }
 });
@@ -212,11 +204,19 @@ $(".toModalHTML").live('click', function () {
     }
 );
 
-function loadBox(url) {
+function loadBox(url, tab) {
     if ($.address.value() != url) {
         $.address.value(url);
     } else {
         forceLoad(url);
+    }
+
+    if (tab != undefined) {
+        currentTab = $('body').find('.tab.current');
+        currentTab.removeClass('current');
+        currentTab.find('a').removeClass('default');
+        $('.'+tab).addClass('default');
+        $('.'+tab).parent().addClass('current');
     }
 }
 
@@ -225,14 +225,6 @@ function setupCustomScrollbar() {
         $(this).mCustomScrollbar(
             {scrollInertia: 0}
         );
-    });
-    $(".playlistCreatorName").each(function () {
-        $(this).parent().find('h2').css('padding-right', ($(this).width() + 15)+'px');
-    });
-    $(".boxHeader").each(function () {
-        if ($(this).height() > 50) {
-            $(this).parent().find('.boxBody').css('height', (276 - $(this).height() + 50)+'px');
-        }
     });
 }
 
@@ -329,14 +321,14 @@ function onPlayerError(errorCode) {
 
 // This function is called when the player changes state
 function onPlayerStateChange(newState) {
-    if (newState.data == -1 || newState.data == 0 || newState.data == 2 || newState.data == 3) {
+    if (newState == -1 || newState == 0 || newState == 2 || newState == 3) {
         $("#play_b").css('display', 'none');
         $("#play_p").css('display', 'block');
     } else {
         $("#play_p").css('display', 'none');
         $("#play_b").css('display', 'block');
     }
-    if (newState.data == 0) {
+    if (newState == 0) {
         next();
     }
 }
@@ -396,7 +388,7 @@ function unMuteVideo() {
 
 
 // This function is automatically called by the player once it loads
-function onYouTubeIframeAPIReady() {
+function onYouTubePlayerReady(playerId) {
     $('#play_b').on('click', function () {
         pauseVideo();
     });
@@ -438,22 +430,13 @@ function onYouTubeIframeAPIReady() {
         $('#current_v').css('width', (Math.round((eLeft / widthSeek) * $('#bar_v').width()) + 'px'));
         setVideoVolume(Math.round((eLeft / widthSeek) * 100));
     });
-    ytplayer = new YT.Player('playerYt', {
-        height: '200',
-        width: '219',
-        playerVars: {
-            controls: '0'
-        },
-        events: {
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
-        }
-    });
-
+    ytplayer = document.getElementById("ytPlayer");
     // This causes the updatePlayerInfo function to be called every 250ms to
     // get fresh data from the player
     setInterval(updatePlayerInfo, 250);
     updatePlayerInfo();
+    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
+    ytplayer.addEventListener("onError", "onPlayerError");
     //Load an initial video into the player
     //ytplayer.cueVideoById("OeOdMsEWbB4");
 }
@@ -465,13 +448,9 @@ function loadPlayer() {
     // The element id of the Flash embed
     var atts = { id: "ytPlayer" };
     // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-    /*swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+    swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
         "version=3&enablejsapi=1&playerapiid=player1",
-        "videoDiv", "219", "200", "9", null, null, params, atts);*/
-    tag.src = "https://www.youtube.com/iframe_api";
-    firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
+        "videoDiv", "200", "200", "9", null, null, params, atts);
 }
 
 function addToQueue(id, after) {
@@ -540,7 +519,7 @@ function formatPlaylist(video, after) {
             $('.btn-save').show();
             if (!$('.closeShowPlaylist').hasClass('open')) {
                 $('#playlistContent, .underVideo, .closeShowPlaylist, #suggestionContent').toggleClass('open', 500);
-                $('.closeShowPlaylist').html('<');
+                $('.closeShowPlaylist i').removeClass('fa-chevron-right').addClass('fa-chevron-left');
             }
         }
         if (ytplayer.getPlayerState() == 0) {

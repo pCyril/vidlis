@@ -50,7 +50,7 @@ class YoutubeSearch {
     {
         $result = $this->memcacheService->get($this->q);
         if (!$result) {
-            $result = json_decode(file_get_contents($this->getUrlSearch()));
+            $result = json_decode(file_get_contents(html_entity_decode($this->getUrlSearch())));
             $this->memcacheService->set($this->q, $result, 900);
         }
         return $result;
