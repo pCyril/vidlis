@@ -3,10 +3,10 @@
     <div id="jquery_jplayer_1" style="background-color: rgb(0, 0, 0); "></div>
     <div id="prog">
         <div id="buttons">
-            <div id="play_b"></div>
-            <div id="play_p"></div>
-            <div id="preview_b"></div>
-            <div id="next_b"></div>
+            <div id="play_b"><i class="fa fa-pause fa-lg"></i></div>
+            <div id="play_p"><i class="fa fa-play fa-lg"></i></div>
+            <div id="preview_b"><i class="fa fa-backward fa-lg"></i></div>
+            <div id="next_b"><i class="fa fa-forward fa-lg"></i></div>
         </div>
         <div id="volume">
             <div id="icon_v"></div>
@@ -24,10 +24,5 @@
             </div>
         </div>
     </div>
-    <div id="loading"><img src="{{ asset('bundles/Vidlis/images/load.gif') }}"></div>
-    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-        <a href="{{ path('fos_user_security_login') }}" class="toModalHTML register">Déconnexion</a>
-    {% else %}
-        <a href="{{ path('fos_user_security_login') }}" class="toModalHTML register">Connexion</a>
-    {% endif %}
 </div>
+<div id="loading"><img src="{{ asset('bundles/Vidlis/images/load.gif') }}"></div>

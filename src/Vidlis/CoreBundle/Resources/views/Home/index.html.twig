@@ -4,8 +4,7 @@
 {% block description %}Vidlis est un site de streaming musical, écoutez tout le catalogue musical de Youtube sans publicité gratuitement et sans coupure.{% endblock %}
 
 {% block body %}
-    {% include 'VidlisCoreBundle:Default:menu.html.twig' %}
-    {% include 'VidlisCoreBundle:Default:player.html.twig' %}
+    {% include 'VidlisCoreBundle:Default:header.html.twig'  with {'tab': 'home'}   %}
     <div id="content">
     {{
         render_esi(
@@ -13,5 +12,4 @@
         )
     }}
     </div>
-    {% include 'VidlisCoreBundle:Default:playervideo.html.twig' %}
 {% endblock %}

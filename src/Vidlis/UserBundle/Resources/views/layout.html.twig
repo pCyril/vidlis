@@ -1,32 +1,29 @@
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">Connexion</h4>
-</div>
-<div class="modal-body">
+<div class="modal-body" style="padding: 0px 0px 20px 0px;">
     <div>
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
-            <a href="{{ path('fos_user_security_logout') }}" class="toModalHTML">
-                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
-            </a>
+            <div style="padding: 20px 20px 0px 20px; text-align: center;">
+                {{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+                <a href="{{ path('fos_user_security_logout') }}" class="toModalHTML">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+            </div>
         {% else %}
-            <div class="btn-group btn-group-justified" style="margin-bottom: 20px;">
-                <a href="{{ path('fos_user_security_login') }}" class="btn btn-primary toModalHTML">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-success toModalHTML">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+            <div class="">
+                <a href="{{ path('fos_user_security_login') }}" class="login toModalHTML">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+                <a href="{{ path('fos_user_registration_register') }}" class="signin toModalHTML">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+            </div>
+            <div class="clear"></div>
+            <div style="padding: 0px 20px;">
+                {% for type, messages in app.session.flashBag.all %}
+                    {% for message in messages %}
+                        <div class="{{ type }}">
+                            {{ message|trans({}, 'FOSUserBundle') }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
             </div>
         {% endif %}
-    </div>
-
-    {% for type, messages in app.session.flashBag.all %}
-        {% for message in messages %}
-            <div class="{{ type }}">
-                {{ message|trans({}, 'FOSUserBundle') }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
-    <div>
-        {% block fos_user_content %}
-        {% endblock fos_user_content %}
     </div>
 </div>

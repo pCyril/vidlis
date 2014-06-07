@@ -29,6 +29,7 @@ abstract class AbstractQuery extends AbstractCache
     public function setLifetime($lifetime)
     {
         $this->lifetime = $lifetime;
+        return $this;
     }
 
     public function getQueryBuilder()
@@ -76,6 +77,18 @@ abstract class AbstractQuery extends AbstractCache
         foreach ($orders as $key => $value) {
             $this->queryBuilder->addOrderBy($key, $value);
         }
+        return $this;
+    }
+
+    public function addGroupBy($field)
+    {
+        $this->queryBuilder->addGroupBy($field);
+        return $this;
+    }
+
+    public function setLimit($number)
+    {
+        $this->queryBuilder->setMaxResults($number);
         return $this;
     }
 

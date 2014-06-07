@@ -82,7 +82,7 @@ $(document).ready(function () {
         }
         return false;
     });
-    $('#playlistContent, #suggestionContent').css('height', ($(window).height() - 89) + 'px');
+    $('#playlistContent, #suggestionContent').css('height', ($('#right_content').height()-30) + 'px');
     $('#playlistContent, #suggestionContent').mCustomScrollbar(
         {scrollInertia: 0, mouseWheel: true, autoHideScrollbar: true,
             advanced: {
@@ -123,7 +123,7 @@ window.onbeforeunload = function() {
     }
 }
 $(window).resize(function () {
-    $('#playlistContent, #suggestionContent').css('height', ($(window).height() - 89) + 'px');
+    $('#playlistContent, #suggestionContent').css('height', ($('#right_content').height()-30) + 'px');
 });
 
 $(".modal .close, .overlay").live('click', function(){

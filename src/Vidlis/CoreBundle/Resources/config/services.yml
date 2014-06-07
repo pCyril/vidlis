@@ -19,5 +19,6 @@ services:
         arguments: ["@memcache", "%youtubeAPIKey%"]
     Vidlis.twig.vidlis_extension:
         class: Vidlis\CoreBundle\Twig\VidlisExtension
+        arguments: ["@youtubeVideo"]
         tags:
             - { name: twig.extension }

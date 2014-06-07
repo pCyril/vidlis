@@ -9,6 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Vidlis\CoreBundle\Controller\AuthController;
+use Vidlis\CoreBundle\Entity\PlayedQuery;
 use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
@@ -42,7 +43,17 @@ class HomeController extends Controller
      */
     public function contentAction()
     {
-        return array();
+        $em = $this->getDoctrine()->getManager();
+        $playedQuery = new PlayedQuery($em);
+        $videosPlayed = $playedQuery->setLimit(12)->setLifetime(30)->setOrderBy(array('p.datePlayed' => 'DESC'))->getList('video_played');
+        $data = array('videosPlayed' => $videosPlayed);
+        if ($this->getUser()) {
+            $data['user'] = $this->getUser();
+            $data['connected'] = true;
+        } else {
+            $data['connected'] = false;
+        }
+        return $data;
     }
     
 }

@@ -1,10 +1,17 @@
-{% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
-
 <div id="right_content">
+    <div id="feeds">
     {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': ''} %}
     {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
-    <div class="box330 box-boreder" id="{{ playlist.id }}">
-        <div class="boxHeader"><h2>{{ playlist.name }}</h2><div class="playlistCreatorName">Par {{ playlist.user.username }}</div></div>
+    <div class="box330 box-boreder marginTop0" id="{{ playlist.id }}">
+        <div class="boxHeader">
+            <div class="playlistCreatorName"><i>Par </i>{{ playlist.user.username }}</div>
+            <div class="playlistCreatorDate">{{ playlist.creationDate|date("d/m/Y") }}</div>
+            <div class="clear"></div>
+            <div class="images">
+                <img src="{{ playlist.items.first.idVideo|videoImage }}">
+                <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a></h2>
+            </div>
+        </div>
         <div class="boxBody mCustomScrollbarActiv">
             {% for item in playlist.items %}
                 <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
@@ -33,4 +40,6 @@
             });
         </script>
     </div>
+    </div>
 </div>
+{% include 'VidlisCoreBundle:Default:menu.html.twig'%}

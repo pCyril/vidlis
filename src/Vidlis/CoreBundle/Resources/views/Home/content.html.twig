@@ -1,34 +1,37 @@
-{% include 'VidlisCoreBundle:Default:sidebar.html.twig' %}
-
 <div id="right_content">
     <div class="presentation">
-        <h2 style="text-align: center;margin:40px;padding-top:40px;">Découvrez une nouvelle façon d'écouter la musique gratuitement</h2>
+        <img src="{{ asset('bundles/Vidlis/images/bg.jpg') }}" width="100%"/>
+        <div class="titleSearch">
+        <h2>Découvrez une nouvelle façon d'écouter la musique gratuitement</h2>
         <div class="searchZoneHome">
             <form class="formSearchHome" id="formSearchHome">
             <div class="search-input-bg">
                 <input type="text" placeholder="Rechercher votre musique" name="q" id="q" autocomplete="off" class="search-input ui-autocomplete-input">
             </div>
-            <div class="search-button">
-                <button type="submit" class="btn-home-search">
-                    <input type="image" class="search-button-item" src="{{ asset('bundles/Vidlis/images/search-big.png') }}" alt="Chercher">
-                </button>
-            </div>
             </form>
         </div>
-        <hr style="width: 80%; margin:50px auto;">
-        <div style="width: 80%; margin:50px auto;">
-            <div style="width:50%;float: left;padding: 40px;text-align: center;">
-                    <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Créer un compte</a>
-            </div>
-            <div style="width:50%;float: left; border-left:1px solid #ccc;">
-            <ul class="checked">
-                <li><p>L'inscription est gratuite !</p></li>
-                <li><p>Aucune restriction de temps !</p></li>
-                <li><p>Le contenu est illimité !</p></li>
-            </ul>
-            </div>
         </div>
-        <div class="clear"></div>
-        <hr style="width: 80%; margin:50px auto;">
+        <div id="feeds">
+            {% if connected == false %}
+            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Créer un compte gratuitement</a>
+            {% endif %}
+            <h3>Dernières vidéos regardées</h3>
+            {% for videoPlayed in videosPlayed %}
+                <div class="boxplayed" data-id="{{ videoPlayed.idVideo }}">
+                    <div class="videoTitle">{{ videoPlayed.idVideo|videoTitle }}</div>
+                    <div class="clear"></div>
+                    <div class="images">
+                        <img src="{{ videoPlayed.idVideo|videoImage }}">
+                    </div>
+                    <div class="vote"><div class="like" style="width: {{ videoPlayed.idVideo|videoPercentageLike }}%"></div></div>
+                    <div class="counts">
+                        <div class="likeCount"><i class="fa fa-thumbs-up"></i>{{ videoPlayed.idVideo|videoLikeCount }}</div>
+                        <div class="dislikeCount"><i class="fa fa-thumbs-down"></i>{{ videoPlayed.idVideo|videoDislikeCount }}</div>
+                    </div>
+                    <div class="buttonPlay"></div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
+{% include 'VidlisCoreBundle:Default:menu.html.twig'%}
