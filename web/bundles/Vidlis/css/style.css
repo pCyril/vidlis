@@ -561,6 +561,7 @@ i.icon-large{
     border-radius: 3px;
     color: white;
     background: #0c8fe7;
+    margin-right: 14px;
 }
 
 .boxHeader .playlistCreatorName, .boxplayed .videoTitle {
@@ -1550,6 +1551,7 @@ i.icon-large{
     width: 350px;
     height: 300px;
     padding: 10px;
+    z-index: 10;
     background-color: #262626;
     border-top-left-radius: 4px;
 }
