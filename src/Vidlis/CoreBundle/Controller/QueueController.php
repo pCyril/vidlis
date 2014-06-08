@@ -19,6 +19,22 @@ class QueueController extends Controller
         $data = array();
         $idVideo = $this->getRequest()->request->get('videoid');
         if ($this->getRequest()->isMethod('POST')) {
+            $data['video'] = $this->get('youtubeVideo')->setId($idVideo)->getResult();
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+    }
+
+    /**
+     * @Route("/played", name="_played")
+     * @Template()
+     */
+    public function playedAction()
+    {
+        $data = array();
+        $idVideo = $this->getRequest()->request->get('videoid');
+        if ($this->getRequest()->isMethod('POST')) {
             $played = new Played();
             $played->setIdVideo($idVideo)
                 ->setDatePlayed(new \DateTime());
