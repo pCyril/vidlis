@@ -16,6 +16,12 @@ body {
     font-smoothing: antialiased;
 }
 
+.main-container {
+    max-width: 1600px;
+    position: relative;
+    margin: auto;
+}
+
 a:hover {
     text-decoration: none;
 }
@@ -562,6 +568,7 @@ i.icon-large{
     color: white;
     background: #0c8fe7;
     margin-right: 14px;
+    line-height: 17px;
 }
 
 .boxHeader .playlistCreatorName, .boxplayed .videoTitle {
@@ -835,8 +842,8 @@ i.icon-large{
 #playlistContent, #suggestionContent {
     position: absolute;
     overflow: auto;
-    top: 151px;
-    left: 10px;
+    top: 133px;
+    left: 0px;
     width: 0px;
     height: 100%;
     background: #262626;
@@ -854,13 +861,12 @@ i.icon-large{
 .underVideo {
     position: absolute;
     overflow: auto;
-    top: 122px;
-    left: 10px;
+    top: 104px;
+    left: 0px;
     width: 0px;
     z-index: 900;
     height: 29px;
     background: #262626;
-    border-right: 1px solid #000000;
     border-bottom: 1px solid #1d1d1d;
 }
 
@@ -1212,7 +1218,7 @@ i.icon-large{
     position: absolute;
     right: 233px;
     z-index: 20000;
-    top: 19px;
+    top: 1px;
     color: #D4D4D4;
     padding: 0px 10px;
     height: 45px;
@@ -1442,7 +1448,7 @@ i.icon-large{
 .closeShowPlaylist {
     position:absolute;
     top: 140px;
-    left:10px;
+    left:0px;
     height: 40px;
     width:30px;
     background-color:#262626;
@@ -1461,7 +1467,7 @@ i.icon-large{
 }
 
 .closeShowPlaylist.open {
-    left:390px;
+    left:380px;
 }
 
 .successAddedToQueue {
