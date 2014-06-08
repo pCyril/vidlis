@@ -752,6 +752,12 @@ function formatPlayingList(info) {
 }
 
 function launched(videoId) {
+    $.ajax({
+        url: DOMAIN_NAME + '/played',
+        type: 'post',
+        dataType: 'json',
+        data: { videoid: videoId}
+    });
     if (typeof socket != 'undefined') {
         user.videoId = videoId
         socket.emit('launch', user);
