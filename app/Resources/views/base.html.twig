@@ -43,13 +43,15 @@
         })();
 
     </script>
-        {% block body %}{% endblock %}
+        <div class="main-container">
+            {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         <div class="showPlaying">+</div>
         <div class="infoPlayed">
             <h2>Qui écoute quoi ?</h2>
             <div class="contentPlayed mCustomScrollbarExist">
             </div>
+        </div>
         </div>
     <script>
         UserVoice=window.UserVoice||[];(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/zyKnE7OZ61g6grspliaZJg.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})();
