@@ -3,7 +3,7 @@
 {% endif %}
 
 <div id="mainToolbar">
-    <div id="logo">VIDLIS</div>
+    <a href="{{ url('_home') }}" id="logo" onclick="loadBox('/', 'tabHome');  return false;">VIDLIS</a>
     {% include 'VidlisCoreBundle:Default:player.html.twig' %}
     <div class="playerVideo">
         <div id="videoDiv"><img src="{{ asset('bundles/Vidlis/images/loadBlack.gif') }}"></div>
