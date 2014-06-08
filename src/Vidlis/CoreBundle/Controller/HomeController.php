@@ -19,20 +19,31 @@ class HomeController extends Controller
     /**
      * @Route("/", name="_home")
      * @Route("/fr/")
+     * @Route("/share/{idVideo}")
      * @Template()
      * @Cache(expires="tomorrow")
      */
-    public function indexAction()
+    public function indexAction($idVideo = null)
     {
         $data = array();
-        $data['title'] = 'Vidlis';
-        
-        
+        if (!is_null($idVideo)) {
+            $youtubeVideoService = $this->get('youtubeVideo');
+            $result = $youtubeVideoService->setId($idVideo)->getResult();
+            $data['title'] = $result->items[0]->snippet->title . ' - Vidlis';
+            $data['og_image'] = $result->items[0]->snippet->thumbnails->medium->url;
+            $data['og_title'] = $result->items[0]->snippet->title . ' - Vidlis';
+        } else {
+            $data['title'] = 'Vidlis';
+        }
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Home:content.html.twig', $this->contentAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
+        } else {
+            if (!is_null($idVideo)) {
+                $data['launch'] = $idVideo;
+            }
         }
         return $data;
     }

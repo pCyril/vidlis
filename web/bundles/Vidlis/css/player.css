@@ -266,3 +266,17 @@
 	top:0px;
 	cursor:pointer;
 }
+
+#share {
+    height:47px;
+    position:absolute;
+    top:9px;
+    font-size: 12px;
+    left:451px;
+    display: none;
+}
+
+#share a {
+    color: #ffffff;
+    text-shadow: -1px 1px 2px #000000;
+}
