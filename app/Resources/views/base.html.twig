@@ -15,6 +15,10 @@
         <script type="text/javascript">
             var DOMAIN_NAME = '{{ domain_name }}';
         </script>
+        {% if og_image is defined %}
+            <meta property="og:title" content="{{ og_title }}" />
+            <meta property="og:image" content="{{ og_image }}" />
+        {% endif %}
     </head>
     <body>
     <div id="fb-root"></div>

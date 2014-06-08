@@ -1,3 +1,5 @@
+var curentVideoId = '';
+
 $(document).ready(function () {
     $('.formSearch').live('submit', function () {
         if ($('#search').val()) {
@@ -176,6 +178,11 @@ $(".toModal").live('click', function () {
     }
 );
 
+$('#share a').on('click', function() {
+    if (curentVideoId != '') {
+        window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fvidlis.fr%2Fshare%2F'+curentVideoId, 'share','height=350px,width=600px');
+    }
+});
 
 $(".toModalHTML").live('click', function () {
         element = $(this);
@@ -437,8 +444,7 @@ function onYouTubePlayerReady(playerId) {
     updatePlayerInfo();
     ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
     ytplayer.addEventListener("onError", "onPlayerError");
-    //Load an initial video into the player
-    //ytplayer.cueVideoById("OeOdMsEWbB4");
+    $("body").trigger("playerReady");
 }
 
 // The "main method" of this sample. Called when someone clicks "Run".
@@ -462,6 +468,7 @@ function addToQueue(id, after) {
         beforeSend: function () {
             $('.loadQueue, .successAddedToQueue').show();
             $('.successAddedToQueue').html('Ajout en cours à la playlist');
+            $('#share').css('display', 'block');
         },
         success: function (data, textStatus, jqXHR) {
             formatPlaylist(data.video, after);
@@ -507,6 +514,7 @@ function formatPlaylist(video, after) {
         playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
         if (playlistItem.size() == 1) {
             ytplayer.cueVideoById(this.id);
+            curentVideoId = this.id;
             launched(this.id);
             $('#title').html(this.snippet.title);
             ytplayer.playVideo();
@@ -541,6 +549,7 @@ function _run() {
 function launch(element) {
     $('.itemPlaylist.active').removeClass('active');
     ytplayer.cueVideoById(element.data('id'));
+    curentVideoId = element.data('id');
     launched(element.data('id'));
     $('#title').html(element.data('title'));
     $('#viewCount span').html(makeSeperator(element.data('viewcount'), ' '));
@@ -556,6 +565,7 @@ function next() {
     if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
         ytplayer.cueVideoById($(element).data('id'));
+        curentVideoId = $(element).data('id');
         launched($(element).data('id'));
         $('#title').html($(element).data('title'));
         $('#vote .like').css('width', Math.round($(element).data('likecount') / ($(element).data('likecount') + $(element).data('dislikecount')) * 100) + '%');
@@ -576,6 +586,7 @@ function preview() {
     if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
         ytplayer.cueVideoById($(element).data('id'));
+        curentVideoId = $(element).data('id');
         launched($(element).data('id'));
         $('#title').html($(element).data('title'));
         $('#vote .like').css('width', Math.round($(element).data('likecount') / ($(element).data('likecount') + $(element).data('dislikecount')) * 100) + '%');
@@ -600,7 +611,9 @@ function clearPlaylist() {
     $('#viewCount span').html('');
     $('#viewCount').css('display', 'none');
     $('#vote').css('display', 'none');
+    $('#share').css('display', 'none');
     ytplayer.cueVideoById('');
+    curentVideoId = '';
     $('.btn-save').hide();
     $('.btn-suggestion').hide();
     return false;

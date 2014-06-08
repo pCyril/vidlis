@@ -79,4 +79,12 @@
         });
     });
         </script>
+
+    {% if launch is defined %}
+        <script type="text/javascript">
+            $('body').on('playerReady', function () {
+                addToQueue('{{ launch }}');
+            });
+        </script>
+    {% endif %}
 {% endblock %}
