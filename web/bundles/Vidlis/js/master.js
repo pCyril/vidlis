@@ -100,9 +100,8 @@ $(document).ready(function () {
 });
 
 $('.mouseoverInfo').live('mousemove', function (e) {
-    $('#infoLabel').css('top', ($(e.target).offset().top - 30) + 'px').css('left', ($(e.target).offset().left - 30) + 'px').css('display', 'block');
+    $('#infoLabel').css('top', ($(e.target).offset().top - $('.main-container').offset().top - 30) + 'px').css('left', ($(e.target).offset().left - $('.main-container').offset().left - 30) + 'px').css('display', 'block');
     $('#infoLabel').html($(e.target).data('info'));
-    console.log($(e.target).offset().top);
 });
 
 $('.mouseoverInfo').live('mouseout', function () {
@@ -426,7 +425,7 @@ function onYouTubePlayerReady(playerId) {
         var widthSeek = $('#seekbar').width();
         $('#timeSearch').html(getTime(Math.round(ytplayer.getDuration() * (eLeft / widthSeek))));
         $('#timeSearch').css('display', 'block');
-        $('#timeSearch').css('left', (event.pageX - ($('#timeSearch').width() / 2)) + 'px');
+        $('#timeSearch').css('left', (event.pageX - $('.main-container').offset().left - ($('#timeSearch').width() / 2)) + 'px');
     });
     $('#preload,#play').live('mouseout', function () {
         $('#timeSearch').css('display', 'none');
