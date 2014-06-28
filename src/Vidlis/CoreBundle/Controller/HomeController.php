@@ -8,9 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-use Vidlis\CoreBundle\Controller\AuthController;
 use Vidlis\CoreBundle\Entity\PlayedQuery;
-use Vidlis\CoreBundle\GoogleApi\Contrib\apiYoutubeService;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
 
 class HomeController extends Controller
