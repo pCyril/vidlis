@@ -20,6 +20,7 @@ class VidlisExtension extends \Twig_Extension
             'videoPercentageLike' => new \Twig_Filter_Method($this, 'videoPercentageLike'),
             'videoLikeCount' => new \Twig_Filter_Method($this, 'videoLikeCount'),
             'videoDislikeCount' => new \Twig_Filter_Method($this, 'videoDislikeCount'),
+            'videoViewCount' => new \Twig_Filter_Method($this, 'videoViewCount'),
             'isFloat' => new \Twig_Filter_Method($this, 'isFloat'),
         );
     }
@@ -88,6 +89,18 @@ class VidlisExtension extends \Twig_Extension
         $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
         $item = $result->items[0];
         return number_format($item->statistics->likeCount, 0, ',', ' ');
+    }
+
+
+    /**
+     * @param $idVideo
+     * @return int
+     */
+    public function videoViewCount($idVideo)
+    {
+        $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
+        $item = $result->items[0];
+        return number_format($item->statistics->viewCount, 0, ',', ' ');
     }
 
     public function isFloat($number)

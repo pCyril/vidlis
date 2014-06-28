@@ -6,7 +6,10 @@
     <a href="{{ url('_home') }}" id="logo" onclick="loadBox('/', 'tabHome');  return false;">VIDLIS</a>
     {% include 'VidlisCoreBundle:Default:player.html.twig' %}
     <div class="playerVideo">
-        <div id="videoDiv"><img src="{{ asset('bundles/Vidlis/images/loadBlack.gif') }}"></div>
+        <div id="videoDiv">
+            <div id="playerYt"></div>
+        </div>
+        {#<i class="fa fa-expand pull-right" id="grow"></i>#}
     </div>
     <div id="toolbarSearch">
         <form class="form-wrapper cf formSearch" id="formSearch">
@@ -63,3 +66,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+    var done = false;
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+            setTimeout(stopVideo, 6000);
+            done = true;
+        }
+    }
+    function stopVideo() {
+        player.stopVideo();
+    }
+</script>

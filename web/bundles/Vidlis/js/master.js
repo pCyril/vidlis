@@ -1,5 +1,9 @@
 var curentVideoId = '';
 
+var ytplayer;
+var tag = document.createElement('script');
+var firstScriptTag;
+
 $(document).ready(function () {
     $('.formSearch').live('submit', function () {
         if ($('#search').val()) {
@@ -36,6 +40,16 @@ $(document).ready(function () {
             showError('Oui, mais tu cherches quoi exactement ?');
         }
         return false;
+    });
+    $('#grow').on('click', function(){
+        $('.playerVideo').animate({
+            left: '50%',
+            'margin-left': '-500px',
+            width: '1000px',
+            height: '500px',
+            top: '80px'
+        }, 1000);
+        $('#playerYt').animate({'width': '988px', height: '488px'}, 1000);
     });
     setupCustomScrollbar();
     $(".mCustomScrollbarExist").each(function () {
@@ -327,25 +341,21 @@ function onPlayerError(errorCode) {
 
 // This function is called when the player changes state
 function onPlayerStateChange(newState) {
-    if (newState == -1 || newState == 0 || newState == 2 || newState == 3) {
+    if (newState.data == -1 || newState.data == 0 || newState.data == 2 || newState.data == 3) {
         $("#play_b").css('display', 'none');
         $("#play_p").css('display', 'block');
     } else {
         $("#play_p").css('display', 'none');
         $("#play_b").css('display', 'block');
     }
-    if (newState == 0) {
+    if (newState.data == 0) {
         next();
     }
 }
 
-// Display information about the current state of the player
 function updatePlayerInfo() {
-    // Also check that at least one function exists since when IE unloads the
-    // page, it will destroy the SWF before clearing the interval.
     if (ytplayer && ytplayer.getDuration) {
         updateHTML("time", getTime(ytplayer.getCurrentTime()));
-
         duration = ytplayer.getDuration();
         preload = parseInt($('#seekbar').css('width')) * ((Math.floor(ytplayer.getVideoBytesLoaded() * 10) / 10) / ytplayer.getVideoBytesTotal());
         result = parseInt($('#seekbar').css('width')) * ((Math.floor(ytplayer.getCurrentTime() * 10) / 10) / duration);
@@ -354,7 +364,6 @@ function updatePlayerInfo() {
     }
 }
 
-// Allow the user to set the volume from 0-100
 function setVideoVolume(volume) {
     if (isNaN(volume) || volume < 0 || volume > 100) {
         alert("Please enter a valid volume between 0 and 100.");
@@ -380,21 +389,7 @@ function pauseVideo() {
     }
 }
 
-function muteVideo() {
-    if (ytplayer) {
-        ytplayer.mute();
-    }
-}
-
-function unMuteVideo() {
-    if (ytplayer) {
-        ytplayer.unMute();
-    }
-}
-
-
-// This function is automatically called by the player once it loads
-function onYouTubePlayerReady(playerId) {
+function onYouTubeIframeAPIReady() {
     $('#play_b').on('click', function () {
         pauseVideo();
     });
@@ -436,13 +431,21 @@ function onYouTubePlayerReady(playerId) {
         $('#current_v').css('width', (Math.round((eLeft / widthSeek) * $('#bar_v').width()) + 'px'));
         setVideoVolume(Math.round((eLeft / widthSeek) * 100));
     });
-    ytplayer = document.getElementById("ytPlayer");
+    ytplayer = new YT.Player('playerYt', {
+        height: '200',
+        width: '200',
+        playerVars: {
+            controls: '0'
+        },
+        events: {
+            'onStateChange': onPlayerStateChange,
+            'onError': onPlayerError
+        }
+    });
     // This causes the updatePlayerInfo function to be called every 250ms to
     // get fresh data from the player
     setInterval(updatePlayerInfo, 250);
     updatePlayerInfo();
-    ytplayer.addEventListener("onStateChange", "onPlayerStateChange");
-    ytplayer.addEventListener("onError", "onPlayerError");
     $("body").trigger("playerReady");
 }
 
@@ -453,9 +456,13 @@ function loadPlayer() {
     // The element id of the Flash embed
     var atts = { id: "ytPlayer" };
     // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-    swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-        "version=3&enablejsapi=1&playerapiid=player1",
-        "videoDiv", "200", "200", "9", null, null, params, atts);
+    /*swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
+     "version=3&enablejsapi=1&playerapiid=player1",
+     "videoDiv", "219", "200", "9", null, null, params, atts);*/
+    tag.src = "https://www.youtube.com/iframe_api";
+    firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
 }
 
 function addToQueue(id, after) {
