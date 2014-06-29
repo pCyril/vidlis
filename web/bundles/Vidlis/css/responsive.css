@@ -12,3 +12,56 @@
         margin-bottom:20px;
     }
 }
+
+@media only screen and (max-width: 1279px) {
+    #play_b {
+        left: 113px;
+        top: 10px;
+        font-size: 11px;
+    }
+    #play_p {
+        left: 114px;
+        top: 9px;
+        font-size: 12px;
+    }
+    #preview_b {
+        left: 90px;
+        top: 9px;
+        font-size: 12px;
+    }
+    #next_b {
+        left: 132px;
+        top: 9px;
+        font-size: 12px;
+    }
+    #main-lecteur {
+        left: 0px;
+    }
+    #prog #title {
+        left: 153px;
+        width: 285px;
+    }
+    #mainToolbar #logo {
+        left: 10px !important;
+    }
+
+    #seekbar {
+        left: 90px;
+    }
+
+    #time {
+        left: 464px;
+    }
+
+    #volume {
+        left: 503px;
+    }
+
+    #share {
+        left: 441px;
+    }
+
+    #toolbarSearch {
+        left: 610px !important;
+    }
+}
