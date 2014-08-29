@@ -1794,3 +1794,14 @@ ul, ol {
 .mCSB_horizontal .mCSB_container {
     margin-bottom: 0px !important;
 }
+
+.playlistOpen .playlistContainer{
+    display: block !important;
+}
+
+.playlistOpen #right_content {
+    margin-top: 200px !important;
+}
+.playlistOpen #secondToolbar {
+    top: 145px !important;
+}
