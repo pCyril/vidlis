@@ -1,7 +1,6 @@
 {% if tab is not defined %}
     {% set tab = 'home' %}
 {% endif %}
-
 <div id="mainToolbar">
     <a href="{{ url('_home') }}" id="logo" onclick="loadBox('/', 'tabHome');  return false;">VIDLIS</a>
     {% include 'VidlisCoreBundle:Default:player.html.twig' %}
@@ -34,24 +33,27 @@
 
     <section class="uiSplitter"></section>
 </section>
-</div>
-<div class="underVideo">
-    <div id="viewCount"><span></span> vues</div>
-    <div id="vote"><div class="like"></div></div>
-    <div class="loadQueue"><img src="{{ asset('bundles/Vidlis/images/loadQueue.gif') }}"></div>
-    <a href="{{ url('_formCreatePlaylist') }}" class="btn-save toModal"><i class="icon save mouseoverInfo" data-info="Sauvegarder la playlist"></i></a>
-    <a href="#" class="btn-suggestion"><i class="icon suggestion mouseoverInfo" data-info="Afficher / Masquer les suggestions"></i></a>
-    <a href="#" class="btn-trash"><i class="icon trash mouseoverInfo" data-info="Vider la playlist"></i></a>
-    {#<a href="#" class="btn-grow"><i class="icon grow mouseoverInfo" data-info="Agrandir la vidéo"></i></a>#}
+    <div class="playlistContainer">
+        <div class="underVideo">
+            <div id="viewCount"><span></span> vues</div>
+            <div id="vote"><div class="like"></div></div>
+            <div class="loadQueue"><img src="{{ asset('bundles/Vidlis/images/loadQueue.gif') }}"></div>
+            <a href="{{ url('_formCreatePlaylist') }}" class="btn-save toModal"><i class="icon save mouseoverInfo" data-info="Sauvegarder la playlist"></i></a>
+            <a href="#" class="btn-suggestion"><i class="icon suggestion mouseoverInfo" data-info="Afficher / Masquer les suggestions"></i></a>
+            <a href="#" class="btn-trash"><i class="icon trash mouseoverInfo" data-info="Vider la playlist"></i></a>
+            {#<a href="#" class="btn-grow"><i class="icon grow mouseoverInfo" data-info="Agrandir la vidéo"></i></a>#}
+        </div>
+        <div id="playlistContent">
+            <ul></ul>
+        </div>
+        <div id="suggestionContent">
+            <ul></ul>
+        </div>
+    </div>
 </div>
 <div id="infoLabel"></div>
-<div id="playlistContent">
-</div>
-<div id="suggestionContent">
-</div>
 <div class="successAddedToQueue"></div>
 <div class="errorMessage"></div>
-<div class="closeShowPlaylist"><i class="fa fa-chevron-right fa-lg"></i></div>
 <div class="overlay"></div>
 <div class="modal">
     <div class="modal-dialog">

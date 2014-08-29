@@ -15,14 +15,6 @@ $(document).ready(function () {
         }
         return false;
     });
-    $('.closeShowPlaylist').live('click', function () {
-        $('#playlistContent, .underVideo, .closeShowPlaylist, #suggestionContent').toggleClass('open', 500);
-        if ($('.closeShowPlaylist').hasClass('open')) {
-            $('.closeShowPlaylist i').removeClass('fa-chevron-left').addClass('fa-chevron-right');
-        } else {
-            $('.closeShowPlaylist i').removeClass('fa-chevron-right').addClass('fa-chevron-left');
-        }
-    });
     $('.showPlaying').live('click', function () {
         $('.infoPlayed, .showPlaying').toggleClass('open', 500);
         if ($('.showPlaying').hasClass('open')) {
@@ -90,12 +82,12 @@ $(document).ready(function () {
         }
         return false;
     });
-    $('#playlistContent, #suggestionContent').css('height', ($('#right_content').height()-30) + 'px');
-    $('#playlistContent, #suggestionContent').mCustomScrollbar(
-        {scrollInertia: 0, mouseWheel: true, autoHideScrollbar: true,
-            advanced: {
-                updateOnContentResize: true
-            }}
+    $('#playlistContent, #suggestionContent').mCustomScrollbar({
+            axis:"x",
+            theme:"dark-thin",
+            autoExpandScrollbar:true,
+            advanced:{autoExpandHorizontalScroll:true}
+        }
     );
     $('.loadPlaylist').live('click', function () {
         $('#' + $(this).data('idplaylist') + ' .rowItem .playButtonRow').each(function () {
@@ -125,13 +117,10 @@ window.onbeforeunload = function() {
     if (typeof socket != 'undefined') {
         socket.disconnect();
     }
-    if ($('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist').length > 0) {
+    /*if ($('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist').length > 0) {
         return 'En quittant cette page vous allez perdre votre playlist en cours';
-    }
+    }*/
 }
-$(window).resize(function () {
-    $('#playlistContent, #suggestionContent').css('height', ($('#right_content').height()-30) + 'px');
-});
 
 $(".modal .close, .overlay").live('click', function(){
     $('.modal, .overlay').hide();
@@ -451,14 +440,6 @@ function onYouTubeIframeAPIReady() {
 
 // The "main method" of this sample. Called when someone clicks "Run".
 function loadPlayer() {
-    // Lets Flash from another domain call JavaScript
-    var params = { allowScriptAccess: "always" };
-    // The element id of the Flash embed
-    var atts = { id: "ytPlayer" };
-    // All of the magic handled by SWFObject (http://code.google.com/p/swfobject/)
-    /*swfobject.embedSWF("http://www.youtube.com/apiplayer?" +
-     "version=3&enablejsapi=1&playerapiid=player1",
-     "videoDiv", "219", "200", "9", null, null, params, atts);*/
     tag.src = "https://www.youtube.com/iframe_api";
     firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
@@ -487,8 +468,9 @@ function formatPlaylist(video, after) {
         after = false;
     }
     $.each(video.items, function () {
-        $c = $('#playlistContent .mCustomScrollBox .mCSB_container');
-        $container = $('<div class="itemContainer ui-state-default" />');
+        $c = $('#playlistContent ul');
+        $li = $('<li/>');
+        $container = $('<div class="relative pull-left itemContainer"><div class="ui-state-default" />');
         $item = $('<div class="itemPlaylist" data-id="' + this.id + '" data-viewcount="' + this.statistics.viewCount + '" data-title="' + this.snippet.title.replace(/"/g, "&quot;") + '" data-channelid="' + this.snippet.title.channelId + '" data-likecount="' + this.statistics.likeCount + '" data-dislikecount="' + this.statistics.dislikeCount + '"/>');
         $nameTitle = $('<div class="titlePlaylist"/>');
         $playIcon = $('<div class="buttonPlayPlaylist"/>');
@@ -511,10 +493,12 @@ function formatPlaylist(video, after) {
         $item.append($playIcon);
         $container.append($item);
         $container.append($deleteItem);
+        $container.append('<div class="clear"></div></div>');
+        $li.append($container);
         if (!after || $('#playlistContent .itemPlaylist.active').length == 0) {
-            $c.append($container);
+            $c.append($li);
         } else {
-            $('#playlistContent .itemPlaylist.active').parent().after($container);
+            $('#playlistContent .itemPlaylist.active').parent().after($li);
         }
 
         playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
@@ -531,10 +515,6 @@ function formatPlaylist(video, after) {
             totLike = parseInt(this.statistics.likeCount) + parseInt(this.statistics.dislikeCount);
             $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
             $('.btn-save').show();
-            if (!$('.closeShowPlaylist').hasClass('open')) {
-                $('#playlistContent, .underVideo, .closeShowPlaylist, #suggestionContent').toggleClass('open', 500);
-                $('.closeShowPlaylist i').removeClass('fa-chevron-right').addClass('fa-chevron-left');
-            }
         }
         if (ytplayer.getPlayerState() == 0) {
             next();
@@ -544,7 +524,7 @@ function formatPlaylist(video, after) {
         $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
         $('.successAddedToQueue').delay(800).fadeOut();
     });
-    $("#playlistContent .mCSB_container").sortable({ axis: "y" });
+    /*$("#playlistContent .mCSB_container li").sortable({ axis: "x" });*/
     $("#playlistContent .mCSB_container").disableSelection();
 }
 
@@ -567,7 +547,7 @@ function launch(element) {
 }
 
 function next() {
-    element = $('.itemPlaylist.active').parent().next().children(".itemPlaylist")[0];
+    element = $('.itemPlaylist.active').parent().parent().next().find(".itemPlaylist")[0];
     if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
         ytplayer.cueVideoById($(element).data('id'));
@@ -588,7 +568,7 @@ function next() {
 }
 
 function preview() {
-    element = $('.itemPlaylist.active').parent().prev().children(".itemPlaylist")[0];
+    element = $('.itemPlaylist.active').parent().parent().prev().find(".itemPlaylist")[0];
     if ($(element).hasClass('itemPlaylist')) {
         $('.itemPlaylist.active').removeClass('active');
         ytplayer.cueVideoById($(element).data('id'));
@@ -642,7 +622,7 @@ function deleteItem(element) {
         elementItem = element.parent().children('.itemPlaylist')[0];
         if ($(elementItem).hasClass('active')) {
             if (next()) {
-                element.parent().remove();
+                element.parent().parent().remove();
             } else {
                 $('#title').html('');
                 $('#time').html('00:00');
@@ -656,14 +636,14 @@ function deleteItem(element) {
                 element.parent().remove();
             }
         } else {
-            element.parent().remove();
+            element.parent().parent().remove();
         }
     }
 }
 
 function getSuggestion(id) {
     $('#suggestionContent').show();
-    $c = $('#suggestionContent .mCustomScrollBox .mCSB_container');
+    $c = $('#suggestionContent ul');
     $c.html('');
     $.ajax({
         url: DOMAIN_NAME + '/getSuggestion',
@@ -682,8 +662,9 @@ function getSuggestion(id) {
 
 
 function formatSuggestion(video) {
-    $c = $('#suggestionContent .mCustomScrollBox .mCSB_container');
+    $c = $('#suggestionContent ul');
     $.each(video.items, function () {
+        $li = $('<li/>');
         $container = $('<div class="itemContainer ui-state-default" />');
         $item = $('<div class="itemPlaylist" data-id="' + this.id.videoId + '" data-title="' + this.snippet.title.replace(/"/g, "&quot;") + '" data-channelid="' + this.snippet.title.channelId + '"/>');
         $nameTitle = $('<div class="titlePlaylist"/>');
@@ -705,7 +686,8 @@ function formatSuggestion(video) {
         $item.append($playIcon);
         $item.append($nameTitle);
         $container.append($item);
-        $c.append($container);
+        $li.append($container)
+        $c.append($li);
 
         $('.loadQueue').hide();
         $('.successAddedToQueue').delay(800).fadeOut();
