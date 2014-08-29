@@ -351,7 +351,7 @@ i.icon-large{
     color: #2b2b2b;
     min-height: 660px;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.3);
-    margin-top: 200px;
+    margin-top: 55px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
@@ -1644,7 +1644,7 @@ i.icon-large{
     transition: all 0.3s;
     margin-top:10px;
     box-shadow: 0 0 3px 1px rgba(0,0,0,0.8);
-    top: 145px;
+    top: 0px;
 }
 
 ul, ol {
@@ -1773,6 +1773,7 @@ ul, ol {
 .playlistContainer {
     padding-right: 200px;
     position: absolute;
+    display: none;
     top: 5px;
     width: 100%;
     background: #262626;
