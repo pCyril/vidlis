@@ -515,6 +515,9 @@ function formatPlaylist(video, after) {
             totLike = parseInt(this.statistics.likeCount) + parseInt(this.statistics.dislikeCount);
             $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
             $('.btn-save').show();
+            $('.playlistContainer').css('display', 'block');
+            $('#secondToolbar').css('top', '145px');
+            $('#right_content').css('margin-top', '200px');
         }
         if (ytplayer.getPlayerState() == 0) {
             next();
