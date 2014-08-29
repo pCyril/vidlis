@@ -351,7 +351,7 @@ i.icon-large{
     color: #2b2b2b;
     min-height: 660px;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.3);
-    margin-top: 56px;
+    margin-top: 200px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
 }
@@ -840,15 +840,17 @@ i.icon-large{
 }
 
 #playlistContent, #suggestionContent {
-    position: absolute;
-    overflow: auto;
-    top: 133px;
-    left: 0px;
-    width: 0px;
+    position: relative;
+    overflow: hidden;
+    top: 0px;
+    left: 10px;
     height: 100%;
     background: #262626;
-    z-index: 900;
+    z-index: 2;
     border-bottom-left-radius: 4px;
+    padding-right: 40px;
+    padding-top: 40px;
+    padding-bottom: 10px;
 }
 #suggestionContent {
     display: none;
@@ -861,13 +863,15 @@ i.icon-large{
 .underVideo {
     position: absolute;
     overflow: auto;
-    top: 104px;
+    top: 0px;
     left: 0px;
-    width: 0px;
+    width: 400px;
     z-index: 900;
     height: 29px;
-    background: #262626;
-    border-bottom: 1px solid #1d1d1d;
+    background: #1d1d1d;
+    border-bottom-right-radius: 3px;
+    border-bottom: 1px solid #010101;
+    border-right: 1px solid #010101;
 }
 
 .itemSearch {
@@ -947,14 +951,20 @@ i.icon-large{
 .itemPlaylist {
     position:relative;
     background: #262626;
-    margin: 0;
     border-top: 1px solid #393939;
+    border-left: 1px solid #393939;
     border-bottom: 1px solid #1d1d1d;
+    border-right: 1px solid #1d1d1d;
     font-size: 13px;
     color: #6e6e6e;
     padding:10px;
     text-shadow: 0 1px 0 #000;
     cursor:pointer;
+    width: 280px ;
+    display: inline-block;
+    margin: 0px 10px;
+    margin-bottom: 10px;
+    float: left;
 }
 
 .itemPlaylistLoad div{
@@ -1175,7 +1185,7 @@ i.icon-large{
 
 .deleteItemPlaylist {
     position: absolute;
-    right: 5px;
+    right: 10px;
     top: 5px;
     width : 25px;
     height: 25px;
@@ -1602,7 +1612,7 @@ i.icon-large{
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     border: solid 1px #000000;
-    margin-top: 18px;
+    margin-top: 13px;
     background: #262626;
     background: -webkit-linear-gradient(bottom, #262626 0%, #353535 100%);
     background: -moz-linear-gradient(bottom, #262626 0%, #353535 100%);
@@ -1634,6 +1644,7 @@ i.icon-large{
     transition: all 0.3s;
     margin-top:10px;
     box-shadow: 0 0 3px 1px rgba(0,0,0,0.8);
+    top: 145px;
 }
 
 ul, ol {
@@ -1757,4 +1768,28 @@ ul, ol {
 #grow {
     padding: 3px;
     cursor: pointer;
+}
+
+.playlistContainer {
+    padding-right: 200px;
+    position: absolute;
+    top: 5px;
+    width: 100%;
+    background: #262626;
+    border: 1px solid #010101;
+    height: 140px;
+    border-radius: 3px;
+    box-shadow: 0 0 3px 1px rgba(0,0,0,0.8);
+}
+
+#playlistContent ul, #suggestionContent ul  {
+    overflow: hidden;
+}
+
+#playlistContent ul li, #suggestionContent ul li {
+    float: left;
+}
+
+.mCSB_horizontal .mCSB_container {
+    margin-bottom: 0px !important;
 }
