@@ -229,12 +229,12 @@ function loadBox(url, tab) {
     }
 }
 
-function setupCustomScrollbar() {
+function setupCustomScrollbar() {/*
     $(".mCustomScrollbarActiv").each(function () {
         $(this).mCustomScrollbar(
-            {scrollInertia: 0}
+            {scrollInertia: 0, axis:'y'}
         );
-    });
+    });*/
 }
 
 function sendFormToAjax() {
@@ -525,7 +525,7 @@ function formatPlaylist(video, after) {
         $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
         $('.successAddedToQueue').delay(800).fadeOut();
     });
-    /*$("#playlistContent .mCSB_container li").sortable({ axis: "x" });*/
+    $("#playlistContent ul").sortable({ axis: "x" });
     $("#playlistContent .mCSB_container").disableSelection();
 }
 
