@@ -588,7 +588,7 @@ function preview() {
 }
 
 function clearPlaylist() {
-    c = $('#playlistContent .mCustomScrollBox .mCSB_container');
+    c = $('#playlistContent .mCustomScrollBox .mCSB_container ul');
     c.html('');
     $('#title').html('');
     $('#time').html('00:00');
