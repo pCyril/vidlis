@@ -412,6 +412,19 @@ i.icon-large{
     display: block;
 }
 
+.buttonShare{
+    position: absolute;
+    bottom: -21px;
+    left: 10px;
+    width: 44px;
+    height: 44px;
+    display: none;;
+}
+
+.boxplayed:hover .buttonShare {
+    display: block;
+}
+
 .disqus {
     width:46%;
     position:relative;
