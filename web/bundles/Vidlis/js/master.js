@@ -166,11 +166,11 @@ $(".toModal").live('click', function () {
             },
             success: function (data) {
                 $('.modal').show();
-                $(".modal-header h3").html(data.title);
+                $(".modal-header h4").html(data.title);
                 $(".modal-body").html(data.content);
             },
             error: function () {
-                $(".modal-header h3").html('Oups :\'(');
+                $(".modal-header h4").html('Oups :\'(');
                 $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
             }
         }).done(function () {

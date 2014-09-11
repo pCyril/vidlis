@@ -37,32 +37,34 @@
     </script>
     <div class="alert alert-success hide" id="savePlaylist">Votre playlist a été  sauvegardé</div>
     {% endif %}
-    <form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
-        <div class="control-group">
-            <label class="control-label">Nom de la playlist :</label>
-            <div class="controls">
-                {{ form_widget(form.name) }}
+    <div>
+        <form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
+            <div class="control-group">
+                <label class="control-label">Nom de la playlist :</label>
+                <div class="controls">
+                    {{ form_widget(form.name) }}
+                </div>
             </div>
-        </div>
-        {% if form.vars.errors|length %}
-        <div class="alert alert-danger">
-            {{ form_errors(form.name) }}
-        </div>
-        {% endif %}
-        <div class="control-group">
-            <div class="controls">
-                <label>
-                {{ form_widget(form.private) }} Rendre cette playlist privé
-                </label>
+            {% if form.vars.errors|length %}
+            <div class="alert alert-danger">
+                {{ form_errors(form.name) }}
             </div>
-        </div>
-        {{ form_rest(form) }}
-        <div class="control-group">
-            <div class="controls">
-                <input type="submit" value="Sauvegarder" class="btn btn-primary">
+            {% endif %}
+            <div class="control-group">
+                <div class="controls">
+                    <label>
+                    {{ form_widget(form.private) }} Rendre cette playlist privé
+                    </label>
+                </div>
             </div>
-        </div>
-    </form>
+            {{ form_rest(form) }}
+            <div class="control-group">
+                <div class="controls">
+                    <input type="submit" value="Sauvegarder" class="btn btn-primary">
+                </div>
+            </div>
+        </form>
+    </div>
 {% else %}
     <div class="alert alert-danger" id="savePlaylist">Vous devez vous connecter pour créer une playlist</div>
 {% endif %}
