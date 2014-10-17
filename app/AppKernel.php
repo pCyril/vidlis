@@ -19,7 +19,7 @@ class AppKernel extends Kernel
             new Vidlis\CoreBundle\VidlisCoreBundle(),
             new Vidlis\UserBundle\VidlisUserBundle(),
             new Vidlis\LastFmBundle\VidlisLastFmBundle(),
-            /*new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),*/
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
 
             new FOS\UserBundle\FOSUserBundle(),
         );
