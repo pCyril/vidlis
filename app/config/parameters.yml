@@ -26,4 +26,5 @@ twig:
         crawlable: /app_dev.php
         ua_google_analytics: UA-45678438-2
         domain_name: 'http://vidlis.local/app_dev.php'
+        domain_name_async: 'http://vidlis.local/app_dev.php'
         urlNode: '%urlNode%'
