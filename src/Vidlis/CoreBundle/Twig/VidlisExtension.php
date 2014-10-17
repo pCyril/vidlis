@@ -2,6 +2,8 @@
 
 namespace Vidlis\CoreBundle\Twig;
 
+use MyProject\Proxies\__CG__\stdClass;
+
 class VidlisExtension extends \Twig_Extension
 {
     private $youtubeServiceVideo;
@@ -43,7 +45,11 @@ class VidlisExtension extends \Twig_Extension
     public function videoImage($idVideo)
     {
         $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
-        return $result->items[0]->snippet->thumbnails->medium->url;
+        if (count($result->items)) {
+            return $result->items[0]->snippet->thumbnails->medium->url;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -54,7 +60,11 @@ class VidlisExtension extends \Twig_Extension
     public function videoTitle($idVideo)
     {
         $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
-        return $result->items[0]->snippet->title;
+        if (count($result->items)) {
+            return $result->items[0]->snippet->title;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -64,9 +74,13 @@ class VidlisExtension extends \Twig_Extension
     public function videoPercentageLike($idVideo)
     {
         $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
-        $item = $result->items[0];
-        $total = $item->statistics->likeCount + $item->statistics->dislikeCount;
-        return ($item->statistics->likeCount / $total * 100);
+        if (count($result->items)) {
+            $item = $result->items[0];
+            $total = $item->statistics->likeCount + $item->statistics->dislikeCount;
+            return ($item->statistics->likeCount / $total * 100);
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -76,8 +90,12 @@ class VidlisExtension extends \Twig_Extension
     public function videoDislikeCount($idVideo)
     {
         $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
-        $item = $result->items[0];
-        return number_format($item->statistics->dislikeCount, 0, ',', ' ');
+        if (count($result->items)) {
+            $item = $result->items[0];
+            return number_format($item->statistics->dislikeCount, 0, ',', ' ');
+        } else {
+            return 0;
+        }
     }
 
     /**
@@ -87,8 +105,12 @@ class VidlisExtension extends \Twig_Extension
     public function videoLikeCount($idVideo)
     {
         $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
-        $item = $result->items[0];
-        return number_format($item->statistics->likeCount, 0, ',', ' ');
+        if (count($result->items)) {
+            $item = $result->items[0];
+            return number_format($item->statistics->likeCount, 0, ',', ' ');
+        } else {
+            return 0;
+        }
     }
 
 
@@ -99,8 +121,12 @@ class VidlisExtension extends \Twig_Extension
     public function videoViewCount($idVideo)
     {
         $result = $this->youtubeServiceVideo->setId($idVideo)->getResult();
-        $item = $result->items[0];
-        return number_format($item->statistics->viewCount, 0, ',', ' ');
+        if (count($result->items)) {
+            $item = $result->items[0];
+            return number_format($item->statistics->viewCount, 0, ',', ' ');
+        } else {
+            return 0;
+        }
     }
 
     public function isFloat($number)

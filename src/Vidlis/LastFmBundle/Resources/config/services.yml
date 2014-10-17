@@ -1,0 +1,19 @@
+services:
+    lastFmMusicSearch:
+        class: Vidlis\LastFmBundle\LastFm\Track\Search
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmArtistSearch:
+        class: Vidlis\LastFmBundle\LastFm\Artist\Search
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmArtistInfo:
+        class: Vidlis\LastFmBundle\LastFm\Artist\Info
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmArtistAlbum:
+        class: Vidlis\LastFmBundle\LastFm\Artist\Album
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmAlbumInfo:
+        class: Vidlis\LastFmBundle\LastFm\Album\Info
+        arguments: ["@memcache", "%lastFmKey%"]
+    ArtistCreator:
+        class: Vidlis\LastFmBundle\LastFm\Artist\Creator
+        arguments: ["@lastFmArtistInfo", "@lastFmArtistAlbum", "@lastFmAlbumInfo", "@doctrine_mongodb"]

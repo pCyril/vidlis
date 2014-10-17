@@ -16,14 +16,14 @@ parameters:
     hostMemcache: localhost
     portMemcache: 11211
     youtubeAPIKey: AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M
+    lastFmKey: 8f59eda75a7ff0e3eeb17e78012fa22a
     OAUTH2_CLIENT_ID: 645324087510.apps.googleusercontent.com
     OAUTH2_CLIENT_SECRET: r-fE2OtqjhEmWedynoFRzoaa
     urlNode: 'localhost:8080'
     javaBin: /usr/bin/java
-
 twig:
     globals:
-        crawlable: "/app_dev.php"
-        ua_google_analytics: "UA-45678438-2"
-        domain_name: "http://vidlis.local/app_dev.php"
-        urlNode:      %urlNode%
+        crawlable: /app_dev.php
+        ua_google_analytics: UA-45678438-2
+        domain_name: 'http://vidlis.local/app_dev.php'
+        urlNode: '%urlNode%'
