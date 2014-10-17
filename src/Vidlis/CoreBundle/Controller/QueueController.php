@@ -1,12 +1,16 @@
 <?php
 namespace Vidlis\CoreBundle\Controller;
 
+use MyProject\Proxies\__CG__\stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Vidlis\CoreBundle\Entity\Played;
 use Vidlis\CoreBundle\Entity\PlayedQuery;
+use Vidlis\LastFmBundle\Document\Album;
+use Vidlis\LastFmBundle\Document\ArtistQuery;
+use Vidlis\LastFmBundle\Document\Artist;
 
 class QueueController extends Controller
 {
@@ -42,6 +46,21 @@ class QueueController extends Controller
             $playedQuery = new PlayedQuery($em);
             $playedQuery->persist($played);
             $data['video'] = $this->get('youtubeVideo')->setId($idVideo)->getResult();
+
+            $title = $data['video']->items[0]->snippet->title;
+
+            $result = $this->get('lastFmMusicSearch')->setTrack($title)->getResults();
+            $trackMatches = $result->results->trackmatches;
+            if (isset($trackMatches->track)) {
+                $artistName = $trackMatches->track[0]->artist;
+                $artistQuery = new ArtistQuery($this->get('doctrine_mongodb')->getManager());
+                $artist = $artistQuery->setName($artistName)->getSingle();
+                if (!$artist) {
+                    $this->get('ArtistCreator')->setArtistName($artistName)->run();
+                }
+            }
+
+
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;

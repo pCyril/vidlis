@@ -17,6 +17,7 @@ parameters:
     hostMemcache:           localhost
     portMemcache:           11211
     youtubeAPIKey:          ~
+    lastFmKey:              ~
     OAUTH2_CLIENT_ID:       ~
     OAUTH2_CLIENT_SECRET:   ~
     urlNode:                localhost:8080

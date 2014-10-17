@@ -18,6 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Vidlis\CoreBundle\VidlisCoreBundle(),
             new Vidlis\UserBundle\VidlisUserBundle(),
+            new Vidlis\LastFmBundle\VidlisLastFmBundle(),
+            new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
 
             new FOS\UserBundle\FOSUserBundle(),
         );

@@ -1,2 +1,3 @@
 imports:
     - { resource: "@VidlisCoreBundle/Resources/config/services.yml" }
+    - { resource: "@VidlisLastFmBundle/Resources/config/services.yml" }

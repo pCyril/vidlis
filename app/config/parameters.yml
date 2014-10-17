@@ -17,6 +17,7 @@ parameters:
     hostMemcache: localhost
     portMemcache: 11211
     youtubeAPIKey: AIzaSyBhuf4T4RqCLlirmGfMNPlwGgq0uzRdH2M
+    lastFmKey: 8f59eda75a7ff0e3eeb17e78012fa22a
     OAUTH2_CLIENT_ID: 645324087510.apps.googleusercontent.com
     OAUTH2_CLIENT_SECRET: r-fE2OtqjhEmWedynoFRzoaa
     urlNode: 37.59.63.129:8080
