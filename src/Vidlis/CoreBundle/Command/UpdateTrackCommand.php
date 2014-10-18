@@ -23,7 +23,7 @@ class UpdateTrackCommand extends ContainerAwareCommand {
     {
         $artistQuery = new ArtistQuery($this->getContainer()->get('doctrine_mongodb')->getManager());
         $youtubeSearch = $this->getContainer()->get('youtubeSearch');
-        $artists = $artistQuery->notProcessed()->setLimit(2)->getList();
+        $artists = $artistQuery->notProcessed()->setLimit(5)->getList();
         foreach ($artists as $artist) {
             if ($artist->getName() != '[unknown]') {
                 foreach ($artist->getAlbums() as $album) {
