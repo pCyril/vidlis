@@ -1,5 +1,4 @@
 var curentVideoId = '';
-
 var ytplayer;
 var tag = document.createElement('script');
 var firstScriptTag;
@@ -460,9 +459,10 @@ function loadPlayer() {
 
 function addToQueue(id, after) {
     $.ajax({
-        url: DOMAIN_NAME_ASYNC + '/addToQueue',
+        url: DOMAIN_NAME + '/addToQueue',
         type: 'post',
         dataType: 'json',
+        crossDomain: true,
         data: { videoid: id},
         beforeSend: function () {
             $('.loadQueue, .successAddedToQueue').show();
@@ -659,7 +659,7 @@ function getSuggestion(id) {
     $c = $('#suggestionContent ul');
     $c.html('');
     $.ajax({
-        url: DOMAIN_NAME_ASYNC + '/getSuggestion',
+        url: DOMAIN_NAME + '/getSuggestion',
         type: 'post',
         dataType: 'json',
         data: { videoid: id},
