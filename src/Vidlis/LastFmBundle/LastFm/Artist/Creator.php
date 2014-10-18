@@ -92,6 +92,11 @@ class Creator {
                 foreach ($albums as $albumResult) {
                     $album = new ArtistAlbumDocument();
                     $album->setName($albumResult->name)->setMbid($albumResult->mbid);
+                    if (is_array($albumResult->image)) {
+                        $image = $albumResult->image[count($albumResult->image) - 1];
+                        $var = '#text';
+                        $album->setImage($image->$var);
+                    }
                     if ($albumResult->mbid) {
                         $albumInfoResult = $this->serviceAlbumInfo->setArtist($this->artistName)->setMbid($albumResult->mbid)->getResults();
                         if (!isset($albumInfoResult->error)) {

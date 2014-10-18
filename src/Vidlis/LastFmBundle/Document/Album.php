@@ -34,6 +34,11 @@ class Album {
      */
     private $releaseDate;
 
+    /**
+     * @MongoDB\String
+     */
+    private $image;
+
     public function getId()
     {
         return $this->id;
@@ -83,6 +88,24 @@ class Album {
     {
         $this->tracks[] = $track;
         return $this;
+    }
+
+    /**
+     * @param $image
+     * @return $this
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**
