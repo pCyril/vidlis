@@ -33,6 +33,12 @@ abstract class AbstractQuery
             ->execute();
     }
 
+    public function setLimit($limit)
+    {
+        $this->queryBuilder->limit($limit);
+        return $this;
+    }
+
     public function persist($entity)
     {
         $this->dm->persist($entity);

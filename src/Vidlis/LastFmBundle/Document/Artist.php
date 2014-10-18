@@ -33,6 +33,11 @@ class Artist {
      */
     private $tags = array();
 
+    /**
+     * @MongoDB\Boolean
+     */
+    private $processed = false;
+
     public function getId()
     {
         return $this->id;
@@ -74,6 +79,10 @@ class Artist {
         return $this->info;
     }
 
+    /**
+     * @param Album $album
+     * @return $this
+     */
     public function addAlbum(Album $album)
     {
         foreach ($this->albums as $albumAlready) {
@@ -85,6 +94,9 @@ class Artist {
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getAlbums()
     {
         return $this->albums;
@@ -100,9 +112,29 @@ class Artist {
         return $this;
     }
 
+    /**
+     * @return array
+     */
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setProcessed()
+    {
+        $this->processed = true;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isProcessed()
+    {
+        return $this->processed;
     }
 
 }

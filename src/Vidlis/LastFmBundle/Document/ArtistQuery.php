@@ -18,6 +18,12 @@ class ArtistQuery extends AbstractQuery
         return $this;
     }
 
+    public function notProcessed()
+    {
+        $this->queryBuilder->field('processed')->notEqual(true);
+        return $this;
+    }
+
     public  function prePersist($entity)
     {
     }
