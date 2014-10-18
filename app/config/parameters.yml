@@ -28,4 +28,5 @@ twig:
         crawlable: ""
         ua_google_analytics: "UA-45678438-1"
         domain_name: "http://vidlis.fr"
+        domain_name_async: "http://vidlis.fr"
         urlNode:      %urlNode%

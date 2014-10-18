@@ -460,7 +460,7 @@ function loadPlayer() {
 
 function addToQueue(id, after) {
     $.ajax({
-        url: DOMAIN_NAME + '/addToQueue',
+        url: DOMAIN_NAME_ASYNC + '/addToQueue',
         type: 'post',
         dataType: 'json',
         data: { videoid: id},
@@ -659,7 +659,7 @@ function getSuggestion(id) {
     $c = $('#suggestionContent ul');
     $c.html('');
     $.ajax({
-        url: DOMAIN_NAME + '/getSuggestion',
+        url: DOMAIN_NAME_ASYNC + '/getSuggestion',
         type: 'post',
         dataType: 'json',
         data: { videoid: id},
