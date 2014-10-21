@@ -18,6 +18,19 @@ class ArtistQuery extends AbstractQuery
         return $this;
     }
 
+    public function setArtistFirstLetter($letter)
+    {
+        $this->queryBuilder->field('name')->equals(new \MongoRegex('/^'.$letter.'/i'));
+        return $this;
+    }
+
+
+    public function isProcessed()
+    {
+        $this->queryBuilder->field('processed')->equals(true);
+        return $this;
+    }
+
     public function notProcessed()
     {
         $this->queryBuilder->field('processed')->notEqual(true);

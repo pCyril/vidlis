@@ -1,0 +1,26 @@
+<div id="right_content">
+    <div id="feeds">
+    {% for artist in artists %}
+        <div class="boxArtist">
+            <div class="videoTitle">{{ artist.name }}</div>
+            <div class="clear"></div>
+            <div class="images">
+                {% for images in artist.getImagesPresentation() %}
+                {% endof %}
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+</div>
+
+<script>
+    var container = document.querySelector('#feeds');
+    var msnry = new Masonry( container, {
+        itemSelector: '.boxArtist'
+    });
+    var container = document.querySelector('.images');
+    var msnry = new Masonry( container, {
+        itemSelector: '.boxArtist'
+    });
+</script>
+{% include 'VidlisCoreBundle:Default:menu.html.twig'%}

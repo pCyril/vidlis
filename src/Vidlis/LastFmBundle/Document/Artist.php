@@ -137,4 +137,16 @@ class Artist {
         return $this->processed;
     }
 
+
+    public function getImagesPresentation()
+    {
+        $images = array();
+        foreach ($this->albums as $album) {
+            if ($album->getImage() != '') {
+                $images[] = $album->getImage();
+            }
+        }
+        return $images;
+    }
+
 }
