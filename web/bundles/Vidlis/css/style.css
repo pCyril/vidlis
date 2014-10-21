@@ -1836,3 +1836,17 @@ ul, ol {
 .playlistOpen #secondToolbar {
     top: 145px !important;
 }
+
+.lettersRow {
+    padding-left: 15px;
+    margin-right: 168px;
+}
+
+.btnLetter {
+    border-radius: 3px;
+    color: white;
+    background: #0c8fe7;
+    margin-right: 14px;
+    line-height: 42px;
+    padding:10px;
+}
