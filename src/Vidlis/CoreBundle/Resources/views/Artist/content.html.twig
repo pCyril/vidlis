@@ -4,7 +4,7 @@
         <div class="boxArtist">
             <div class="videoTitle">{{ artist.name }}</div>
             <div class="clear"></div>
-            <div class="images">
+            <div class="images" style="height: {{ ((artist.getImagesPresentation()|length) / 2)|round * 150 }}px;">
                 {% for images in artist.getImagesPresentation() %}
                     <img src="{{ images }}" width="158px">
                 {% endfor %}
