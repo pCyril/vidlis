@@ -23,6 +23,9 @@
         <li class="tab {% if tab == 'home' %}current{% endif %}">
             <a href="{{ url('_home') }}" onclick="loadBox('/', 'tabHome');  return false;" class="tabHome {% if tab == 'home' %}default{% endif %}">Home</a>
         </li>
+        {#<li class="tab {% if tab == 'artist' %}current{% endif %}">
+            <a href="{{ url('_artist') }}" onclick="loadBox('/artists/', 'tabArtist');  return false;" class="tabArtist {% if tab == 'artist' %}default{% endif %}">Artistes</a>
+        </li>#}
         <li class="tab {% if tab == 'playlist' %}current{% endif %}">
             <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all', 'tabPlaylist');  return false;" class="tabPlaylist {% if tab == 'playlist' %}default{% endif %}">Playlists</a>
         </li>
