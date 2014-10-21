@@ -141,10 +141,16 @@ class Artist {
     public function getImagesPresentation()
     {
         $images = array();
+        $nbImages = 1;
         foreach ($this->albums as $album) {
-            if ($album->getImage() != '') {
-                $images[] = $album->getImage();
+            if ($nbImages <= 4) {
+                if ($album->getImage() != '') {
+                    $images[] = $album->getImage();
+                }
+            } else {
+                break;
             }
+            $nbImages++;
         }
         return $images;
     }
