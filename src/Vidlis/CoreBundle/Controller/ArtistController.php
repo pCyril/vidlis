@@ -39,7 +39,7 @@ class ArtistController extends Controller
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
-        $artists = $artistQuery->setArtistFirstLetter($artistLetter)->isProcessed()->getList();
+        $artists = $artistQuery->setArtistFirstLetter($artistLetter)->addOrderBy('name')->isProcessed()->getList();
         $data['artists'] = $artists;
         if ($this->getUser()) {
             $data['user'] = $this->getUser();

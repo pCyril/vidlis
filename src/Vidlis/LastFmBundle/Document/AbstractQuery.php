@@ -33,6 +33,12 @@ abstract class AbstractQuery
             ->execute();
     }
 
+    public function addOrderBy($column, $direction = 'ASC')
+    {
+        $this->queryBuilder->sort($column, $direction);
+        return $this;
+    }
+
     public function setLimit($limit)
     {
         $this->queryBuilder->limit($limit);
