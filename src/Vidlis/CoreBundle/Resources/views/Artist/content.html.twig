@@ -5,7 +5,7 @@
                 <a href="{{ url('_artistLetter', {'artist': letter} ) }}" class="btnLetter" onclick="loadBox('/artists/{{ letter }}', 'tabArtist');  return false;">{{ letter }}</a>
             {% endfor %}
         </div>
-        <div class="feeds_content">
+        <div id="feeds_content">
         {% for artist in artists %}
             <a class="boxArtist">
                 <div class="videoTitle">{{ artist.name }}</div>
@@ -24,7 +24,7 @@
 </div>
 
 <script>
-    var container = document.querySelector('#feeds.feeds_content');
+    var container = document.querySelector('#feeds_content');
     var msnry = new Masonry( container, {
         itemSelector: '.boxArtist'
     });
