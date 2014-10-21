@@ -9,17 +9,15 @@
                     <img src="{{ images }}" width="158px">
                 {% endfor %}
             </div>
+            <div class="clear"></div>
         </div>
     {% endfor %}
+        <div class="clear"></div>
     </div>
 </div>
 
 <script>
     var container = document.querySelector('#feeds');
-    var msnry = new Masonry( container, {
-        itemSelector: '.boxArtist'
-    });
-    var container = document.querySelector('.images');
     var msnry = new Masonry( container, {
         itemSelector: '.boxArtist'
     });
