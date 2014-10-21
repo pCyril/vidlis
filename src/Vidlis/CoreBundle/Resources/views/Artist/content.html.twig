@@ -6,7 +6,8 @@
             <div class="clear"></div>
             <div class="images">
                 {% for images in artist.getImagesPresentation() %}
-                {% endof %}
+                    <img src="{{ images }}" width="160px">
+                {% endfor %}
             </div>
         </div>
     {% endfor %}
