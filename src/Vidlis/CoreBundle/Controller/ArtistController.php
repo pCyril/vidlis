@@ -15,16 +15,14 @@ class ArtistController extends Controller
 
     /**
      * @Route("/artists/", name="_artist")
-     * @Route("/artists/{artist}", name="_artistLetter")
      * @Template()
      */
-    public function indexAction($artist = 'a')
+    public function indexAction()
     {
         $data = array();
-        $data['title'] = 'Liste des artistes - ' . strtoupper($artist);
-        $data['artistLetter'] = $artist;
+        $data['title'] = 'Liste des artistes - Vidlis';
         if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentAction($artist));
+            $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
@@ -35,17 +33,16 @@ class ArtistController extends Controller
     /**
      * @Template()
      */
-    public function contentAction($artistLetter)
+    public function contentAction($limit = 20, $offset = 0)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
-        if ($artistLetter != 'a-z') {
-            $artists = $artistQuery->setArtistFirstLetter($artistLetter)->addOrderBy('name')->isProcessed()->getList();
-        } else {
-            $artists = $artistQuery->addOrderBy('name')->isProcessed()->getList();
-        }
-        $data['letters'] = array('a-z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
-        's', 't', 'u', 'v', 'w', 'x', 'y', 'z');
+        $artists = $artistQuery
+            ->addOrderBy('name')
+            ->isProcessed()
+            ->setLimit($limit, $offset)
+
+            ->getList();
         $data['artists'] = $artists;
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
@@ -54,6 +51,16 @@ class ArtistController extends Controller
             $data['connected'] = false;
         }
         return $data;
+    }
+
+    /**
+     * @param $artistName
+     *
+     *
+     */
+    public function artistAction($artistName)
+    {
+
     }
 
 }

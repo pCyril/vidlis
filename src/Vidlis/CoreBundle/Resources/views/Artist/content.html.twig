@@ -1,10 +1,5 @@
 <div id="right_content">
     <div id="feeds">
-        <div class="lettersRow">
-            {% for letter in letters %}
-                <a href="{{ url('_artistLetter', {'artist': letter} ) }}" class="btnLetter" onclick="loadBox('/artists/{{ letter }}', 'tabArtist');  return false;">{{ letter }}</a>
-            {% endfor %}
-        </div>
         <div id="feeds_content">
         {% for artist in artists %}
             <a class="boxArtist">
@@ -18,7 +13,6 @@
                 <div class="clear"></div>
             </a>
         {% endfor %}
-            <div class="clear"></div>
         </div>
     </div>
 </div>
