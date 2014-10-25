@@ -33,7 +33,7 @@ class ArtistController extends Controller
     /**
      * @Template()
      */
-    public function contentAction($limit = 10, $offset = 0)
+    public function contentAction($limit = 20, $offset = 0)
     {
         $data = array();
         $data['artists'] = $this->getArtistList($limit, $offset);
@@ -77,8 +77,8 @@ class ArtistController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
         $artists = $artistQuery
-            ->addOrderBy('name')/*
-            ->isProcessed()*/
+            ->addOrderBy('name')
+            ->isProcessed()
             ->setLimit($limit, $offset)
             ->getList();
         return $artists;
