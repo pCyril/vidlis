@@ -35,15 +35,8 @@ class ArtistController extends Controller
      */
     public function contentAction($limit = 20, $offset = 0)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $artistQuery = new ArtistQuery($dm);
-        $artists = $artistQuery
-            ->addOrderBy('name')
-            ->isProcessed()
-            ->setLimit($limit, $offset)
-
-            ->getList();
-        $data['artists'] = $artists;
+        $data = array();
+        $data['artists'] = $this->getArtistList($limit, $offset);
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
@@ -54,9 +47,42 @@ class ArtistController extends Controller
     }
 
     /**
-     * @param $artistName
-     *
-     *
+     * @Route("/load/artists", name="_loadMore")
+     * @Template()
+     */
+    public function itemListAction($limit = 20, $offset = 0)
+    {
+        $data = array();
+        $data['artists'] = $this->getArtistList($limit, $offset);
+        if ($this->getUser()) {
+            $data['user'] = $this->getUser();
+            $data['connected'] = true;
+        } else {
+            $data['connected'] = false;
+        }
+        return $data;
+    }
+
+    /**
+     * @param $limit
+     * @param $offset
+     * @return mixed
+     */
+    public function getArtistList($limit, $offset)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $artistQuery = new ArtistQuery($dm);
+        $artists = $artistQuery
+            ->addOrderBy('name')
+            ->isProcessed()
+            ->setLimit($limit, $offset)
+            ->getList();
+        return $artists;
+    }
+
+    /**
+     * @Route("artist/{artistName}", name="_artistInfo")
+     * @Template()
      */
     public function artistAction($artistName)
     {

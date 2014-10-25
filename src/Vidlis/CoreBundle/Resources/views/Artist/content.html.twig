@@ -1,19 +1,10 @@
 <div id="right_content">
     <div id="feeds">
         <div id="feeds_content">
-        {% for artist in artists %}
-            <a class="boxArtist">
-                <div class="videoTitle">{{ artist.name }}</div>
-                <div class="clear"></div>
-                <div class="images" style="height: {{ ((artist.getImagesPresentation()|length) / 2)|round * 150 }}px;">
-                    {% for images in artist.getImagesPresentation() %}
-                        <img src="{{ images }}" width="158px">
-                    {% endfor %}
-                </div>
-                <div class="clear"></div>
-            </a>
-        {% endfor %}
+            {% include 'VidlisCoreBundle:Artist:itemList.html.twig' with {'artists': artists} %}
         </div>
+        <div class="loadMoreContent">Chargement en cours</div>
+        <div class="clear"></div>
     </div>
 </div>
 
