@@ -33,7 +33,7 @@ class ArtistController extends Controller
     /**
      * @Template()
      */
-    public function contentAction($limit = 20, $offset = 0)
+    public function contentAction($limit = 10, $offset = 0)
     {
         $data = array();
         $data['artists'] = $this->getArtistList($limit, $offset);
@@ -47,20 +47,24 @@ class ArtistController extends Controller
     }
 
     /**
-     * @Route("/load/artists", name="_loadMore")
+     * @Route("/load/artists/{limit}/{offset}", name="_loadMore")
      * @Template()
      */
-    public function itemListAction($limit = 20, $offset = 0)
+    public function itemListAction($limit, $offset)
     {
         $data = array();
-        $data['artists'] = $this->getArtistList($limit, $offset);
+            $data['artists'] = $this->getArtistList($limit, $offset);
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
         } else {
             $data['connected'] = false;
         }
-        return $data;
+        $data['html'] = $this->renderView('VidlisCoreBundle:Artist:itemList.html.twig', $data);
+        $data['offset'] = $offset + $limit;
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -73,8 +77,8 @@ class ArtistController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
         $artists = $artistQuery
-            ->addOrderBy('name')
-            ->isProcessed()
+            ->addOrderBy('name')/*
+            ->isProcessed()*/
             ->setLimit($limit, $offset)
             ->getList();
         return $artists;
