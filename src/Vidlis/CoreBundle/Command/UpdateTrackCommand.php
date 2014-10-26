@@ -26,19 +26,23 @@ class UpdateTrackCommand extends ContainerAwareCommand {
         $artists = $artistQuery->notProcessed()->setLimit(5)->getList();
         foreach ($artists as $artist) {
             if ($artist->getName() != '[unknown]') {
-                foreach ($artist->getAlbums() as $album) {
-                    foreach ($album->getTracks() as $track) {
-                        $result = $youtubeSearch->setQuery($artist->getName(). ' - '. $track->getName())->getResults();
-                        if(isset($result->items)) {
-                            foreach ($result->items as $item) {
-                                if (strpos(strtolower($item->snippet->title), strtolower($track->getName()))) {
-                                    $output->writeln($item->id->videoId . ' ' . $artist->getName(). ' '. $track->getName());
-                                    $track->setYoutubeId($item->id->videoId);
-                                    break;
+                if (count($artist->getAlbums())) {
+                    foreach ($artist->getAlbums() as $album) {
+                        foreach ($album->getTracks() as $track) {
+                            $result = $youtubeSearch->setQuery($artist->getName(). ' - '. $track->getName())->getResults();
+                            if(isset($result->items)) {
+                                foreach ($result->items as $item) {
+                                    if (strpos(strtolower($item->snippet->title), strtolower($track->getName()))) {
+                                        $output->writeln($item->id->videoId . ' ' . $artist->getName(). ' '. $track->getName());
+                                        $track->setYoutubeId($item->id->videoId);
+                                        break;
+                                    }
                                 }
                             }
                         }
                     }
+                } else {
+                    $artist->setDisabled();
                 }
             }
             $artist->setProcessed();
