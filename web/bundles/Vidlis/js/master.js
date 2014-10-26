@@ -54,11 +54,13 @@ $(document).ready(function () {
         );
     });
     $(".playButtonRow, .videoName, .itemSearch, #suggestionContent .itemPlaylist, .itemLaunched, .boxplayed").live("click", function () {
-        addToQueue($(this).data('id'));
-        if ($('.btn-suggestion').hasClass('active')) {
-            $('#suggestionContent').hide();
-            $('.btn-suggestion').removeClass('active');
-            $('#playlistContent, .btn-save').show();
+        if ($(this).data('id')) {
+            addToQueue($(this).data('id'));
+            if ($('.btn-suggestion').hasClass('active')) {
+                $('#suggestionContent').hide();
+                $('.btn-suggestion').removeClass('active');
+                $('#playlistContent, .btn-save').show();
+            }
         }
     });
     $(".readAfter").live("click", function () {

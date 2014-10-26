@@ -73,4 +73,16 @@ class Track {
         return $this->duration;
     }
 
+    public function getHumanReadableDuration()
+    {
+        $duration = '';
+        if ($this->duration != '') {
+            $s = $this->duration%60;
+            $s = str_pad($s, 2, 0, STR_PAD_LEFT);
+            $m = floor(($this->duration%3600)/60);
+            return "$m:$s";
+        }
+        return $duration;
+    }
+
 }
