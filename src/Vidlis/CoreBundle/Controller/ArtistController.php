@@ -117,7 +117,7 @@ class ArtistController extends Controller
     {
 
         $data = array();
-        $data['title'] = $artistName.' - Vidlis';
+        $data['title'] = urldecode($artistName).' - Vidlis';
         $data['artistName'] = urldecode($artistName);
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:contentArtist.html.twig', $this->contentArtistAction($artistName));
