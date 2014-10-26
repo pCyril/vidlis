@@ -1,0 +1,24 @@
+<div id="right_content">
+    <div id="feeds">
+        <div class="artistDetail">
+            <div class="info">
+                <div class="imageArtist">
+                </div>
+                <h1 class="artistTitle">{{ artist.name }}</h1>
+                <div class="tagList genreRow">
+                    <ul>
+                    {% for tag in artist.tags %}
+                        <li>
+                            <a href="{{ url('_artistGenre', {'genre': tag.name}) }}" onclick="loadBox('/artists/{{ tag.name }}', 'tabArtist')">
+                                {{ tag.name }}
+                            </a>
+                        </li>
+                    {% endfor %}
+                </div>
+                <div class="text">
+                    {{ artist.info|raw }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -47,12 +47,12 @@ class ArtistController extends Controller
             'Classique',
             'Dance',
             'Electro',
-            'Films',
             'France',
             'Hip Hop',
             'Jazz',
             'Pop',
             'R&B',
+            'Rap',
             'Reggae',
             'Rock',
             'World'
@@ -111,12 +111,44 @@ class ArtistController extends Controller
     }
 
     /**
-     * @Route("artist/{artistName}", name="_artistInfo")
+     * @Route("artist/{artistName}", name="_artistDetail")
      * @Template()
      */
     public function artistAction($artistName)
     {
 
+        $data = array();
+        $data['title'] = $artistName.' - Vidlis';
+        $data['artistName'] = $artistName;
+        if ($this->getRequest()->isMethod('POST')) {
+            $data['content'] = $this->renderView('VidlisCoreBundle:Artist:contentArtist.html.twig', $this->contentArtistAction($artistName));
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+        return $data;
+    }
+
+    /**
+     * @Template()
+     */
+    public function contentArtistAction($artistName)
+    {
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $artistQuery = new ArtistQuery($dm);
+        $artist = $artistQuery
+            ->isProcessed()
+            ->setName(urldecode($artistName))
+            ->getSingle();
+        $data = array();
+        $data['artist'] = $artist;
+        if ($this->getUser()) {
+            $data['user'] = $this->getUser();
+            $data['connected'] = true;
+        } else {
+            $data['connected'] = false;
+        }
+        return $data;
     }
 
 }
