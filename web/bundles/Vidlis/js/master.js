@@ -802,7 +802,7 @@ function forceLoad(url) {
 var loadingMore = false;
 $(window).scroll(function() {
     if($(window).scrollTop() + $(window).height() == $(document).height() && !loadingMore && !$('.loadMoreContent').hasClass('noMore')) {
-        var url = DOMAIN_NAME + '/load/artists/' + $('.loadMoreContent').data('limit') + '/' + $('.loadMoreContent').data('offset')
+        var url = DOMAIN_NAME + '/load/artists/' + $('.loadMoreContent').data('limit') + '/' + $('.loadMoreContent').data('offset') + '/' + $('.loadMoreContent').data('tag');
         $.ajax({
             url: url,
             dataType: 'json',

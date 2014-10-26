@@ -8,7 +8,7 @@
     <div id="content">
     {{
         render_esi(
-            controller('VidlisCoreBundle:Artist:content', {'limit': 20, 'offset': 0})
+            controller('VidlisCoreBundle:Artist:content', {'limit': 20, 'offset': 0, 'genre': genre})
         )
     }}
     </div>
