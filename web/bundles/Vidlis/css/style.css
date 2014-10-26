@@ -481,16 +481,16 @@ i.icon-large{
     -webkit-box-shadow: 0px 0px 5px 1px rgba(119, 119, 119, 0.3);
 }
 
-.boxBody .rowItem{
+.boxBody .rowItem, .track{
     padding:10px;
     position:relative;
 }
 
-.boxBody .rowItem:hover {
+.boxBody .rowItem:hover, .track:hover {
     background-color: rgba(119, 119, 119, 0.1);
 }
 
-.boxBody .rowItem:hover .itemNumber{
+.boxBody .rowItem:hover .itemNumber, .track:hover .itemNumber{
     display: none;
 }
 
@@ -502,7 +502,7 @@ i.icon-large{
     display:none;
 }
 
-.boxBody .rowItem .playButtonRow {
+.boxBody .rowItem .playButtonRow, .track .playButtonRow {
     position: absolute;
     left: 6px;
     top: 10px;
@@ -523,29 +523,33 @@ i.icon-large{
     overflow: auto;
 }
 
-.boxBody .rowItem .itemNumber {
+.track.inactive {
+    opacity: 0.2;
+}
+
+.boxBody .rowItem .itemNumber, .track .itemNumber {
     position: absolute;
 }
-.boxBody .rowItem .videoName:hover {
+.boxBody .rowItem .videoName:hover, .track .videoName:hover {
     text-decoration: underline;
     cursor: pointer;
 }
-.boxBody .rowItem .videoName {
+.boxBody .rowItem .videoName, .track .videoName {
     padding-right: 50px;
     padding-left: 20px;
     height: 19px;
     overflow: hidden;
 }
-.boxBody .rowItem .itemNumber {
+.boxBody .rowItem .itemNumber, .track .itemNumber {
     padding-right: 10px;
 }
-.boxBody .rowItem.pair {
+.boxBody .rowItem.pair, .track.pair {
     background-color: rgba(119, 119, 119, 0.1);
 }
-.boxBody .rowItem.pair:hover {
+.boxBody .rowItem.pair:hover, .track.pair:hover {
     background-color: rgba(119, 119, 119, 0.2);
 }
-.boxBody .rowItem .videoDuration {
+.boxBody .rowItem .videoDuration, .track .videoDuration {
     position: absolute;
     right: 10px;
     top: 10px;
@@ -1902,6 +1906,10 @@ h1.artistTitle {
     background-color: #2b2b2b;
 }
 
+.artistDetail {
+    position: relative;
+}
+
 .artistDetail .info {
     position: relative;
 }
@@ -1921,4 +1929,35 @@ h1.artistTitle {
     border-radius: 3px;
     width: 700px;
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.25);
+}
+
+.discographie {
+    background-color: #fff;
+    border-radius: 3px;
+    margin-top: 275px;
+    padding: 10px;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.25);
+}
+
+.discographie h2, .discographie h3 {
+    margin: 0px;
+    padding: 15px;
+}
+
+#feeds .discographie h3 {
+    margin-left: 145px;
+}
+
+.discographie .album {
+    padding: 20px;
+    border-bottom: 1px solid #ecedef;
+}
+
+.discographie .album .albumImage {
+    float: left;
+    width: 160px;
+}
+
+.discographie .album .tracks {
+    margin-left: 160px;
 }

@@ -42,20 +42,19 @@ class ArtistController extends Controller
         $data['genre'] = $genre;
         $data['genres'] = array(
             'Tous',
-            'Alternative',
-            'Blues',
-            'Classique',
-            'Dance',
-            'Electro',
-            'France',
-            'Hip Hop',
-            'Jazz',
-            'Pop',
-            'R&B',
-            'Rap',
-            'Reggae',
-            'Rock',
-            'World'
+            'alternative',
+            'blues',
+            'classique',
+            'dance',
+            'electro',
+            'france',
+            'hip hop',
+            'jazz',
+            'pop',
+            'rap',
+            'reggae',
+            'rock',
+            'world'
         );
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
@@ -119,7 +118,7 @@ class ArtistController extends Controller
 
         $data = array();
         $data['title'] = $artistName.' - Vidlis';
-        $data['artistName'] = $artistName;
+        $data['artistName'] = urldecode($artistName);
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:contentArtist.html.twig', $this->contentArtistAction($artistName));
             $response = new Response(json_encode($data));
