@@ -5,11 +5,11 @@
                 {% for tag in genres %}
                 <li>
                     {% if tag == 'Tous' %}
-                        <a href="{{ url('_artist') }}" onclick="loadBox('/artists/', 'tabArtist')" {% if genre == '' %}class="active"{% endif %}>
+                        <a href="{{ url('_artist') }}" onclick="loadBox('/artists/', 'tabArtist'); return false;" {% if genre == '' %}class="active"{% endif %}>
                             {{ tag }}
                         </a>
                     {% else %}
-                        <a href="{{ url('_artistGenre', {'genre': tag}) }}" onclick="loadBox('/artists/{{ tag }}', 'tabArtist')" {% if tag == genre %}class="active"{% endif %}>
+                        <a href="{{ url('_artistGenre', {'genre': tag}) }}" onclick="loadBox('/artists/{{ tag }}', 'tabArtist'); return false;" {% if tag == genre %}class="active"{% endif %}>
                             {{ tag }}
                         </a>
                     {% endif %}
