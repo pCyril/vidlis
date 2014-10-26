@@ -9,7 +9,7 @@
                     <ul>
                     {% for tag in artist.tags %}
                         <li>
-                            <a href="{{ url('_artistGenre', {'genre': tag.name}) }}" onclick="loadBox('/artists/{{ tag.name }}', 'tabArtist')">
+                            <a href="{{ url('_artistGenre', {'genre': tag.name}) }}" onclick="loadBox('/artists/{{ tag.name }}', 'tabArtist'); return false">
                                 {{ tag.name }}
                             </a>
                         </li>
