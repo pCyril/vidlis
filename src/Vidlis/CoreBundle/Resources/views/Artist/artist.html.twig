@@ -1,0 +1,15 @@
+{% extends "VidlisCoreBundle::layout.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+{% block description %}Vidlis est un site de streaming musical, écoutez tout le catalogue musical de Youtube sans publicité gratuitement et sans coupure.{% endblock %}
+
+{% block body %}
+    {% include 'VidlisCoreBundle:Default:header.html.twig'  with {'tab': 'artist'}   %}
+    <div id="content">
+        {{
+        render_esi(
+        controller('VidlisCoreBundle:Artist:contentArtist', {'artistName': artistName})
+        )
+        }}
+    </div>
+{% endblock %}

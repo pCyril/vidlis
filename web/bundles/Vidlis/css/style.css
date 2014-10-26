@@ -1884,3 +1884,41 @@ ul, ol {
 .noMore {
     opacity: 0.2;
 }
+
+h1.artistTitle {
+    font-size:2em;
+    text-shadow: -1px 1px 1px #000;
+    color: #2b2b2b;
+    position: absolute;
+    left: 164px;
+}
+
+.artistDetail .imageArtist {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    top: 20px;
+    left: 0px;
+    background-color: #2b2b2b;
+}
+
+.artistDetail .info {
+    position: relative;
+}
+
+.artistDetail .tagList {
+    position: absolute;
+    left: 150px;
+    top: 50px;
+}
+
+.artistDetail .text {
+    position: absolute;
+    left: 165px;
+    top: 100px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 3px;
+    width: 700px;
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.25);
+}

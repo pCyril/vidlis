@@ -1,5 +1,5 @@
 {% for artist in artists %}
-    <a class="boxArtist">
+    <a href="{{ url('_artistDetail', {'artistName': artist.name|url_encode}) }}" class="boxArtist">
         <h2 class="artistTitle">{{ artist.name }}</h2>
         <div class="clear"></div>
         <div class="images" style="height: {{ ((artist.getImagesPresentation()|length) / 2)|round * 150 }}px;">
