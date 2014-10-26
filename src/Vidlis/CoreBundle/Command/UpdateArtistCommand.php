@@ -22,7 +22,7 @@ class UpdateArtistCommand extends ContainerAwareCommand {
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $artistQuery = new ArtistQuery($this->getContainer()->get('doctrine_mongodb')->getManager());
-        $artists = $artistQuery->notProcessed()->getList();
+        $artists = $artistQuery->getList();
         foreach ($artists as $artist) {
             if (count($artist->getAlbums()) == 0) {
                 $artist->setDisabled();
