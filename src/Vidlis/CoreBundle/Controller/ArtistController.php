@@ -15,14 +15,16 @@ class ArtistController extends Controller
 
     /**
      * @Route("/artists/", name="_artist")
+     * @Route("/artists/{genre}", name="_artistGenre")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($genre = null)
     {
         $data = array();
-        $data['title'] = 'Liste des artistes - Vidlis';
+        $data['title'] = 'Artistes - Vidlis';
+        $data['genre'] = $genre;
         if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentAction());
+            $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentAction(20, 0, $genre));
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
             return $response;
@@ -33,10 +35,28 @@ class ArtistController extends Controller
     /**
      * @Template()
      */
-    public function contentAction($limit = 20, $offset = 0)
+    public function contentAction($limit = 20, $offset = 0, $genre)
     {
         $data = array();
-        $data['artists'] = $this->getArtistList($limit, $offset);
+        $data['artists'] = $this->getArtistList($limit, $offset, $genre);
+        $data['genre'] = $genre;
+        $data['genres'] = array(
+            'Tous',
+            'Alternative',
+            'Blues',
+            'Classique',
+            'Dance',
+            'Electro',
+            'Films',
+            'France',
+            'Hip Hop',
+            'Jazz',
+            'Pop',
+            'R&B',
+            'Reggae',
+            'Rock',
+            'World'
+        );
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
@@ -47,13 +67,14 @@ class ArtistController extends Controller
     }
 
     /**
-     * @Route("/load/artists/{limit}/{offset}", name="_loadMore")
+     * @Route("/load/artists/{limit}/{offset}/", name="_loadMore")
+     * @Route("/load/artists/{limit}/{offset}/{genre}", name="_loadMoreTag")
      * @Template()
      */
-    public function itemListAction($limit, $offset)
+    public function itemListAction($limit, $offset, $genre = null)
     {
         $data = array();
-            $data['artists'] = $this->getArtistList($limit, $offset);
+            $data['artists'] = $this->getArtistList($limit, $offset, $genre);
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
@@ -70,16 +91,21 @@ class ArtistController extends Controller
     /**
      * @param $limit
      * @param $offset
+     * @param $genre
      * @return mixed
      */
-    public function getArtistList($limit, $offset)
+    public function getArtistList($limit, $offset, $genre = null)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
-        $artists = $artistQuery
+        $artistQuery
             ->addOrderBy('name')
             ->isProcessed()
-            ->setLimit($limit, $offset)
+            ->setLimit($limit, $offset);
+        if (!is_null($genre)) {
+            $artistQuery->addTag($genre);
+        }
+        $artists = $artistQuery
             ->getList();
         return $artists;
     }

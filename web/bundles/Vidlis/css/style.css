@@ -602,7 +602,7 @@ i.icon-large{
     line-height: 17px;
 }
 
-.boxHeader .playlistCreatorName, .boxplayed .videoTitle, .boxArtist .videoTitle {
+.boxHeader .playlistCreatorName, .boxplayed .videoTitle, .boxArtist .artistTitle {
     font-size: 13px;
     color: #98A7B8;
     display: block;
@@ -615,9 +615,13 @@ i.icon-large{
     min-height: 300px;
 }
 
-.boxplayed .videoTitle, .boxArtist .videoTitle {
+.boxplayed .videoTitle, .boxArtist .artistTitle {
     padding: 0px 5px;
     line-height: 28px;
+}
+.boxArtist .artistTitle {
+    margin: 0px;
+    padding-left: 0px;
 }
 
 .boxHeader .playlistCreatorDate {
@@ -1841,18 +1845,26 @@ ul, ol {
     top: 145px !important;
 }
 
-.lettersRow {
+.genreRow {
     padding-left: 15px;
     margin-right: 168px;
 }
 
-.btnLetter {
+.genreRow ul li {
+    float: left;
+}
+
+.genreRow ul li a {
     border-radius: 3px;
     color: white;
-    background: #0c8fe7;
+    background: #262626 ;
     margin-right: 14px;
     line-height: 42px;
     padding:10px;
+}
+
+.genreRow ul li a:hover, .genreRow ul li a.active {
+    background: #0c8fe7;
 }
 
 .loadMoreContent {

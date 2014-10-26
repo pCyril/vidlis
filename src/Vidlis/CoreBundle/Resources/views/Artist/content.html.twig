@@ -1,14 +1,35 @@
 <div id="right_content">
     <div id="feeds">
+        <div class="genreRow">
+            <ul>
+                {% for tag in genres %}
+                <li>
+                    {% if tag == 'Tous' %}
+                        <a href="{{ url('_artist') }}" onclick="loadBox('/artists/', 'tabArtist')" {% if genre == '' %}class="active"{% endif %}>
+                            {{ tag }}
+                        </a>
+                    {% else %}
+                        <a href="{{ url('_artistGenre', {'genre': tag}) }}" onclick="loadBox('/artists/{{ tag }}', 'tabArtist')" {% if tag == genre %}class="active"{% endif %}>
+                            {{ tag }}
+                        </a>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="clear"></div>
         <div id="feeds_content">
             {% include 'VidlisCoreBundle:Artist:itemList.html.twig' with {'artists': artists} %}
         </div>
-        <div class="loadMoreContent" data-limit="20" data-offset="20">Chargement en cours</div>
+        <div class="loadMoreContent" data-limit="20" data-offset="20" data-tag="{{ genre }}">Chargement en cours</div>
         <div class="clear"></div>
     </div>
 </div>
 
-<script>
-
+<script>/*
+    var container = document.querySelector('#feeds_content');
+    var msnry = new Masonry( container, {
+        itemSelector: '.boxArtist'
+    });*/
 </script>
 {% include 'VidlisCoreBundle:Default:menu.html.twig'%}
