@@ -37,6 +37,15 @@ class ArtistQuery extends AbstractQuery
     /**
      * @return $this
      */
+    public function isNotDisabled()
+    {
+        $this->queryBuilder->field('disabled')->notEqual(true);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function notProcessed()
     {
         $this->queryBuilder->field('processed')->notEqual(true);

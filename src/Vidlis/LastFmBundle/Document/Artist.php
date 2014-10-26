@@ -38,6 +38,11 @@ class Artist {
      */
     private $processed = false;
 
+    /**
+     * @MongoDB\Boolean
+     */
+    private $disabled = false;
+
     public function getId()
     {
         return $this->id;
@@ -135,6 +140,23 @@ class Artist {
     public function isProcessed()
     {
         return $this->processed;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDisabled()
+    {
+        return $this->disabled;
+    }
+
+    /**
+     * @return $this
+     */
+    public function setDisabled()
+    {
+        $this->disabled = true;
+        return $this;
     }
 
 

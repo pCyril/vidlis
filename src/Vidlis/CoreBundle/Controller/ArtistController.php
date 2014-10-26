@@ -100,6 +100,7 @@ class ArtistController extends Controller
         $artistQuery
             ->addOrderBy('name')
             ->isProcessed()
+            ->isNotDisabled()
             ->setLimit($limit, $offset);
         if (!is_null($genre)) {
             $artistQuery->addTag($genre);
