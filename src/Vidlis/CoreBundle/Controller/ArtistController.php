@@ -110,7 +110,7 @@ class ArtistController extends Controller
     }
 
     /**
-     * @Route("artist/{artistName}", name="_artistDetail")
+     * @Route("artist/{artistName}", name="_artistDetail", requirements={"artistName" = ".*"})
      * @Template()
      */
     public function artistAction($artistName)
