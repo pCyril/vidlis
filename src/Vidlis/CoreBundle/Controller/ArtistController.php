@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Vidlis\LastFmBundle\Document\Artist;
 use Vidlis\LastFmBundle\Document\ArtistQuery;
 
 
@@ -116,7 +117,6 @@ class ArtistController extends Controller
      */
     public function artistAction($artistName)
     {
-
         $data = array();
         $data['title'] = urldecode($artistName).' - Vidlis';
         $data['artistName'] = urldecode($artistName);
@@ -142,6 +142,10 @@ class ArtistController extends Controller
             ->getSingle();
         $data = array();
         $data['artist'] = $artist;
+        if ($artist instanceof Artist) {
+            $similarArtists = $artistQuery->reset()->getSimilarArtists($artist);
+            $data['similarArtists'] = $similarArtists;
+        }
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;

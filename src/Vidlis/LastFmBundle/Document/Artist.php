@@ -160,12 +160,12 @@ class Artist {
     }
 
 
-    public function getImagesPresentation()
+    public function getImagesPresentation($nbImageMax = 4)
     {
         $images = array();
         $nbImages = 1;
         foreach ($this->albums as $album) {
-            if ($nbImages <= 4) {
+            if ($nbImages <= $nbImageMax) {
                 if ($album->getImage() != '') {
                     $images[] = $album->getImage();
                 }
