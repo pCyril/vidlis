@@ -38,6 +38,7 @@
 					$('#content').html(data.content);
                     $('#loading').hide();
                     setupCustomScrollbar();
+                    $('body').trigger('pageLoaded');
 				},
 				error: function (jqXHR, textStatus, errorThrown) {
                     showError('Oh Mince ! Une erreur est survenue pendant le chargement de la page :\'(');

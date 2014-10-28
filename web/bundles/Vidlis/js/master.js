@@ -14,6 +14,13 @@ $(document).ready(function () {
         }
         return false;
     });
+    $('body').on('pageLoaded', function(){
+        if ($('.artistDetail .text').length) {
+            $('.artistDetail .text a').each(function(){
+                $(this).attr('target', '_blank');
+            });
+        }
+    });
     $('.showPlaying').live('click', function () {
         $('.infoPlayed, .showPlaying').toggleClass('open', 500);
         if ($('.showPlaying').hasClass('open')) {
