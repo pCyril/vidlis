@@ -75,6 +75,7 @@ class ArtistQuery extends AbstractQuery
         if ($tags) {
             $tag = $tags[0];
             $this->addTag($tag->getName())
+                ->isNotDisabled()
                 ->isProcessed()
                 ->setLimit($limit);
             return $this->getList();
