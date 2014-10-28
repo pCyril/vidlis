@@ -62,6 +62,27 @@ class ArtistQuery extends AbstractQuery
         return $this;
     }
 
+    /**
+     * Return a similar list of artist on tag name
+     * @param Artist $artist
+     * @param int $limit
+     * @return bool|mixed
+     */
+    public function getSimilarArtists(Artist $artist, $limit = 4)
+    {
+        $this->queryBuilder->field('name')->notEqual($artist->getName());
+        $tags = $artist->getTags();
+        if ($tags) {
+            $tag = $tags[0];
+            $this->addTag($tag->getName())
+                ->isProcessed()
+                ->setLimit($limit);
+            return $this->getList();
+        } else {
+            return false;
+        }
+    }
+
     public  function prePersist($entity)
     {
     }

@@ -15,11 +15,19 @@
                         </li>
                     {% endfor %}
                     </ul>
+                    <div class="clear"></div>
                 </div>
-                <div class="text">
-                    {{ artist.info|raw }}
-                </div>
+                {% if artist.info != '' %}
+                    <div class="text">
+                        {{ artist.info|raw }}
+                    </div>
+                {% endif %}
             </div>
+        </div>
+        <div class="similarArtist">
+            <h2>Artistes similaires</h2>
+            {% include 'VidlisCoreBundle:Artist:similarArtistList.html.twig' with {'artists': similarArtists} %}
+            <div class="clear"></div>
         </div>
         <div class="discographie">
             <h2>Discographie</h2>

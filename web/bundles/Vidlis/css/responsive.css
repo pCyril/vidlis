@@ -11,6 +11,10 @@
         margin: 0px 1% 20px 1% !important;
         margin-bottom:20px;
     }
+
+    .hideOnTooSmall {
+        display: none;
+    }
 }
 
 @media only screen and (max-width: 1279px) {

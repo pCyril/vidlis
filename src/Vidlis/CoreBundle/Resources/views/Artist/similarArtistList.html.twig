@@ -1,0 +1,12 @@
+{% for artist in artists %}
+    <a href="{{ url('_artistDetail', {'artistName': artist.name|url_encode}) }}" onclick="loadBox('/artist/{{ artist.name|url_encode }}', 'tabArtist'); return false;" class="boxArtist {% if loop.index == 4 %}hideOnTooSmall{% endif %}">
+        <h2 class="artistTitle">{{ artist.name }}</h2>
+        <div class="clear"></div>
+        <div class="images" style="height: 150px; min-height: 150px;">
+            {% for images in artist.getImagesPresentation(2) %}
+                <img src="{{ images }}" width="158px">
+            {% endfor %}
+        </div>
+        <div class="clear"></div>
+    </a>
+{% endfor %}

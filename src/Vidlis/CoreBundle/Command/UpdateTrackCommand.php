@@ -35,7 +35,9 @@ class UpdateTrackCommand extends ContainerAwareCommand {
                                     if (strpos(strtolower($item->snippet->title), strtolower($track->getName()))) {
                                         $output->writeln($item->id->videoId . ' ' . $artist->getName(). ' '. $track->getName());
                                         $track->setYoutubeId($item->id->videoId);
-                                        break;
+                                        if ($this->hasNoInvalidateWords($item->snippet->title, $track->getName())) {
+                                            break;
+                                        }
                                     }
                                 }
                             }
@@ -48,5 +50,25 @@ class UpdateTrackCommand extends ContainerAwareCommand {
             $artist->setProcessed();
             $artistQuery->persist($artist);
         }
+    }
+
+    /**
+     * Check if there words like cover, full album for quality
+     *
+     * @param $titleFound
+     * @param $trackTitle
+     * @return bool
+     */
+    private function hasNoInvalidateWords($titleFound, $trackTitle)
+    {
+        $words = array('cover', 'full album', 'full', 'reprise', 'complet');
+        foreach ($words as $word) {
+            if (strpos($trackTitle, $word) === false) {
+                if (strpos($titleFound, $word)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }

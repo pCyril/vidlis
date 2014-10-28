@@ -12,6 +12,8 @@ abstract class AbstractQuery
 
     private $dm;
 
+    private $document;
+
     /**
      * @param DocumentManager $documentManager
      * @param $document
@@ -19,7 +21,19 @@ abstract class AbstractQuery
     protected function __construct(DocumentManager $documentManager, $document)
     {
         $this->queryBuilder = $documentManager->createQueryBuilder($document);
+        $this->document = $document;
         $this->dm = $documentManager;
+    }
+
+    /**
+     * Erase query builder and create a new one
+     *
+     * @return $this
+     */
+    public function reset()
+    {
+        $this->queryBuilder = $this->dm->createQueryBuilder($this->document);
+        return $this;
     }
 
     /**
