@@ -2,7 +2,7 @@
 namespace Vidlis\LastFmBundle\Document;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
-use Vidlis\LastFmBundle\Document\AbstractQuery;
+use Vidlis\CoreBundle\Document\AbstractQuery;
 
 class ArtistQuery extends AbstractQuery
 {
