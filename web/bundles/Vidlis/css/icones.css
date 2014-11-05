@@ -118,3 +118,7 @@
 .icon-absolute.edit, .icon.edit {
     background-position: -1px -392px;
 }
+
+.icon-absolute.loop, .icon.loop {
+    background-position: -1px -726px;
+}

@@ -111,6 +111,11 @@ $(document).ready(function () {
         $('#ytPlayer').attr('height', ($(window).height() - 62));
         return false;
     });
+
+    $('.btn-loop').on('click', function(){
+        $(this).toggleClass('active');
+        return false;
+    });
 });
 
 $('.mouseoverInfo').live('mousemove', function (e) {
@@ -543,6 +548,7 @@ function formatPlaylist(video, after) {
         }
         $('.loadQueue').hide();
         $('.btn-suggestion').show();
+        $('.btn-loop').show();
         $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
         $('.successAddedToQueue').delay(800).fadeOut();
     });
@@ -580,11 +586,27 @@ function next() {
         $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
         ytplayer.playVideo();
         $(element).addClass('active');
-
         if ($('.btn-suggestion').hasClass('active')) {
             getSuggestion($(element).data('id'));
         }
         return true;
+    } else {
+        if ($('.btn-loop').hasClass('active')) {
+            element = $('.itemPlaylist').first();
+            console.log($(element));
+            ytplayer.cueVideoById($(element).data('id'));
+            curentVideoId = $(element).data('id');
+            launched($(element).data('id'));
+            $('#title').html($(element).data('title'));
+            $('#vote .like').css('width', Math.round($(element).data('likecount') / ($(element).data('likecount') + $(element).data('dislikecount')) * 100) + '%');
+            $('#viewCount span').html(makeSeperator($(element).data('viewcount'), ' '));
+            ytplayer.playVideo();
+            $(element).addClass('active');
+            if ($('.btn-suggestion').hasClass('active')) {
+                getSuggestion($(element).data('id'));
+            }
+            return true;
+        }
     }
     return false;
 }
@@ -624,6 +646,7 @@ function clearPlaylist() {
     curentVideoId = '';
     $('.btn-save').hide();
     $('.btn-suggestion').hide();
+    $('.btn-loop').hide();
     return false;
 }
 
