@@ -1117,14 +1117,14 @@ i.icon-large{
 .btn-suggestion {
     position: absolute;
     top: 4px;
-    right: 31px;
+    right: 57px;
     display: none;
 }
 
 .btn-save {
     position: absolute;
     top: 4px;
-    right: 55px;
+    right: 82px;
     display:none;
 }
 
@@ -1137,18 +1137,35 @@ i.icon-large{
 
 .btn-suggestion.active {
     top:2px;
-    right: 31px;
+    right: 57px;
     background-color: #000;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
-    padding: 1px 4px;
+    padding: 1px 2px 1px 4px;
 }
 
 .btn-trash {
     position: absolute;
     top:4px;
     right:10px;
+}
+
+.btn-loop {
+    position: absolute;
+    top:4px;
+    right:31px;
+    display: none
+}
+
+.btn-loop.active {
+    top:2px;
+    right: 29px;
+    background-color: #000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 1px 4px 1px 5px;
 }
 
 .btn-grow {

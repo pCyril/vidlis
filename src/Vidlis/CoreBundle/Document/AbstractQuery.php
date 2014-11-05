@@ -1,5 +1,5 @@
 <?php
-namespace Vidlis\LastFmBundle\Document;
+namespace Vidlis\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\DocumentManager;
 
 /**
