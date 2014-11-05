@@ -593,7 +593,6 @@ function next() {
     } else {
         if ($('.btn-loop').hasClass('active')) {
             element = $('.itemPlaylist').first();
-            console.log($(element));
             ytplayer.cueVideoById($(element).data('id'));
             curentVideoId = $(element).data('id');
             launched($(element).data('id'));

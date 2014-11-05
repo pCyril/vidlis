@@ -54,7 +54,7 @@ class HomeController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $playedQuery = new PlayedQuery($em);
-        $videosPlayed = $playedQuery->setLimit(12)->setLifetime(30)->setOrderBy(array('p.datePlayed' => 'DESC'))->getList('video_played');
+        $videosPlayed = $playedQuery->getLastPlayed(12);
         $data = array('videosPlayed' => $videosPlayed);
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
