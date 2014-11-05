@@ -592,6 +592,7 @@ function next() {
         return true;
     } else {
         if ($('.btn-loop').hasClass('active')) {
+            $('.itemPlaylist.active').removeClass('active');
             element = $('.itemPlaylist').first();
             ytplayer.cueVideoById($(element).data('id'));
             curentVideoId = $(element).data('id');
