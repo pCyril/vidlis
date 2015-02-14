@@ -61,7 +61,7 @@ abstract class AbstractQuery extends AbstractCache
                 ->useResultCache($this->cacheResults, $this->lifetime, $key)
                 ->getSingleResult();
         } catch (NoResultException $e) {
-            return false;
+            return null;
         }
     }
 

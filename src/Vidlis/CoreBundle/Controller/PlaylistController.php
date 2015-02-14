@@ -83,7 +83,7 @@ class PlaylistController extends Controller
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $playlist = $playlistQuery->setId($idPlaylist)->setPrivate(false)->getSingle('playlist_'.$idPlaylist);
-        if ($playlist) {
+        if (!is_null($playlist)) {
             $data['title'] = $playlist->getName().' - Playlist';
             if ($this->getRequest()->isMethod('POST')) {
                 $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentcomment.html.twig', $this->contentcommentAction($idPlaylist));
