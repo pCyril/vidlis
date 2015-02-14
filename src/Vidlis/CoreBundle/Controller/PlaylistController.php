@@ -82,15 +82,19 @@ class PlaylistController extends Controller
         $data = array();
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
-        $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
-        $data['title'] = $playlist->getName().' - Playlist';
-        if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentcomment.html.twig', $this->contentcommentAction($idPlaylist));
-            $response = new Response(json_encode($data));
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
+        $playlist = $playlistQuery->setId($idPlaylist)->setPrivate(false)->getSingle('playlist_'.$idPlaylist);
+        if ($playlist) {
+            $data['title'] = $playlist->getName().' - Playlist';
+            if ($this->getRequest()->isMethod('POST')) {
+                $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentcomment.html.twig', $this->contentcommentAction($idPlaylist));
+                $response = new Response(json_encode($data));
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            } else {
+                $data['idPlaylist'] = $idPlaylist;
+            }
         } else {
-            $data['idPlaylist'] = $idPlaylist;
+            return $this->redirect($this->generateUrl('_homePlaylistsAll'));
         }
         return $data;
     }
