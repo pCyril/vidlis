@@ -26,6 +26,16 @@ class ArtistQuery extends AbstractQuery
     }
 
     /**
+     * @param $name
+     * @return $this
+     */
+    public function setArtistNameLike($name)
+    {
+        $this->queryBuilder->field('name')->equals(new \MongoRegex('/.*'.$name.'.*/i'));
+        return $this;
+    }
+
+    /**
      * @return $this
      */
     public function isProcessed()

@@ -15,6 +15,13 @@
                     {% endif %}
                 </li>
                 {% endfor %}
+                <li>
+                    <form class="formSearchArtist">
+                        <input type="text" name="search" id="searchArtist" placeholder="Recherche">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                        <div class="clear"></div>
+                    </form>
+                </li>
             </ul>
         </div>
         <div class="clear"></div>
@@ -25,11 +32,4 @@
         <div class="clear"></div>
     </div>
 </div>
-
-<script>/*
-    var container = document.querySelector('#feeds_content');
-    var msnry = new Masonry( container, {
-        itemSelector: '.boxArtist'
-    });*/
-</script>
 {% include 'VidlisCoreBundle:Default:menu.html.twig'%}

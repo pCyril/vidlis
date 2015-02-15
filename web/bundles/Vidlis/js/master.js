@@ -4,7 +4,7 @@ var tag = document.createElement('script');
 var firstScriptTag;
 
 $(document).ready(function () {
-    $('.formSearch').live('submit', function () {
+    $('.formSearch').on('submit', function () {
         if ($('#search').val()) {
             url = '/search/' + encodeURIComponent($('#search').val());
             loadBox(url);
@@ -21,7 +21,7 @@ $(document).ready(function () {
             });
         }
     });
-    $('.showPlaying').live('click', function () {
+    $('.showPlaying').on('click', function () {
         $('.infoPlayed, .showPlaying').toggleClass('open', 500);
         if ($('.showPlaying').hasClass('open')) {
             $('.showPlaying').html('+');
@@ -32,6 +32,16 @@ $(document).ready(function () {
     $('.formSearchHome').live('submit', function () {
         if ($('#q').val()) {
             url = '/search/' + encodeURIComponent($('#q').val());
+            loadBox(url);
+            $(window).scrollTop(0);
+        } else {
+            showError('Oui, mais tu cherches quoi exactement ?');
+        }
+        return false;
+    });
+    $('.formSearchArtist').live('submit', function () {
+        if ($('#searchArtist').val()) {
+            url = '/artists/search/' + encodeURIComponent($('#searchArtist').val());
             loadBox(url);
             $(window).scrollTop(0);
         } else {

@@ -14,6 +14,38 @@ use Vidlis\LastFmBundle\Document\ArtistQuery;
 class ArtistController extends Controller
 {
 
+    private $gender = [
+        'Tous',
+        'alternative',
+        'blues',
+        'dance',
+        'electro',
+        'hip hop',
+        'jazz',
+        'pop',
+        'rap',
+        'reggae',
+        'rock'
+    ];
+
+    /**
+     * @Route("/artists/search/{search}", name="_artistSearch", requirements={"search" = ".*"})
+     * @Template("VidlisCoreBundle:Artist:index.html.twig")
+     */
+    public function searchAction($search)
+    {
+        $data = array();
+        $data['title'] = 'Artistes - Vidlis';
+        $data['genre'] = 'search';
+        if ($this->getRequest()->isMethod('POST')) {
+            $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentSearchAction($search));
+            $response = new Response(json_encode($data));
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+        return $data;
+    }
+
     /**
      * @Route("/artists/", name="_artist")
      * @Route("/artists/{genre}", name="_artistGenre")
@@ -33,6 +65,31 @@ class ArtistController extends Controller
         return $data;
     }
 
+
+    /**
+     * @Template("VidlisCoreBundle:Artist:content.html.twig")
+     */
+    public function contentSearchAction($search)
+    {
+        $data = array();
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $artistQuery = new ArtistQuery($dm);
+        $artists = $artistQuery
+            ->isProcessed()
+            ->isNotDisabled()
+            ->setArtistNameLike($search)->getList();
+        $data['artists'] = $artists;
+        $data['genre'] = 'search';
+        $data['genres'] = $this->gender;
+        if ($this->getUser()) {
+            $data['user'] = $this->getUser();
+            $data['connected'] = true;
+        } else {
+            $data['connected'] = false;
+        }
+        return $data;
+    }
+
     /**
      * @Template()
      */
@@ -41,22 +98,7 @@ class ArtistController extends Controller
         $data = array();
         $data['artists'] = $this->getArtistList($limit, $offset, $genre);
         $data['genre'] = $genre;
-        $data['genres'] = array(
-            'Tous',
-            'alternative',
-            'blues',
-            'classique',
-            'dance',
-            'electro',
-            'france',
-            'hip hop',
-            'jazz',
-            'pop',
-            'rap',
-            'reggae',
-            'rock',
-            'world'
-        );
+        $data['genres'] = $this->gender;
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
@@ -74,7 +116,7 @@ class ArtistController extends Controller
     public function itemListAction($limit, $offset, $genre = null)
     {
         $data = array();
-            $data['artists'] = $this->getArtistList($limit, $offset, $genre);
+        $data['artists'] = $this->getArtistList($limit, $offset, $genre);
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
@@ -118,7 +160,7 @@ class ArtistController extends Controller
     public function artistAction($artistName)
     {
         $data = array();
-        $data['title'] = urldecode($artistName).' - Vidlis';
+        $data['title'] = urldecode($artistName) . ' - Vidlis';
         $data['artistName'] = urldecode($artistName);
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:contentArtist.html.twig', $this->contentArtistAction($artistName));
