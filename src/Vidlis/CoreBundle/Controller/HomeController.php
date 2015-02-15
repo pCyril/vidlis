@@ -64,5 +64,18 @@ class HomeController extends Controller
         }
         return $data;
     }
-    
+
+    /**
+     * @Route("/share/popup/{idVideo}", name="_sharePopup")
+     * @Template()
+     */
+    public function sharePopupAction($idVideo = null)
+    {
+        $data = [];
+        $data['title'] = "Partager c'est cool !";
+        $data['content'] = $this->renderView('VidlisCoreBundle:Home:sharePopup.html.twig', array('idVideo' => $idVideo));
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 }

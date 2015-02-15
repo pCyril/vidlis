@@ -1996,3 +1996,34 @@ h1.artistTitle {
 .discographie .album .tracks {
     margin-left: 160px;
 }
+
+.shareLink {
+    width: 50%;
+    height: 50px;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    line-height: 50px;
+    font-size: 16px;
+}
+
+.shareLink:hover {
+    color: white;
+}
+
+.shareLink.twitter {
+    background-color: #55ACEE;
+}
+
+.shareLink.facebook {
+    background-color: #3B5998;
+}
+
+.shareLink.google {
+    background-color: #d34836;
+}
+
+.shareLink.link {
+    color: #000000;
+}
