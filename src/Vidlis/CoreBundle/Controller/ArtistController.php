@@ -35,7 +35,7 @@ class ArtistController extends Controller
     public function searchAction($search)
     {
         $data = array();
-        $data['title'] = 'Artistes - Vidlis';
+        $data['title'] = sprintf('Recherche %s - Artistes - Vidlis', $search);
         $data['genre'] = 'search';
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentSearchAction($search));
@@ -54,7 +54,7 @@ class ArtistController extends Controller
     public function indexAction($genre = null)
     {
         $data = array();
-        $data['title'] = 'Artistes - Vidlis';
+        $data['title'] = sprintf('Artistes %s- Vidlis', ($genre) ? '- ' . ucfirst($genre) . ' ' : '');
         $data['genre'] = $genre;
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentAction(20, 0, $genre));
@@ -137,7 +137,7 @@ class ArtistController extends Controller
      * @param $genre
      * @return mixed
      */
-    public function getArtistList($limit, $offset, $genre = null)
+    private function getArtistList($limit, $offset, $genre = null)
     {
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
