@@ -75,6 +75,7 @@ class ArtistController extends Controller
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
         $artists = $artistQuery
+            ->addOrderBy('name')
             ->isProcessed()
             ->isNotDisabled()
             ->setArtistNameLike($search)->getList();
