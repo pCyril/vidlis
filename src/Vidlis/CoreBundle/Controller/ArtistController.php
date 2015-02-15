@@ -14,7 +14,7 @@ use Vidlis\LastFmBundle\Document\ArtistQuery;
 class ArtistController extends Controller
 {
 
-    private $gender = [
+    private $genders = [
         'Tous',
         'alternative',
         'blues',
@@ -78,10 +78,10 @@ class ArtistController extends Controller
             ->addOrderBy('name')
             ->isProcessed()
             ->isNotDisabled()
-            ->setArtistNameLike($search)->getList();
+            ->setSearchLike($search)->getList();
         $data['artists'] = $artists;
         $data['genre'] = 'search';
-        $data['genres'] = $this->gender;
+        $data['genres'] = $this->genders;
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
@@ -99,7 +99,7 @@ class ArtistController extends Controller
         $data = array();
         $data['artists'] = $this->getArtistList($limit, $offset, $genre);
         $data['genre'] = $genre;
-        $data['genres'] = $this->gender;
+        $data['genres'] = $this->genders;
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
