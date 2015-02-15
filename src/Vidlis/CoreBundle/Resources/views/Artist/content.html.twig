@@ -28,7 +28,9 @@
         <div id="feeds_content">
             {% include 'VidlisCoreBundle:Artist:itemList.html.twig' with {'artists': artists} %}
         </div>
-        <div class="loadMoreContent" data-limit="20" data-offset="20" data-tag="{{ genre }}">Chargement en cours</div>
+        {% if genre != 'search' %}
+            <div class="loadMoreContent" data-limit="20" data-offset="20" data-tag="{{ genre }}">Chargement en cours</div>
+        {% endif %}
         <div class="clear"></div>
     </div>
 </div>
