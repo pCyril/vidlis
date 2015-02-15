@@ -205,7 +205,29 @@ $(".toModal").live('click', function () {
 
 $('#share a').on('click', function() {
     if (curentVideoId != '') {
-        window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fvidlis.fr%2Fshare%2F'+curentVideoId, 'share','height=350px,width=600px');
+        $.ajax({
+            type: 'GET',
+            url: this + '/' + curentVideoId,
+            cache: false,
+            dataType: 'json',
+            beforeSend: function () {
+                $(".modal-header h4").html('Chargement en cours');
+                $(".modal-body").html('');
+                $('.modal, .overlay').show();
+            },
+            success: function (data) {
+                $('.modal').show();
+                $(".modal-header h4").html(data.title);
+                $(".modal-body").html(data.content);
+            },
+            error: function () {
+                $(".modal-header h4").html('Oups :\'(');
+                $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
+            }
+        }).done(function () {
+            sendFormToAjax();
+        });
+        return false;
     }
 });
 
