@@ -1888,6 +1888,38 @@ ul, ol {
     background: #0c8fe7;
 }
 
+.formSearchArtist {
+    background-color: #262626;
+    margin-top: 3px;
+    padding: 6px;
+    border-radius: 3px;
+}
+
+.formSearchArtist input {
+    border: none;
+    padding: 2px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    width: 150px;
+    float: left;
+}
+
+.formSearchArtist button {
+    border: none;
+    background-color: #1d1d1d;
+    color: white;
+    padding:2px;
+    width: 25px;
+    float: left;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+
+.formSearchArtist button:hover {
+    background-color: #0c8fe7;
+}
+
 .loadMoreContent {
     position: absolute;
     bottom: 20px;
