@@ -3,8 +3,6 @@ namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\NoResultException;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Vidlis\CoreBundle\Entity\AbstractCache;
 
 abstract class AbstractQuery extends AbstractCache
 {
@@ -51,7 +49,7 @@ abstract class AbstractQuery extends AbstractCache
 
     /**
      * @param $key
-     * @return bool|mixed
+     * @return null|mixed
      */
     public function getSingle($key)
     {
