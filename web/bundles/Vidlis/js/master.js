@@ -228,12 +228,10 @@ $('#share a').on('click', function() {
     }
 });
 
-$('.buttonShare').on('click', function() {
-    var idShare = $(this).parent().data('id');
-    if (idShare != '') {
-        window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fvidlis.fr%2Fshare%2F'+idShare, 'share','height=350px,width=600px');
-    }
-    event.stopPropagation();
+$('.createGroupForm').live("submit", function(){
+    socket.emit('createGroup', user, $("#groupName").val());
+    $('.modal, .overlay').hide();
+    return false;
 });
 
 $(".toModalHTML").live('click', function () {
@@ -791,6 +789,7 @@ function auth(connected) {
 function showError(message) {
     $('.errorMessage').html(message).show().delay(3000).fadeOut();
 }
+
 
 function formatPlayingList(info) {
     $.ajax({

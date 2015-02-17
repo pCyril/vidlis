@@ -49,7 +49,16 @@
         <div class="showPlaying">+</div>
         <div class="infoPlayed">
             <h2>Qui écoute quoi ?</h2>
+            <div class="buttonGroup">
+                <a href="{{ url('_createGroup') }}" class="createGroup toModal"><i class="fa fa-users"></i> Créer un groupe</a>
+            </div>
+            <div class="buttonGroup">
+                <a href="{{ url('_joinGroup') }}" class="createGroup toModal"><i class="fa fa-users"></i> Rejoindre un groupe</a>
+            </div>
+            <div class="clear"></div>
             <div class="contentPlayed mCustomScrollbarExist">
+            </div>
+            <div class="contentGroup mCustomScrollbarExist">
             </div>
         </div>
         </div>
