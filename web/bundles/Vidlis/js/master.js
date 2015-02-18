@@ -140,9 +140,6 @@ window.onbeforeunload = function() {
     if (typeof socket != 'undefined') {
         socket.disconnect();
     }
-    /*if ($('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist').length > 0) {
-        return 'En quittant cette page vous allez perdre votre playlist en cours';
-    }*/
 }
 
 $(".modal .close, .overlay").live('click', function(){
@@ -563,7 +560,6 @@ function formatPlaylist(video, after) {
         $('.successAddedToQueue').delay(800).fadeOut();
     });
     $("#playlistContent ul").sortable({ axis: "x" });
-    $("#playlistContent .mCSB_container").disableSelection();
 }
 
 function _run() {
@@ -599,6 +595,7 @@ function next() {
         if ($('.btn-suggestion').hasClass('active')) {
             getSuggestion($(element).data('id'));
         }
+        $("#playlistContent").mCustomScrollbar("scrollTo",".active");
         return true;
     } else {
         if ($('.btn-loop').hasClass('active')) {
@@ -615,6 +612,7 @@ function next() {
             if ($('.btn-suggestion').hasClass('active')) {
                 getSuggestion($(element).data('id'));
             }
+            $("#playlistContent").mCustomScrollbar("scrollTo","left");
             return true;
         }
     }
