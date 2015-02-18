@@ -534,7 +534,7 @@ function formatPlaylist(video, after) {
         if (!after || $('#playlistContent .itemPlaylist.active').length == 0) {
             $c.append($li);
         } else {
-            $('#playlistContent .itemPlaylist.active').parent().after($li);
+            $('#playlistContent .itemPlaylist.active').parent().parent().after($li);
         }
 
         playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
