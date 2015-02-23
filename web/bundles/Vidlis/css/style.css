@@ -2054,3 +2054,7 @@ h1.artistTitle {
     width: 50%;
     float: left;
 }
+
+.buttonGroup.full {
+    width: 100%;
+}

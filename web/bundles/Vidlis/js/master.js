@@ -230,8 +230,22 @@ $('#share a').on('click', function() {
 
 $('.createGroupForm').live("submit", function(){
     socket.emit('createGroup', user, $("#groupName").val());
+    user.group = $("#groupName").val();
     $('.modal, .overlay').hide();
+    $('#groupBtnCreateJoin').hide();
+    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + $("#groupName").val());
+    $('#groupBtnCreatedJoined').removeClass('hide');
     return false;
+});
+
+
+$('.joinGroup').live('click', function(){
+    var groupNameJoined = $(this).data('group-name');
+    user.group = groupNameJoined;
+    $('.modal, .overlay').hide();
+    $('#groupBtnCreateJoin').hide();
+    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + groupNameJoined);
+    $('#groupBtnCreatedJoined').removeClass('hide');
 });
 
 $(".toModalHTML").live('click', function () {
@@ -498,7 +512,7 @@ function loadPlayer() {
 
 }
 
-function addToQueue(id, after) {
+function addToQueue(id, after, addedByGroup) {
     $.ajax({
         url: DOMAIN_NAME + '/addToQueue',
         type: 'post',
@@ -511,16 +525,22 @@ function addToQueue(id, after) {
             $('#share').css('display', 'block');
         },
         success: function (data, textStatus, jqXHR) {
-            formatPlaylist(data.video, after);
+            formatPlaylist(data.video, after, addedByGroup);
         }
     });
 }
 
-function formatPlaylist(video, after) {
+function formatPlaylist(video, after, addedByGroup) {
     if ( typeof after === 'undefined') {
         after = false;
     }
+    if ( typeof addedByGroup === 'undefined') {
+        addedByGroup = false;
+    }
     $.each(video.items, function () {
+        if (addedByGroup == false) {
+            socket.emit('addToPlaylist', user, this.id);
+        }
         $c = $('#playlistContent ul');
         $li = $('<li/>');
         $container = $('<div class="relative pull-left itemContainer"><div class="ui-state-default" />');

@@ -4,7 +4,7 @@
     $(document).ready(function(){
         if (groupList.length) {
             $.each(groupList, function(){
-                $('.listGroup').append('<span class="label label-success" style="font-size: 15px; margin-right: 10px;">' + this.name + '</span>');
+                $('.listGroup').append('<a href="javascript:;" class="label label-success joinGroup" data-group-name="' + this.name + '" style="font-size: 15px; margin-right: 10px;">' + this.name + '</a>');
             })
         } else {
             $('.listGroup').html('Pas de groupe');

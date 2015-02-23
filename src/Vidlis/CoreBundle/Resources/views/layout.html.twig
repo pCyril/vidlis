@@ -52,12 +52,18 @@
     var groupList;
     var user = {
         id : 0,
-        videoId : ''
+        videoId : '',
+        group: ''
     };
     var socket = io.connect('http://{{ urlNode }}/');
     socket.on('getLaunched', function (info) {
         $('#'+info.id).remove();
         formatPlayingList(info);
+    });
+    socket.on('addToPlaylistGroup', function (videoAdded) {
+        if (videoAdded.user.group == user.group) {
+            addToQueue(videoAdded.videoId, false, true);
+        }
     });
     socket.on('getGroups', function (groups) {
         groupList = groups;

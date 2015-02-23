@@ -35,6 +35,14 @@ io.sockets.on('connection', function (socket) {
         // On envoie à tout les clients connectés
         socket.broadcast.emit('getLaunched', user);
     });
+
+    socket.on('addToPlaylist', function (user, videoId) {
+        groupVideoAdded = {
+            user: user,
+            videoId: videoId
+        };
+        socket.broadcast.emit('addToPlaylistGroup', groupVideoAdded);
+    });
     socket.on('createGroup', function(user, groupName){
         group = {
             name: groupName,
