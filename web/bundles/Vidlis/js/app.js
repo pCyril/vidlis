@@ -6,6 +6,7 @@ var fs      =   require('fs');
 var app = http.createServer(function (req, res) {
 });
 var users = [];
+var groups = [];
 var i = 0;
 var io      =   require('socket.io');
 
@@ -20,6 +21,7 @@ io.sockets.on('connection', function (socket) {
         i++;
         socket.emit('setUserId', socket.id);
         socket.emit('getAllLaunched', users);
+        socket.emit('getGroups', groups);
     });
     // Quand un client lance une vidéo
     socket.on('launch', function (user) {
@@ -33,14 +35,37 @@ io.sockets.on('connection', function (socket) {
         // On envoie à tout les clients connectés
         socket.broadcast.emit('getLaunched', user);
     });
+
+    socket.on('addToPlaylist', function (user, videoId) {
+        groupVideoAdded = {
+            user: user,
+            videoId: videoId
+        };
+        socket.broadcast.emit('addToPlaylistGroup', groupVideoAdded);
+    });
+    socket.on('createGroup', function(user, groupName){
+        group = {
+            name: groupName,
+            user: user,
+            users: []
+        }
+        groups.push(group);
+        socket.broadcast.emit('getGroups', groups);
+    });
     socket.on('disconnect', function () {
         var j = 0;
         var n = 0;
         var tmp = [];
 
         while (n < users.length) {
-            if (users[j].id == socket.id)
+            if (users[j].id == socket.id) {
                 n++;
+                for (var k = 0; k < groups.length; k++) {
+                    if (groups[k].user.id == socket.id) {
+                        groups.splice(k, 1);
+                    }
+                }
+            }
             if (n < users.length) {
                 tmp[j] = users[n];
                 j++;
@@ -50,6 +75,7 @@ io.sockets.on('connection', function (socket) {
         users = tmp;
         i = j;
         socket.broadcast.emit('remove', this.id);
+        socket.broadcast.emit('getGroups', groups);
     });
 });
 

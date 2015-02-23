@@ -202,16 +202,50 @@ $(".toModal").live('click', function () {
 
 $('#share a').on('click', function() {
     if (curentVideoId != '') {
-        window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fvidlis.fr%2Fshare%2F'+curentVideoId, 'share','height=350px,width=600px');
+        $.ajax({
+            type: 'GET',
+            url: this + '/' + curentVideoId,
+            cache: false,
+            dataType: 'json',
+            beforeSend: function () {
+                $(".modal-header h4").html('Chargement en cours');
+                $(".modal-body").html('');
+                $('.modal, .overlay').show();
+            },
+            success: function (data) {
+                $('.modal').show();
+                $(".modal-header h4").html(data.title);
+                $(".modal-body").html(data.content);
+            },
+            error: function () {
+                $(".modal-header h4").html('Oups :\'(');
+                $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
+            }
+        }).done(function () {
+            sendFormToAjax();
+        });
+        return false;
     }
 });
 
-$('.buttonShare').on('click', function() {
-    var idShare = $(this).parent().data('id');
-    if (idShare != '') {
-        window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fvidlis.fr%2Fshare%2F'+idShare, 'share','height=350px,width=600px');
-    }
-    event.stopPropagation();
+$('.createGroupForm').live("submit", function(){
+    socket.emit('createGroup', user, $("#groupName").val());
+    user.group = $("#groupName").val();
+    $('.modal, .overlay').hide();
+    $('#groupBtnCreateJoin').hide();
+    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + $("#groupName").val());
+    $('#groupBtnCreatedJoined').removeClass('hide');
+    return false;
+});
+
+
+$('.joinGroup').live('click', function(){
+    var groupNameJoined = $(this).data('group-name');
+    user.group = groupNameJoined;
+    $('.modal, .overlay').hide();
+    $('#groupBtnCreateJoin').hide();
+    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + groupNameJoined);
+    $('#groupBtnCreatedJoined').removeClass('hide');
 });
 
 $(".toModalHTML").live('click', function () {
@@ -478,7 +512,7 @@ function loadPlayer() {
 
 }
 
-function addToQueue(id, after) {
+function addToQueue(id, after, addedByGroup) {
     $.ajax({
         url: DOMAIN_NAME + '/addToQueue',
         type: 'post',
@@ -491,16 +525,22 @@ function addToQueue(id, after) {
             $('#share').css('display', 'block');
         },
         success: function (data, textStatus, jqXHR) {
-            formatPlaylist(data.video, after);
+            formatPlaylist(data.video, after, addedByGroup);
         }
     });
 }
 
-function formatPlaylist(video, after) {
+function formatPlaylist(video, after, addedByGroup) {
     if ( typeof after === 'undefined') {
         after = false;
     }
+    if ( typeof addedByGroup === 'undefined') {
+        addedByGroup = false;
+    }
     $.each(video.items, function () {
+        if (addedByGroup == false) {
+            socket.emit('addToPlaylist', user, this.id);
+        }
         $c = $('#playlistContent ul');
         $li = $('<li/>');
         $container = $('<div class="relative pull-left itemContainer"><div class="ui-state-default" />');
@@ -769,6 +809,7 @@ function auth(connected) {
 function showError(message) {
     $('.errorMessage').html(message).show().delay(3000).fadeOut();
 }
+
 
 function formatPlayingList(info) {
     $.ajax({

@@ -1660,10 +1660,13 @@ i.icon-large{
     cursor: pointer;
 }
 
-.infoPlayed .contentPlayed {
-    height: 263px;
+.infoPlayed .contentPlayed, .contentGroup {
+    height: 222px;
     width: 330px;
     overflow: auto;
+}
+.contentGroup {
+    display: none;
 }
 #mainToolbar {
     position: relative;
@@ -1995,4 +1998,63 @@ h1.artistTitle {
 
 .discographie .album .tracks {
     margin-left: 160px;
+}
+
+.shareLink {
+    width: 50%;
+    height: 50px;
+    float: left;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    line-height: 50px;
+    font-size: 16px;
+}
+
+.shareLink:hover {
+    color: white;
+}
+
+.shareLink.twitter {
+    background-color: #55ACEE;
+}
+
+.shareLink.facebook {
+    background-color: #3B5998;
+}
+
+.shareLink.google {
+    background-color: #d34836;
+}
+
+.shareLink.link {
+    color: #000000;
+}
+
+.createGroup {
+    display: block;
+    color: white;
+    line-height: 30px;
+    border: 1px solid #c3c3c3;
+    background-color: #1d1d1d;
+    text-align: center;
+}
+.createGroup:hover {
+    color: white;
+    background-color: #101010;
+}
+
+.createGroupForm {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.buttonGroup {
+    width: 50%;
+    float: left;
+}
+
+.buttonGroup.full {
+    width: 100%;
 }

@@ -64,5 +64,44 @@ class HomeController extends Controller
         }
         return $data;
     }
-    
+
+    /**
+     * @Route("/share/popup/{idVideo}", name="_sharePopup")
+     * @Template()
+     */
+    public function sharePopupAction($idVideo = null)
+    {
+        $data = [];
+        $data['title'] = "Partager c'est cool !";
+        $data['content'] = $this->renderView('VidlisCoreBundle:Home:sharePopup.html.twig', array('idVideo' => $idVideo));
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/create-group", name="_createGroup")
+     */
+    public function createGroupAction()
+    {
+        $data = [];
+        $data['title'] = "Créer un groupe d'écoute";
+        $data['content'] = $this->renderView('VidlisCoreBundle:Home:createGroup.html.twig');
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Route("/join-group", name="_joinGroup")
+     */
+    public function joinGroupAction()
+    {
+        $data = [];
+        $data['title'] = "Rejoindre un groupe d'écoute";
+        $data['content'] = $this->renderView('VidlisCoreBundle:Home:joinGroup.html.twig');
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 }
