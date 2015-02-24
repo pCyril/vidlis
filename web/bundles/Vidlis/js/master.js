@@ -180,18 +180,18 @@ $(".toModal").live('click', function () {
             cache: false,
             dataType: 'json',
             beforeSend: function () {
-                $(".modal-header h4").html('Chargement en cours');
-                $(".modal-body").html('');
-                $('.modal, .overlay').show();
+                $(".modalWithHeader .modal-header h4").html('Chargement en cours');
+                $(".modalWithHeader .modal-body").html('');
+                $('.modal.modalWithHeader, .overlay').show();
             },
             success: function (data) {
-                $('.modal').show();
-                $(".modal-header h4").html(data.title);
-                $(".modal-body").html(data.content);
+                $('.modal.modalWithHeader').show();
+                $(".modalWithHeader .modal-header h4").html(data.title);
+                $(".modalWithHeader .modal-body").html(data.content);
             },
             error: function () {
-                $(".modal-header h4").html('Oups :\'(');
-                $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
+                $(".modalWithHeader .modal-header h4").html('Oups :\'(');
+                $(".modalWithHeader .modal-body").html('Oh Mince ! Une erreur c\'est produite');
             }
         }).done(function () {
                 sendFormToAjax();
@@ -208,18 +208,18 @@ $('#share a').on('click', function() {
             cache: false,
             dataType: 'json',
             beforeSend: function () {
-                $(".modal-header h4").html('Chargement en cours');
-                $(".modal-body").html('');
-                $('.modal, .overlay').show();
+                $(".modalWithHeader .modal-header h4").html('Chargement en cours');
+                $(".modalWithHeader .modal-body").html('');
+                $('.modal.modalWithHeader, .overlay').show();
             },
             success: function (data) {
-                $('.modal').show();
-                $(".modal-header h4").html(data.title);
-                $(".modal-body").html(data.content);
+                $('.modal.modalWithHeader').show();
+                $(".modalWithHeader .modal-header h4").html(data.title);
+                $(".modalWithHeader .modal-body").html(data.content);
             },
             error: function () {
-                $(".modal-header h4").html('Oups :\'(');
-                $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
+                $(".modalWithHeader .modal-header h4").html('Oups :\'(');
+                $(".modalWithHeader .modal-body").html('Oh Mince ! Une erreur c\'est produite');
             }
         }).done(function () {
             sendFormToAjax();
@@ -256,17 +256,14 @@ $(".toModalHTML").live('click', function () {
             cache: false,
             dataType: 'html',
             beforeSend: function () {
-                $(".modal-header h4").html('Chargement en cours');
-                $(".modal-body").html('');
-                $('.modal, .overlay').show();
+                $('.modalHTML.modal, .overlay').show();
             },
             success: function (data) {
-                $('.modal').show();
-                $(".modal-content").html(data);
+                $('.modalHTML.modal').show();
+                $(".modalHTML.modal .modal-content").html(data);
             },
             error: function () {
-                $(".modal-header h3").html('Oups :\'(');
-                $(".modal-body").html('Oh Mince ! Une erreur c\'est produite');
+                $(".modalHTML.modal .modal-content").html('Oh Mince ! Une erreur c\'est produite');
             }
         }).done(function () {
                 sendFormToAjax();
@@ -352,7 +349,7 @@ function sendFormToAjax() {
                     },
                     success: function (data) {
                         idContainer = form.data('container');
-                        $('.' + idContainer).html(data);
+                        $(idContainer).html(data);
                         sendFormToAjax();
                         isLoding = false;
                     },

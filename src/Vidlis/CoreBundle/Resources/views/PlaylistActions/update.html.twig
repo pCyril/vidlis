@@ -13,7 +13,7 @@
             });
         </script>
     {% endif %}
-    <form action="{{ path('_formUpdatePlaylist', {'playlistId': playlist.id}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
+    <form action="{{ path('_formUpdatePlaylist', {'playlistId': playlist.id}) }}" data-container=".modalWithHeader .modal-body" class="form-horizontal form-ajax" novalidate>
         <div class="control-group">
             <label class="control-label">Nom de la playlist :</label>
             <div class="controls">

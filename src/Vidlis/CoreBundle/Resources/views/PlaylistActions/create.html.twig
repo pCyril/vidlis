@@ -38,7 +38,7 @@
     <div class="alert alert-success hide" id="savePlaylist">Votre playlist a été  sauvegardé</div>
     {% endif %}
     <div>
-        <form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container="modal-body" class="form-horizontal form-ajax" novalidate>
+        <form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container=".modalWithHeader .modal-body" class="form-horizontal form-ajax" novalidate>
             <div class="control-group">
                 <label class="control-label">Nom de la playlist :</label>
                 <div class="controls">
