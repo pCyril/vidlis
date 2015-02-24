@@ -10,7 +10,7 @@
             <script>
                 $(document).ready(function(){
                     $('.modal, .overlay').hide();
-                    $('.register').html('Déconnexion');
+                    $('.register').html('{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}');
                     $('.register').attr("href", '{{ path('fos_user_security_logout') }}');
                     $(document).ready(function(){
                         loadBox($.address.value());
