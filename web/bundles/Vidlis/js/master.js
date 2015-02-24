@@ -539,7 +539,9 @@ function formatPlaylist(video, after, addedByGroup) {
     }
     $.each(video.items, function () {
         if (addedByGroup == false) {
-            socket.emit('addToPlaylist', user, this.id);
+            if (user.group != '') {
+                socket.emit('addToPlaylist', user, this.id);
+            }
         }
         $c = $('#playlistContent ul');
         $li = $('<li/>');
