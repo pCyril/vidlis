@@ -7,6 +7,17 @@
                     {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
                 </a>
             </div>
+            <script>
+                $(document).ready(function(){
+                    $('.modal, .overlay').hide();
+                    $('.register').html('Déconnexion');
+                    $('.register').attr("href", '{{ path('fos_user_security_logout') }}');
+                    $(document).ready(function(){
+                        loadBox($.address.value());
+                        return false;
+                    });
+                });
+            </script>
         {% else %}
             <div class="">
                 <a href="{{ path('fos_user_security_login') }}" class="login toModalHTML">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
