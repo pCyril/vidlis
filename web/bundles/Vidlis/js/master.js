@@ -140,9 +140,6 @@ window.onbeforeunload = function() {
     if (typeof socket != 'undefined') {
         socket.disconnect();
     }
-    /*if ($('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist').length > 0) {
-        return 'En quittant cette page vous allez perdre votre playlist en cours';
-    }*/
 }
 
 $(".modal .close, .overlay").live('click', function(){
@@ -231,12 +228,24 @@ $('#share a').on('click', function() {
     }
 });
 
-$('.buttonShare').on('click', function() {
-    var idShare = $(this).parent().data('id');
-    if (idShare != '') {
-        window.open('https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fvidlis.fr%2Fshare%2F'+idShare, 'share','height=350px,width=600px');
-    }
-    event.stopPropagation();
+$('.createGroupForm').live("submit", function(){
+    socket.emit('createGroup', user, $("#groupName").val());
+    user.group = $("#groupName").val();
+    $('.modal, .overlay').hide();
+    $('#groupBtnCreateJoin').hide();
+    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + $("#groupName").val());
+    $('#groupBtnCreatedJoined').removeClass('hide');
+    return false;
+});
+
+
+$('.joinGroup').live('click', function(){
+    var groupNameJoined = $(this).data('group-name');
+    user.group = groupNameJoined;
+    $('.modal, .overlay').hide();
+    $('#groupBtnCreateJoin').hide();
+    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + groupNameJoined);
+    $('#groupBtnCreatedJoined').removeClass('hide');
 });
 
 $(".toModalHTML").live('click', function () {
@@ -503,7 +512,7 @@ function loadPlayer() {
 
 }
 
-function addToQueue(id, after) {
+function addToQueue(id, after, addedByGroup) {
     $.ajax({
         url: DOMAIN_NAME + '/addToQueue',
         type: 'post',
@@ -516,16 +525,24 @@ function addToQueue(id, after) {
             $('#share').css('display', 'block');
         },
         success: function (data, textStatus, jqXHR) {
-            formatPlaylist(data.video, after);
+            formatPlaylist(data.video, after, addedByGroup);
         }
     });
 }
 
-function formatPlaylist(video, after) {
+function formatPlaylist(video, after, addedByGroup) {
     if ( typeof after === 'undefined') {
         after = false;
     }
+    if ( typeof addedByGroup === 'undefined') {
+        addedByGroup = false;
+    }
     $.each(video.items, function () {
+        if (addedByGroup == false) {
+            if (user.group != '') {
+                socket.emit('addToPlaylist', user, this.id);
+            }
+        }
         $c = $('#playlistContent ul');
         $li = $('<li/>');
         $container = $('<div class="relative pull-left itemContainer"><div class="ui-state-default" />');
@@ -556,7 +573,7 @@ function formatPlaylist(video, after) {
         if (!after || $('#playlistContent .itemPlaylist.active').length == 0) {
             $c.append($li);
         } else {
-            $('#playlistContent .itemPlaylist.active').parent().after($li);
+            $('#playlistContent .itemPlaylist.active').parent().parent().after($li);
         }
 
         playlistItem = $('#playlistContent .mCustomScrollBox .mCSB_container .itemPlaylist');
@@ -585,7 +602,6 @@ function formatPlaylist(video, after) {
         $('.successAddedToQueue').delay(800).fadeOut();
     });
     $("#playlistContent ul").sortable({ axis: "x" });
-    $("#playlistContent .mCSB_container").disableSelection();
 }
 
 function _run() {
@@ -621,6 +637,7 @@ function next() {
         if ($('.btn-suggestion').hasClass('active')) {
             getSuggestion($(element).data('id'));
         }
+        $("#playlistContent").mCustomScrollbar("scrollTo",".active");
         return true;
     } else {
         if ($('.btn-loop').hasClass('active')) {
@@ -637,6 +654,7 @@ function next() {
             if ($('.btn-suggestion').hasClass('active')) {
                 getSuggestion($(element).data('id'));
             }
+            $("#playlistContent").mCustomScrollbar("scrollTo","left");
             return true;
         }
     }
@@ -793,6 +811,7 @@ function auth(connected) {
 function showError(message) {
     $('.errorMessage').html(message).show().delay(3000).fadeOut();
 }
+
 
 function formatPlayingList(info) {
     $.ajax({
