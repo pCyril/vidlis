@@ -8,7 +8,6 @@
         <div id="videoDiv">
             <div id="playerYt"></div>
         </div>
-        {#<i class="fa fa-expand pull-right" id="grow"></i>#}
     </div>
     <div id="toolbarSearch">
         <form class="form-wrapper cf formSearch" id="formSearch">
@@ -29,9 +28,6 @@
         <li class="tab {% if tab == 'playlist' %}current{% endif %}">
             <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all', 'tabPlaylist');  return false;" class="tabPlaylist {% if tab == 'playlist' %}default{% endif %}">Playlists</a>
         </li>
-        {#<li class="tab">
-            <a href="/prochainement" title="Voir tous les films prochainement au cinéma" data-action="Cinemur:loadWall" class="">En cours</a>
-        </li>#}
     </ol>
 
     <section class="uiSplitter"></section>
@@ -59,19 +55,6 @@
 <div class="successAddedToQueue"></div>
 <div class="errorMessage"></div>
 <div class="overlay"></div>
-<div class="modal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"></h4>
-            </div>
-            <div class="modal-body">
-                <p></p>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script>
     function onPlayerReady(event) {

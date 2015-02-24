@@ -18,7 +18,7 @@
                         });
                     </script>
                 {% else %}
-                <form action="{{ path('_importPlaylist') }}" data-container="modal-content" class="form-horizontal form-ajaxHTML" novalidate>
+                <form action="{{ path('_importPlaylist') }}" data-container=".modalHTML .modal-content" class="form-horizontal form-ajaxHTML" novalidate>
                     {% for playlist in playlists.items %}
                         <div class="control-group">
                             <label>
