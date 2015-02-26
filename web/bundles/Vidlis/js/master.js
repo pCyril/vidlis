@@ -316,7 +316,7 @@ function sendFormToAjax() {
                     },
                     success: function (data) {
                         idContainer = form.data('container');
-                        $('.' + idContainer).html(data.content);
+                        $(idContainer).html(data.content);
                         sendFormToAjax();
                         isLoding = false;
                     },
