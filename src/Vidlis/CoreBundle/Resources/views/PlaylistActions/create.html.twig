@@ -15,7 +15,7 @@
             });
             {% if savePlaylist %}
             $('#savePlaylist').html('Ajout en cours des éléments à la playlist').removeClass('hide');
-            $('.itemPlaylist').each(function() {
+            $('#playlistContent .itemPlaylist').each(function() {
                 var idVideo = $(this).data('id');
                 var path = '{{ path('_formAddToPlaylist', {'idPlaylist':playlist.id, 'vidId':''}) }}' + '/' + idVideo;
                 $.ajax({
