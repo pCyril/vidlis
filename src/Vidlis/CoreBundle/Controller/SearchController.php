@@ -44,8 +44,13 @@ class SearchController extends Controller
      */
     public function searchRemoteAction($searchValue)
     {
-        $response = new Response(json_encode($this->contentAction($searchValue)));
-        $response->headers->set('Content-Type', 'application/json');
+        $response = new Response(
+            json_encode($this->contentAction($searchValue)),
+            201,
+            array(
+                'Access-Control-Allow-Origin' => '*',
+                'Content-Type' => 'application/json')
+        );
         return $response;
     }
     
