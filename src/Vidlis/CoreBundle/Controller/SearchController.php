@@ -37,5 +37,16 @@ class SearchController extends Controller
         $data['user'] = $this->getUser();
         return $data;
     }
+
+    /**
+     * @Route("/searchRemote/{searchValue}", name="_searchRemote", requirements={"searchValue" = ".+"})
+     * @Template()
+     */
+    public function searchRemoteAction($searchValue)
+    {
+        $response = new Response(json_encode($this->contentAction($searchValue)));
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
     
 }
