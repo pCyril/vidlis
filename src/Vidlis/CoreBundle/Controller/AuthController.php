@@ -74,7 +74,8 @@ class AuthController extends Controller
     public function logInRemoteAction()
     {
         $status = true;
-        $message = ['error'];
+        $message = [];
+        $message['error'] = '';
         $request = $this->getRequest();
         $username = $request->get('username');
         $password = $request->get('password');
@@ -107,10 +108,11 @@ class AuthController extends Controller
         $response = new Response(
             json_encode(['status' => $status, 'login' => $user->getUsername(), $message['error']]),
             201,
-            [
+            array(
                 'Access-Control-Allow-Origin' => '*',
                 'Content-Type' => 'application/json'
-            ]);
+            )
+        );
         return $response;
     }
 
