@@ -36,6 +36,11 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit('getLaunched', user);
     });
 
+    socket.on('launchOnScreen', function(item){
+        console.log(item);
+        socket.broadcast.emit('addToPlaylistFromRemote', item);
+    });
+
     socket.on('addToPlaylist', function (user, videoId) {
         groupVideoAdded = {
             user: user,

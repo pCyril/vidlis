@@ -106,7 +106,7 @@ class AuthController extends Controller
 
         $this->loginUser($user);
         $response = new Response(
-            json_encode(['status' => $status, 'login' => $user->getUsername(), $message['error']]),
+            json_encode(['status' => $status, 'login' => $user->getUsername(), "message" => $message['error']]),
             201,
             array(
                 'Access-Control-Allow-Origin' => '*',
