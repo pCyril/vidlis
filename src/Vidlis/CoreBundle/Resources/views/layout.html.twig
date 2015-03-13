@@ -50,21 +50,16 @@
       google.setOnLoadCallback(_run);
 
     var groupList;
-    {% if app.user is not null %}
         var user = {
             id : 0,
             videoId : '',
             group: '',
-            name: {{ app.user.username }}
-        };
-    {% else %}
-        var user = {
-            id : 0,
-            videoId : '',
-            group: '',
+            {% if app.user is not null %}
+            name: '{{ app.user.username }}'
+            {% else %}
             name: ''
+            {% endif %}
         };
-    {% endif %}
     var socket = io.connect('http://{{ urlNode }}/');
     socket.on('getLaunched', function (info) {
         $('#'+info.id).remove();
