@@ -10,7 +10,6 @@
             <script>
                 $(document).ready(function(){
                     user.name = "{{ app.user.username }}";
-                    console.log(user.name);
                     $('.modal, .overlay').hide();
                     $('.register').html('{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}');
                     $('.register').attr("href", '{{ path('fos_user_security_logout') }}');
