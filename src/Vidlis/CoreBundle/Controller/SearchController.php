@@ -53,5 +53,5 @@ class SearchController extends Controller
         );
         return $response;
     }
-    
+
 }
