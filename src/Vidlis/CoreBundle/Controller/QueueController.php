@@ -31,6 +31,20 @@ class QueueController extends Controller
     }
 
     /**
+     * @Route("/videoInformationRemote/{videoId}", name="_videoInformation", requirements={"videoId" = ".+"})
+     * @Template()
+     */
+    public function videoInformationAction($videoId)
+    {
+        $data = array();
+        $data['video'] = $this->get('youtubeVideo')->setId($videoId)->getResult();
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+        return $response;
+    }
+
+    /**
      * @Route("/played", name="_played")
      * @Template()
      */

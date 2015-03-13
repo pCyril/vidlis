@@ -23,11 +23,21 @@ io.sockets.on('connection', function (socket) {
         socket.emit('getAllLaunched', users);
         socket.emit('getGroups', groups);
     });
+    socket.on('getVideoLaunchByUserName', function(userName){
+        var user = {videoId: ''};
+        var j = 0;
+        while (j < users.length) {
+            console.log(users[j].name);
+            if (users[j].name == userName)
+                user = users[j];
+            j++;
+        }
+        socket.emit('videoLaunchByUserName', user.videoId);
+    });
     // Quand un client lance une vidéo
     socket.on('launch', function (user) {
         var j = 0;
-        while (j < users.length)
-        {
+        while (j < users.length) {
             if (users[j].id == user.id)
                 users[j] = user;
             j++;
