@@ -396,6 +396,8 @@ function onPlayerStateChange(newState) {
         $("#play_p").css('display', 'none');
         $("#play_b").css('display', 'block');
     }
+    user.status = newState.data;
+    socket.emit("updateUserStatus", user);
     if (newState.data == 0) {
         next();
     }

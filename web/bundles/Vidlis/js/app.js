@@ -27,7 +27,6 @@ io.sockets.on('connection', function (socket) {
         var user = {videoId: ''};
         var j = 0;
         while (j < users.length) {
-            console.log(users[j].name);
             if (users[j].name == userName)
                 user = users[j];
             j++;
@@ -46,8 +45,31 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit('getLaunched', user);
     });
 
+    socket.on('updateUserStatus', function (user) {
+        var j = 0;
+        while (j < users.length) {
+            if (users[j].id == user.id)
+                users[j] = user;
+            j++;
+        }
+        // On envoie à tout les clients connectés
+        socket.broadcast.emit('userStatusChange', user);
+    });
+
+    socket.on('updateUserStatusByRemote', function (info) {
+        var user = {name: ''};
+        var j = 0;
+        while (j < users.length) {
+            if (users[j].name == info.username) {
+                user = users[j];
+                user.status = info.status
+            }
+            j++;
+        }
+        socket.broadcast.emit('updateUserStatus', user);
+    });
+
     socket.on('launchOnScreen', function(item){
-        console.log(item);
         socket.broadcast.emit('addToPlaylistFromRemote', item);
     });
 
