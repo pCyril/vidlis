@@ -54,6 +54,7 @@
             id : 0,
             videoId : '',
             group: '',
+            status: 0,
             {% if app.user is not null %}
             name: '{{ app.user.username }}'
             {% else %}
@@ -68,6 +69,14 @@
     socket.on('addToPlaylistGroup', function (videoAdded) {
         if (videoAdded.user.group == user.group) {
             addToQueue(videoAdded.videoId, false, true);
+        }
+    });
+    socket.on('updateUserStatus', function(user) {
+        console.log(user.status);
+        if (user.status == 1) {
+            playVideo();
+        } else {
+            pauseVideo();
         }
     });
     socket.on('addToPlaylistFromRemote', function (itemAdded) {
