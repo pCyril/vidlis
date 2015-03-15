@@ -71,12 +71,22 @@
             addToQueue(videoAdded.videoId, false, true);
         }
     });
-    socket.on('updateUserStatus', function(user) {
-        console.log(user.status);
-        if (user.status == 1) {
-            playVideo();
-        } else {
-            pauseVideo();
+    socket.on('updateUserStatus', function(info) {
+        if (info.name == user.name) {
+            if (info.status == 1) {
+                playVideo();
+            } else {
+                pauseVideo();
+            }
+        }
+    });
+    socket.on('previewNext', function(info) {
+        if (info.username == user.name) {
+            if (info.status == 1) {
+                next();
+            } else {
+                preview();
+            }
         }
     });
     socket.on('addToPlaylistFromRemote', function (itemAdded) {
