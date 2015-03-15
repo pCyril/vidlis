@@ -90,7 +90,6 @@
         }
     });
     socket.on('addToPlaylistFromRemote', function (itemAdded) {
-        console.log(itemAdded);
         if (itemAdded.username == user.name && user.name != '') {
             addToQueue(itemAdded.videoId);
         }
