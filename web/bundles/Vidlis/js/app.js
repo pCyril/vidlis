@@ -69,6 +69,10 @@ io.sockets.on('connection', function (socket) {
         socket.broadcast.emit('updateUserStatus', user);
     });
 
+    socket.on('changeVideoByRemote', function(info) {
+        socket.broadcast.emit('previewNext', info);
+    });
+
     socket.on('launchOnScreen', function(item){
         socket.broadcast.emit('addToPlaylistFromRemote', item);
     });
