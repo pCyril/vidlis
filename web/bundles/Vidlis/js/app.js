@@ -31,7 +31,7 @@ io.sockets.on('connection', function (socket) {
                 user = users[j];
             j++;
         }
-        socket.emit('videoLaunchByUserName', user.videoId);
+        socket.emit('videoLaunchByUserName', user);
     });
     // Quand un client lance une vidéo
     socket.on('launch', function (user) {
