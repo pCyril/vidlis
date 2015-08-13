@@ -56,7 +56,8 @@
             group: '',
             status: 0,
             playlist: [],
-            sound: 100,
+            volume: 100,
+            currentPlayedIndex: -1,
             {% if app.user is not null %}
             name: '{{ app.user.username }}'
             {% else %}
