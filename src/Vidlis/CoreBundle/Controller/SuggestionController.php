@@ -24,4 +24,20 @@ class SuggestionController extends Controller
             return $response;
         }
     }
+
+    /**
+     * @Route("/getSuggestionRemote/{videoId}", name="_suggestRemote", requirements={"searchValue" = ".+"})
+     * @Template()
+     */
+    public function searchRemoteAction($videoId)
+    {
+        $response = new Response(
+            json_encode($this->get('youtubeSuggestion')->setRelatedToVideoId($videoId)->getResults()),
+            201,
+            array(
+                'Access-Control-Allow-Origin' => '*',
+                'Content-Type' => 'application/json')
+        );
+        return $response;
+    }
 }
