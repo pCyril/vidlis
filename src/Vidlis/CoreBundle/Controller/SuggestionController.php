@@ -26,13 +26,13 @@ class SuggestionController extends Controller
     }
 
     /**
-     * @Route("/getSuggestionRemote/{videoId}", name="_searchRemote", requirements={"searchValue" = ".+"})
+     * @Route("/getSuggestionRemote/{videoId}", name="_suggestRemote", requirements={"searchValue" = ".+"})
      * @Template()
      */
     public function searchRemoteAction($videoId)
     {
         $response = new Response(
-            json_encode($data['suggestion'] = $this->get('youtubeSuggestion')->setRelatedToVideoId($videoId)->getResults()),
+            json_encode($this->get('youtubeSuggestion')->setRelatedToVideoId($videoId)->getResults()),
             201,
             array(
                 'Access-Control-Allow-Origin' => '*',
