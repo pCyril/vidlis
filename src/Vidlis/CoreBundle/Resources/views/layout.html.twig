@@ -55,6 +55,8 @@
             videoId : '',
             group: '',
             status: 0,
+            playlist: [],
+            sound: 100,
             {% if app.user is not null %}
             name: '{{ app.user.username }}'
             {% else %}
@@ -90,14 +92,12 @@
         }
     });
     socket.on('addToPlaylistFromRemote', function (itemAdded) {
-        console.log(itemAdded);
         if (itemAdded.username == user.name && user.name != '') {
             addToQueue(itemAdded.videoId);
         }
     });
     socket.on('getGroups', function (groups) {
         groupList = groups;
-        console.log(groupList);
     });
     socket.on('connect', function () {
         socket.emit('connectMe', user);

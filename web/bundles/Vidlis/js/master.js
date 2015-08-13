@@ -419,6 +419,10 @@ function setVideoVolume(volume) {
         alert("Please enter a valid volume between 0 and 100.");
     }
     else if (ytplayer) {
+        if (user.name != '') {
+            user.volume = volume;
+            updateUser();
+        }
         ytplayer.setVolume(volume);
     }
 }
@@ -601,6 +605,18 @@ function formatPlaylist(video, after, addedByGroup) {
         $('.successAddedToQueue').delay(800).fadeOut();
     });
     $("#playlistContent ul").sortable({ axis: "x" });
+    updateUserPlaylist();
+}
+
+function updateUserPlaylist() {
+    var playlist = [];
+    $('.itemPlaylist').each(function(){
+        playlist.push($(this).data('id'));
+    });
+    if (user.name != '') {
+        user.playlist = playlist;
+        updateUser()
+    }
 }
 
 function _run() {
@@ -881,6 +897,11 @@ function forceLoad(url) {
         }
     });
 }
+
+function updateUser() {
+    socket.emit('updateUser', user);
+}
+
 var loadingMore = false;
 $(window).scroll(function() {
     if($(window).scrollTop() + $(window).height() == $(document).height() && !loadingMore && !$('.loadMoreContent').hasClass('noMore')) {

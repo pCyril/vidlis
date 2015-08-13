@@ -41,8 +41,17 @@ io.sockets.on('connection', function (socket) {
                 users[j] = user;
             j++;
         }
-        // On envoie à tout les clients connectés
         socket.broadcast.emit('getLaunched', user);
+    });
+
+    socket.on('updateUser', function (user) {
+        var j = 0;
+        while (j < users.length) {
+            if (users[j].id == user.id)
+                users[j] = user;
+            j++;
+        }
+        socket.broadcast.emit('userUpdated', user);
     });
 
     socket.on('updateUserStatus', function (user) {
@@ -52,7 +61,6 @@ io.sockets.on('connection', function (socket) {
                 users[j] = user;
             j++;
         }
-        // On envoie à tout les clients connectés
         socket.broadcast.emit('userStatusChange', user);
     });
 
