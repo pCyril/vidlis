@@ -605,18 +605,15 @@ function formatPlaylist(video, after, addedByGroup) {
         $('.successAddedToQueue').delay(800).fadeOut();
     });
     $("#playlistContent ul").sortable({ axis: "x" });
-    updateUserPlaylist();
+    updateUser();
 }
 
 function updateUserPlaylist() {
     var playlist = [];
-    $('.itemPlaylist').each(function(){
+    $('#playlistContent .itemPlaylist').each(function(){
         playlist.push($(this).data('id'));
     });
-    if (user.name != '') {
-        user.playlist = playlist;
-        updateUser()
-    }
+    user.playlist = playlist;
 }
 
 function _run() {
@@ -898,8 +895,21 @@ function forceLoad(url) {
     });
 }
 
+function updateUserCurrentPlaylistIndex() {
+    $('#playlistContent .itemPlaylist').each(function(index, value){
+        if ($(this).hasClass('active')) {
+            user.currentPlayedIndex = index;
+        }
+    });
+}
+
+
 function updateUser() {
-    socket.emit('updateUser', user);
+    updateUserCurrentPlaylistIndex();
+    updateUserPlaylist();
+    if (user.name != '') {
+        socket.emit('updateUser', user);
+    }
 }
 
 var loadingMore = false;
