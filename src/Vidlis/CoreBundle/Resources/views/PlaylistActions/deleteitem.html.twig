@@ -1,5 +1,5 @@
 {% if result %}
-    <div class="alert alert-success">Elément supprimé</div>
+    <div class="alert alert-success">Item removed</div>
     <script>
         $(document).ready(function(){
             loadBox('/playlists');
@@ -8,5 +8,5 @@
         });
     </script>
 {% else %}
-    <div class="alert alert-danger">Es-tu sûr que cette playlist est à toi ? (Si oui il y a eu une erreur)</div>
+    <div class="alert alert-danger">Are you sure that this playlist is yours ? (If yes there was an error)</div>
 {% endif %}

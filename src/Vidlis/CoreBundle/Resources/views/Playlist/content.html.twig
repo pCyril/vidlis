@@ -4,7 +4,7 @@
         {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
         {% if connected %}
             <div class="textAlignRight contentRight" style="margin-bottom: 30px">
-                <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Importer mes playlists Youtube</a>
+                <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Import from Youtube</a>
             </div>
         {% endif %}
         {% if connected %}
@@ -34,15 +34,15 @@
                         {% endfor %}
                     </div>
                     <div class="boxFooter dark">
-                        <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
+                        <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">Listen</a>
                     </div>
                 </div>
                 {% endfor %}
             {% else %}
-                <div class="alert alert-success" style="margin:20px;">Vous n'avez pas de playlists pour le moment.</div>
+                <div class="alert alert-success" style="margin:20px;">You have no playlists yet.</div>
             {% endif %}
         {% else %}
-            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Créer un compte gratuitement</a>
+            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Create an account</a>
         {% endif %}
     </div>
 </div>

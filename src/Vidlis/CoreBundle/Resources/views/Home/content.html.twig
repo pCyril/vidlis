@@ -2,20 +2,20 @@
     <div class="presentation">
         <img src="{{ asset('bundles/Vidlis/images/bg.jpg') }}" width="100%"/>
         <div class="titleSearch">
-        <h2>Découvrez une nouvelle façon d'écouter la musique gratuitement</h2>
+        <h2>Discover a new way to listen music freely</h2>
         <div class="searchZoneHome">
             <form class="formSearchHome" id="formSearchHome">
             <div class="search-input-bg">
-                <input type="text" placeholder="Rechercher votre musique" name="q" id="q" autocomplete="off" class="search-input ui-autocomplete-input">
+                <input type="text" placeholder="Search your music" name="q" id="q" autocomplete="off" class="search-input ui-autocomplete-input">
             </div>
             </form>
         </div>
         </div>
         <div id="feeds">
             {% if connected == false %}
-            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Créer un compte gratuitement</a>
+            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Create your free account</a>
             {% endif %}
-            <h3>Dernières vidéos regardées</h3>
+            <h3>Last viewed videos</h3>
             {% for videoPlayed in videosPlayed %}
                 <div class="boxplayed" data-id="{{ videoPlayed[0].idVideo }}">
                     <div class="videoTitle">{{ videoPlayed[0].idVideo|videoTitle }}</div>

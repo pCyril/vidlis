@@ -4,7 +4,7 @@
     {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
     <div class="box330 box-boreder marginTop0" id="{{ playlist.id }}">
         <div class="boxHeader">
-            <div class="playlistCreatorName"><i>Par </i>{{ playlist.user.username }}</div>
+            <div class="playlistCreatorName"><i>By </i>{{ playlist.user.username }}</div>
             <div class="playlistCreatorDate">{{ playlist.creationDate|date("d/m/Y") }}</div>
             <div class="clear"></div>
             <div class="images">
@@ -28,7 +28,7 @@
                     <a href="{{ path('_addFavoritePlaylist', {'idPlaylist': playlist.id}) }}" class="toModal addToFavorite"><i class="icon heart blue"></i></a>
                 {% endif %}
             {% endif %}
-            <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">écouter</a>
+            <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">Listen</a>
         </div>
     </div>
     <div class="disqus box-boreder">

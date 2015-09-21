@@ -17,7 +17,7 @@
                 {% endfor %}
                 <li>
                     <form class="formSearchArtist">
-                        <input type="text" name="search" id="searchArtist" placeholder="Recherche">
+                        <input type="text" name="search" id="searchArtist" placeholder="Search">
                         <button type="submit"><i class="fa fa-search"></i></button>
                         <div class="clear"></div>
                     </form>
@@ -29,7 +29,7 @@
             {% include 'VidlisCoreBundle:Artist:itemList.html.twig' with {'artists': artists} %}
         </div>
         {% if genre != 'search' %}
-            <div class="loadMoreContent" data-limit="20" data-offset="20" data-tag="{{ genre }}">Chargement en cours</div>
+            <div class="loadMoreContent" data-limit="20" data-offset="20" data-tag="{{ genre }}">Loading</div>
         {% endif %}
         <div class="clear"></div>
     </div>

@@ -15,7 +15,7 @@ class SearchController extends Controller
     public function indexAction($searchValue)
     {
         $data = array();
-        $data['title'] = 'Recherche '.$searchValue;
+        $data['title'] = 'Search '.$searchValue;
         $data['searchValue'] = $searchValue;
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Search:content.html.twig', $this->contentAction($searchValue));
