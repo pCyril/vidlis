@@ -25,12 +25,12 @@
             </div>
         </div>
         <div class="similarArtist">
-            <h2>Artistes similaires</h2>
+            <h2>Similar artists</h2>
             {% include 'VidlisCoreBundle:Artist:similarArtistList.html.twig' with {'artists': similarArtists} %}
             <div class="clear"></div>
         </div>
         <div class="discographie">
-            <h2>Discographie</h2>
+            <h2>Discography</h2>
             {% for album in artist.albums %}
                 <div class="album">
                     <h3>{{ album.name }}</h3>

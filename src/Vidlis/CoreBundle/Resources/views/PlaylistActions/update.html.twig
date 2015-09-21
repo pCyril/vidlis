@@ -5,7 +5,7 @@
 
 {% if connected %}
     {% if updated %}
-    <div class="alert alert-success">Votre playlist a bien été mise à jour.</div>
+    <div class="alert alert-success">Your playlist has been updated.</div>
         <script>
             $(document).ready(function(){
                 loadBox($.address.value());
@@ -15,7 +15,7 @@
     {% endif %}
     <form action="{{ path('_formUpdatePlaylist', {'playlistId': playlist.id}) }}" data-container=".modalWithHeader .modal-body" class="form-horizontal form-ajax" novalidate>
         <div class="control-group">
-            <label class="control-label">Nom de la playlist :</label>
+            <label class="control-label">Playlist name :</label>
             <div class="controls">
                 {{ form_widget(form.name) }}
             </div>
@@ -28,7 +28,7 @@
         <div class="control-group">
             <div class="controls">
                 <label>
-                {{ form_widget(form.private) }} Rendre cette playlist privé
+                {{ form_widget(form.private) }} Make this playlist private
                 </label>
             </div>
         </div>
@@ -40,5 +40,5 @@
         </div>
     </form>
 {% else %}
-    <div class="alert alert-danger" id="savePlaylist">Vous devez vous connecter pour modifier votre playlist</div>
+    <div class="alert alert-danger" id="savePlaylist">You must log in to create a playlist</div>
 {% endif %}

@@ -1,10 +1,10 @@
 {% if result %}
-    <div class="alert alert-success">La vidéo {{ playlistItem.videoName }} a bien été ajoutée</div>
+    <div class="alert alert-success">The video, {{ playlistItem.videoName }} has been added</div>
     <script>
         $(document).ready(function(){
             $('.modal, .overlay').delay( 800 ).fadeOut();
         });
     </script>
 {% else %}
-    <div class="alert alert-danger">Es-tu sûr que cette playlist est à toi ?</div>
+    <div class="alert alert-danger">Are you sure that this playlist is yours ?</div>
 {% endif %}

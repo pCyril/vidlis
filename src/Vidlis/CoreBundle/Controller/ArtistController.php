@@ -35,7 +35,7 @@ class ArtistController extends Controller
     public function searchAction($search)
     {
         $data = array();
-        $data['title'] = sprintf('Recherche %s - Artistes - Vidlis', $search);
+        $data['title'] = sprintf('Search %s - Artists - Vidlis', $search);
         $data['genre'] = 'search';
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentSearchAction($search));
@@ -54,7 +54,7 @@ class ArtistController extends Controller
     public function indexAction($genre = null)
     {
         $data = array();
-        $data['title'] = sprintf('Artistes %s- Vidlis', ($genre) ? '- ' . ucfirst($genre) . ' ' : '');
+        $data['title'] = sprintf('Artists %s- Vidlis', ($genre) ? '- ' . ucfirst($genre) . ' ' : '');
         $data['genre'] = $genre;
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentAction(20, 0, $genre));

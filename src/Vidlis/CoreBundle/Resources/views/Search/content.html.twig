@@ -16,7 +16,7 @@
                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="icon playlist"></i></button>
                             <ul class="dropdown-menu" role="menu">
                                 <li class="dropdown-submenu" id="{{ item.id.videoId }}">
-                                    <a tabindex="-1" href="#">Ajouter à une playlist</a>
+                                    <a tabindex="-1" href="#">Add to a playlist</a>
                                     {% if user.playlists|length %}
                                         <ul class="dropdown-menu">
                                             {% for playlist in user.playlists %}
@@ -25,9 +25,9 @@
                                         </ul>
                                     {% endif %}
                                 </li>
-                                <li><a href="#" class="readAfter" data-id="{{ item.id.videoId }}">Lire juste après</a></li>
+                                <li><a href="#" class="readAfter" data-id="{{ item.id.videoId }}">Play after</a></li>
                                 <li class="divider"></li>
-                                <li><a href="{{ url('_formCreatePlaylist', {'vidId':item.id.videoId}) }}" class="toModal">Créer une playlist</a></li>
+                                <li><a href="{{ url('_formCreatePlaylist', {'vidId':item.id.videoId}) }}" class="toModal">Create a playlist</a></li>
                             </ul>
                         </div>
                     </div>

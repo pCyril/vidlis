@@ -1,6 +1,6 @@
 {% if connected %}
     {% if created %}
-    <div class="alert alert-success">Votre playlist a bien été créée</div>
+    <div class="alert alert-success">Your playlist has been created</div>
     <script>
         $(document).ready(function(){
             $('.dropdown-submenu').each(function() {
@@ -35,12 +35,12 @@
             $('.modal, .overlay').delay( 800 ).fadeOut();
         });
     </script>
-    <div class="alert alert-success hide" id="savePlaylist">Votre playlist a été  sauvegardé</div>
+    <div class="alert alert-success hide" id="savePlaylist">Your playlist has been saved</div>
     {% endif %}
     <div>
         <form action="{{ path('_formCreatePlaylist', {'vidId': idVideo}) }}" data-container=".modalWithHeader .modal-body" class="form-horizontal form-ajax" novalidate>
             <div class="control-group">
-                <label class="control-label">Nom de la playlist :</label>
+                <label class="control-label">Playlist name :</label>
                 <div class="controls">
                     {{ form_widget(form.name) }}
                 </div>
@@ -53,7 +53,7 @@
             <div class="control-group">
                 <div class="controls">
                     <label>
-                    {{ form_widget(form.private) }} Rendre cette playlist privé
+                    {{ form_widget(form.private) }} Make this playlist private
                     </label>
                 </div>
             </div>
@@ -66,5 +66,5 @@
         </form>
     </div>
 {% else %}
-    <div class="alert alert-danger" id="savePlaylist">Vous devez vous connecter pour créer une playlist</div>
+    <div class="alert alert-danger" id="savePlaylist">You must log in to create a playlist</div>
 {% endif %}

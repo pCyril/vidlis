@@ -1,6 +1,6 @@
 <div class="modal-header reloadAfterAuth" data-url="{{ path('_importPlaylist') }}" data-container="modal-content">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-    <h4 class="modal-title">Importer mes playlists Youtube</h4>
+    <h4 class="modal-title">Import my Youtube playlists</h4>
 </div>
 <div class="modal-body">
         {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
@@ -10,7 +10,7 @@
                 </div>
             {% else %}
                 {% if playlistImported is defined %}
-                    <div class="alert alert-success">Vos playlists ont été importées</div>
+                    <div class="alert alert-success">Your playlists has been import</div>
                     <script>
                         $(document).ready(function(){
                             loadBox($.address.value());
@@ -35,6 +35,6 @@
                 {% endif %}
             {% endif %}
         {% else %}
-            <div class="alert alert-danger">Vous devez être connecter pour importer vos playlists</div>
+            <div class="alert alert-danger">You must be connected to import your playlists</div>
         {% endif %}
 </div>
