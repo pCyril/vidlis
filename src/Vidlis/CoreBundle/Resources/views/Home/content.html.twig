@@ -13,7 +13,7 @@
         </div>
         <div id="feeds">
             {% if connected == false %}
-            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Create your free account</a>
+            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Create your account</a>
             {% endif %}
             <h3>Last viewed videos</h3>
             {% for videoPlayed in videosPlayed %}
