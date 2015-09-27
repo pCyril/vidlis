@@ -476,7 +476,7 @@ function formatPlaylist(video, after, addedByGroup) {
 
         len = this.snippet.title.length;
         if (len > 46) {
-            title = (this.snippet.title.substr(0, 46) + ' ...');
+            title = (this.snippet.title.substr(0, 35) + ' ...');
         } else {
             title = this.snippet.title;
         }
@@ -699,7 +699,7 @@ function formatSuggestion(video) {
 
         len = this.snippet.title.length;
         if (len > 46) {
-            title = (this.snippet.title.substr(0, 46) + ' ...');
+            title = (this.snippet.title.substr(0, 35) + ' ...');
         } else {
             title = this.snippet.title;
         }
