@@ -24,6 +24,7 @@ class VidlisExtension extends \Twig_Extension
             'videoDislikeCount' => new \Twig_Filter_Method($this, 'videoDislikeCount'),
             'videoViewCount' => new \Twig_Filter_Method($this, 'videoViewCount'),
             'isFloat' => new \Twig_Filter_Method($this, 'isFloat'),
+            'urlBase' => new \Twig_Filter_Method($this, 'urlBase'),
         );
     }
 
@@ -132,6 +133,12 @@ class VidlisExtension extends \Twig_Extension
     public function isFloat($number)
     {
         return is_float($number);
+    }
+
+
+    public function urlBase($uri)
+    {
+        return 'http://'.$_SERVER['HTTP_HOST'].$uri;
     }
 
     public function getName()

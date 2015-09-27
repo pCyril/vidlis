@@ -6,8 +6,6 @@
             <div class="textAlignRight contentRight" style="margin-bottom: 30px">
                 <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Import from Youtube</a>
             </div>
-        {% endif %}
-        {% if connected %}
             {% if user.playlists|length %}
                 {% for playlist in user.playlists %}
                 <div class="box330 box-boreder" id="{{ playlist.id }}">
