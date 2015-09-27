@@ -1,7 +1,7 @@
 var User = function(name) {
     this.id;
     this.videoId;
-    this.group = false;
+    this.group = '';
     this.status;
     this.playlist = [];
     this.volume = 100;
@@ -23,4 +23,8 @@ User.prototype.changeStatus = function(status) {
 
 User.prototype.changeName = function(name) {
     this.name = name;
+};
+
+User.prototype.changeGroup = function(groupName) {
+    this.group = groupName;
 };

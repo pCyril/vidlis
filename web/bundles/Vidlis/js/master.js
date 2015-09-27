@@ -185,26 +185,6 @@ $(".toModal").live('click', function () {
     }
 );
 
-$('.createGroupForm').live("submit", function(){
-    socket.emit('createGroup', user, $("#groupName").val());
-    user.group = $("#groupName").val();
-    $('.modal, .overlay').hide();
-    $('#groupBtnCreateJoin').hide();
-    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + $("#groupName").val());
-    $('#groupBtnCreatedJoined').removeClass('hide');
-    return false;
-});
-
-
-$('.joinGroup').live('click', function(){
-    var groupNameJoined = $(this).data('group-name');
-    user.group = groupNameJoined;
-    $('.modal, .overlay').hide();
-    $('#groupBtnCreateJoin').hide();
-    $('#groupBtnCreatedJoined .buttonGroup a').append(' ' + groupNameJoined);
-    $('#groupBtnCreatedJoined').removeClass('hide');
-});
-
 $(".toModalHTML").live('click', function () {
         element = $(this);
         $.ajax({
