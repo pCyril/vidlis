@@ -34,6 +34,7 @@
         {% if app.user is not null %}
         user.changeName('{{ app.user.username }}');
         {% endif %}
+        user.changeGroup('{{ crawlable|urlBase|group }}');
         var socket = new MySocket('{{ urlNode }}', user);
         window.onbeforeunload = function() {
             if (typeof socket != 'undefined') {

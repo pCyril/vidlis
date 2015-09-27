@@ -1660,13 +1660,10 @@ i.icon-large{
     cursor: pointer;
 }
 
-.infoPlayed .contentPlayed, .contentGroup {
-    height: 222px;
+.infoPlayed .contentPlayed {
+    height: 250px;
     width: 330px;
     overflow: auto;
-}
-.contentGroup {
-    display: none;
 }
 #mainToolbar {
     position: relative;
@@ -2029,35 +2026,4 @@ h1.artistTitle {
 
 .shareLink.link {
     color: #000000;
-<<<<<<< HEAD
-=======
-}
-
-.createGroup {
-    display: block;
-    color: white;
-    line-height: 30px;
-    border: 1px solid #c3c3c3;
-    background-color: #1d1d1d;
-    text-align: center;
-}
-.createGroup:hover {
-    color: white;
-    background-color: #101010;
-}
-
-.createGroupForm {
-    width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.buttonGroup {
-    width: 50%;
-    float: left;
-}
-
-.buttonGroup.full {
-    width: 100%;
->>>>>>> a2e92d810b9d9c5237cccf82df1ca6114171bfdd
 }

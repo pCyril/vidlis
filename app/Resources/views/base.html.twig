@@ -47,27 +47,12 @@
             {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
         <div class="showPlaying">+</div>
-        <div class="infoPlayed">
-            <h2>Qui écoute quoi ?</h2>
-            <div id="groupBtnCreateJoin">
-                <div class="buttonGroup">
-                    <a href="{{ url('_createGroup') }}" class="createGroup toModal"><i class="fa fa-users"></i> Créer un groupe</a>
-                </div>
-                <div class="buttonGroup">
-                    <a href="{{ url('_joinGroup') }}" class="createGroup toModal"><i class="fa fa-users"></i> Rejoindre un groupe</a>
+            <div class="infoPlayed">
+                <h2>What is listening now ?</h2>
+                <div class="clear"></div>
+                <div class="contentPlayed mCustomScrollbarExist">
                 </div>
             </div>
-            <div id="groupBtnCreatedJoined" class="hide">
-                <div class="buttonGroup full">
-                    <a href="javascript:;" class="createGroup"><i class="fa fa-users"></i></a>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="contentPlayed mCustomScrollbarExist">
-            </div>
-            <div class="contentGroup mCustomScrollbarExist">
-            </div>
-        </div>
         </div>
     <a href='https://github.com/pCyril/vidlis' target="_blank" style='z-index: 1000;position:fixed;padding:5px 45px;width:250px;bottom:50px;left:-50px;-webkit-transform:rotate(45deg);-moz-transform:rotate(45deg);-ms-transform:rotate(45deg);transform:rotate(45deg);box-shadow:0 0 0 3px #f6c304, 0 0 20px -3px rgba(0, 0, 0, 0.5);text-shadow:0 0 0 #ffffff, 0 0 5px rgba(0, 0, 0, 0.3);background-color:#f6c304;color:#ffffff;font-size:13px;font-family:sans-serif;text-decoration:none;font-weight:bold;border:2px dotted #ffffff;-webkit-backface-visibility:hidden;letter-spacing:.5px;'>Fork me on GitHub</a>
 

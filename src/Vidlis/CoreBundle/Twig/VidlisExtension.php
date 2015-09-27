@@ -25,6 +25,7 @@ class VidlisExtension extends \Twig_Extension
             'videoViewCount' => new \Twig_Filter_Method($this, 'videoViewCount'),
             'isFloat' => new \Twig_Filter_Method($this, 'isFloat'),
             'urlBase' => new \Twig_Filter_Method($this, 'urlBase'),
+            'group' => new \Twig_Filter_Method($this, 'group'),
         );
     }
 
@@ -135,10 +136,19 @@ class VidlisExtension extends \Twig_Extension
         return is_float($number);
     }
 
-
     public function urlBase($uri)
     {
         return 'http://'.$_SERVER['HTTP_HOST'].$uri;
+    }
+
+    public function group($url)
+    {
+        $urlParsed = parse_url($url);
+        $host = explode('.',$urlParsed['host']);
+        if (count($host) == 2) {
+            return '';
+        }
+        return $host[0];
     }
 
     public function getName()
