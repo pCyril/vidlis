@@ -11,6 +11,7 @@
     <script>
         $(document).ready(function(){
             $('.register').html('Logout');
+            socket.disconnect();
             $(document).ready(function(){
                 loadBox($.address.value());
                 return false;

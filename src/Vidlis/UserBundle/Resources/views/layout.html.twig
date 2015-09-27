@@ -9,7 +9,8 @@
             </div>
             <script>
                 $(document).ready(function(){
-                    user.name = "{{ app.user.username }}";
+                    user.changeName("{{ app.user.username }}");
+                    socket.emit('updateUser', user);
                     $('.modal, .overlay').hide();
                     $('.register').html('{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}');
                     $('.register').attr("href", '{{ path('fos_user_security_logout') }}');
