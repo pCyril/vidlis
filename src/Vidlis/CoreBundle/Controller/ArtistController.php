@@ -32,7 +32,7 @@ class ArtistController extends Controller
      * @Route("/artists/search/{search}", name="_artistSearch", requirements={"search" = ".*"})
      * @Template("VidlisCoreBundle:Artist:index.html.twig")
      */
-    public function searchAction($search)
+    public function searchAction($search = null)
     {
         $data = array();
         $data['title'] = sprintf('Search %s - Artists - Vidlis', $search);

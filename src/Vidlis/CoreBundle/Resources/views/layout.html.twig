@@ -20,106 +20,25 @@
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/scrollbar/jquery.mCustomScrollbar.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/master.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/user.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/url-crawler.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/load-more-artists.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/share-popup.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/socket-events.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/masonry.js') }}"></script>
     <script type="text/javascript" src="http://{{ urlNode }}/socket.io/socket.io.js"></script>
     <script>
-	(function () {
-		$.address.crawlable(1).state('{{ crawlable }}').init(function () {
-		}).change(function (e) {
-			$.address.state() + decodeURI(e.path).replace(/\/\//, '/');
-			$('#loading').show();
-			$.ajax({
-				url: '{{ domain_name }}'+e.path,
-				type: 'POST',
-				dataType: 'json',
-				cache: true,
-				success: function (data, textStatus, jqXHR) {
-					document.title = data.title;
-					$('#content').html(data.content);
-                    $('#loading').hide();
-                    setupCustomScrollbar();
-                    $('body').trigger('pageLoaded');
-				},
-				error: function (jqXHR, textStatus, errorThrown) {
-                    showError('Oh Mince ! Une erreur est survenue pendant le chargement de la page :\'(');
-                    return false;
-				}
-			});
-		});
-	})();
-      google.setOnLoadCallback(_run);
-
-    var groupList;
-        var user = {
-            id : 0,
-            videoId : '',
-            group: '',
-            status: 0,
-            playlist: [],
-            volume: 100,
-            currentPlayedIndex: -1,
-            {% if app.user is not null %}
-            name: '{{ app.user.username }}'
-            {% else %}
-            name: ''
-            {% endif %}
-        };
-    var socket = io.connect('http://{{ urlNode }}/');
-    socket.on('getLaunched', function (info) {
-        $('#'+info.id).remove();
-        formatPlayingList(info);
-    });
-    socket.on('addToPlaylistGroup', function (videoAdded) {
-        if (videoAdded.user.group == user.group) {
-            addToQueue(videoAdded.videoId, false, true);
-        }
-    });
-    socket.on('updateUserStatus', function(info) {
-        if (info.name == user.name) {
-            if (info.status == 1) {
-                playVideo();
-            } else {
-                pauseVideo();
+        var urlCrawler = new UrlCrawler('{{ crawlable }}', '{{ domain_name }}');
+        google.setOnLoadCallback(_run);
+        var groupList;
+        var user = new User();
+        var socket = new MySocket('{{ urlNode }}', user);
+        window.onbeforeunload = function() {
+            if (typeof socket != 'undefined') {
+                socket.disconnect();
             }
         }
-    });
-    socket.on('previewNext', function(info) {
-        if (info.username == user.name) {
-            if (info.status == 1) {
-                next();
-            } else {
-                preview();
-            }
-        }
-    });
-    socket.on('addToPlaylistFromRemote', function (itemAdded) {
-        if (itemAdded.username == user.name && user.name != '') {
-            addToQueue(itemAdded.videoId);
-        }
-    });
-    socket.on('getGroups', function (groups) {
-        groupList = groups;
-    });
-    socket.on('connect', function () {
-        socket.emit('connectMe', user);
-    });
-    socket.on('setUserId', function(id) {
-       user.id = id;
-    });
-    socket.on('remove', function(userToRemove){
-        $('#'+userToRemove).remove();
-    });
-    socket.on('getAllLaunched', function (users) {
-        $.each(users, function (){
-            var infoAllLaunched = this;
-            if (infoAllLaunched.videoId != '') {
-                formatPlayingList(infoAllLaunched);
-            } else {
-                $('#'+infoAllLaunched.id).remove();
-            }
-        });
-    });
-        </script>
+    </script>
 
     {% if launch is defined %}
         <script type="text/javascript">

@@ -12,7 +12,7 @@ class SearchController extends Controller
      * @Route("/search/{searchValue}", name="_homeSearch", requirements={"searchValue" = ".+"})
      * @Template()
      */
-    public function indexAction($searchValue)
+    public function indexAction($searchValue = null)
     {
         $data = array();
         $data['title'] = 'Search '.$searchValue;
