@@ -1,6 +1,9 @@
 <?php
 namespace Vidlis\CoreBundle\Controller;
 
+use CoreBundle\Repository\PlaylistRepository;
+use Doctrine\ORM\AbstractQuery;
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,6 +29,49 @@ class PlaylistController extends Controller
         }
         return $data;
     }
+
+    /**
+     * @Route("/playListsRemote/{userName}", name="_playListsRemote", requirements={"userName": ".+"})
+     * @Template()
+     */
+    public function playListsRemoteAction($userName)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $playlistQuery = new PlaylistQuery($em);
+
+        $playLists = $playlistQuery->findAllPlayListsByUserName($userName)->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+        $response = new Response(
+            json_encode($playLists),
+            201,
+            array(
+                'Access-Control-Allow-Origin' => '*',
+                'Content-Type' => 'application/json')
+        );
+        return $response;
+    }
+
+
+    /**
+     * @Route("/playListRemote/{id}/{userName}", name="_playListRemote", requirements={"id" = "\d+","userName" = ".+"})
+     * @Template()
+     */
+    public function playListRemoteAction($id, $userName)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $playlistQuery = new PlaylistQuery($em);
+
+        $playList = $playlistQuery->findPlayListByIdAndUserName($id, $userName)->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
+
+        $response = new Response(
+            json_encode($playList),
+            201,
+            array(
+                'Access-Control-Allow-Origin' => '*',
+                'Content-Type' => 'application/json')
+        );
+        return $response;
+    }
     
     /**
      * @Template()
@@ -46,7 +92,7 @@ class PlaylistController extends Controller
     public function allAction()
     {
         $data = array();
-        $data['title'] = 'Toutes les playlists';
+        $data['title'] = 'All the playlists';
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentall.html.twig', $this->contentallAction());
             $response = new Response(json_encode($data));

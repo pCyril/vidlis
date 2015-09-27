@@ -24,6 +24,32 @@ class PlaylistQuery extends AbstractQuery
     }
 
     /**
+     * @param $userName
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findAllPlayListsByUserName($userName)
+    {
+        return $this->queryBuilder
+            ->andWhere('u.username = :userName')
+            ->setParameter('userName', $userName);
+    }
+
+
+    /**
+     * @param $id
+     * @param $userName
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function findPlayListByIdAndUserName($id, $userName)
+    {
+        return $this->queryBuilder
+            ->andWhere('u.username = :userName')
+            ->andWhere('p.id= :playlistId')
+            ->setParameter('userName', $userName)
+            ->setParameter('playlistId', $id);
+    }
+
+    /**
      * @param mixed $id
      * @return $this
      */

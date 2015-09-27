@@ -1,7 +1,7 @@
 var User = function(name) {
     this.id;
     this.videoId;
-    this.group;
+    this.group = false;
     this.status;
     this.playlist = [];
     this.volume = 100;

@@ -28,10 +28,12 @@
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/masonry.js') }}"></script>
     <script type="text/javascript" src="http://{{ urlNode }}/socket.io/socket.io.js"></script>
     <script>
-        var urlCrawler = new UrlCrawler('{{ crawlable }}', '{{ domain_name }}');
+        var urlCrawler = new UrlCrawler('{{ crawlable }}', '{{ crawlable|urlBase }}');
         google.setOnLoadCallback(_run);
-        var groupList;
         var user = new User();
+        {% if app.user is not null %}
+        user.changeName('{{ app.user.username }}');
+        {% endif %}
         var socket = new MySocket('{{ urlNode }}', user);
         window.onbeforeunload = function() {
             if (typeof socket != 'undefined') {
