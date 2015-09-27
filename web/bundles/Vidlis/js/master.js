@@ -4,16 +4,6 @@ var tag = document.createElement('script');
 var firstScriptTag;
 
 $(document).ready(function () {
-    $('.formSearch').on('submit', function () {
-        if ($('#search').val()) {
-            url = '/search/' + encodeURIComponent($('#search').val());
-            loadBox(url);
-            $(window).scrollTop(0);
-        } else {
-            showError('Oui, mais tu cherches quoi exactement ?');
-        }
-        return false;
-    });
     $('body').on('pageLoaded', function(){
         if ($('.artistDetail .text').length) {
             $('.artistDetail .text a').each(function(){
@@ -29,9 +19,10 @@ $(document).ready(function () {
             $('.showPlaying').html('-');
         }
     });
-    $('.formSearchHome').live('submit', function () {
-        if ($('#q').val()) {
-            url = '/search/' + encodeURIComponent($('#q').val());
+    $('.formSearchHome, .formSearch').live('submit', function () {
+        var valueSearch = $(this).find("input[name='search']").val();
+        if (valueSearch) {
+            url = '/search/' + encodeURIComponent(valueSearch);
             loadBox(url);
             $(window).scrollTop(0);
         } else {
@@ -59,7 +50,6 @@ $(document).ready(function () {
         }, 1000);
         $('#playerYt').animate({'width': '988px', height: '488px'}, 1000);
     });
-    setupCustomScrollbar();
     $(".mCustomScrollbarExist").each(function () {
         $(this).mCustomScrollbar(
             {
@@ -136,11 +126,6 @@ $('.mouseoverInfo').live('mousemove', function (e) {
 $('.mouseoverInfo').live('mouseout', function () {
     $('#infoLabel').css('display', 'none');
 });
-window.onbeforeunload = function() {
-    if (typeof socket != 'undefined') {
-        socket.disconnect();
-    }
-}
 
 $(".modal .close, .overlay").live('click', function(){
     $('.modal, .overlay').hide();
@@ -200,34 +185,6 @@ $(".toModal").live('click', function () {
     }
 );
 
-$('#share a').on('click', function() {
-    if (curentVideoId != '') {
-        $.ajax({
-            type: 'GET',
-            url: this + '/' + curentVideoId,
-            cache: false,
-            dataType: 'json',
-            beforeSend: function () {
-                $(".modalWithHeader .modal-header h4").html('Chargement en cours');
-                $(".modalWithHeader .modal-body").html('');
-                $('.modal.modalWithHeader, .overlay').show();
-            },
-            success: function (data) {
-                $('.modal.modalWithHeader').show();
-                $(".modalWithHeader .modal-header h4").html(data.title);
-                $(".modalWithHeader .modal-body").html(data.content);
-            },
-            error: function () {
-                $(".modalWithHeader .modal-header h4").html('Oups :\'(');
-                $(".modalWithHeader .modal-body").html('Oh Mince ! Une erreur c\'est produite');
-            }
-        }).done(function () {
-            sendFormToAjax();
-        });
-        return false;
-    }
-});
-
 $('.createGroupForm').live("submit", function(){
     socket.emit('createGroup', user, $("#groupName").val());
     user.group = $("#groupName").val();
@@ -286,14 +243,6 @@ function loadBox(url, tab) {
         $('.'+tab).addClass('default');
         $('.'+tab).parent().addClass('current');
     }
-}
-
-function setupCustomScrollbar() {/*
-    $(".mCustomScrollbarActiv").each(function () {
-        $(this).mCustomScrollbar(
-            {scrollInertia: 0, axis:'y'}
-        );
-    });*/
 }
 
 function sendFormToAjax() {
@@ -367,16 +316,10 @@ function sendFormToAjax() {
     });
 }
 
-/*
- * Chromeless player has no controls.
- */
-
-// Update a particular HTML element with a new value
 function updateHTML(elmId, value) {
     document.getElementById(elmId).innerHTML = value;
 }
 
-// This function is called when an error is thrown by the player
 function onPlayerError(errorCode) {
     if (errorCode == 150 || errorCode == 101) {
         showError("Le propriétaire de la vidéo ne souhaite qu'elle soit lancée en dehors de Youtube.");
@@ -497,8 +440,6 @@ function onYouTubeIframeAPIReady() {
             'onError': onPlayerError
         }
     });
-    // This causes the updatePlayerInfo function to be called every 250ms to
-    // get fresh data from the player
     setInterval(updatePlayerInfo, 250);
     updatePlayerInfo();
 }
@@ -507,7 +448,6 @@ function onPlayerReady() {
     $("body").trigger("playerReady");
 }
 
-// The "main method" of this sample. Called when someone clicks "Run".
 function loadPlayer() {
     tag.src = "https://www.youtube.com/iframe_api";
     firstScriptTag = document.getElementsByTagName('script')[0];
@@ -875,24 +815,7 @@ function launched(videoId) {
 }
 
 function forceLoad(url) {
-    $('#loading').show();
-    $.ajax({
-        url: DOMAIN_NAME + url,
-        type: 'POST',
-        dataType: 'json',
-        cache: true,
-        success: function (data, textStatus, jqXHR) {
-            document.title = data.title;
-            $('#content').html(data.content);
-            $('#loading').hide();
-            setupCustomScrollbar();
-            return false;
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            showError('Oh Mince ! Une erreur est survenue pendant le chargement de la page :\'(');
-            return false;
-        }
-    });
+    urlCrawler.load(url);
 }
 
 function updateUserCurrentPlaylistIndex() {
@@ -911,29 +834,3 @@ function updateUser() {
         socket.emit('updateUser', user);
     }
 }
-
-var loadingMore = false;
-$(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() == $(document).height() && !loadingMore && !$('.loadMoreContent').hasClass('noMore')) {
-        var url = DOMAIN_NAME + '/load/artists/' + $('.loadMoreContent').data('limit') + '/' + $('.loadMoreContent').data('offset') + '/' + $('.loadMoreContent').data('tag');
-        $.ajax({
-            url: url,
-            dataType: 'json',
-            beforeSend: function() {
-                loadingMore = true;
-                $('.loadMoreContent').show();
-            },
-            success: function(data) {
-                var $moreBlocks = $(data.html);
-                $('#feeds_content').append($moreBlocks);
-                loadingMore = false;
-                if (data.html == '') {
-                    $('.loadMoreContent').addClass('noMore').html('A fini ...');
-                } else {
-                    $('.loadMoreContent').data('offset', data.offset);
-                    $('.loadMoreContent').hide();
-                }
-            }
-        });
-    }
-});
