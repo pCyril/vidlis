@@ -4,7 +4,7 @@ parameters:
     database_port:     ~
     database_name:     vidlis
     database_user:     root
-    database_password: GyVEQbRgzxx3
+    database_password: toor
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1
