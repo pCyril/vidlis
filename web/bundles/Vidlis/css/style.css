@@ -1,12 +1,9 @@
 body {
     background: #222222;
     margin: 0px auto;
-    padding: 0px 10px;
     font-family: 'Droid Sans',Helvetica,Arial,Sans-Serif;
     margin-bottom: 10px;
     color: #fff;
-    max-width: 1700px;
-    min-width: 1170px;
     font-size: 14px;
     cursor: default;
     -webkit-font-smoothing: antialiased;
@@ -716,14 +713,6 @@ i.icon-large{
     background: -ms-linear-gradient(bottom, #0060c3 0%, #006ede 100%);
     background: linear-gradient(bottom, #0060c3 0%,#006ede 100%);
     color: #ffffff;
-}
-#loading {
-    position: absolute;
-    right: 330px;
-    z-index: 20000;
-    top: 12px;
-    width: 40px;
-    height: 40px;
 }
 
 .cf:before, .cf:after{
