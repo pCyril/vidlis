@@ -1,17 +1,17 @@
 var UrlCrawler = function (url, domain, mprogress) {
     this.domain = domain;
-    this.mprgross = mprogress;
+    this.mprogress = mprogress;
     var self = this;
     $.address.crawlable(1).state(url).init(function () {
     }).change(function (e) {
         $.address.state() + decodeURI(e.path).replace(/\/\//, '/');
-        self.load(e.path, this.mprgross);
+        self.load(e.path, self.mprogress);
     });
 };
 
 UrlCrawler.prototype.load = function(url, mprogress) {
+    mprogress.start();
     var mprogressSelf = mprogress;
-    mprogressSelf.start();
     $.ajax({
         url: this.domain + url,
         type: 'POST',
