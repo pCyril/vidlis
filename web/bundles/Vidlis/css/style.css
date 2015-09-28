@@ -2027,3 +2027,8 @@ h1.artistTitle {
 .shareLink.link {
     color: #000000;
 }
+
+#loadBar {
+    width: 100%;
+    height: 5px;
+}
