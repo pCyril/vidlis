@@ -1,15 +1,17 @@
-var UrlCrawler = function (url, domain) {
+var UrlCrawler = function (url, domain, mprogress) {
     this.domain = domain;
+    this.mprgross = mprogress;
     var self = this;
     $.address.crawlable(1).state(url).init(function () {
     }).change(function (e) {
         $.address.state() + decodeURI(e.path).replace(/\/\//, '/');
-        self.load(e.path);
+        self.load(e.path, this.mprgross);
     });
 };
 
-UrlCrawler.prototype.load = function(url) {
-    $('#loading').show();
+UrlCrawler.prototype.load = function(url, mprogress) {
+    var mprogressSelf = mprogress;
+    mprogressSelf.start();
     $.ajax({
         url: this.domain + url,
         type: 'POST',
@@ -18,7 +20,7 @@ UrlCrawler.prototype.load = function(url) {
         success: function (data, textStatus, jqXHR) {
             document.title = data.title;
             $('#content').html(data.content);
-            $('#loading').hide();
+            mprogressSelf.end(true);
             $('body').trigger('pageLoaded');
         },
         error: function (jqXHR, textStatus, errorThrown) {

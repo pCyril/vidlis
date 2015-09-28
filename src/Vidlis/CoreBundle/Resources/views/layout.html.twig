@@ -26,9 +26,14 @@
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/share-popup.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/socket-events.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/masonry.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('bundles/Vidlis/js/mprogress.js') }}"></script>
     <script type="text/javascript" src="http://{{ urlNode }}/socket.io/socket.io.js"></script>
     <script>
-        var urlCrawler = new UrlCrawler('{{ crawlable }}', '{{ crawlable|urlBase }}');
+        var mprogress = new Mprogress({
+            template: 3,
+            parent: 'body'
+        });
+        var urlCrawler = new UrlCrawler('{{ crawlable }}', '{{ crawlable|urlBase }}', mprogress);
         google.setOnLoadCallback(_run);
         var user = new User();
         {% if app.user is not null %}
