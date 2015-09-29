@@ -213,7 +213,7 @@ function loadBox(url, tab) {
     if ($.address.value() != url) {
         $.address.value(url);
     } else {
-        forceLoad(url);
+        forceLoad(url, mprogress);
     }
 
     if (tab != undefined) {
@@ -794,8 +794,8 @@ function launched(videoId) {
     return false;
 }
 
-function forceLoad(url) {
-    urlCrawler.load(url);
+function forceLoad(url, mprogress) {
+    urlCrawler.load(url, mprogress);
 }
 
 function updateUserCurrentPlaylistIndex() {
