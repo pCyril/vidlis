@@ -52,6 +52,10 @@ io.sockets.on('connection', function (socket) {
             j++;
         }
 
+        socket.broadcast.emit('userUpdated', user);
+    });
+
+    socket.on('checkUserLogin', function(user) {
         var j = 0;
         while (j < users.length) {
             if (users[j].name == user.name && users[j].id != user.id && users[j].name != '') {
@@ -60,8 +64,6 @@ io.sockets.on('connection', function (socket) {
             }
             j++;
         }
-
-        socket.broadcast.emit('userUpdated', user);
     });
 
     socket.on('updateUserStatus', function (user) {
