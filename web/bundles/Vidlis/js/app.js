@@ -12,9 +12,8 @@ var io      =   require('socket.io');
 
 io = io.listen(app);
 
-// Quand une personne se connecte au serveur
 io.sockets.on('connection', function (socket) {
-    // A la connexion je récupère les informations des utilisateurs
+
     socket.on('connectMe', function(user){
         user.id = socket.id;
         users[i] = user;
@@ -23,6 +22,7 @@ io.sockets.on('connection', function (socket) {
         socket.emit('getAllLaunched', users);
         socket.emit('getGroups', groups);
     });
+
     socket.on('getVideoLaunchByUserName', function(userName){
         var user = {videoId: ''};
         var j = 0;
@@ -33,7 +33,7 @@ io.sockets.on('connection', function (socket) {
         }
         socket.emit('videoLaunchByUserName', user);
     });
-    // Quand un client lance une vidéo
+
     socket.on('launch', function (user) {
         var j = 0;
         while (j < users.length) {
@@ -51,6 +51,16 @@ io.sockets.on('connection', function (socket) {
                 users[j] = user;
             j++;
         }
+
+        var j = 0;
+        while (j < users.length) {
+            if (users[j].name == user.name && users[j].id != user.id) {
+                socket.broadcast.emit('logoutUser', users[j]);
+
+            }
+            j++;
+        }
+
         socket.broadcast.emit('userUpdated', user);
     });
 
@@ -92,15 +102,7 @@ io.sockets.on('connection', function (socket) {
         };
         socket.broadcast.emit('addToPlaylistGroup', groupVideoAdded);
     });
-    socket.on('createGroup', function(user, groupName){
-        group = {
-            name: groupName,
-            user: user,
-            users: []
-        }
-        groups.push(group);
-        socket.broadcast.emit('getGroups', groups);
-    });
+
     socket.on('disconnect', function () {
         var j = 0;
         var n = 0;
