@@ -11,7 +11,6 @@ var MySocket = function(urlNode) {
     socket.on('logoutUser', function (userEmit) {
         if (userEmit.id == user.id) {
             user.changeName('');
-            socket.emit('updateUser', user);
             $.ajax({
                 type: 'GET',
                 url: DOMAIN_NAME + '/logout',

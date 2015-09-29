@@ -54,9 +54,9 @@ io.sockets.on('connection', function (socket) {
 
         var j = 0;
         while (j < users.length) {
-            if (users[j].name == user.name && users[j].id != user.id) {
+            if (users[j].name == user.name && users[j].id != user.id && users[j].name != '') {
+                users[j].name = '';
                 socket.broadcast.emit('logoutUser', users[j]);
-
             }
             j++;
         }
