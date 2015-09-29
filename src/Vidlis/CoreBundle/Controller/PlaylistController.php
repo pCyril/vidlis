@@ -61,7 +61,7 @@ class PlaylistController extends Controller
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
 
-        $playList = $playlistQuery->findPlayListByIdAndUserName($id, $userName)->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
+        $playList = $playlistQuery->findPlayListByIdAndUserName($id, $userName)->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
         $response = new Response(
             json_encode($playList),
@@ -92,7 +92,7 @@ class PlaylistController extends Controller
     public function allAction()
     {
         $data = array();
-        $data['title'] = 'All the playlists';
+        $data['title'] = 'Playlists';
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentall.html.twig', $this->contentallAction());
             $response = new Response(json_encode($data));
