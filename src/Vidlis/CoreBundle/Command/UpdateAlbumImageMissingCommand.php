@@ -29,11 +29,16 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
         $artistQuery = new ArtistQuery($this->getContainer()->get('doctrine_mongodb')->getManager());
         /** @var Album $lastFmArtistAlbumService */
         $lastFmArtistAlbumService = $this->getContainer()->get('lastFmArtistAlbum');
+        /** @var Filesystem $fileSystem */
+        $fileSystem = $this->getContainer()->get('knp_gaufrette.filesystem_map')->get('local');
         $artists = $artistQuery->getList();
         foreach ($artists as $artist) {
             if ($artist->getName() != '[unknown]') {
                 $logger->info(sprintf('Start process for artist: %s', $artist->getName()));
                 foreach ($artist->getAlbums() as $album) {
+                    if ($fileSystem->has($album->getImage())) {
+                        continue;
+                    }
                     $albumResult = $lastFmArtistAlbumService->setArtist($artist->getName())->getResults();
                     if (!isset($albumResult->error) && isset($albumResult->topalbums->album)) {
                         if (!is_array($albumResult->topalbums->album)) {
@@ -47,8 +52,6 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
                                     $image = $albumResult->image[count($albumResult->image) - 1];
                                     $var = '#text';
                                     if ('' !== $image->$var) {
-                                        /** @var Filesystem $fileSystem */
-                                        $fileSystem = $this->getContainer()->get('knp_gaufrette.filesystem_map')->get('local');
                                         $fileName = substr($image->$var, strrpos($image->$var, '/'));
                                         $fileSystem->write($fileName, file_get_contents($image->$var));
                                         $album->setImage($fileName);
