@@ -100,7 +100,7 @@ class Artist {
     }
 
     /**
-     * @return array
+     * @return Album[]
      */
     public function getAlbums()
     {
@@ -118,7 +118,7 @@ class Artist {
     }
 
     /**
-     * @return array
+     * @return Tag[]
      */
     public function getTags()
     {

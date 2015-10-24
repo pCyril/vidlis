@@ -89,3 +89,14 @@ doctrine_mongodb:
     document_managers:
         default:
             auto_mapping: true
+
+knp_gaufrette:
+    adapters:
+        album_images:
+            local:
+                directory:  %images_path%
+                create:     true
+    filesystems:
+            local:
+                adapter:    album_images
+                alias:      albums

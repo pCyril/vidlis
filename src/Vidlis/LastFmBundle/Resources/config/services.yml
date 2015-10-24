@@ -16,4 +16,4 @@ services:
         arguments: ["@memcache", "%lastFmKey%"]
     ArtistCreator:
         class: Vidlis\LastFmBundle\LastFm\Artist\Creator
-        arguments: ["@lastFmArtistInfo", "@lastFmArtistAlbum", "@lastFmAlbumInfo", "@doctrine_mongodb"]
+        arguments: ["@lastFmArtistInfo", "@lastFmArtistAlbum", "@lastFmAlbumInfo", "@doctrine_mongodb", "@knp_gaufrette.filesystem_map"]

@@ -4,7 +4,7 @@
         <div class="clear"></div>
         <div class="images" style="height: {{ ((artist.getImagesPresentation()|length) / 2)|round * 150 }}px;">
             {% for images in artist.getImagesPresentation() %}
-                <img src="{{ images }}" width="158px">
+                <img src="/images/albums/{{ images }}">
             {% endfor %}
         </div>
         <div class="clear"></div>

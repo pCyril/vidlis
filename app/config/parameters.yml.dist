@@ -22,6 +22,7 @@ parameters:
     OAUTH2_CLIENT_SECRET:   ~
     urlNode:                localhost:8080
     javaBin:                /usr/bin/java
+    images_path:            /var/www/vidlis/web/images/albums
 
 twig:
     globals:

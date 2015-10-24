@@ -1,6 +1,7 @@
 <?php
 namespace Vidlis\CoreBundle\Document;
 use Doctrine\ODM\MongoDB\DocumentManager;
+use Vidlis\LastFmBundle\Document\Artist;
 
 /**
  * Class AbstractQuery
@@ -55,7 +56,7 @@ abstract class AbstractQuery
     }
 
     /**
-     * @return mixed
+     * @return Artist[]
      */
     public function getList()
     {

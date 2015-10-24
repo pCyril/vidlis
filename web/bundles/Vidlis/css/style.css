@@ -617,6 +617,10 @@ i.icon-large{
     min-height: 300px;
 }
 
+.boxArtist .images img {
+    width: 158px;
+}
+
 .boxplayed .videoTitle, .boxArtist .artistTitle {
     padding: 0px 5px;
     line-height: 28px;
@@ -1956,7 +1960,7 @@ h1.artistTitle {
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.25);
 }
 
-.discographie {
+.discography {
     background-color: #fff;
     border-radius: 3px;
     margin-top: 15px;
@@ -1964,26 +1968,29 @@ h1.artistTitle {
     box-shadow: 0 1px 4px 0 rgba(0,0,0,0.25);
 }
 
-.discographie h2, .discographie h3 {
+.discography h2, .discography h3 {
     margin: 0px;
     padding: 15px;
 }
 
-#feeds .discographie h3 {
+#feeds .discography h3 {
     margin-left: 145px;
 }
 
-.discographie .album {
+.discography .album {
     padding: 20px;
     border-bottom: 1px solid #ecedef;
 }
 
-.discographie .album .albumImage {
+.discography .album .albumImage {
     float: left;
     width: 160px;
 }
+.discography .album .albumImage img {
+    width: 150px;
+}
 
-.discographie .album .tracks {
+.discography .album .tracks {
     margin-left: 160px;
 }
 

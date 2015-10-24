@@ -52,6 +52,10 @@ class Info extends LastFmAbstract {
         return $this;
     }
 
+    /**
+     * @param string $mbid
+     * @return $this
+     */
     public function setMbid($mbid)
     {
         $this->mbid = $mbid;

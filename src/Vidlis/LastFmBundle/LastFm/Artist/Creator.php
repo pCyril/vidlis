@@ -2,6 +2,7 @@
 
 namespace Vidlis\LastFmBundle\LastFm\Artist;
 
+use Gaufrette\FilesystemMap;
 use Vidlis\LastFmBundle\Document\Artist;
 use Vidlis\LastFmBundle\Document\Album as ArtistAlbumDocument;
 use Vidlis\LastFmBundle\Document\Tag as ArtistTagDocument;
@@ -39,17 +40,23 @@ class Creator {
     private $artistQuery;
 
     /**
+     * @var \Gaufrette\Filesystem
+     */
+    private $fileSystem;
+
+    /**
      * @param Info $serviceArtistInfo
      * @param ArtistAlbum $serviceArtistAlbum
      * @param AlbumInfo $serviceAlbumInfo
      * @param $doctrineMongoDB
      */
-    public function __construct(ArtistInfo $serviceArtistInfo, ArtistAlbum $serviceArtistAlbum,  AlbumInfo $serviceAlbumInfo, $doctrineMongoDB)
+    public function __construct(ArtistInfo $serviceArtistInfo, ArtistAlbum $serviceArtistAlbum,  AlbumInfo $serviceAlbumInfo, $doctrineMongoDB, FilesystemMap $filesystemMap)
     {
         $this->serviceAlbumInfo = $serviceAlbumInfo;
         $this->serviceArtistAlbum = $serviceArtistAlbum;
         $this->serviceArtistInfo = $serviceArtistInfo;
         $this->artistQuery = new ArtistQuery($doctrineMongoDB->getManager());
+        $this->fileSystem = $filesystemMap->get('local');
     }
 
     /**
@@ -95,7 +102,11 @@ class Creator {
                     if (is_array($albumResult->image)) {
                         $image = $albumResult->image[count($albumResult->image) - 1];
                         $var = '#text';
-                        $album->setImage($image->$var);
+                        if ('' !== $image->$var) {
+                            $fileName = substr($image->$var, strrpos($image->$var, '/'));
+                            $this->fileSystem->write($fileName, file_get_contents($image->$var));
+                            $album->setImage($fileName);
+                        }
                     }
                     if ($albumResult->mbid) {
                         $albumInfoResult = $this->serviceAlbumInfo->setArtist($this->artistName)->setMbid($albumResult->mbid)->getResults();
