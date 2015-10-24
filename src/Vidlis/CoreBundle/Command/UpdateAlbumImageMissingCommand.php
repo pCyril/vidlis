@@ -53,7 +53,7 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
                                     $var = '#text';
                                     if ('' !== $image->$var) {
                                         $fileName = substr($image->$var, strrpos($image->$var, '/'));
-                                        $fileSystem->write($fileName, file_get_contents($image->$var));
+                                        $fileSystem->write($fileName, file_get_contents($image->$var), true);
                                         $album->setImage($fileName);
                                         break;
                                     } else {
