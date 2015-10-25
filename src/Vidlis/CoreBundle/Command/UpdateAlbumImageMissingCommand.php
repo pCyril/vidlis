@@ -45,6 +45,7 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
                         } else {
                             $albums = $albumResult->topalbums->album;
                         }
+                        $found = false;
                         foreach ($albums as $albumResult) {
                             if ($album->getName() == $albumResult->name) {
                                 if (is_array($albumResult->image)) {
@@ -54,12 +55,17 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
                                         $fileName = substr($image->$var, strrpos($image->$var, '/'));
                                         $fileSystem->write($fileName, file_get_contents($image->$var), true);
                                         $album->setImage($fileName);
+                                        $found = true;
                                         break;
                                     } else {
                                         $album->setImage('');
                                     }
                                 }
                             }
+                        }
+                        if (!$found) {
+                            $output->writeln(sprintf('Album not found: %s', $album->getName()));
+                            $album->setImage('');
                         }
                     } else {
                         $album->setImage('');
