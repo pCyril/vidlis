@@ -35,6 +35,16 @@ class ArtistQuery extends AbstractQuery
         return $this;
     }
 
+
+    /**
+     * @return $this
+     */
+    public function setSearchLikeImageHttp()
+    {
+        $this->queryBuilder->field('albums.image')->equals(new \MongoRegex('/http://.*/i'));
+        return $this;
+    }
+
     /**
      * @return $this
      */
