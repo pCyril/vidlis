@@ -29,12 +29,12 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
         $lastFmArtistAlbumService = $this->getContainer()->get('lastFmArtistAlbum');
         /** @var Filesystem $fileSystem */
         $fileSystem = $this->getContainer()->get('knp_gaufrette.filesystem_map')->get('local');
-        $artists = $artistQuery->getList();
+        $artists = $artistQuery->addOrderBy('name')->getList();
         foreach ($artists as $artist) {
             if ($artist->getName() != '[unknown]') {
                 $output->writeln(sprintf('Start process for artist: %s', $artist->getName()));
                 foreach ($artist->getAlbums() as $album) {
-                    if ($fileSystem->has($album->getImage())) {
+                    if ($fileSystem->has($album->getImage()) || $album->getImage() === '') {
                         continue;
                     }
                     $output->writeln(sprintf('Image doesn\'t exist for album: %s', $album->getName()));
