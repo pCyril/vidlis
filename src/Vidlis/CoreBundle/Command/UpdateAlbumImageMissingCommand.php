@@ -24,8 +24,6 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        /** @var LoggerInterface $logger */
-        $logger = $this->getContainer()->get('logger');
         $artistQuery = new ArtistQuery($this->getContainer()->get('doctrine_mongodb')->getManager());
         /** @var Album $lastFmArtistAlbumService */
         $lastFmArtistAlbumService = $this->getContainer()->get('lastFmArtistAlbum');
@@ -34,11 +32,12 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
         $artists = $artistQuery->getList();
         foreach ($artists as $artist) {
             if ($artist->getName() != '[unknown]') {
-                $logger->info(sprintf('Start process for artist: %s', $artist->getName()));
+                $output->writeln(sprintf('Start process for artist: %s', $artist->getName()));
                 foreach ($artist->getAlbums() as $album) {
                     if ($fileSystem->has($album->getImage())) {
                         continue;
                     }
+                    $output->writeln(sprintf('Image doesn\'t exist for album: %s', $album->getName()));
                     $albumResult = $lastFmArtistAlbumService->setArtist($artist->getName())->getResults();
                     if (!isset($albumResult->error) && isset($albumResult->topalbums->album)) {
                         if (!is_array($albumResult->topalbums->album)) {
@@ -62,9 +61,12 @@ class UpdateAlbumImageMissingCommand extends ContainerAwareCommand {
                                 }
                             }
                         }
+                    } else {
+                        $album->setImage('');
+                        $output->writeln(sprintf('Fail to get information for album: %s', $album->getName()));
                     }
                 }
-                $logger->info(sprintf('End process for artist: %s', $artist->getName()));
+                $output->writeln(sprintf('End process for artist: %s', $artist->getName()));
                 $artistQuery->persist($artist);
             }
         }

@@ -109,7 +109,7 @@ class Album {
     }
 
     /**
-     * @return array
+     * @return Track[]
      */
     public function getTracks()
     {
