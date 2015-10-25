@@ -35,7 +35,9 @@
                 <div class="album">
                     <h3>{{ album.name }}</h3>
                     <div class="albumImage">
+                        {% if '' != album.image %}
                         <img src="/images/albums/{{ album.image }}">
+                        {% endif %}
                     </div>
                     <div class="tracks">
                         {% for track in album.tracks %}
