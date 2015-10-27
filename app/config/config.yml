@@ -78,6 +78,11 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Vidlis\UserBundle\Entity\User
+    resetting:
+        email:
+            from_email:
+                address:        resetting@vidlis.fr
+                sender_name:    Vidlis
 
 
 doctrine_mongodb:

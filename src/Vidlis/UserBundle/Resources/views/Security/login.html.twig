@@ -31,7 +31,13 @@
 
     <div class="control-group">
         <div class="controls">
-            <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="{{ 'security.login.submit'|trans }}" />
+                <input type="submit" id="_submit" name="_submit" class="btn btn-primary" value="{{ 'security.login.submit'|trans }}" />
+        </div>
+    </div>
+
+    <div class="control-group">
+        <div class="controls">
+            <a href="{{ path('fos_user_resetting_request') }}" class="toModalHTML">{{ 'resetting.request.submit'|trans }}</a>
         </div>
     </div>
 </form>
