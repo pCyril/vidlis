@@ -15,6 +15,7 @@ UrlCrawler.prototype.load = function(url, mprogress) {
     mprogress.start();
     var mprogressSelf = mprogress;
     if (this.first) {
+        $('body').trigger('pageLoaded');
         mprogressSelf.end(true);
         this.first = false;
         return;
