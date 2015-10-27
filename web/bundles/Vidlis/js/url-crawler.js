@@ -1,9 +1,11 @@
 var UrlCrawler = function (url, domain, mprogress) {
     this.domain = domain;
+    this.first = true;
     this.mprogress = mprogress;
     var self = this;
-    $.address.crawlable(1).state(url).init(function () {
-    }).change(function (e) {
+    $.address.crawlable(1)
+        .state(url)
+        .change(function (e) {
         $.address.state() + decodeURI(e.path).replace(/\/\//, '/');
         self.load(e.path, self.mprogress);
     });
@@ -12,6 +14,11 @@ var UrlCrawler = function (url, domain, mprogress) {
 UrlCrawler.prototype.load = function(url, mprogress) {
     mprogress.start();
     var mprogressSelf = mprogress;
+    if (this.first) {
+        mprogressSelf.end(true);
+        this.first = false;
+        return;
+    }
     $.ajax({
         url: this.domain + url,
         type: 'POST',

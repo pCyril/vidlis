@@ -6,8 +6,10 @@
 {% block body %}
     {% include 'VidlisCoreBundle:Default:header.html.twig'  with {'tab': 'home'}   %}
     <div id="content">
+        <div id="right_content">
         {% block fos_user_content %}
             {% include "FOSUserBundle:Resetting:reset_content.html.twig" %}
         {% endblock fos_user_content %}
+        </div>
     </div>
 {% endblock %}
