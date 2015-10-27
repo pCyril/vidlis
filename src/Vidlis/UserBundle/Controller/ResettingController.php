@@ -31,7 +31,7 @@ class ResettingController extends BaseController
             $this->container->get('fos_user.mailer')->sendResettingEmailMessage($user);
             $user->setPasswordRequestedAt(new \DateTime());
             $this->container->get('fos_user.user_manager')->updateUser($user);
-            $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
+            return $this->container->get('templating')->renderResponse('FOSUserBundle:Resetting:checkEmail.html.'.$this->getEngine(), array(
                 'email' => $username,
             ));
         }else{
