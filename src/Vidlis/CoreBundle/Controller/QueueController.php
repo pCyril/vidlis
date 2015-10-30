@@ -58,6 +58,9 @@ class QueueController extends Controller
                 ->setDatePlayed(new \DateTime());
             $em = $this->getDoctrine()->getManager();
             $playedQuery = new PlayedQuery($em);
+            if ($this->getUser()) {
+                $played->setUser($this->getUser());
+            }
             $playedQuery->persist($played);
             $data['video'] = $this->get('youtubeVideo')->setId($idVideo)->getResult();
 

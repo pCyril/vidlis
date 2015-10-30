@@ -2,6 +2,7 @@
 namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vidlis\UserBundle\Entity\User;
 
 /**
  * @ORM\Entity()
@@ -25,6 +26,12 @@ class Played {
      * @ORM\Column(type="datetime")
      */
     private $datePlayed;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Vidlis\UserBundle\Entity\User", inversedBy="played")
+     * @ORM\JoinColumn(name="id_user", referencedColumnName="id")
+     */
+    private $user;
 
     /**
      * @param mixed $datePlayed
@@ -60,7 +67,8 @@ class Played {
     }
 
     /**
-     * @param mixed $idVideo
+     * @param string $idVideo
+     * @return $this
      */
     public function setIdVideo($idVideo)
     {
@@ -74,6 +82,24 @@ class Played {
     public function getIdVideo()
     {
         return $this->idVideo;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
     }
 
 }
