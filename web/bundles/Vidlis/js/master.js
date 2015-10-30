@@ -10,6 +10,11 @@ $(document).ready(function () {
                 $(this).attr('target', '_blank');
             });
         }
+        if ($('body').find('#particules-js').length) {
+            particlesJS.load('particules-js', '/bundles/Vidlis/js/assets/particules.json', function() {
+                console.log('callback - particles.js config loaded');
+            });
+        }
     });
     $('.showPlaying').on('click', function () {
         $('.infoPlayed, .showPlaying').toggleClass('open', 500);

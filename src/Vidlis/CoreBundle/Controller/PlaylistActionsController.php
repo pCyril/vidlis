@@ -25,7 +25,7 @@ class PlaylistActionsController extends Controller
      */
     public function createAction($vidId=null)
     {
-        $data['title'] = 'Créer une nouvelle playlist';
+        $data['title'] = 'Create a new playlist';
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $created = false;

@@ -18,7 +18,7 @@ class PlaylistController extends Controller
      */
     public function indexAction()
     {
-        $data = array();
+        $data = [];
         $data['title'] = 'Playlists';
         
         if ($this->getRequest()->isMethod('POST')) {
@@ -44,9 +44,10 @@ class PlaylistController extends Controller
         $response = new Response(
             json_encode($playLists),
             201,
-            array(
+            [
                 'Access-Control-Allow-Origin' => '*',
-                'Content-Type' => 'application/json')
+                'Content-Type' => 'application/json',
+                ]
         );
         return $response;
     }
@@ -66,9 +67,10 @@ class PlaylistController extends Controller
         $response = new Response(
             json_encode($playList),
             201,
-            array(
+            [
                 'Access-Control-Allow-Origin' => '*',
-                'Content-Type' => 'application/json')
+                'Content-Type' => 'application/json',
+                ]
         );
         return $response;
     }
@@ -79,9 +81,9 @@ class PlaylistController extends Controller
     public function contentAction()
     {
         if ($this->getUser()) {
-            return array('user' => $this->getUser(), 'connected' => true);
+            return ['user' => $this->getUser(), 'connected' => true];
         } else {
-            return array('connected' => false);
+            return ['connected' => false];
         }
     }
 
@@ -91,7 +93,7 @@ class PlaylistController extends Controller
      */
     public function allAction()
     {
-        $data = array();
+        $data = [];
         $data['title'] = 'Playlists';
         if ($this->getRequest()->isMethod('POST')) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentall.html.twig', $this->contentallAction());
@@ -109,11 +111,11 @@ class PlaylistController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
-        $playlists = $playlistQuery->setPrivate(false)->getList('playlist_unprivate');
+        $playlists = $playlistQuery->setPrivate(false)->setOrderBy(['p.creationDate' => 'DESC'])->getList('playlist_unprivate');
         if ($this->getUser()) {
-            $data = array('user' => $this->getUser(), 'connected' => true);
+            $data = ['user' => $this->getUser(), 'connected' => true];
         } else {
-            $data = array('connected' => false);
+            $data = ['connected' => false];
         }
         $data['playlists'] = $playlists;
         return $data;
@@ -125,7 +127,7 @@ class PlaylistController extends Controller
      */
     public function commentAction($idPlaylist)
     {
-        $data = array();
+        $data = [];
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $playlist = $playlistQuery->setId($idPlaylist)->setPrivate(false)->getSingle('playlist_'.$idPlaylist);
@@ -150,7 +152,7 @@ class PlaylistController extends Controller
      */
     public function contentcommentAction($idPlaylist)
     {
-        $data = array();
+        $data = [];
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
@@ -170,7 +172,7 @@ class PlaylistController extends Controller
      */
     public function favoriteAction()
     {
-        $data = array();
+        $data = [];
         $data['title'] = 'Mes playlists favorites';
 
         if ($this->getRequest()->isMethod('POST')) {
@@ -188,9 +190,9 @@ class PlaylistController extends Controller
     public function contentfavoriteAction()
     {
         if ($this->getUser()) {
-            $data = array('user' => $this->getUser(), 'connected' => true);
+            $data = ['user' => $this->getUser(), 'connected' => true];
         } else {
-            $data = array('connected' => false);
+            $data = ['connected' => false];
         }
         return $data;
     }

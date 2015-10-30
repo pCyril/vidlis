@@ -599,7 +599,7 @@ i.icon-large{
     left: 14px;
     border-radius: 3px;
     color: white;
-    background: #0c8fe7;
+    background: #03A9F4;
     margin-right: 14px;
     line-height: 17px;
 }
@@ -686,25 +686,20 @@ i.icon-large{
     text-transform: uppercase;
     font-weight: 800;
     font-family: 'Lato',Helvetica,Arial,Sans-Serif;
-    border: 1px solid #656d68;
+    border: 1px solid #277af4;
     overflow: hidden;
-    -webkit-box-shadow: 0px 1px 3px -1px rgba(0,0,0,0.7),inset 0 2px 2px -1px #0081d9;
-    box-shadow: inset 0 1px 0 #0081d9,0 1px 3px rgba(0,0,0,0.5);
+    -webkit-box-shadow: 0px 1px 3px -1px rgba(0,0,0,0.7),inset 0 2px 2px -1px #03A9F4;
+    box-shadow: inset 0 1px 0 #03A9F4,0 1px 3px rgba(0,0,0,0.5);
     -webkit-box-sizing: content-box;
     -moz-box-sizing: content-box;
     box-sizing: content-box;
     border-radius: 5px;
-    text-shadow: 0 -1px 0 rgba(0,0,0,0.8);
-    background: #0056af;
-    background: -webkit-linear-gradient(bottom, #0056af 0%, #0064ca 100%);
-    background: -moz-linear-gradient(bottom, #0056af 0%, #0064ca 100%);
-    background: -ms-linear-gradient(bottom, #0056af 0%, #0064ca 100%);
-    background: linear-gradient(bottom, #0056af 0%,#0064ca 100%);
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+    background: #03A9F4;
     -webkit-transition: all 0.3;
     transition: all 0.3;
     text-transform: uppercase;
 }
-
 
 .boxFooter .btn {
     position: absolute;
@@ -712,11 +707,7 @@ i.icon-large{
     top: 10px;
 }
 .btn:not(.active):hover{
-    background: #0060c3;
-    background: -webkit-linear-gradient(bottom, #0060c3 0%, #006ede 100%);
-    background: -moz-linear-gradient(bottom, #0060c3 0%, #006ede 100%);
-    background: -ms-linear-gradient(bottom, #0060c3 0%, #006ede 100%);
-    background: linear-gradient(bottom, #0060c3 0%,#006ede 100%);
+    background-color: #0b8ef4;
     color: #ffffff;
 }
 
@@ -793,12 +784,12 @@ i.icon-large{
 }   
    
 .form-wrapper button:hover{     
-    background: #0c8fe7;
+    background: #03A9F4;
 }   
    
 .form-wrapper button:active,
 .form-wrapper button:focus{   
-    background: #0c8fe7;
+    background: #03A9F4;
     box-shadow: -1px 2px 1px -1px rgba(0,0,0,0.5) inset;
     outline: 0;   
 }
@@ -814,12 +805,12 @@ i.icon-large{
 }
  
 .form-wrapper button:hover:before{
-    border-right-color: #0c8fe7;
+    border-right-color: #03A9F4;
 }
  
 .form-wrapper button:focus:before,
 .form-wrapper button:active:before{
-        border-right-color: #0c8fe7;
+        border-right-color: #03A9F4;
 }      
  
 .form-wrapper button::-moz-focus-inner { /* remove extra button spacing for Mozilla Firefox */
@@ -1357,13 +1348,17 @@ i.icon-large{
     top: 80px;
 }
 
-.presentation {
+.presentation .particules {
     position: relative;
+    height: 600px;
+    background-color: #03A9F4;
 }
 
 .titleSearch {
     position: absolute;
     left: 50%;
+    width: 700px;
+    margin-left: -350px;
     top: 100px;
 }
 
@@ -1454,16 +1449,16 @@ i.icon-large{
 }
 
 .btn-register-home {
-    background-color: #629ec4;
+    background-color: #03A9F4;
     padding: 17px 20px 20px 20px;
     border-radius: 6px;
     font-size:1.3em;
     color: white;
     height:60px;
-    moz-box-shadow: inset 0px -3px 0px 0px #27658d;
-    -webkit-box-shadow: inset 0px -3px 0px 0px #27658d;
-    -o-box-shadow: inset 0px -3px 0px 0px #27658d;
-    box-shadow: inset 0px -3px 0px 0px #27658d;
+    moz-box-shadow: inset 0px -3px 0px 0px #277af4;
+    -webkit-box-shadow: inset 0px -3px 0px 0px #277af4;
+    -o-box-shadow: inset 0px -3px 0px 0px #277af4;
+    box-shadow: inset 0px -3px 0px 0px #277af4;
     margin: 20px auto;
     display: block;
     width: 500px;
@@ -1879,7 +1874,7 @@ ul, ol {
 }
 
 .genreRow ul li a:hover, .genreRow ul li a.active {
-    background: #0c8fe7;
+    background: #03A9F4;
 }
 
 .formSearchArtist {
@@ -1911,7 +1906,7 @@ ul, ol {
 
 
 .formSearchArtist button:hover {
-    background-color: #0c8fe7;
+    background-color: #03A9F4;
 }
 
 .loadMoreContent {

@@ -23,10 +23,12 @@ abstract class AbstractQuery extends AbstractCache
 
     /**
      * @param $use
+     * @return $this
      */
     public function cacheResults($use)
     {
         $this->cacheResults = $use;
+        return $this;
     }
 
     /**
@@ -67,12 +69,14 @@ abstract class AbstractQuery extends AbstractCache
      * @param $key
      * @return array
      */
-    public function getList($key)
+    public function getList($key = null)
     {
-        return $this->queryBuilder
-            ->getQuery()
-            ->useResultCache($this->cacheResults, $this->lifetime, $key)
-            ->getResult();
+        $query = $this->queryBuilder->getQuery();
+        if (null !== $key && $this->cacheResults) {
+            $query->useResultCache($this->cacheResults, $this->lifetime, $key);
+        }
+
+        return $query->getResult();
     }
 
     /**
@@ -96,8 +100,8 @@ abstract class AbstractQuery extends AbstractCache
     }
 
     /**
-     * Exemple array('c.username' => 'DESC')
-     * @param array() $orders
+     * Example ['c.username' => 'DESC']
+     * @param [] $orders
      * @return $this
      */
     public function setOrderBy($orders)

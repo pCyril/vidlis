@@ -2,6 +2,7 @@
 namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -72,28 +73,6 @@ class Playlist
         return $this;
     }
 
-    public function getDescription() 
-    {
-        return $this->description;
-    }
-
-    public function setDescription($description) 
-    {
-        $this->description = $description;
-        return $this;
-    }
-
-    public function getCategory() 
-    {
-        return $this->category;
-    }
-
-    public function setCategory($category) 
-    {
-        $this->category = $category;
-        return $this;
-    }
-
     public function isPrivate() 
     {
         return $this->private;
@@ -123,6 +102,9 @@ class Playlist
         return $this;
     }
 
+    /**
+     * @return UserInterface
+     */
     public function getUser()
     {
         return $this->user;

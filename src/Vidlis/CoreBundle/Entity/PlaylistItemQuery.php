@@ -11,6 +11,9 @@ class PlaylistItemQuery extends AbstractQuery
 
     private $playlistQuery;
 
+    /**
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
@@ -37,12 +40,18 @@ class PlaylistItemQuery extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @param Playlistitem $entity
+     */
     public  function prePersist($entity)
     {
         $this->deleteKeyCache('playlistItem_'.$entity->getId());
         $this->playlistQuery->preRemove($entity->getPlaylist());
     }
 
+    /**
+     * @param Playlistitem $entity
+     */
     public function preRemove($entity)
     {
         $this->deleteKeyCache('playlistItem_'.$entity->getId());

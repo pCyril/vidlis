@@ -10,6 +10,9 @@ class PlayedQuery extends AbstractQuery
 
     private $em;
 
+    /**
+     * @param EntityManager $entityManager
+     */
     public function __construct(EntityManager $entityManager)
     {
         parent::__construct($entityManager);
@@ -21,11 +24,12 @@ class PlayedQuery extends AbstractQuery
             ->from('VidlisCoreBundle:Played', 'p');
     }
 
+    /**
+     * @param $limit
+     * @return Played[]
+     */
     public function getLastPlayed($limit)
     {
-        /*$query = $this->em->createQuery("SELECT p FROM VidlisCoreBundle:Played p ORDER BY max(p.datePlayed) DESC limit 0, 12");
-        echo $query;die;
-        return $query->getResult();*/
         $this->queryBuilder = $this->em->createQueryBuilder();
         $this->queryBuilder
             ->select('p', 'MAX(p.datePlayed) as dateMax')

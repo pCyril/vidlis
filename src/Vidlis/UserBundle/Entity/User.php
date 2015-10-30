@@ -37,31 +37,66 @@ class User extends BaseUser
         $this->favoritePlaylists = new ArrayCollection();
     }
 
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+    /**
+     * @return Playlist[]
+     */
     public function getPlaylists()
     {
         return $this->playlists;
     }
 
+    /**
+     * @param Playlist $playlist
+     * @return $this
+     */
     public function addPlaylist(Playlist $playlist)
     {
         $this->playlists[] = $playlist;
+        return $this;
     }
 
+    /**
+     * @param ArrayCollection $playlists
+     * @return $this
+     */
     public function setPlayslists(ArrayCollection $playlists)
     {
         $this->playlists = $playlists;
+        return $this;
     }
 
+    /**
+     * @param Playlist $playlist
+     * @return $this
+     */
     public function addFavoritePlaylist(Playlist $playlist)
     {
         $this->favoritePlaylists[] = $playlist;
+        return $this;
     }
 
+    /**
+     * @param Playlist $playlist
+     * @return $this
+     */
     public function removeFavoritePlaylist(Playlist $playlist)
     {
         $this->favoritePlaylists->removeElement($playlist);
+        return $this;
     }
 
+    /**
+     * @return Playlist[]
+     */
     public function getFavoritePlaylists()
     {
         return $this->favoritePlaylists;

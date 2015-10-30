@@ -60,6 +60,10 @@ class PlaylistQuery extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @param $private
+     * @return $this
+     */
     public function setPrivate($private)
     {
         $this->queryBuilder->andWhere('p.private = :private')
@@ -67,6 +71,9 @@ class PlaylistQuery extends AbstractQuery
         return $this;
     }
 
+    /**
+     * @param Playlist $entity
+     */
     public  function prePersist($entity)
     {
         $this->deleteKeyCache('playlist_all');
@@ -74,6 +81,9 @@ class PlaylistQuery extends AbstractQuery
         $this->deleteKeyCache('playlist_'.$entity->getId());
     }
 
+    /**
+     * @param Playlist $entity
+     */
     public function preRemove($entity)
     {
         $this->deleteKeyCache('playlist_all');
