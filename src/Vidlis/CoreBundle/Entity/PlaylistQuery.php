@@ -16,11 +16,22 @@ class PlaylistQuery extends AbstractQuery
 
         $this->cacheResults(true);
 
+        $this->initQueryBuilder();
+    }
+
+    /**
+     * @return $this
+     */
+    public function initQueryBuilder()
+    {
+        $this->queryBuilder = $this->getEntityManager()->createQueryBuilder();
         $this->queryBuilder
             ->select('p', 'pI', 'u')
             ->from('VidlisCoreBundle:Playlist', 'p')
             ->leftJoin('p.items', 'pI')
             ->leftJoin('p.user', 'u');
+
+        return $this;
     }
 
     /**
@@ -57,6 +68,17 @@ class PlaylistQuery extends AbstractQuery
     {
         $this->queryBuilder->andWhere('p.id = :playlistId')
             ->setParameter('playlistId', $id);
+        return $this;
+    }
+
+    /**
+     * @param $user
+     * @return $this
+     */
+    public function setUser($user)
+    {
+        $this->queryBuilder->andWhere('p.user = :user')
+            ->setParameter('user', $user);
         return $this;
     }
 

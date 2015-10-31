@@ -53,13 +53,14 @@ abstract class AbstractQuery extends AbstractCache
      * @param $key
      * @return null|mixed
      */
-    public function getSingle($key)
+    public function getSingle($key = null)
     {
         try {
-            return $this->queryBuilder
-                ->getQuery()
-                ->useResultCache($this->cacheResults, $this->lifetime, $key)
-                ->getSingleResult();
+            $query =  $this->queryBuilder->getQuery();
+            if (null !== $key && $this->cacheResults) {
+                $query->useResultCache($this->cacheResults, $this->lifetime, $key);
+            }
+            return $query->getSingleResult();
         } catch (NoResultException $e) {
             return null;
         }
@@ -130,6 +131,14 @@ abstract class AbstractQuery extends AbstractCache
     {
         $this->queryBuilder->setMaxResults($number);
         return $this;
+    }
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager()
+    {
+        return $this->em;
     }
 
     abstract public function prePersist($entity);
