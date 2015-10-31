@@ -15,6 +15,9 @@ $(document).ready(function () {
                 console.log('callback - particles.js config loaded');
             });
         }
+        if ($('body').find('.boxArtist').length) {
+            bindArtist('body');
+        }
 
         if ($('body').find('#current_tab').length) {
             tab = $('body').find('#current_tab').val();
@@ -136,6 +139,36 @@ $(document).ready(function () {
     });
 });
 
+function bindArtist(dom) {
+    $(dom).find('.boxArtist').each(function() {
+        var artisteUrl = $(this).data('url');
+        $(this).on('click', function() {
+            $.ajax({
+                type: 'GET',
+                url: artisteUrl,
+                cache: false,
+                dataType: 'html',
+                beforeSend: function () {
+                    $('.modalHTMLArtistContent.modal .modal-content').html('');
+                    $('.overlay').show();
+                },
+                success: function (data) {
+                    height = $(window).height();
+                    height = height * 0.94;
+                    $('.modalHTMLArtistContent.modal .modal-content').css('height', height + 'px');
+                    $('.modalHTMLArtistContent.modal').show();
+                    $('.modalHTMLArtistContent.modal .modal-content').html(data);
+                    bindArtist('.modalHTMLArtistContent.modal .modal-content');
+                },
+                error: function () {
+                    $(".modalHTML.modal .modal-content").html('Oh Mince ! Une erreur c\'est produite');
+                }
+            });
+            return false;
+        })
+    });
+}
+
 $('.mouseoverInfo').live('mousemove', function (e) {
     $('#infoLabel').css('top', ($(e.target).offset().top - $('.main-container').offset().top - 30) + 'px').css('left', ($(e.target).offset().left - $('.main-container').offset().left - 30) + 'px').css('display', 'block');
     $('#infoLabel').html($(e.target).data('info'));
@@ -183,7 +216,7 @@ $(".toModal").live('click', function () {
             cache: false,
             dataType: 'json',
             beforeSend: function () {
-                $(".modalWithHeader .modal-header h4").html('Chargement en cours');
+                $(".modalWithHeader .modal-header h4").html('Loading in progress');
                 $(".modalWithHeader .modal-body").html('');
                 $('.modal.modalWithHeader, .overlay').show();
             },

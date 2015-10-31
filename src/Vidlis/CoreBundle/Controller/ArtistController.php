@@ -184,6 +184,7 @@ class ArtistController extends Controller
     }
 
     /**
+     * @Route("artist_content/{artistName}", name="_artistDetailContent", requirements={"artistName" = ".*"})
      * @Template()
      */
     public function contentArtistAction($artistName)
@@ -196,6 +197,7 @@ class ArtistController extends Controller
             ->getSingle();
         $data = [];
         $data['artist'] = $artist;
+        $data['modal'] = $this->getRequest()->get('modal', false);
         $data['tab'] = 'artist';
         if ($artist instanceof Artist) {
             $similarArtists = $artistQuery->reset()->getSimilarArtists($artist);

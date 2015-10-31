@@ -606,10 +606,11 @@ i.icon-large{
 
 .boxHeader .playlistCreatorName, .boxplayed .videoTitle, .boxArtist .artistTitle {
     font-size: 13px;
-    color: #98A7B8;
     display: block;
     font-weight: 600;
     padding: 5px;
+    color: #444444;
+    margin-left: 15px;
     float: left;
 }
 
@@ -626,7 +627,7 @@ i.icon-large{
     line-height: 28px;
 }
 .boxArtist .artistTitle {
-    margin: 0px;
+    margin-top: 0px;
     padding-left: 0px;
 }
 
@@ -1272,7 +1273,7 @@ i.icon-large{
 .register {
     position: absolute;
     right: 233px;
-    z-index: 20000;
+    z-index: 150;
     top: 1px;
     color: #D4D4D4;
     padding: 0px 10px;
@@ -1301,6 +1302,7 @@ i.icon-large{
     display: none;
     height: 100%;
     left: 0;
+    overflow: hidden;
     position: fixed;
     top: 0;
     width: 100%;
@@ -1331,6 +1333,23 @@ i.icon-large{
     top: 12px;
     font-size: 1.25em;
     text-shadow: -1px 1px 2px #27658d;
+}
+
+.modalHTMLArtistContent .modal-dialog {
+    width: 96%;
+    left: 50%;
+    margin-left: -48%;
+    padding-top: 2%;
+}
+
+.modalHTMLArtistContent .modal-content {
+    overflow: auto;
+    background-color: #ecedef !important;
+    color: #000000 !important;
+}
+
+.modal {
+    overflow: hidden !important;
 }
 
 #videoDiv {
@@ -1533,7 +1552,7 @@ i.icon-large{
     position:fixed;
     top: 22px;
     left:850px;
-    z-index: 1009;
+    z-index: 10009;
     color: #ffffff;
     background-color: #468847;
     border-color: #d6e9c6;
@@ -1554,7 +1573,7 @@ i.icon-large{
     border-radius: 4px;
     display: none;
     font-weight: bold;
-    z-index: 1009;
+    z-index: 10009;
 }
 
 .powered {

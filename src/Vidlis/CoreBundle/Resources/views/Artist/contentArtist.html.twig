@@ -1,5 +1,7 @@
-<div id="right_content">
-    <div id="feeds">
+{% if modal == false %}
+    <div id="right_content">
+        <div id="feeds">
+{% endif %}
         <div class="artistDetail">
             <div class="info">
                 <div class="imageArtist">
@@ -54,6 +56,8 @@
                 <div class="clear"></div>
             {% endfor %}
         </div>
+{% if modal == false %}
+        </div>
     </div>
-</div>
-{% include 'VidlisCoreBundle:Default:menu.html.twig'%}
+    {% include 'VidlisCoreBundle:Default:menu.html.twig'%}
+{% endif %}
