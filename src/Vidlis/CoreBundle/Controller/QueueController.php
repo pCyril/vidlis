@@ -19,7 +19,7 @@ class QueueController extends Controller
     {
         $data = [];
         $idVideo = $this->getRequest()->request->get('videoid');
-        if ($this->getRequest()->isXmlHttpRequest()) {
+        if (null !== $idVideo) {
             $data['video'] = $this->get('youtubeVideo')->setId($idVideo)->getResult();
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
