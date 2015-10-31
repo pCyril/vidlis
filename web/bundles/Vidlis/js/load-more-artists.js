@@ -12,6 +12,7 @@ $(window).scroll(function() {
             success: function(data) {
                 var $moreBlocks = $(data.html);
                 $('#feeds_content').append($moreBlocks);
+                bindArtist($moreBlocks);
                 loadingMore = false;
                 if (data.html == '') {
                     $('.loadMoreContent').addClass('noMore').html('A fini ...');

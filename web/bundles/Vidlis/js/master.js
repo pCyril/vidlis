@@ -16,7 +16,7 @@ $(document).ready(function () {
             });
         }
         if ($('body').find('.boxArtist').length) {
-            bindArtist('body');
+            bindArtist($('body'));
         }
 
         if ($('body').find('#current_tab').length) {
@@ -139,8 +139,8 @@ $(document).ready(function () {
     });
 });
 
-function bindArtist(dom) {
-    $(dom).find('.boxArtist').each(function() {
+function bindArtist($dom) {
+    $dom.find('.boxArtist').each(function() {
         var artisteUrl = $(this).data('url');
         $(this).on('click', function() {
             $.ajax({
@@ -158,7 +158,7 @@ function bindArtist(dom) {
                     $('.modalHTMLArtistContent.modal .modal-content').css('height', height + 'px');
                     $('.modalHTMLArtistContent.modal').show();
                     $('.modalHTMLArtistContent.modal .modal-content').html(data);
-                    bindArtist('.modalHTMLArtistContent.modal .modal-content');
+                    bindArtist($('.modalHTMLArtistContent.modal .modal-content'));
                 },
                 error: function () {
                     $(".modalHTML.modal .modal-content").html('Oh Mince ! Une erreur c\'est produite');
