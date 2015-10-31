@@ -14,15 +14,17 @@ class SearchController extends Controller
      */
     public function indexAction($searchValue = null)
     {
-        $data = array();
+        $data = [];
         $data['title'] = 'Search '.$searchValue;
         $data['searchValue'] = $searchValue;
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Search:content.html.twig', $this->contentAction($searchValue));
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+        
         return $data;
     }
     
@@ -31,10 +33,11 @@ class SearchController extends Controller
      */
     public function contentAction($searchValue)
     {
-    	$data = array();
+    	$data = [];
         $data['searchValue'] = $searchValue;
         $data['resultsSearch'] = $this->get('youtubeSearch')->setQuery($searchValue)->getResults();
         $data['user'] = $this->getUser();
+
         return $data;
     }
 
@@ -44,14 +47,14 @@ class SearchController extends Controller
      */
     public function searchRemoteAction($searchValue)
     {
-        $response = new Response(
+        return new Response(
             json_encode($this->contentAction($searchValue)),
             201,
-            array(
+            [
                 'Access-Control-Allow-Origin' => '*',
-                'Content-Type' => 'application/json')
+                'Content-Type' => 'application/json',
+            ]
         );
-        return $response;
     }
 
 }

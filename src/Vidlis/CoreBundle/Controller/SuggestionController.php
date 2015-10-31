@@ -15,12 +15,13 @@ class SuggestionController extends Controller
      */
     public function suggestionAction()
     {
-        $data = array();
-        if ($this->getRequest()->isMethod('POST')) {
+        $data = [];
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $idVideo = $this->getRequest()->request->get('videoid');
             $data['suggestion'] = $this->get('youtubeSuggestion')->setRelatedToVideoId($idVideo)->getResults();
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
@@ -31,13 +32,13 @@ class SuggestionController extends Controller
      */
     public function searchRemoteAction($videoId)
     {
-        $response = new Response(
+        return new Response(
             json_encode($this->get('youtubeSuggestion')->setRelatedToVideoId($videoId)->getResults()),
             201,
-            array(
+            [
                 'Access-Control-Allow-Origin' => '*',
-                'Content-Type' => 'application/json')
+                'Content-Type' => 'application/json',
+            ]
         );
-        return $response;
     }
 }

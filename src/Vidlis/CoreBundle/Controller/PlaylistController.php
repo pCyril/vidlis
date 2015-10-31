@@ -21,12 +21,14 @@ class PlaylistController extends Controller
         $data = [];
         $data['title'] = 'Playlists';
         
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:content.html.twig', $this->contentAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+
         return $data;
     }
 
@@ -38,20 +40,18 @@ class PlaylistController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
-
         $playLists = $playlistQuery->findAllPlayListsByUserName($userName)->getQuery()->getResult(AbstractQuery::HYDRATE_ARRAY);
 
-        $response = new Response(
+        return new Response(
             json_encode($playLists),
             201,
             [
                 'Access-Control-Allow-Origin' => '*',
                 'Content-Type' => 'application/json',
-                ]
+            ]
         );
-        return $response;
-    }
 
+    }
 
     /**
      * @Route("/playListRemote/{id}/{userName}", name="_playListRemote", requirements={"id" = "\d+","userName" = ".+"})
@@ -61,18 +61,16 @@ class PlaylistController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
-
         $playList = $playlistQuery->findPlayListByIdAndUserName($id, $userName)->getQuery()->getSingleResult(AbstractQuery::HYDRATE_ARRAY);
 
-        $response = new Response(
+        return new Response(
             json_encode($playList),
             201,
             [
                 'Access-Control-Allow-Origin' => '*',
                 'Content-Type' => 'application/json',
-                ]
+            ]
         );
-        return $response;
     }
     
     /**
@@ -98,7 +96,7 @@ class PlaylistController extends Controller
     {
         $data = [];
         $data['title'] = 'Playlists';
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentAll.html.twig', $this->contentAllAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
@@ -146,7 +144,7 @@ class PlaylistController extends Controller
         if (null !== $playlist || null !== $playlistOwner) {
             $playlist = ($playlist) ? $playlist : $playlistOwner;
             $data['title'] = $playlist->getName().' - Playlist';
-            if ($this->getRequest()->isMethod('POST')) {
+            if ($this->getRequest()->isXmlHttpRequest()) {
                 $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentComment.html.twig', $this->contentCommentAction($idPlaylist));
                 $response = new Response(json_encode($data));
                 $response->headers->set('Content-Type', 'application/json');
@@ -193,7 +191,7 @@ class PlaylistController extends Controller
         $data = [];
         $data['title'] = 'My favorites playlist';
 
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentFavorite.html.twig', $this->contentFavoriteAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
@@ -218,5 +216,4 @@ class PlaylistController extends Controller
 
         return $data;
     }
-
 }

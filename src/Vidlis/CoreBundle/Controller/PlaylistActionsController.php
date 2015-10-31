@@ -30,13 +30,13 @@ class PlaylistActionsController extends Controller
         $playlistQuery = new PlaylistQuery($em);
         $created = false;
 
-        $dataContent = array();
+        $dataContent = [];
         if ($this->getUser()) {
             $dataContent['connected']= true;
             $dataContent['user']=  $this->getUser();
             $playlist = new Playlist();
             $form = $this->createForm(new PlaylistType());
-            if ($this->getRequest()->isMethod('POST')) {
+            if ($this->getRequest()->isXmlHttpRequest()) {
                 $form->handleRequest($this->getRequest());
                 if ($form->isValid()) {
                     $playlist = $form->getData();
@@ -65,6 +65,7 @@ class PlaylistActionsController extends Controller
         $data['content'] = $this->renderView('VidlisCoreBundle:PlaylistActions:create.html.twig', $dataContent);
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -74,18 +75,18 @@ class PlaylistActionsController extends Controller
      */
     public function updateAction($playlistId)
     {
-        $data['title'] = 'Modification de votre playlist';
+        $data['title'] = 'Playlist updated';
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $updated = false;
 
-        $dataContent = array();
+        $dataContent = [];
         if ($this->getUser()) {
             $dataContent['connected']= true;
             $dataContent['user']=  $this->getUser();
             $playlist = $playlistQuery->setId($playlistId)->getSingle('playlist_'.$playlistId);
             $form = $this->createForm(new PlaylistType(), $playlist);
-            if ($this->getRequest()->isMethod('POST')) {
+            if ($this->getRequest()->isXmlHttpRequest()) {
                 $form->handleRequest($this->getRequest());
                 if ($playlist->getUser()->getId() == $this->getUser()->getId()) {
                     if ($form->isValid()) {
@@ -106,6 +107,7 @@ class PlaylistActionsController extends Controller
         $data['content'] = $this->renderView('VidlisCoreBundle:PlaylistActions:update.html.twig', $dataContent);
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -116,7 +118,7 @@ class PlaylistActionsController extends Controller
      */
     public function deleteAction($idPlaylist)
     {
-        $data['title'] = 'Suppression de votre playlist';
+        $data['title'] = 'Playlist deleted';
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
@@ -129,6 +131,7 @@ class PlaylistActionsController extends Controller
         $data['content'] = $this->renderView('VidlisCoreBundle:PlaylistActions:delete.html.twig', array('result' => $result));
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -138,7 +141,7 @@ class PlaylistActionsController extends Controller
      */
     public function deleteitemAction($idItem)
     {
-        $data['title'] = 'Suppression de l\'élément';
+        $data['title'] = 'Item deleted';
         $em = $this->getDoctrine()->getManager();
         $playlistItemQuery = new PlaylistItemQuery($em);
         $playlistIem = $playlistItemQuery->setId($idItem)->getSingle('playlistItem_'.$idItem);
@@ -151,6 +154,7 @@ class PlaylistActionsController extends Controller
         $data['content'] = $this->renderView('VidlisCoreBundle:PlaylistActions:deleteitem.html.twig', array('result' => $result));
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -160,7 +164,7 @@ class PlaylistActionsController extends Controller
      */
     public function addtoAction($idPlaylist, $vidId=null)
     {
-        $data['title'] = 'Ajout d\'une vidéo';
+        $data['title'] = 'Video added';
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $playlistItemQuery = new PlaylistItemQuery($em);
@@ -178,6 +182,7 @@ class PlaylistActionsController extends Controller
         $data['content'] = $this->renderView('VidlisCoreBundle:PlaylistActions:addto.html.twig', array('playlistItem' => $playlistItem, 'result' => $result));
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -188,7 +193,7 @@ class PlaylistActionsController extends Controller
      */
     public function addtofavoriteAction($idPlaylist)
     {
-        $data['title'] = 'Ajout aux favoris';
+        $data['title'] = 'Added to your favorite playlist';
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
@@ -202,7 +207,7 @@ class PlaylistActionsController extends Controller
         $data['content'] = $this->renderView('VidlisCoreBundle:PlaylistActions:addfavorite.html.twig', array('result' => $result));
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
-    
 }

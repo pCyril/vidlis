@@ -15,7 +15,7 @@ class ArtistController extends Controller
 {
 
     private $genders = [
-        'Tous',
+        'All',
         'alternative',
         'blues',
         'dance',
@@ -34,15 +34,17 @@ class ArtistController extends Controller
      */
     public function searchAction($search = null)
     {
-        $data = array();
+        $data = [];
         $data['title'] = sprintf('Search %s - Artists - Vidlis', $search);
         $data['genre'] = 'search';
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentSearchAction($search));
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+
         return $data;
     }
 
@@ -53,15 +55,17 @@ class ArtistController extends Controller
      */
     public function indexAction($genre = null)
     {
-        $data = array();
+        $data = [];
         $data['title'] = sprintf('Artists %s- Vidlis', ($genre) ? '- ' . ucfirst($genre) . ' ' : '');
         $data['genre'] = $genre;
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:content.html.twig', $this->contentAction(20, 0, $genre));
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+
         return $data;
     }
 
@@ -71,7 +75,7 @@ class ArtistController extends Controller
      */
     public function contentSearchAction($search)
     {
-        $data = array();
+        $data = [];
         $dm = $this->get('doctrine_mongodb')->getManager();
         $artistQuery = new ArtistQuery($dm);
         $artists = $artistQuery
@@ -88,6 +92,7 @@ class ArtistController extends Controller
         } else {
             $data['connected'] = false;
         }
+
         return $data;
     }
 
@@ -96,7 +101,7 @@ class ArtistController extends Controller
      */
     public function contentAction($limit = 20, $offset = 0, $genre)
     {
-        $data = array();
+        $data = [];
         $data['artists'] = $this->getArtistList($limit, $offset, $genre);
         $data['genre'] = $genre;
         $data['genres'] = $this->genders;
@@ -107,6 +112,7 @@ class ArtistController extends Controller
         } else {
             $data['connected'] = false;
         }
+
         return $data;
     }
 
@@ -117,7 +123,7 @@ class ArtistController extends Controller
      */
     public function itemListAction($limit, $offset, $genre = null)
     {
-        $data = array();
+        $data = [];
         $data['artists'] = $this->getArtistList($limit, $offset, $genre);
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
@@ -129,6 +135,7 @@ class ArtistController extends Controller
         $data['offset'] = $offset + $limit;
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 
@@ -152,6 +159,7 @@ class ArtistController extends Controller
         }
         $artists = $artistQuery
             ->getList();
+
         return $artists;
     }
 
@@ -161,15 +169,17 @@ class ArtistController extends Controller
      */
     public function artistAction($artistName)
     {
-        $data = array();
+        $data = [];
         $data['title'] = urldecode($artistName) . ' - Vidlis';
         $data['artistName'] = urldecode($artistName);
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Artist:contentArtist.html.twig', $this->contentArtistAction($artistName));
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+
         return $data;
     }
 

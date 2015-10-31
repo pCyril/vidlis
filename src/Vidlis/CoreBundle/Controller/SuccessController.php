@@ -14,7 +14,7 @@ class SuccessController extends Controller
      */
     public function loginAction()
     {
-        return array();
+        return [];
     }
 
 
@@ -24,6 +24,6 @@ class SuccessController extends Controller
      */
     public function logoutAction()
     {
-        return array();
+        return [];
     }
 }

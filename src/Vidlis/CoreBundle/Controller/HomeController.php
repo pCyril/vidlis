@@ -33,7 +33,7 @@ class HomeController extends Controller
         } else {
             $data['title'] = 'Vidlis';
         }
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['content'] = $this->renderView('VidlisCoreBundle:Home:content.html.twig', $this->contentAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');

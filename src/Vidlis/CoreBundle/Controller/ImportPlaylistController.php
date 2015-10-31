@@ -22,7 +22,7 @@ class ImportPlaylistController extends AuthController
         $request = $this->getRequest();
         $data = array();
         if ($request->getSession()->get('token')) {
-            if ($request->isMethod('POST')) {
+            if ($request->isXmlHttpRequest()) {
                 $playlistIds = $request->request->get('playlistIds');
                 $em = $this->getDoctrine()->getManager();
                 $playlistQuery = new PlaylistQuery($em);
@@ -60,6 +60,7 @@ class ImportPlaylistController extends AuthController
             $authUrl = $this->client->createAuthUrl();
             $data['authUrl'] = $authUrl;
         }
+
         return $data;
     }
 }

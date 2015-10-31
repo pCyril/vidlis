@@ -4,7 +4,7 @@
             <ul>
                 {% for tag in genres %}
                 <li>
-                    {% if tag == 'Tous' %}
+                    {% if tag == 'All' %}
                         <a href="{{ url('_artist') }}" onclick="loadBox('/artists/', 'tabArtist'); return false;" {% if genre == '' %}class="active"{% endif %}>
                             {{ tag }}
                         </a>

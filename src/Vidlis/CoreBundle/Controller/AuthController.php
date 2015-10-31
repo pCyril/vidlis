@@ -18,7 +18,8 @@ use Vidlis\UserBundle\Entity\User;
  */
 class AuthController extends Controller
 {
-    
+
+    /** @var  Client */
     protected $client;
 
     /**
@@ -29,7 +30,7 @@ class AuthController extends Controller
     {
         $this->initialize();
         
-        $data = array();
+        $data = [];
         $auth = 'false';
         $session = $this->getRequest()->getSession();
         
@@ -48,6 +49,7 @@ class AuthController extends Controller
         }
         
         $data['auth'] = $auth;
+
         return $this->render('VidlisCoreBundle:Auth:auth.html.twig', $data);
     }
 
@@ -85,20 +87,20 @@ class AuthController extends Controller
             ->getRepository("VidlisUserBundle:User")
             ->findOneByUsername($username);
 
-        if(!$user){
+        if (!$user) {
             $user = $this->getDoctrine()
                 ->getManager()
                 ->getRepository("VidlisUserBundle:User")
                 ->findOneByEmail($username);
         }
 
-        if(!$user instanceof User){ // User not found
+        if (!$user instanceof User) { // User not found
             $message['status'] = 'FAIL';
             $message['error'] = 'Utilisateur non trouvé';
             $status = false;
         }
 
-        if(!$this->checkUserPassword($user, $password)){ // Wrong password
+        if (!$this->checkUserPassword($user, $password)) { // Wrong password
             $message['status'] = 'FAIL';
             $message['error'] = 'Mauvais mot de passe';
             $status = false;
@@ -113,6 +115,7 @@ class AuthController extends Controller
                 'Content-Type' => 'application/json'
             )
         );
+
         return $response;
     }
 
@@ -137,11 +140,10 @@ class AuthController extends Controller
     {
         $factory = $this->get('security.encoder_factory');
         $encoder = $factory->getEncoder($user);
-        if(!$encoder){
+        if (!$encoder) {
             return false;
         }
+
         return $encoder->isPasswordValid($user->getPassword(), $password, $user->getSalt());
     }
-
-
 }

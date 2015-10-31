@@ -1,16 +1,13 @@
 <?php
 namespace Vidlis\CoreBundle\Controller;
 
-use MyProject\Proxies\__CG__\stdClass;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Vidlis\CoreBundle\Entity\Played;
 use Vidlis\CoreBundle\Entity\PlayedQuery;
-use Vidlis\LastFmBundle\Document\Album;
 use Vidlis\LastFmBundle\Document\ArtistQuery;
-use Vidlis\LastFmBundle\Document\Artist;
 
 class QueueController extends Controller
 {
@@ -20,12 +17,13 @@ class QueueController extends Controller
      */
     public function addtoqueueAction()
     {
-        $data = array();
+        $data = [];
         $idVideo = $this->getRequest()->request->get('videoid');
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['video'] = $this->get('youtubeVideo')->setId($idVideo)->getResult();
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
@@ -36,11 +34,12 @@ class QueueController extends Controller
      */
     public function videoInformationAction($videoId)
     {
-        $data = array();
+        $data = [];
         $data['video'] = $this->get('youtubeVideo')->setId($videoId)->getResult();
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
+
         return $response;
     }
 
@@ -50,9 +49,9 @@ class QueueController extends Controller
      */
     public function playedAction()
     {
-        $data = array();
+        $data = [];
         $idVideo = $this->getRequest()->request->get('videoid');
-        if ($this->getRequest()->isMethod('POST')) {
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $played = new Played();
             $played->setIdVideo($idVideo)
                 ->setDatePlayed(new \DateTime());
@@ -63,9 +62,7 @@ class QueueController extends Controller
             }
             $playedQuery->persist($played);
             $data['video'] = $this->get('youtubeVideo')->setId($idVideo)->getResult();
-
             $title = $data['video']->items[0]->snippet->title;
-
             $result = $this->get('lastFmMusicSearch')->setTrack($title)->getResults();
             $trackMatches = $result->results->trackmatches;
             if (isset($trackMatches->track)) {
@@ -77,9 +74,9 @@ class QueueController extends Controller
                 }
             }
 
-
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
@@ -90,11 +87,12 @@ class QueueController extends Controller
      */
     public function getinfovideoAction($videoId)
     {
-        $data = array();
-        if ($this->getRequest()->isMethod('POST')) {
+        $data = [];
+        if ($this->getRequest()->isXmlHttpRequest()) {
             $data['video'] = $this->get('youtubeVideo')->setId($videoId)->getResult();
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
     }
