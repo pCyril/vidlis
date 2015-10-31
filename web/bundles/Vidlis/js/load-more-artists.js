@@ -12,7 +12,33 @@ $(window).scroll(function() {
             success: function(data) {
                 var $moreBlocks = $(data.html);
                 $('#feeds_content').append($moreBlocks);
-                bindArtist($moreBlocks);
+                $moreBlocks.each(function() {
+                    var artisteUrl = $(this).data('url');
+                    $(this).on('click', function() {
+                        $.ajax({
+                            type: 'GET',
+                            url: artisteUrl,
+                            cache: false,
+                            dataType: 'html',
+                            beforeSend: function () {
+                                $('.modalHTMLArtistContent.modal .modal-content').html('');
+                                $('.overlay').show();
+                            },
+                            success: function (data) {
+                                height = $(window).height();
+                                height = height * 0.94;
+                                $('.modalHTMLArtistContent.modal .modal-content').css('height', height + 'px');
+                                $('.modalHTMLArtistContent.modal').show();
+                                $('.modalHTMLArtistContent.modal .modal-content').html(data);
+                                bindArtist($('.modalHTMLArtistContent.modal .modal-content'));
+                            },
+                            error: function () {
+                                $(".modalHTML.modal .modal-content").html('Oh Mince ! Une erreur c\'est produite');
+                            }
+                        });
+                        return false;
+                    });
+                });
                 loadingMore = false;
                 if (data.html == '') {
                     $('.loadMoreContent').addClass('noMore').html('A fini ...');
