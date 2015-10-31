@@ -3,11 +3,11 @@
 {% block title %}{{ title }}{% endblock %}
 
 {% block body %}
-    {% include 'VidlisCoreBundle:Default:header.html.twig'  with {'tab': 'playlist'}   %}
+    {% include 'VidlisCoreBundle:Default:header.html.twig' %}
     <div id="content">
     {{
         render(
-            controller('VidlisCoreBundle:Playlist:contentall')
+            controller('VidlisCoreBundle:Playlist:contentAll')
         )
     }}
     </div>

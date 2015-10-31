@@ -1,6 +1,3 @@
-{% if tab is not defined %}
-    {% set tab = 'home' %}
-{% endif %}
 <div id="mainToolbar">
     <a href="{{ url('_home') }}" id="logo" onclick="loadBox('/', 'tabHome');  return false;">VIDLIS</a>
     {% include 'VidlisCoreBundle:Default:player.html.twig' %}
@@ -19,14 +16,14 @@
 <div class="relative" id="container">
 <section id="secondToolbar">
     <ol id="mainNavMenu" class="newNavMenu UI_nav navigation">
-        <li class="tab {% if tab == 'home' %}current{% endif %}">
-            <a href="{{ url('_home') }}" onclick="loadBox('/', 'tabHome');  return false;" class="tabHome {% if tab == 'home' %}default{% endif %}">Home</a>
+        <li class="tab">
+            <a href="{{ url('_home') }}" onclick="loadBox('/');  return false;" class="tab_home">Home</a>
         </li>
-        <li class="tab {% if tab == 'artist' %}current{% endif %}">
-            <a href="{{ url('_artist') }}" onclick="loadBox('/artists/', 'tabArtist');  return false;" class="tabArtist {% if tab == 'artist' %}default{% endif %}">Artists</a>
+        <li class="tab">
+            <a href="{{ url('_artist') }}" onclick="loadBox('/artists/');  return false;" class="tab_artist">Artists</a>
         </li>
-        <li class="tab {% if tab == 'playlist' %}current{% endif %}">
-            <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all', 'tabPlaylist');  return false;" class="tabPlaylist {% if tab == 'playlist' %}default{% endif %}">Playlists</a>
+        <li class="tab">
+            <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;" class="tab_playlist">Playlists</a>
         </li>
     </ol>
 

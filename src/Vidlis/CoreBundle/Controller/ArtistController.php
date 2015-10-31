@@ -100,6 +100,7 @@ class ArtistController extends Controller
         $data['artists'] = $this->getArtistList($limit, $offset, $genre);
         $data['genre'] = $genre;
         $data['genres'] = $this->genders;
+        $data['tab'] = 'artist';
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
@@ -183,8 +184,9 @@ class ArtistController extends Controller
             ->isProcessed()
             ->setName(urldecode($artistName))
             ->getSingle();
-        $data = array();
+        $data = [];
         $data['artist'] = $artist;
+        $data['tab'] = 'artist';
         if ($artist instanceof Artist) {
             $similarArtists = $artistQuery->reset()->getSimilarArtists($artist);
             $data['similarArtists'] = $similarArtists;
@@ -195,6 +197,7 @@ class ArtistController extends Controller
         } else {
             $data['connected'] = false;
         }
+
         return $data;
     }
 

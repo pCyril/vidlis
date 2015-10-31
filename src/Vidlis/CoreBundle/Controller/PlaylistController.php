@@ -81,10 +81,13 @@ class PlaylistController extends Controller
     public function contentAction()
     {
         if ($this->getUser()) {
-            return ['user' => $this->getUser(), 'connected' => true];
+            $data = ['user' => $this->getUser(), 'connected' => true];
         } else {
-            return ['connected' => false];
+            $data = ['connected' => false];
         }
+        $data['tab'] = 'playlist';
+
+        return $data;
     }
 
     /**
@@ -96,18 +99,20 @@ class PlaylistController extends Controller
         $data = [];
         $data['title'] = 'Playlists';
         if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentall.html.twig', $this->contentallAction());
+            $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentAll.html.twig', $this->contentAllAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+
         return $data;
     }
 
     /**
      * @Template()
      */
-    public function contentallAction()
+    public function contentAllAction()
     {
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
@@ -118,6 +123,8 @@ class PlaylistController extends Controller
             $data = ['connected' => false];
         }
         $data['playlists'] = $playlists;
+        $data['tab'] = 'playlist';
+
         return $data;
     }
 
@@ -134,35 +141,40 @@ class PlaylistController extends Controller
         if (!is_null($playlist)) {
             $data['title'] = $playlist->getName().' - Playlist';
             if ($this->getRequest()->isMethod('POST')) {
-                $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentcomment.html.twig', $this->contentcommentAction($idPlaylist));
+                $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentComment.html.twig', $this->contentCommentAction($idPlaylist));
                 $response = new Response(json_encode($data));
                 $response->headers->set('Content-Type', 'application/json');
+
                 return $response;
             } else {
                 $data['idPlaylist'] = $idPlaylist;
             }
         } else {
+
             return $this->redirect($this->generateUrl('_homePlaylistsAll'));
         }
+
         return $data;
     }
 
     /**
      * @Template()
      */
-    public function contentcommentAction($idPlaylist)
+    public function contentCommentAction($idPlaylist)
     {
         $data = [];
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
         $playlist = $playlistQuery->setId($idPlaylist)->getSingle('playlist_'.$idPlaylist);
         $data['playlist'] = $playlist;
+        $data['tab'] = 'playlist';
         if ($this->getUser()) {
             $data['connected'] = true;
             $data['user'] = $this->getUser();
         } else {
             $data['connected'] = false;
         }
+
         return $data;
     }
 
@@ -173,27 +185,31 @@ class PlaylistController extends Controller
     public function favoriteAction()
     {
         $data = [];
-        $data['title'] = 'Mes playlists favorites';
+        $data['title'] = 'My favorites playlist';
 
         if ($this->getRequest()->isMethod('POST')) {
-            $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentfavorite.html.twig', $this->contentfavoriteAction());
+            $data['content'] = $this->renderView('VidlisCoreBundle:Playlist:contentFavorite.html.twig', $this->contentFavoriteAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         }
+
         return $data;
     }
 
     /**
      * @Template()
      */
-    public function contentfavoriteAction()
+    public function contentFavoriteAction()
     {
         if ($this->getUser()) {
             $data = ['user' => $this->getUser(), 'connected' => true];
         } else {
             $data = ['connected' => false];
         }
+        $data['tab'] = 'playlist';
+
         return $data;
     }
 

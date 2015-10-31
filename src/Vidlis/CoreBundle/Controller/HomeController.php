@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function indexAction($idVideo = null)
     {
-        $data = array();
+        $data = [];
         if (!is_null($idVideo)) {
             $youtubeVideoService = $this->get('youtubeVideo');
             $result = $youtubeVideoService->setId($idVideo)->getResult();
@@ -37,12 +37,14 @@ class HomeController extends Controller
             $data['content'] = $this->renderView('VidlisCoreBundle:Home:content.html.twig', $this->contentAction());
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
+
             return $response;
         } else {
             if (!is_null($idVideo)) {
                 $data['launch'] = $idVideo;
             }
         }
+
         return $data;
     }
     
@@ -55,13 +57,14 @@ class HomeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $playedQuery = new PlayedQuery($em);
         $videosPlayed = $playedQuery->getLastPlayed(12);
-        $data = array('videosPlayed' => $videosPlayed);
+        $data = ['videosPlayed' => $videosPlayed, 'tab' => 'home'];
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;
         } else {
             $data['connected'] = false;
         }
+
         return $data;
     }
 
@@ -73,9 +76,10 @@ class HomeController extends Controller
     {
         $data = [];
         $data['title'] = "Partager c'est cool !";
-        $data['content'] = $this->renderView('VidlisCoreBundle:Home:sharePopup.html.twig', array('idVideo' => $idVideo));
+        $data['content'] = $this->renderView('VidlisCoreBundle:Home:sharePopup.html.twig', ['idVideo' => $idVideo]);
         $response = new Response(json_encode($data));
         $response->headers->set('Content-Type', 'application/json');
+
         return $response;
     }
 }

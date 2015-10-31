@@ -3,3 +3,7 @@
 {% else %}
     <a href="{{ path('fos_user_security_login') }}" class="toModalHTML register"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
 {% endif %}
+{% if tab is not defined %}
+    {% set tab = '' %}
+{% endif %}
+<input type="hidden" id="current_tab" value="{{ tab }}">

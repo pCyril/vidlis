@@ -15,6 +15,19 @@ $(document).ready(function () {
                 console.log('callback - particles.js config loaded');
             });
         }
+
+        if ($('body').find('#current_tab').length) {
+            tab = $('body').find('#current_tab').val();
+            currentTab = $('body').find('.tab.current');
+            currentTab.removeClass('current');
+            currentTab.find('a').removeClass('default');
+            $('.tab_' + tab).addClass('default');
+            $('.tab_' + tab).parent().addClass('current');
+        } else {
+            currentTab = $('body').find('.tab.current');
+            currentTab.removeClass('current');
+            currentTab.find('a').removeClass('default');
+        }
     });
     $('.showPlaying').on('click', function () {
         $('.infoPlayed, .showPlaying').toggleClass('open', 500);
@@ -214,19 +227,11 @@ $(".toModalHTML").live('click', function () {
     }
 );
 
-function loadBox(url, tab) {
+function loadBox(url) {
     if ($.address.value() != url) {
         $.address.value(url);
     } else {
         forceLoad(url, mprogress);
-    }
-
-    if (tab != undefined) {
-        currentTab = $('body').find('.tab.current');
-        currentTab.removeClass('current');
-        currentTab.find('a').removeClass('default');
-        $('.'+tab).addClass('default');
-        $('.'+tab).parent().addClass('current');
     }
 }
 
