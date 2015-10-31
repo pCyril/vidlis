@@ -99,7 +99,7 @@ class ArtistController extends Controller
     /**
      * @Template()
      */
-    public function contentAction($limit = 20, $offset = 0, $genre)
+    public function contentAction($limit = 20, $offset = 0, $genre = null)
     {
         $data = [];
         $data['artists'] = $this->getArtistList($limit, $offset, $genre);
