@@ -408,31 +408,52 @@ function pauseVideo() {
 
 function onYouTubeIframeAPIReady() {
     $('#play_b').on('click', function () {
+        if ('' === curentVideoId) {
+            return
+        }
         pauseVideo();
     });
     $('#play_p').on('click', function () {
+        if ('' === curentVideoId) {
+            return
+        }
         playVideo();
     });
     $('#next_b').on('click', function () {
+        if ('' === curentVideoId) {
+            return
+        }
         next();
     });
     $('#preview_b').on('click', function () {
+        if ('' === curentVideoId) {
+            return
+        }
         preview();
     });
     $('.btn-trash').on('click', function () {
         clearPlaylist();
     });
     $('#preload,#play,#seekbar').on('click', function (event) {
+        if ('' === curentVideoId) {
+            return
+        }
         eLeft = event.pageX - $('#seekbar').offset().left;
         var widthSeek = $('#seekbar').width();
         ytplayer.seekTo(Math.round(ytplayer.getDuration() * (eLeft / widthSeek)));
     });
     $('#preload,#play,#seekbar').on('click', function (event) {
+        if ('' === curentVideoId) {
+            return
+        }
         eLeft = event.pageX - $('#seekbar').offset().left;
         var widthSeek = $('#seekbar').width();
         ytplayer.seekTo(Math.round(ytplayer.getDuration() * (eLeft / widthSeek)));
     });
     $('#preload,#play,#seekbar').live('mousemove',function (event) {
+        if ('' === curentVideoId) {
+            return
+        }
         eLeft = event.pageX - $('#seekbar').offset().left;
         var widthSeek = $('#seekbar').width();
         $('#timeSearch').html(getTime(Math.round(ytplayer.getDuration() * (eLeft / widthSeek))));
