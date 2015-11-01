@@ -36,14 +36,19 @@ class SuggestionController extends Controller
         $data = [];
         $data['fail'] = true;
         $idVideo = $this->getRequest()->get('videoid');
+        $playlist = $this->getRequest()->get('playlist');
         if (null === $idVideo) {
             return new JsonResponse($data);
         }
         $result = $this->get('youtubeSuggestion')->setRelatedToVideoId($idVideo)->getResults();
         if (isset($result->items[0])) {
-            $item = $result->items[0];
-            $data['videoId'] = $item->id->videoId;
-            $data['fail'] = false;
+            foreach ($result->items as $item) {
+                if (!in_array($item->id->videoId, $playlist)) {
+                    $data['videoId'] = $item->id->videoId;
+                    $data['fail'] = false;
+                    return new JsonResponse($data);
+                }
+            }
         }
 
         return new JsonResponse($data);

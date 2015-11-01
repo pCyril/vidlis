@@ -652,12 +652,18 @@ function next() {
             return true;
         } else {
             if ($('#autoplay').is(':checked') && '' !== curentVideoId) {
-                console.log('coucou');
+                var videoIds = [];
+                $('#playlistContent .itemPlaylist').each(function() {
+                    videoIds.push($(this).data('id'));
+                });
                 $.ajax({
                     url: DOMAIN_NAME + '/getFirstSuggestionVideoId',
                     type: 'post',
                     dataType: 'json',
-                    data: { videoid: curentVideoId},
+                    data: {
+                        videoid: curentVideoId,
+                        playlist: videoIds
+                    },
                     beforeSend: function () {
                         $('.loadQueue').show();
                     },
