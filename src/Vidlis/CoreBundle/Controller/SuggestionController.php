@@ -2,37 +2,59 @@
 namespace Vidlis\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class SuggestionController extends Controller
 {
     /**
      * @Route("/getSuggestion", name="_getSuggestion")
-     * @Template()
      */
     public function suggestionAction()
     {
-        $data = [];
-        if ($this->getRequest()->isXmlHttpRequest()) {
-            $idVideo = $this->getRequest()->request->get('videoid');
-            $data['suggestion'] = $this->get('youtubeSuggestion')->setRelatedToVideoId($idVideo)->getResults();
-            $response = new Response(json_encode($data));
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            return new Response('You don\'t have the right ;)', 500);
         }
+        $data = [];
+        $idVideo = $this->getRequest()->get('videoid');
+        $data['suggestion'] = $this->get('youtubeSuggestion')->setRelatedToVideoId($idVideo)->getResults();
+
+        return new JsonResponse($data);
+
+    }
+
+    /**
+     * @Route("/getFirstSuggestionVideoId", name="_getFirstSuggestionVideoId")
+     */
+    public function getFirstSuggestionVideoIdAction()
+    {
+        if (!$this->getRequest()->isXmlHttpRequest()) {
+            return new Response('You don\'t have the right ;)', 500);
+        }
+        $data = [];
+        $data['fail'] = true;
+        $idVideo = $this->getRequest()->get('videoid');
+        if (null === $idVideo) {
+            return new JsonResponse($data);
+        }
+        $result = $this->get('youtubeSuggestion')->setRelatedToVideoId($idVideo)->getResults();
+        if (isset($result->items[0])) {
+            $item = $result->items[0];
+            $data['videoId'] = $item->id->videoId;
+            $data['fail'] = false;
+        }
+
+        return new JsonResponse($data);
     }
 
     /**
      * @Route("/getSuggestionRemote/{videoId}", name="_suggestRemote", requirements={"searchValue" = ".+"})
-     * @Template()
      */
     public function searchRemoteAction($videoId)
     {
-        return new Response(
+        return new JsonResponse(
             json_encode($this->get('youtubeSuggestion')->setRelatedToVideoId($videoId)->getResults()),
             201,
             [

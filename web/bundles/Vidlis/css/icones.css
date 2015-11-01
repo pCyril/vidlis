@@ -122,3 +122,11 @@
 .icon-absolute.loop, .icon.loop {
     background-position: -1px -726px;
 }
+
+.icon-absolute.auto-active, .icon.auto-active {
+    background-position: -358px -1062px
+}
+
+.icon-absolute.auto-inactive, .icon.auto-inactive {
+    background-position: -408px -1062px
+}

@@ -40,7 +40,10 @@
             <a href="#" class="btn-suggestion"><i class="icon suggestion mouseoverInfo" data-info="Show / hide the suggests"></i></a>
             <a href="#" class="btn-trash"><i class="icon trash mouseoverInfo" data-info="Clear the queue"></i></a>
             <a href="#" class="btn-loop"><i class="icon loop mouseoverInfo" data-info="Repeat"></i></a>
-            {#<a href="#" class="btn-grow"><i class="icon grow mouseoverInfo" data-info="Agrandir la vidéo"></i></a>#}
+            <div class="onoffswitch mouseoverInfo" data-info="Auto Play">
+                <input type="checkbox" name="autoplay" class="onoffswitch-checkbox" id="autoplay">
+                <label class="onoffswitch-label" for="autoplay"></label>
+            </div>
         </div>
         <div id="playlistContent">
             <ul></ul>

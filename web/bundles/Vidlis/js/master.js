@@ -11,9 +11,7 @@ $(document).ready(function () {
             });
         }
         if ($('body').find('#particules-js').length) {
-            particlesJS.load('particules-js', '/bundles/Vidlis/js/assets/particules.json', function() {
-                console.log('callback - particles.js config loaded');
-            });
+            particlesJS.load('particules-js', '/bundles/Vidlis/js/assets/particules.json');
         }
         if ($('body').find('.boxArtist').length) {
             bindArtist($('body'));
@@ -353,7 +351,6 @@ function onPlayerError(errorCode) {
     }
 }
 
-// This function is called when the player changes state
 function onPlayerStateChange(newState) {
     if (newState.data == -1 || newState.data == 0 || newState.data == 2 || newState.data == 3) {
         $("#play_b").css('display', 'none');
@@ -425,24 +422,24 @@ function onYouTubeIframeAPIReady() {
     $('.btn-trash').on('click', function () {
         clearPlaylist();
     });
-    $('#preload,#play').on('click', function (event) {
+    $('#preload,#play,#seekbar').on('click', function (event) {
         eLeft = event.pageX - $('#seekbar').offset().left;
         var widthSeek = $('#seekbar').width();
         ytplayer.seekTo(Math.round(ytplayer.getDuration() * (eLeft / widthSeek)));
     });
-    $('#preload,#play').on('click', function (event) {
+    $('#preload,#play,#seekbar').on('click', function (event) {
         eLeft = event.pageX - $('#seekbar').offset().left;
         var widthSeek = $('#seekbar').width();
         ytplayer.seekTo(Math.round(ytplayer.getDuration() * (eLeft / widthSeek)));
     });
-    $('#preload,#play').live('mousemove',function (event) {
+    $('#preload,#play,#seekbar').live('mousemove',function (event) {
         eLeft = event.pageX - $('#seekbar').offset().left;
         var widthSeek = $('#seekbar').width();
         $('#timeSearch').html(getTime(Math.round(ytplayer.getDuration() * (eLeft / widthSeek))));
         $('#timeSearch').css('display', 'block');
         $('#timeSearch').css('left', (event.pageX - $('.main-container').offset().left - ($('#timeSearch').width() / 2)) + 'px');
     });
-    $('#preload,#play').live('mouseout', function () {
+    $('#preload,#play,#seekbar').live('mouseout', function () {
         $('#timeSearch').css('display', 'none');
     });
     $('#bar_v,#current_v').on('click', function (event) {
@@ -487,7 +484,7 @@ function addToQueue(id, after, addedByGroup) {
         data: { videoid: id},
         beforeSend: function () {
             $('.loadQueue, .successAddedToQueue').show();
-            $('.successAddedToQueue').html('Ajout en cours à la playlist');
+            $('.successAddedToQueue').html('Adding in progress in the playlist');
             $('#share').css('display', 'block');
         },
         success: function (data, textStatus, jqXHR) {
@@ -564,7 +561,8 @@ function formatPlaylist(video, after, addedByGroup) {
         $('.loadQueue').hide();
         $('.btn-suggestion').show();
         $('.btn-loop').show();
-        $('.successAddedToQueue').html('Le titre a bien été ajouté à la playlist');
+        $('.btn-auto').show();
+        $('.successAddedToQueue').html('The video has been added');
         $('.successAddedToQueue').delay(800).fadeOut();
     });
     $("#playlistContent ul").sortable({ axis: "x" });
@@ -631,6 +629,27 @@ function next() {
             }
             $("#playlistContent").mCustomScrollbar("scrollTo","left");
             return true;
+        } else {
+            if ($('#autoplay').is(':checked') && '' !== curentVideoId) {
+                console.log('coucou');
+                $.ajax({
+                    url: DOMAIN_NAME + '/getFirstSuggestionVideoId',
+                    type: 'post',
+                    dataType: 'json',
+                    data: { videoid: curentVideoId},
+                    beforeSend: function () {
+                        $('.loadQueue').show();
+                    },
+                    success: function (data) {
+                        if (!data.fail) {
+                            addToQueue(data.videoId);
+                        }
+                    }
+                }).done(function() {
+                    $('.loadQueue').hide();
+                });
+                return true;
+            }
         }
     }
     return false;
