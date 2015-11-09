@@ -60,7 +60,7 @@ class SuggestionController extends Controller
     public function searchRemoteAction($videoId)
     {
         return new JsonResponse(
-            json_encode($this->get('youtubeSuggestion')->setRelatedToVideoId($videoId)->getResults()),
+            $this->get('youtubeSuggestion')->setRelatedToVideoId($videoId)->getResults(),
             201,
             [
                 'Access-Control-Allow-Origin' => '*',
