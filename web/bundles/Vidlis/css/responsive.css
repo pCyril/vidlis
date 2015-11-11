@@ -92,6 +92,11 @@
 }
 
 @media only screen and (max-width: 915px) {
+
+    .artistDetail .text {
+        width: auto;
+    }
+
     #mainToolbar-mobile {
         display: block;
     }
@@ -123,6 +128,8 @@
 
     #prog #title{
         left: 300px;
+        width: 100%;
+        padding-right: 480px;
     }
 
     #next_b {
@@ -169,14 +176,24 @@
     }
 }
 
+@media only screen and (max-width: 767px) {
+    .modalHTMLArtistContent .modal-dialog {
+        margin-left: auto;
+    }
+}
+
 @media only screen and (max-width: 730px) {
     #mainToolbar-mobile {
         margin-top: 220px;
     }
 
     .titleSearch {
-        width: 400px;
-        margin-left: -200px;
+        width: 350px;
+        margin-left: -175px;
+    }
+
+    .search-input-bg input {
+        width: 300px;
     }
 
     #main-lecteur {
@@ -207,6 +224,7 @@
 
     #prog #title{
         left: 70px;
+        padding-right: 250px;
     }
 
     #next_b {
@@ -234,10 +252,34 @@
     }
 }
 
+@media only screen and (max-width: 600px) {
+    .itemDescriptionSearch {
+        display: none;
+    }
+
+    .itemTitleSearch {
+        text-align: left;
+        max-height: 113px;
+        overflow: hidden;
+    }
+
+    .form-horizontal .control-label {
+        width: auto;
+    }
+
+    .modal-body .form-horizontal .controls {
+        margin-left: 130px;
+    }
+}
+
 @media only screen and (max-width: 660px) {
 
     .UI_nav.navigation>li.tab>a {
         width: 100px;
+    }
+
+    .btn-register-home {
+        width: 250px;
     }
 
     .boxplayed {
