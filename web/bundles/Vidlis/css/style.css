@@ -404,7 +404,7 @@ i.icon-large{
     margin-bottom: 30px;
     text-align: left;
     width: 320px;
-    float: left;
+    display: inline-block;
     background-color: #fff;
     padding-bottom: 40px;
     border-radius: 3px;
@@ -1652,7 +1652,7 @@ i.icon-large{
     width: 350px;
     height: 300px;
     padding: 10px;
-    z-index: 10;
+    z-index: 100;
     background-color: #262626;
     border-top-left-radius: 4px;
 }
@@ -1670,6 +1670,7 @@ i.icon-large{
 }
 
 .showPlaying {
+    z-index: 100;
     position: fixed;
     bottom: 0px;
     right: 20px;
@@ -1690,7 +1691,7 @@ i.icon-large{
     width: 330px;
     overflow: auto;
 }
-#mainToolbar {
+#mainToolbar, #mainToolbar-mobile {
     position: relative;
     z-index: 99;
     height: 47px;
@@ -1704,6 +1705,11 @@ i.icon-large{
     background: -ms-linear-gradient(bottom, #262626 0%, #353535 100%);
     background: linear-gradient(bottom, #262626 0%,#353535 100%);
     box-shadow: inset 0 1px 0 0 #454545,0 1px 5px 0 rgba(0,0,0,0.76);
+}
+
+#mainToolbar-mobile {
+    display: none;
+    z-index: 1;
 }
 
 #mainToolbar #logo {

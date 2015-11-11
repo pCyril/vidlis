@@ -463,7 +463,7 @@ function onYouTubeIframeAPIReady() {
     $('#preload,#play,#seekbar').live('mouseout', function () {
         $('#timeSearch').css('display', 'none');
     });
-    $('#bar_v,#current_v').on('click', function (event) {
+    $('#bar_v').on('click', function (event) {
         eLeft = event.pageX - $('#bar_v').offset().left;
         var widthSeek = $('#bar_v').width();
         $('#current_v').css('width', (Math.round((eLeft / widthSeek) * $('#bar_v').width()) + 'px'));
