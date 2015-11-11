@@ -93,6 +93,11 @@
 
 @media only screen and (max-width: 915px) {
 
+    .successAddedToQueue, .errorMessage {
+        left: auto;
+        right: 120px;
+    }
+
     .artistDetail .text {
         width: auto;
     }
@@ -168,6 +173,19 @@
 }
 
 @media only screen and (max-width: 740px) {
+
+    .similarArtist {
+        display: none;
+    }
+
+    .albumImage {
+        display: none;
+    }
+
+    .discography .album .tracks {
+        margin-left: 0px;
+    }
+
     .boxplayed, .box330 {
         width: 280px;
     }
@@ -183,6 +201,11 @@
 }
 
 @media only screen and (max-width: 730px) {
+
+    .presentation .particules {
+        height: 300px;
+    }
+
     #mainToolbar-mobile {
         margin-top: 220px;
     }
@@ -190,6 +213,7 @@
     .titleSearch {
         width: 350px;
         margin-left: -175px;
+        top: 15px;
     }
 
     .search-input-bg input {
@@ -250,9 +274,23 @@
     .genreRow {
         margin-right: 0px;
     }
+
+    #timeSearch {
+        top: 272px;
+    }
+
 }
 
 @media only screen and (max-width: 600px) {
+
+    .underVideo {
+        width: 300px;
+    }
+
+    #vote {
+        width: 120px;
+    }
+
     .itemDescriptionSearch {
         display: none;
     }
