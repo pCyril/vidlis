@@ -2114,3 +2114,7 @@ h1.artistTitle {
     background-color: #2196F3;
     box-shadow: 3px 6px 18px 0px rgba(0, 0, 0, 0.2);
 }
+
+.publicity-mobile {
+    display: none;
+}

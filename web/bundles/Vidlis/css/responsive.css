@@ -172,6 +172,17 @@
     }
 }
 
+
+@media only screen and (max-width: 800px) {
+    .publicity {
+        display: none;
+    }
+
+    .publicity-mobile {
+        display: block;
+    }
+}
+
 @media only screen and (max-width: 740px) {
 
     .similarArtist {
@@ -201,7 +212,6 @@
 }
 
 @media only screen and (max-width: 730px) {
-
     .presentation .particules {
         height: 300px;
     }
