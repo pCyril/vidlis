@@ -59,16 +59,6 @@ $(document).ready(function () {
         }
         return false;
     });
-    $('#grow').on('click', function(){
-        $('.playerVideo').animate({
-            left: '50%',
-            'margin-left': '-500px',
-            width: '1000px',
-            height: '500px',
-            top: '80px'
-        }, 1000);
-        $('#playerYt').animate({'width': '988px', height: '488px'}, 1000);
-    });
     $(".mCustomScrollbarExist").each(function () {
         $(this).mCustomScrollbar(
             {
@@ -184,25 +174,25 @@ $('body').bind('click', function (e) {
         && $(e.target).is('.modal, .modal-dialog')) {
         $('.modal, .overlay').hide();
     }
-    if ($('.playerVideo').hasClass('grow')
-        && $(e.target).is('.overlay')) {
-        $('.overlay').hide();
-        $('.playerVideo').removeClass('grow');
-        $('#ytPlayer').attr('width', 200);
-        $('#ytPlayer').attr('height', 200);
-        $('.playerVideo').css('width', 200 + 'px');
-        $('.playerVideo').css('height', 200 + 'px');
-    }
 });
-$(document).keyup(function (e) {
-    if ($('.playerVideo').hasClass('grow')
-        && e.keyCode == 27) {
-        $('.overlay').hide();
-        $('.playerVideo').removeClass('grow');
-        $('#ytPlayer').attr('width', 200);
-        $('#ytPlayer').attr('height', 200);
-        $('.playerVideo').css('width', 200 + 'px');
-        $('.playerVideo').css('height', 200 + 'px');
+
+window.onkeydown = function(e) {
+    return !(e.keyCode == 32);
+};
+
+$('html').keyup(function(e){
+    if(e.keyCode == 32){
+        if (ytplayer) {
+            state = ytplayer.getPlayerState();
+            if (5 === state) {
+                return;
+            }
+            if (1 === state || 3 === state) {
+                pauseVideo();
+            } else {
+                playVideo();
+            }
+        }
     }
 });
 
@@ -391,6 +381,9 @@ function setVideoVolume(volume) {
 }
 
 function playVideo() {
+    if ('' === curentVideoId) {
+        return
+    }
     if (ytplayer) {
         $("#play_b").css('display', 'none');
         $("#play_p").css('display', 'block');
@@ -399,6 +392,9 @@ function playVideo() {
 }
 
 function pauseVideo() {
+    if ('' === curentVideoId) {
+        return
+    }
     if (ytplayer) {
         $("#play_p").css('display', 'none');
         $("#play_b").css('display', 'block');
@@ -408,15 +404,9 @@ function pauseVideo() {
 
 function onYouTubeIframeAPIReady() {
     $('#play_b').on('click', function () {
-        if ('' === curentVideoId) {
-            return
-        }
         pauseVideo();
     });
     $('#play_p').on('click', function () {
-        if ('' === curentVideoId) {
-            return
-        }
         playVideo();
     });
     $('#next_b').on('click', function () {
@@ -433,14 +423,6 @@ function onYouTubeIframeAPIReady() {
     });
     $('.btn-trash').on('click', function () {
         clearPlaylist();
-    });
-    $('#preload,#play,#seekbar').on('click', function (event) {
-        if ('' === curentVideoId) {
-            return
-        }
-        eLeft = event.pageX - $('#seekbar').offset().left;
-        var widthSeek = $('#seekbar').width();
-        ytplayer.seekTo(Math.round(ytplayer.getDuration() * (eLeft / widthSeek)));
     });
     $('#preload,#play,#seekbar').on('click', function (event) {
         if ('' === curentVideoId) {
@@ -476,9 +458,9 @@ function onYouTubeIframeAPIReady() {
             controls: '0'
         },
         events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange,
-            'onError': onPlayerError
+            onReady: onPlayerReady,
+            onStateChange: onPlayerStateChange,
+            onError: onPlayerError
         }
     });
     setInterval(updatePlayerInfo, 250);
@@ -493,7 +475,6 @@ function loadPlayer() {
     tag.src = "https://www.youtube.com/iframe_api";
     firstScriptTag = document.getElementsByTagName('script')[0];
     firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
 }
 
 function addToQueue(id, after, addedByGroup) {
@@ -508,7 +489,7 @@ function addToQueue(id, after, addedByGroup) {
             $('.successAddedToQueue').html('Adding in progress in the playlist');
             $('#share').css('display', 'block');
         },
-        success: function (data, textStatus, jqXHR) {
+        success: function (data) {
             formatPlaylist(data.video, after, addedByGroup);
         }
     });
@@ -566,11 +547,10 @@ function formatPlaylist(video, after, addedByGroup) {
             curentVideoId = this.id;
             launched(this.id);
             $('#title').html(this.snippet.title);
-            ytplayer.playVideo();
+            setTimeout(playVideo, 100);
             $item.addClass('active');
             $('#viewCount span').html(makeSeperator(this.statistics.viewCount, ' '));
-            $('#viewCount').css('display', 'block');
-            $('#vote').css('display', 'block');
+            $('#vote, #viewCount').css('display', 'block');
             totLike = parseInt(this.statistics.likeCount) + parseInt(this.statistics.dislikeCount);
             $('#vote .like').css('width', Math.round(parseInt(this.statistics.likeCount) / (totLike) * 100) + '%');
             $('.btn-save').show();
@@ -580,11 +560,8 @@ function formatPlaylist(video, after, addedByGroup) {
             next();
         }
         $('.loadQueue').hide();
-        $('.btn-suggestion').show();
-        $('.btn-loop').show();
-        $('.btn-auto').show();
-        $('.successAddedToQueue').html('The video has been added');
-        $('.successAddedToQueue').delay(800).fadeOut();
+        $('.btn-suggestion, .btn-auto, .btn-loop').show();
+        $('.successAddedToQueue').html('The video has been added').delay(800).fadeOut();
     });
     $("#playlistContent ul").sortable({ axis: "x" });
     updateUser();
