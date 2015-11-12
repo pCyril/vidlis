@@ -177,10 +177,16 @@ $('body').bind('click', function (e) {
 });
 
 window.onkeydown = function(e) {
+    if ($(document.activeElement).is('input') || $(document.activeElement).is('textarea')) {
+        return ' ';
+    }
     return !(e.keyCode == 32);
 };
 
 $('html').keyup(function(e){
+    if ($(document.activeElement).is('input') || $(document.activeElement).is('textarea')) {
+        return ' ';
+    }
     if(e.keyCode == 32){
         if (ytplayer) {
             state = ytplayer.getPlayerState();
