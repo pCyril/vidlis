@@ -474,6 +474,7 @@ function onYouTubeIframeAPIReady() {
 }
 
 function onPlayerReady() {
+    $('.spinner').hide();
     $("body").trigger("playerReady");
 }
 
