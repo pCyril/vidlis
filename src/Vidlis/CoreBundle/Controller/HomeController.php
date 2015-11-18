@@ -10,6 +10,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 use Vidlis\CoreBundle\Entity\PlayedQuery;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Cache;
+use Vidlis\CoreBundle\Memcache\MemcacheService;
 
 class HomeController extends Controller
 {
@@ -57,7 +58,29 @@ class HomeController extends Controller
         $em = $this->getDoctrine()->getManager();
         $playedQuery = new PlayedQuery($em);
         $videosPlayed = $playedQuery->getLastPlayed(12);
-        $data = ['videosPlayed' => $videosPlayed, 'tab' => 'home'];
+
+        /** @var MemcacheService $memcache */
+        $memcache = $this->get('memcache');
+
+        $selectedImages = $memcache->get('selectedImages');
+        if (!$selectedImages) {
+            $selectedImages = [];
+            $images = glob('images/albums/*.png');
+            $i = 0;
+            while ($i < 70) {
+                $image = array_rand($images);
+                $selectedImages[] = $images[$image];
+                unset($images[$image]);
+                $i++;
+            }
+            $memcache->set('selectedImages', $selectedImages, 3600);
+        }
+
+        $data = [
+            'videosPlayed' => $videosPlayed,
+            'tab' => 'home',
+            'images' => $selectedImages,
+        ];
         if ($this->getUser()) {
             $data['user'] = $this->getUser();
             $data['connected'] = true;

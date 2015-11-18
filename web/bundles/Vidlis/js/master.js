@@ -10,9 +10,6 @@ $(document).ready(function () {
                 $(this).attr('target', '_blank');
             });
         }
-        if ($('body').find('#particules-js').length) {
-            particlesJS.load('particules-js', '/bundles/Vidlis/js/assets/particules.json');
-        }
         if ($('body').find('.boxArtist').length) {
             bindArtist($('body'));
         }

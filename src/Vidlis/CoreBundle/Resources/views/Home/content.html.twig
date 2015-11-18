@@ -1,6 +1,10 @@
 <div id="right_content">
     <div class="presentation">
-        <div class="particules" id="particules-js">
+        <div class="particules">
+            <div class="shadow"></div>
+            {% for image in images %}
+                <img src="{{ asset(image) }}" class="imagesAlbum">
+            {% endfor %}
             <div class="titleSearch">
             <h2>Discover a new way to listen music for free</h2>
             <div class="searchZoneHome">
