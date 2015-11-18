@@ -6,14 +6,8 @@
                 <img src="{{ asset(image) }}" class="imagesAlbum">
             {% endfor %}
             <div class="titleSearch">
-            <h2>Discover a new way to listen music for free</h2>
-            <div class="searchZoneHome">
-                <form class="formSearchHome" id="formSearchHome">
-                <div class="search-input-bg">
-                    <input type="text" placeholder="Search your music" name="search" id="q" autocomplete="off" class="search-input ui-autocomplete-input">
-                </div>
-                </form>
-            </div>
+                <h2>Create playlists from your<br> favorites YouTube videos</h2>
+                <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;">Discover popular playlists</a>
             </div>
         </div>
         <div id="feeds">

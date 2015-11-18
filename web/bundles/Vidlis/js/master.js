@@ -35,7 +35,7 @@ $(document).ready(function () {
             $('.showPlaying').html('-');
         }
     });
-    $('.formSearchHome, .formSearch').live('submit', function () {
+    $('.formSearch').live('submit', function () {
         var valueSearch = $(this).find("input[name='search']").val();
         if (valueSearch) {
             url = '/search/' + encodeURIComponent(valueSearch);
