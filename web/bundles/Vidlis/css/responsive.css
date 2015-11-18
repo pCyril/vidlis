@@ -217,6 +217,7 @@
 }
 
 @media only screen and (max-width: 730px) {
+
     .presentation .particules {
         height: 300px;
     }
@@ -229,6 +230,11 @@
         width: 350px;
         margin-left: -175px;
         top: 15px;
+    }
+
+    .presentation h2 {
+        font-size: 25px;
+        line-height: 30px;
     }
 
     .search-input-bg input {
