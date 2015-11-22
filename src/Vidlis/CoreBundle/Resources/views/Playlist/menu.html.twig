@@ -15,7 +15,7 @@
         </ul>
         {% if connected %}
             <ul class="nav pull-right">
-                <li {% if tab == 'favorite' %}class="active"{% endif %}>
+                <li>
                     <a href="{{ path('fos_user_security_logout') }}" class="toModalHTML"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
                 </li>
             </ul>
