@@ -124,12 +124,13 @@ abstract class AbstractQuery extends AbstractCache
     }
 
     /**
-     * @param $number
+     * @param int $number
+     * @param int $offset
      * @return $this
      */
-    public function setLimit($number)
+    public function setLimit($number, $offset = 0)
     {
-        $this->queryBuilder->setMaxResults($number);
+        $this->queryBuilder->setMaxResults($number)->setFirstResult($offset);
         return $this;
     }
 

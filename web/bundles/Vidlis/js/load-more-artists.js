@@ -1,6 +1,6 @@
 var loadingMore = false;
 $(window).scroll(function() {
-    if($(window).scrollTop() + $(window).height() == $(document).height() && !loadingMore && !$('.loadMoreContent').hasClass('noMore')) {
+    if($(window).scrollTop() + $(window).height() == $(document).height() && $('body').find('.loadMoreContent').length != 0 && !loadingMore && !$('.loadMoreContent').hasClass('noMore')) {
         var url = DOMAIN_NAME + '/load/artists/' + $('.loadMoreContent').data('limit') + '/' + $('.loadMoreContent').data('offset') + '/' + $('.loadMoreContent').data('tag');
         $.ajax({
             url: url,
@@ -41,7 +41,7 @@ $(window).scroll(function() {
                 });
                 loadingMore = false;
                 if (data.html == '') {
-                    $('.loadMoreContent').addClass('noMore').html('A fini ...');
+                    $('.loadMoreContent').addClass('noMore').html('No more ...');
                 } else {
                     $('.loadMoreContent').data('offset', data.offset);
                     $('.loadMoreContent').hide();

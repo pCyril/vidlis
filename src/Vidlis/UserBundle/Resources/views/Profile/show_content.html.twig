@@ -6,21 +6,10 @@
             {% if videosPlayed|length == 0 %}
                 <div class="alert alert-success" style="margin:10px;">You are new here ? Just play a video and you never see this message again ;).</div>
             {% else %}
-                {% for videoPlayed in videosPlayed %}
-                    <div class="boxplayed" data-id="{{ videoPlayed[0].idVideo }}">
-                        <div class="videoTitle">{{ videoPlayed[0].idVideo|videoTitle }}</div>
-                        <div class="clear"></div>
-                        <div class="images">
-                            <img src="{{ videoPlayed[0].idVideo|videoImage }}">
-                        </div>
-                        <div class="vote"><div class="like" style="width: {{ videoPlayed[0].idVideo|videoPercentageLike }}%"></div></div>
-                        <div class="counts">
-                            <div class="likeCount"><i class="fa fa-thumbs-up"></i>{{ videoPlayed[0].idVideo|videoLikeCount }}</div>
-                            <div class="dislikeCount"><i class="fa fa-thumbs-down"></i>{{ videoPlayed[0].idVideo|videoDislikeCount }}</div>
-                        </div>
-                        <div class="buttonPlay"></div>
-                    </div>
-                {% endfor %}
+                {% include 'VidlisUserBundle:Profile:played.html.twig' with {'videosPlayed': videosPlayed} %}
+                {% if videosPlayed|length == 24 %}
+                    <div class="loadMoreContentPlayed" data-limit="24" data-offset="24">Loading</div>
+                {% endif %}
             {% endif %}
         {% else %}
             <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Create an account</a>

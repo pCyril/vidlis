@@ -27,7 +27,7 @@ class ProfileController extends BaseController
         $data['title'] = 'Your profile';
         if ($request->isXmlHttpRequest()) {
             /** @var TimedTwigEngine $templating */
-            $data['content'] = $this->container->get('templating')->render('VidlisUserBundle:Profile:show_content.html.twig', $this->showContentAction());
+            $data['content'] = $this->container->get('templating')->render('VidlisUserBundle:Profile:show_content.html.twig', $this->showContentAction(24, 0));
             $response = new Response(json_encode($data));
             $response->headers->set('Content-Type', 'application/json');
 
@@ -38,9 +38,12 @@ class ProfileController extends BaseController
     }
 
     /**
+     * @param int $limit
+     * @param int $offset
+     * @return array
      * @Template("VidlisUserBundle:Profile:show_content.html.twig")
      */
-    public function showContentAction()
+    public function showContentAction($limit = 24, $offset = 0)
     {
         $user = $this->container->get('security.context')->getToken()->getUser();
         if (!is_object($user) || !$user instanceof UserInterface) {
@@ -51,10 +54,36 @@ class ProfileController extends BaseController
 
         $em = $this->container->get('doctrine')->getManager();
         $playedQuery = new PlayedQuery($em);
-        $videosPlayed = $playedQuery->getLastPlayed(24, $user);
+        $videosPlayed = $playedQuery->getLastPlayed(24, 0, $user);
         $data = ['user' => $user, 'connected' => true, 'videosPlayed' => $videosPlayed];
 
         return $data;
+    }
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @Template()
+     * @return Response
+     */
+    public function videoPlayedAction($limit, $offset)
+    {
+        $user = $this->container->get('security.context')->getToken()->getUser();
+        if ($user) {
+            $em = $this->container->get('doctrine')->getManager();
+            $playedQuery = new PlayedQuery($em);
+            $data = [];
+            $data['videosPlayed'] = $playedQuery->getLastPlayed($limit, $offset, $user);
+            $data['connected'] = true;
+        } else {
+            $data['connected'] = false;
+        }
+        $data['html'] = $this->container->get('templating')->render('VidlisUserBundle:Profile:played.html.twig', $data);
+        $data['offset'] = $offset + $limit;
+        $response = new Response(json_encode($data));
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     /**

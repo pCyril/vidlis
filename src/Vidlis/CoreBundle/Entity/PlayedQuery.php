@@ -26,11 +26,12 @@ class PlayedQuery extends AbstractQuery
     }
 
     /**
-     * @param $limit
+     * @param int $limit
+     * @param int $offset
      * @param UserInterface $user
      * @return Played[]
      */
-    public function getLastPlayed($limit, $user = null)
+    public function getLastPlayed($limit, $offset = 0, $user = null)
     {
         $this->queryBuilder = $this->em->createQueryBuilder();
         $this->queryBuilder
@@ -44,7 +45,7 @@ class PlayedQuery extends AbstractQuery
             $this->queryBuilder->andWhere('p.user = :user')->setParameter('user', $user);
             $keyCache = 'video_played_' . $user->getUsernameCanonical();
         }
-        $this->setLimit($limit)
+        $this->setLimit($limit, $offset)
             ->setLifetime(30);
         return $this->getList($keyCache);
     }

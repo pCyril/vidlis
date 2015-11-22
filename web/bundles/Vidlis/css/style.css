@@ -1970,7 +1970,7 @@ ul, ol {
     background-color: #03A9F4;
 }
 
-.loadMoreContent {
+.loadMoreContent, .loadMoreContentPlayed {
     position: absolute;
     bottom: 20px;
     left: 50%;
