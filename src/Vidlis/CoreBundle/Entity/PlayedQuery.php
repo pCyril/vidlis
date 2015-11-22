@@ -2,6 +2,7 @@
 namespace Vidlis\CoreBundle\Entity;
 
 use Doctrine\ORM\EntityManager;
+use FOS\UserBundle\Model\UserInterface;
 use Vidlis\CoreBundle\Entity\AbstractQuery;
 
 class PlayedQuery extends AbstractQuery
@@ -26,7 +27,7 @@ class PlayedQuery extends AbstractQuery
 
     /**
      * @param $limit
-     * @param $user
+     * @param UserInterface $user
      * @return Played[]
      */
     public function getLastPlayed($limit, $user = null)
@@ -38,12 +39,14 @@ class PlayedQuery extends AbstractQuery
             ->addGroupBy('p.idVideo')
             ->orderBy('dateMax', 'DESC');
 
+        $keyCache = 'video_played';
         if (null !== $user) {
             $this->queryBuilder->andWhere('p.user = :user')->setParameter('user', $user);
+            $keyCache = 'video_played_' . $user->getUsernameCanonical();
         }
         $this->setLimit($limit)
             ->setLifetime(30);
-        return $this->getList('video_played');
+        return $this->getList($keyCache);
     }
 
     public  function prePersist($entity)
