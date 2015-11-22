@@ -24,7 +24,7 @@ class ProfileController extends BaseController
         /** @var Request $request */
         $request = Request::createFromGlobals();
         $data = [];
-        $data['title'] = 'You profile';
+        $data['title'] = 'Your profile';
         if ($request->isXmlHttpRequest()) {
             /** @var TimedTwigEngine $templating */
             $data['content'] = $this->container->get('templating')->render('VidlisUserBundle:Profile:show_content.html.twig', $this->showContentAction());
