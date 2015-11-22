@@ -20,9 +20,15 @@ UrlCrawler.prototype.load = function(url, mprogress) {
         this.first = false;
         return;
     }
+
+    var type = 'POST';
+    if (url.indexOf('profile') !== -1) {
+        type = 'GET';
+    }
+
     $.ajax({
         url: this.domain + url,
-        type: 'POST',
+        type: type,
         dataType: 'json',
         cache: true,
         success: function (data, textStatus, jqXHR) {

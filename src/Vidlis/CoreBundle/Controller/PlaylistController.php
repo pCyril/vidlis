@@ -83,7 +83,6 @@ class PlaylistController extends Controller
         } else {
             $data = ['connected' => false];
         }
-        $data['tab'] = 'playlist';
 
         return $data;
     }
@@ -212,7 +211,6 @@ class PlaylistController extends Controller
         } else {
             $data = ['connected' => false];
         }
-        $data['tab'] = 'playlist';
 
         return $data;
     }

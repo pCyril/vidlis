@@ -17,7 +17,6 @@ class HomeController extends Controller
 
     /**
      * @Route("/", name="_home")
-     * @Route("/fr/")
      * @Route("/share/{idVideo}")
      * @Template()
      * @Cache(expires="tomorrow")

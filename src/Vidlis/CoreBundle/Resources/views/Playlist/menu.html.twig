@@ -1,17 +1,24 @@
 <div class="navbar">
     <div class="navbar-inner">
-        <ul class="nav">
+        <ul class="nav pull-left">
             <li {% if tab == 'all' %}class="active"{% endif %}>
-                <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;">All playlists</a>
+                <a href="{{ path('fos_user_profile_show') }}"onclick="loadBox('/profile');  return false;"><i class="fa fa-user"></i>&nbsp;{{ app.user }}</a>
             </li>
             <li {% if tab == 'mine' %}class="active"{% endif %}>
                 <a href="{{ url('_homePlaylists') }}" onclick="loadBox('/playlists');  return false;">My playlists</a>
             </li>
             {% if connected %}
                 <li {% if tab == 'favorite' %}class="active"{% endif %}>
-                    <a href="{{ url('_homePlaylistsFavorite') }}" onclick="loadBox('/playlists/favoris');  return false;">My favorite playlists</a>
+                    <a href="{{ url('_homePlaylistsFavorite') }}" onclick="loadBox('/playlists/favoris');  return false;">Favorites</a>
                 </li>
             {% endif %}
         </ul>
+        {% if connected %}
+            <ul class="nav pull-right">
+                <li {% if tab == 'favorite' %}class="active"{% endif %}>
+                    <a href="{{ path('fos_user_security_logout') }}" class="toModalHTML"><i class="fa fa-sign-out"></i>&nbsp;Logout</a>
+                </li>
+            </ul>
+        {% endif %}
     </div>
 </div>

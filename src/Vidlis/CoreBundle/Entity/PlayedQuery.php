@@ -26,9 +26,10 @@ class PlayedQuery extends AbstractQuery
 
     /**
      * @param $limit
+     * @param $user
      * @return Played[]
      */
-    public function getLastPlayed($limit)
+    public function getLastPlayed($limit, $user = null)
     {
         $this->queryBuilder = $this->em->createQueryBuilder();
         $this->queryBuilder
@@ -36,6 +37,10 @@ class PlayedQuery extends AbstractQuery
             ->from('VidlisCoreBundle:Played', 'p')
             ->addGroupBy('p.idVideo')
             ->orderBy('dateMax', 'DESC');
+
+        if (null !== $user) {
+            $this->queryBuilder->andWhere('p.user = :user')->setParameter('user', $user);
+        }
         $this->setLimit($limit)
             ->setLifetime(30);
         return $this->getList('video_played');

@@ -1,0 +1,30 @@
+<div id="right_content">
+    <div id="feeds">
+        {% if connected %}
+            {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'all'} %}
+            <h3>Your last viewed videos</h3>
+            {% if videosPlayed|length == 0 %}
+                <div class="alert alert-success" style="margin:10px;">You are new here ? Just play a video and you never see this message again ;).</div>
+            {% else %}
+                {% for videoPlayed in videosPlayed %}
+                    <div class="boxplayed" data-id="{{ videoPlayed[0].idVideo }}">
+                        <div class="videoTitle">{{ videoPlayed[0].idVideo|videoTitle }}</div>
+                        <div class="clear"></div>
+                        <div class="images">
+                            <img src="{{ videoPlayed[0].idVideo|videoImage }}">
+                        </div>
+                        <div class="vote"><div class="like" style="width: {{ videoPlayed[0].idVideo|videoPercentageLike }}%"></div></div>
+                        <div class="counts">
+                            <div class="likeCount"><i class="fa fa-thumbs-up"></i>{{ videoPlayed[0].idVideo|videoLikeCount }}</div>
+                            <div class="dislikeCount"><i class="fa fa-thumbs-down"></i>{{ videoPlayed[0].idVideo|videoDislikeCount }}</div>
+                        </div>
+                        <div class="buttonPlay"></div>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% else %}
+            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Create an account</a>
+        {% endif %}
+    </div>
+</div>
+{% include 'VidlisCoreBundle:Default:menu.html.twig'%}

@@ -1,7 +1,6 @@
 
 <div id="right_content">
     <div id="feeds">
-        {% include 'VidlisCoreBundle:Playlist:menu.html.twig' with {'tab': 'all'} %}
         {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
         {% for playlist in playlists %}
             <div class="box330 box-boreder" id="{{ playlist.id }}">
