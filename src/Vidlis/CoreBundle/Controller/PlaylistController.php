@@ -117,7 +117,6 @@ class PlaylistController extends Controller
         $playlists = $playlistQuery
             ->setPrivate(false)
             ->setOrderBy(['p.creationDate' => 'DESC'])
-            ->setLimit(12, 0)
             ->getList('playlist_unprivate');
         if ($this->getUser()) {
             $data = ['user' => $this->getUser(), 'connected' => true];
