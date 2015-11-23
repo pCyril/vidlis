@@ -114,7 +114,11 @@ class PlaylistController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
-        $playlists = $playlistQuery->setPrivate(false)->setLimit(12, 0)->setOrderBy(['p.creationDate' => 'DESC'])->getList('playlist_unprivate');
+        $playlists = $playlistQuery
+            ->setPrivate(false)
+            ->setOrderBy(['p.creationDate' => 'DESC'])
+            ->setLimit(12, 0)
+            ->getList('playlist_unprivate');
         if ($this->getUser()) {
             $data = ['user' => $this->getUser(), 'connected' => true];
         } else {
@@ -138,8 +142,8 @@ class PlaylistController extends Controller
         $playlistQuery = new PlaylistQuery($em);
         $playlists = $playlistQuery
             ->setPrivate(false)
-            ->setLimit($limit, $offset)
             ->setOrderBy(['p.creationDate' => 'DESC'])
+            ->setLimit($limit, $offset)
             ->getList('playlist_unprivate_'.$limit.'_'.$offset);
         $data['playlists'] = $playlists;
         $data['html'] = $this->renderView('VidlisCoreBundle:Playlist:listItemAll.html.twig', $data);
