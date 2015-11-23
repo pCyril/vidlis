@@ -5,6 +5,7 @@ use CoreBundle\Repository\PlaylistRepository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -113,7 +114,7 @@ class PlaylistController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $playlistQuery = new PlaylistQuery($em);
-        $playlists = $playlistQuery->setPrivate(false)->setOrderBy(['p.creationDate' => 'DESC'])->getList('playlist_unprivate');
+        $playlists = $playlistQuery->setPrivate(false)->setLimit(12, 0)->setOrderBy(['p.creationDate' => 'DESC'])->getList('playlist_unprivate');
         if ($this->getUser()) {
             $data = ['user' => $this->getUser(), 'connected' => true];
         } else {
@@ -123,6 +124,30 @@ class PlaylistController extends Controller
         $data['tab'] = 'playlist';
 
         return $data;
+    }
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @Route("/load/playlist/{limit}/{offset}", name="_loadMorePlaylist")
+     * @return array
+     */
+    public function listItemAllAction($limit, $offset)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $playlistQuery = new PlaylistQuery($em);
+        $playlists = $playlistQuery
+            ->setPrivate(false)
+            ->setLimit($limit, $offset)
+            ->setOrderBy(['p.creationDate' => 'DESC'])
+            ->getList('playlist_unprivate_'.$limit.'_'.$offset);
+        $data['playlists'] = $playlists;
+        $data['html'] = $this->renderView('VidlisCoreBundle:Playlist:listItemAll.html.twig', $data);
+        $data['offset'] = $offset + $limit;
+        $response = new JsonResponse($data);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     /**
