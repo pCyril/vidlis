@@ -1,0 +1,44 @@
+
+<div class="flex flex-row main">
+    <nav class="flex-shrink">
+        <a [routerLink]=" ['./'] ">
+            Vidlis
+        </a>
+        <form class="w-full max-w-sm p-3" #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+            <div class="flex items-center py-2">
+                <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2" ngModel type="text" placeholder="Search" aria-label="Full name" name="query">
+                <button class="flex-no-shrink hover:bg-white hover:text-black border-white text-sm border-2 text-white py-1 px-2 rounded" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </form>
+        <a [routerLink]=" ['./artists'] "
+           routerLinkActive="active" [routerLinkActiveOptions]= "{exact: false}">
+            <i class="far fa-users"></i> Artists
+        </a>
+        <a [routerLink]=" ['./playlists'] "
+           routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+            <i class="far fa-list-alt"></i> Playlists
+        </a>
+        <div class="flex flex-row" *ngIf="signinService.userConnected == false">
+            <a [routerLink]="[{ outlets: { popup: ['signin'] } }]"
+               routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="flex-1">
+                <i class="far fa-sign-in-alt"></i>
+            </a>
+            <a [routerLink]="[{ outlets: { popup: ['signup'] } }]"
+               routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="flex-1">
+                <i class="far fa-user-plus"></i>
+            </a>
+        </div>
+        <a [routerLink]=" ['./profile'] "
+           routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" *ngIf="signinService.userConnected == true">
+            <i class="far fa-user"></i> {{ signinService.user.username }}
+        </a>
+    </nav>
+    <main class="main-content flex-1" [ngClass]="{ 'has-videos': playerService._videos.length > 0 }">
+        <router-outlet></router-outlet>
+    </main>
+    <router-outlet name="popup"></router-outlet>
+</div>
+
+<player></player>

@@ -1,0 +1,23 @@
+home_action:
+    type: rest
+    resource: AppBundle\Controller\HomeController
+
+search_action:
+    type: rest
+    resource: AppBundle\Controller\SearchController
+
+user_action:
+    type: rest
+    resource: AppBundle\Controller\UserController
+
+artists_action:
+    type: rest
+    resource: AppBundle\Controller\ArtistController
+
+video_action:
+    type: rest
+    resource: AppBundle\Controller\VideoController
+
+playlists_action:
+    type: rest
+    resource: AppBundle\Controller\PlaylistController

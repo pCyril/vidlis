@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  nginx:
+    ports:
+      - 8080:80
+
+  mysql:
+    ports:
+      - 3306:3306
+
+  tools:
+    volumes:
+      - "${SSH_AUTH_SOCK}:/ssh-agent"
+    ports:
+      - 35729:35729
+
+  dev_code:
+    volumes:
+        - ".:/data"

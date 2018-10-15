@@ -1,0 +1,131 @@
+<div class="player flex items-center">
+    <div id="youtube-player"></div>
+    <div class="loading" [ngStyle]="styleLoading()" (click)="goToTime($event)"></div>
+    <div class="playing" [ngStyle]="stylePlayed()" (click)="goToTime($event)"></div>
+    <a href="javascript:;" (click)="backward()">
+        <i class="fa fa-step-backward" aria-hidden="true"></i>
+    </a>
+    <a href="javascript:;" (click)="play()" *ngIf="state != 1">
+        <i class="fa fa-play" aria-hidden="true"></i>
+    </a>
+    <a href="javascript:;" (click)="pause()" *ngIf="state == 1">
+        <i class="fa fa-pause" aria-hidden="true"></i>
+    </a>
+    <a href="javascript:;" (click)="forward()">
+        <i class="fa fa-step-forward" aria-hidden="true"></i>
+    </a>
+    <div class="px-2 text-black font-bold" *ngIf="playerService._currentIndex != -1"> {{ getCurrentTime() }} / {{ getTotalDuration() }} </div>
+    <div class="fixed pin-t pin-r bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md" role="alert" *ngIf="latestVideoAdded && showPopup">
+        <div class="flex">
+            <div class="py-1"><svg class="fill-current h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
+            <div>
+                <p class="font-bold">Video added to the queue</p>
+                <p class="text-sm">{{ latestVideoAdded.snippet.title }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="playlists px-2 flex flex-row" [ngClass]="{ 'show': playerService._videos.length > 0 }">
+    <div class="actions flex flex-col text-white mr-2">
+        <div class="text-center rounded-xs p-2 cursor-pointer" (click)="toggleSuggest()" [ngClass]="{ 'bg-grey-dark-item': showSuggests }">
+            <i class="far fa-lightbulb" [ngClass]="{ 'fas': (showSuggests && !suggestsLoading), 'fa-spinner-third fa-spin': suggestsLoading }"></i>
+        </div>
+        <div class="text-center rounded-xs p-2 cursor-pointer" (click)="toggleSavePlaylist()" *ngIf="signinService.userConnected === true">
+            <i class="far fa-save"></i>
+        </div>
+        <div class="text-center rounded-xs p-2 cursor-pointer" (click)="toggleAuto()" [ngClass]="{ 'bg-grey-dark-item': modeAuto }">
+            <i class="far fa-magic" [ngClass]="{ 'fas': (modeAuto && !autoLoading), 'fa-spinner-third fa-spin': autoLoading }"></i>
+        </div>
+    </div>
+    <perfect-scrollbar>
+
+        <div class="flex flex-row playlist-content" *ngIf="showSuggests == true">
+            <div class="item flex flex-row p-2 my-2 mr-2 cursor-pointer text-white text-sm bg-grey-dark-item" *ngFor="let item of suggests.items; let i =index;"
+                 (click)="addSuggestToPlaylist(item)"
+            >
+                <div class="item-image">
+                    <img src="{{ item.snippet.thumbnails.high.url }}" alt="">
+                </div>
+                <div class="flex flex-col overflow-hidden ml-2 justify-center">
+                    <div class="font-bold truncate">{{ item.snippet.title }}</div>
+                    <div class="truncate text-xs mt-2">{{ item.snippet.channelTitle }}</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row playlist-content" *ngIf="showSuggests == false">
+            <div class="item flex flex-row p-2 my-2 mr-2 cursor-pointer text-white text-sm relative" *ngFor="let item of playerService._videos; let i =index;"
+                 [ngClass]="{ 'bg-grey-light-item': (i == playerService._currentIndex), 'bg-grey-dark-item': (i != playerService._currentIndex) }"
+                 (click)="changeTrack(i)"
+            >
+                <div class="absolute pin-t pin-r text-white p-1" (click)="removeTrack(i)">
+                    <i class="far fa-times-circle"></i>
+                </div>
+                <div class="item-image">
+                    <img src="{{ item.snippet.thumbnails.high.url }}" alt="">
+                </div>
+                <div class="flex flex-col overflow-hidden ml-2 justify-center">
+                    <div class="font-bold truncate">{{ item.snippet.title }}</div>
+                    <div class="truncate text-xs mt-2">{{ item.snippet.channelTitle }}</div>
+                </div>
+            </div>
+        </div>
+    </perfect-scrollbar>
+</div>
+
+<div class="main-popup" *ngIf="savePlaylist == true">
+    <div class="popup-container">
+
+        <div class="max-w-md max-h-full overflow-auto w-full bg-white rounded shadow absolute-centered">
+            <div class="flex border-b flex-row p-3">
+                <div class="flex-1">
+                </div>
+                <div class="text-3xl cursor-pointer" (click)="toggleSavePlaylist()">
+                    <i class="far fa-window-close"></i>
+                </div>
+            </div>
+            <div class="flex flex-col">
+                <div class="flex-1 h-48 bg-cover text-center overflow-hidden bg-center" [ngStyle]="{'background-image': 'url(' + playerService._videos[0].snippet.thumbnails.high.url + ')'}" title="{{ playerService._videos[0].snippet.title }}">
+                </div>
+                <div class="flex px-6 py-4 border-b bg-grey-dark-item justify-center">
+
+                    <form class="w-full max-w-sm p-3" #saveForm="ngForm" (ngSubmit)="save(saveForm)">
+                        <div class="flex items-center py-2">
+                            <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2" ngModel type="text" placeholder="Name" aria-label="Full name" name="name">
+
+                            <label class="flex mr-3 text-white">
+                                <input class="mr-2" type="checkbox" name="private">
+                                <span class="text-sm">private</span>
+                            </label>
+
+                            <button class="flex-no-shrink hover:bg-white hover:text-black border-white text-sm border-2 text-white py-1 px-2 rounded" type="submit">
+                                <i class="fas fa-check"></i>
+                            </button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="items overflow-auto" style="height: 250px;">
+                    <div class="py-1 track flex flex-row cursor-pointer hover:bg-grey" [ngClass]="{'bg-grey-light': (i % 2 == 0) }" *ngFor="let item of playerService._videos; let i = index;" (click)="addToPlaylist(item)">
+                        <div class="p-2">{{ i+1 }}</div>
+                        <div class="p-2">-</div>
+                        <div class="flex-1 p-2 truncate">{{ item.snippet.title }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="fixed pin-t pin-r bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md" role="alert" *ngIf="playlistCreated === true">
+    <div class="flex">
+        <div class="py-1 text-center">
+            <i class="fas fa-check fill-current h-6 w-6 text-teal mr-4 text-2xl"></i>
+        </div>
+        <div>
+            <p class="font-bold">Success</p>
+            <p class="text-sm">Your playlist has been created</p>
+        </div>
+    </div>
+</div>

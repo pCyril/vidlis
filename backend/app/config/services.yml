@@ -1,0 +1,41 @@
+services:
+    kernel.event_listener.json_request_transformer:
+      class: AppBundle\HttpKernel\EventListener\JsonRequestTransformerListener
+      tags:
+        - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest, priority: 100 }
+    memcache:
+        class: AppBundle\Memcache\MemcacheService
+        arguments:    ["%memcache_active%", "%hostMemcache%", "%portMemcache%"]
+    youtubePlaylist:
+        class: AppBundle\Youtube\YoutubePlaylist
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubePlaylistItems:
+        class: AppBundle\Youtube\YoutubePlaylistItems
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeVideo:
+        class: AppBundle\Youtube\YoutubeVideo
+        arguments: ["@memcache", "%youtubeAPIKey%", "@logger"]
+    youtubeSearch:
+        class: AppBundle\Youtube\YoutubeSearch
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    youtubeSuggestion:
+        class: AppBundle\Youtube\YoutubeSuggestion
+        arguments: ["@memcache", "%youtubeAPIKey%"]
+    lastFmMusicSearch:
+        class: AppBundle\LastFm\Track\Search
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmArtistSearch:
+        class: AppBundle\LastFm\Artist\Search
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmArtistInfo:
+        class: AppBundle\LastFm\Artist\Info
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmArtistAlbum:
+        class: AppBundle\LastFm\Artist\Album
+        arguments: ["@memcache", "%lastFmKey%"]
+    lastFmAlbumInfo:
+        class: AppBundle\LastFm\Album\Info
+        arguments: ["@memcache", "%lastFmKey%"]
+    ArtistCreator:
+        class: AppBundle\LastFm\Artist\Creator
+        arguments: ["@lastFmArtistInfo", "@lastFmArtistAlbum", "@lastFmAlbumInfo", "@doctrine_mongodb"]

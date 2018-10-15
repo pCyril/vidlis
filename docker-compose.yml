@@ -1,0 +1,67 @@
+version: '2'
+
+services:
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    working_dir: "/data"
+    links:
+      - db
+    depends_on:
+      - mysql
+      - memcached
+    volumes:
+      - "./:/data"
+
+  dev_code:
+    build:
+      context: .
+      dockerfile: docker/code/Dockerfile
+    entrypoint: '/bin/sh'
+
+
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    depends_on:
+      - php
+    volumes_from:
+      - dev_code:rw
+    working_dir: "/data"
+
+
+  mysql:
+    image: mysql:5.5.53
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - ./.data:/var/lib/mysql
+
+  db:
+    image: mongo:3.5
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+        - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+  memcached:
+    image: 'bitnami/memcached:latest'
+    ports:
+      - '11211:11211'
+    environment:
+      - MEMCACHED_CACHE_SIZE=128
+
+  tools:
+    build: docker/tools
+    volumes:
+      - "${SSH_AUTH_SOCK}:/ssh-agent"
+      - ./:/data
+    environment:
+     - SSH_AUTH_SOCK=/ssh-agent
+    working_dir: "/data"

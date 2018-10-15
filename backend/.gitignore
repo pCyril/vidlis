@@ -1,0 +1,4 @@
+/vendor/
+/var/cache/
+/var/logs/
+/app/config/parameters.yml

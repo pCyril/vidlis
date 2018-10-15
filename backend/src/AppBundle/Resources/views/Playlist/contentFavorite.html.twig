@@ -1,0 +1,43 @@
+<div id="right_content">
+    <div id="feeds">
+    {% include 'AppBundle:Playlist:menu.html.twig' with {'tab': 'favorite'} %}
+
+    {% include 'AppBundle:Default:publicity.html.twig' %}
+
+    {% if connected %}
+        {% if user.favoritePlaylists|length %}
+            {% for playlist in user.favoritePlaylists %}
+                <div class="box330 box-boreder" id="{{ playlist.id }}">
+                    <div class="boxHeader">
+                        <div class="playlistCreatorName"><i>By </i>{{ playlist.user.username }}</div>
+                        <div class="playlistCreatorDate">{{ playlist.creationDate|date("d/m/Y") }}</div>
+                        <div class="clear"></div>
+                        <div class="images">
+                            <img src="{{ playlist.items.first.idVideo|videoImage }}">
+                            <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a></h2>
+                        </div>
+                    </div>
+                    <div class="boxBody mCustomScrollbarActiv">
+                        {% for item in playlist.items %}
+                            <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %}">
+                                <div class="itemNumber">{{ loop.index }}</div>
+                                <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
+                                <div class="videoDuration">{{ item.videoDuration }}</div>
+                                <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="boxFooter dark">
+                        <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">Listen</a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-success" style="margin:10px;">You follow no playlist.</div>
+        {% endif %}
+    {% else %}
+        <div class="alert alert-danger" style="margin:10px;">Login to display your playlists.</div>
+    {% endif %}
+    </div>
+</div>
+{% include 'AppBundle:Default:menu.html.twig'%}

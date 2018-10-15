@@ -1,6 +1,4 @@
-.idea
-/vendor/
-/app/cache/
-/app/logs/
-/app/config/parameters.yml
-/nbproject/
+.idea/
+data/
+.data/
+docker-compose.override.yml

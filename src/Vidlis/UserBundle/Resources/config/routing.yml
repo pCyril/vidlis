@@ -1,3 +1,0 @@
-fos_user_profile_more_played:
-    pattern: /load/played/{limit}/{offset}
-    defaults: { _controller: FOSUserBundle:Profile:videoPlayed }

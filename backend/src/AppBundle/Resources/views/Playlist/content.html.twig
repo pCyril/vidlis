@@ -1,0 +1,47 @@
+<div id="right_content">
+    <div id="feeds">
+        {% include 'AppBundle:Playlist:menu.html.twig' with {'tab': 'mine'} %}
+        {% include 'AppBundle:Default:publicity.html.twig' %}
+        {% if connected %}
+            <div class="textAlignRight contentRight" style="margin-bottom: 30px">
+                <a href="{{ path('_importPlaylist') }}" class="btn-red-big toModalHTML">Import from Youtube</a>
+            </div>
+            {% if user.playlists|length %}
+                {% for playlist in user.playlists %}
+                <div class="box330 box-boreder" id="{{ playlist.id }}">
+                    <div class="boxHeader">
+                        <div class="playlistCreatorName"><a href="{{ url('_formUpdatePlaylist', {'playlistId':playlist.id}) }}" class="editPlaylistLink toModal"><i class="icon edit blue mouseoverInfo" data-info="Modifier la playlist">&nbsp;</i></a></div>
+                        <div class="clear"></div>
+                        <div class="images">
+                            <img src="{{ playlist.items.first.idVideo|videoImage }}">
+                            <h2><a href="{{ url('_commentPlaylist', {'idPlaylist':playlist.id}) }}" onclick="loadBox('/playlist/{{ playlist.id }}');  return false;">{{ playlist.name }}</a></h2>
+                        </div>
+                        <div class="removePl">
+                            <a href="{{ path('_deletePlaylist', {'idPlaylist':playlist.id}) }}" class="toModal"><button type="button" class="close mouseoverInfo" data-info="Supprimer la playlist" data-dismiss="modal" aria-hidden="true">×</button></a>
+                        </div>
+                    </div>
+                    <div class="boxBody mCustomScrollbarActiv">
+                        {% for item in playlist.items %}
+                            <div class="rowItem{% if (loop.index/2)|isFloat == false %} pair{% endif %} mine">
+                                <div class="itemNumber">{{ loop.index }}</div>
+                                <div class="videoName" data-id="{{ item.idVideo }}">{{ item.videoName }}</div>
+                                <div class="videoDuration">{{ item.videoDuration }}</div>
+                                <div class="playButtonRow" data-id="{{ item.idVideo }}"><i class="icon play blue"></i></div>
+                                <a href="{{ path('_deleteItemPlaylist', {'idItem':item.id}) }}" class="toModal trashButtonRow"><i class="icon trash blue"></i></a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="boxFooter dark">
+                        <a href="#" class="btn gray loadPlaylist" data-idplaylist="{{ playlist.id }}">Listen</a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="alert alert-success" style="margin:20px;">You have no playlists yet.</div>
+            {% endif %}
+        {% else %}
+            <a href="{{ path('fos_user_registration_register') }}" class="btn-register-home toModalHTML">Create an account</a>
+        {% endif %}
+    </div>
+</div>
+{% include 'AppBundle:Default:menu.html.twig'%}

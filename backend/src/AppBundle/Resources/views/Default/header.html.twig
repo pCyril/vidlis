@@ -1,0 +1,77 @@
+<div id="mainToolbar">
+    <a href="{{ url('_home') }}" id="logo" onclick="loadBox('/');  return false;">VIDLIS</a>
+    {% include 'AppBundle:Default:player.html.twig' %}
+    <div class="playerVideo">
+        <div id="videoDiv">
+            <div id="playerYt"></div>
+        </div>
+    </div>
+    <div id="toolbarSearch">
+        <form class="form-wrapper cf formSearch" id="formSearch">
+            <input type="text" placeholder="Search" name="search" id="search" autocomplete="off">
+            <button type="submit"><i class="icon search"></i></button>
+        </form>
+    </div>
+</div>
+<div id="mainToolbar-mobile">
+</div>
+<div class="relative" id="container">
+<section id="secondToolbar">
+    <ol id="mainNavMenu" class="newNavMenu UI_nav navigation">
+        <li class="tab">
+            <a href="{{ url('_home') }}" onclick="loadBox('/');  return false;" class="tab_home">Home</a>
+        </li>
+        <li class="tab">
+            <a href="{{ url('_artist') }}" onclick="loadBox('/artists/');  return false;" class="tab_artist">Artists</a>
+        </li>
+        <li class="tab">
+            <a href="{{ url('_homePlaylistsAll') }}" onclick="loadBox('/playlists/all');  return false;" class="tab_playlist">Playlists</a>
+        </li>
+    </ol>
+
+    <section class="uiSplitter">
+        <div id="loadBar"></div>
+    </section>
+</section>
+    <div class="playlistContainer">
+        <div class="underVideo">
+            <div id="viewCount"><span></span> views</div>
+            <div id="vote"><div class="like"></div></div>
+            <div class="loadQueue"><img src="{{ asset('bundles/Vidlis/images/loadQueue.gif') }}"></div>
+            <a href="{{ url('_formCreatePlaylist') }}" class="btn-save toModal"><i class="icon save mouseoverInfo" data-info="Save the playlist"></i></a>
+            <a href="#" class="btn-suggestion"><i class="icon suggestion mouseoverInfo" data-info="Show / hide the suggests"></i></a>
+            <a href="#" class="btn-trash"><i class="icon trash mouseoverInfo" data-info="Clear the queue"></i></a>
+            <a href="#" class="btn-loop"><i class="icon loop mouseoverInfo" data-info="Repeat"></i></a>
+            <div class="onoffswitch mouseoverInfo" data-info="Auto Play">
+                <input type="checkbox" name="autoplay" class="onoffswitch-checkbox" id="autoplay">
+                <label class="onoffswitch-label" for="autoplay"></label>
+            </div>
+        </div>
+        <div id="playlistContent">
+            <ul></ul>
+        </div>
+        <div id="suggestionContent">
+            <ul></ul>
+        </div>
+    </div>
+</div>
+<div id="infoLabel"></div>
+<div class="successAddedToQueue"></div>
+<div class="errorMessage"></div>
+<div class="overlay"></div>
+
+<script>
+    function onPlayerReady(event) {
+        event.target.playVideo();
+    }
+    var done = false;
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+            setTimeout(stopVideo, 6000);
+            done = true;
+        }
+    }
+    function stopVideo() {
+        player.stopVideo();
+    }
+</script>

@@ -1,0 +1,75 @@
+.images {
+  position: relative;
+  height: 350px;
+  background-color: #222;
+  overflow: hidden;
+  &.lite {
+    height: 135px;
+  }
+}
+
+.images .imagesAlbum {
+  float: left;
+  width: 10%;
+}
+
+.titleSearch {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 100%;
+}
+
+.titleSearch h2 {
+  font-family: "Helvetica Neue","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  letter-spacing: -1px;
+  font-size: 52px;
+  line-height: 62px;
+  color: #FFF;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  margin-bottom: 30px;
+}
+
+.titleSearch a {
+  padding: 10px 20px;
+  font-size: 1.2em;
+  margin-top: 15px;
+  font-weight: 500;
+}
+
+.shadow-main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: $red;
+  background: linear-gradient(110deg,$red,#c69828);
+  opacity: .85;
+}
+
+@media screen and (max-width: 960px) {
+  .titleSearch h2 {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  .images .imagesAlbum {
+    float: left;
+    width: 20%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .titleSearch h2 {
+    font-size: 32px;
+    line-height: 32px;
+  }
+}

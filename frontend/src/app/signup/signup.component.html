@@ -1,0 +1,44 @@
+<div class="main-popup">
+    <div class="popup-container">
+        <div class="md:w-1/2 lg:w-1/4 w-1/4 max-w-lg p-8 bg-white rounded-sm shadow absolute-centered">
+            <form class="bg-white shadow-md rounded p-8" #signupForm="ngForm" (ngSubmit)="submit(signupForm)">
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="username">
+                        Username
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="username"
+                           type="text" placeholder="Username" name="username" ngModel>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="email">
+                        Email
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker" id="email"
+                           type="text" placeholder="Email" name="email" ngModel>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="password">
+                        Password
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker mb-3"
+                           id="password" type="password" name="password" placeholder="******************" ngModel>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-grey-darker text-sm font-bold mb-2" for="confirm">
+                        Confirm your password
+                    </label>
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-grey-darker mb-3"
+                           id="confirm" type="password" name="confirm" placeholder="******************" ngModel>
+                </div>
+                <div class="flex items-center justify-between">
+                    <button class="bg-green hover:bg-green-dark text-white font-bold py-2 px-4 rounded" type="submit">
+                        Sign Up
+                    </button>
+                    <button class="bg-red hover:bg-red-dark text-white font-bold py-2 px-4 rounded" type="button" (click)="closePopup()">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

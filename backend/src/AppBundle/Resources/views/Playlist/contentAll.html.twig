@@ -1,0 +1,8 @@
+<div id="right_content">
+    <div id="feeds">
+        {% include 'AppBundle:Default:publicity.html.twig' %}
+        {% include 'AppBundle:Playlist:listItemAll.html.twig' with {'playlists': playlists, 'user': user} %}
+        <div class="loadMoreContentPlaylist" data-limit="12" data-offset="12">Loading</div>
+    </div>
+</div>
+{% include 'AppBundle:Default:menu.html.twig'%}

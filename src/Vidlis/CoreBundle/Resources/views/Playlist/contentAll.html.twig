@@ -1,8 +1,0 @@
-<div id="right_content">
-    <div id="feeds">
-        {% include 'VidlisCoreBundle:Default:publicity.html.twig' %}
-        {% include 'VidlisCoreBundle:Playlist:listItemAll.html.twig' with {'playlists': playlists, 'user': user} %}
-        <div class="loadMoreContentPlaylist" data-limit="12" data-offset="12">Loading</div>
-    </div>
-</div>
-{% include 'VidlisCoreBundle:Default:menu.html.twig'%}

@@ -1,0 +1,14 @@
+{% extends "AppBundle::layout.html.twig" %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block body %}
+    {% include 'AppBundle:Default:header.html.twig' %}
+    <div id="content">
+        {{
+        render(
+        controller('AppBundle:Playlist:contentFavorite')
+        )
+        }}
+    </div>
+{% endblock %}
