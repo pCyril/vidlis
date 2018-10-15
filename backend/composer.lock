@@ -3984,12 +3984,5 @@
         "friendsofsymfony/user-bundle": 20
     },
     "prefer-stable": false,
-    "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.5.9"
-    },
-    "platform-dev": [],
-    "platform-overrides": {
-        "php": "5.5.9"
-    }
+    "prefer-lowest": false
 }
