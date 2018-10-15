@@ -65,7 +65,7 @@ class VideoController extends FOSRestController
                 if (!in_array($item['id']['videoId'], $ids)) {
                     $data['id'] = $item['id']['videoId'];
 
-                    return $data;
+                    return $item;
                 }
             }
         }
