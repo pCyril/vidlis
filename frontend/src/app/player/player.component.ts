@@ -213,7 +213,9 @@ export class PlayerComponent implements OnInit {
 
   public forward() {
       if (this.playerService._videos.length > this.playerService._currentIndex + 1) {
-          this.YTPlayer.cueVideoById(this.playerService._videos[this.playerService._currentIndex + 1].id);
+          let item = this.playerService._videos[this.playerService._currentIndex + 1];
+          let id = (typeof item.id === 'object') ? item.id.videoId : item.id;
+          this.YTPlayer.cueVideoById(id);
           this.playerService._currentIndex = this.playerService._currentIndex + 1;
           this.play(true);
 
@@ -222,7 +224,9 @@ export class PlayerComponent implements OnInit {
 
       if (this.modeAuto && this.autoLoading == false) {
           this.autoLoading = true;
-          this.playerService.getNextAuto(this.playerService._videos[this.playerService._videos.length-1].id).subscribe((item:{'id': null}) => {
+          let item = this.playerService._videos[this.playerService._currentIndex];
+          let id = (typeof item.id === 'object') ? item.id.videoId : item.id;
+          this.playerService.getNextAuto(id).subscribe((item:{'id': null}) => {
               this.autoLoading = false;
               if (item && item.id != null) {
                   this.playerService._videos.push(item);
@@ -252,7 +256,9 @@ export class PlayerComponent implements OnInit {
 
   public backward() {
       if (this.playerService._currentIndex - 1 >= 0) {
-          this.YTPlayer.cueVideoById(this.playerService._videos[this.playerService._currentIndex - 1].id);
+          let item = this.playerService._videos[this.playerService._currentIndex - 1];
+          let id = (typeof item.id === 'object') ? item.id.videoId : item.id;
+          this.YTPlayer.cueVideoById(id);
           this.playerService._currentIndex = this.playerService._currentIndex - 1;
           this.play(true);
 
