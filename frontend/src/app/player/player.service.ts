@@ -64,6 +64,6 @@ export class PlayerService {
         });
 
         let body = JSON.stringify({name, ids});
-        return this.http.post(`${parameters.apiUrl}/api/playlists`, body);
+        return this.http.post(`${parameters.apiUrl}/playlists`, body);
     }
 }
