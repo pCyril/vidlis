@@ -120,16 +120,6 @@ fos_rest:
         json: true
     disable_csrf_role: ROLE_API
 
-doctrine_mongodb:
-    connections:
-        default:
-            server: mongodb://vidlis.fr:27017
-            options: {}
-    default_database: vidlis
-    document_managers:
-        default:
-            auto_mapping: true
-
 fos_user:
     db_driver: orm
     firewall_name: api                                  # Seems to be used when registering user/reseting password,

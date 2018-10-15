@@ -36,6 +36,3 @@ services:
     lastFmAlbumInfo:
         class: AppBundle\LastFm\Album\Info
         arguments: ["@memcache", "%lastFmKey%"]
-    ArtistCreator:
-        class: AppBundle\LastFm\Artist\Creator
-        arguments: ["@lastFmArtistInfo", "@lastFmArtistAlbum", "@lastFmAlbumInfo", "@doctrine_mongodb"]

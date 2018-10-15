@@ -18,22 +18,7 @@ class ArtistController extends FOSRestController
      */
     public function getSearchArtistsAction(Request $request)
     {
-        $search = $request->get('query');
-
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $artistQuery = new ArtistQuery($dm);
-        $artists = $artistQuery
-            ->addOrderBy('name')
-            ->isProcessed()
-            ->isNotDisabled()
-            ->setSearchLike($search)->getList();
-
-        $artistsSerialized = [];
-        foreach ($artists as $row) {
-            $artistsSerialized[] = $row;
-        }
-
-        return $artistsSerialized;
+        return [];
     }
 
     /**
@@ -42,31 +27,8 @@ class ArtistController extends FOSRestController
      */
     public function getArtistsAction(Request $request)
     {
-        $limit = $request->get('limit', 20);
-        $offset = $request->get('offset', 0);
-        $tag = $request->get('gender', null);
 
-        $tag = ($tag != 'null' && $tag != 'all' ) ? $tag : null;
-
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $artistQuery = new ArtistQuery($dm);
-        $artistQuery
-            ->addOrderBy('name')
-            ->isProcessed()
-            ->isNotDisabled()
-            ->setLimit($limit, $offset);
-        if (!is_null($tag)) {
-            $artistQuery->addTag($tag);
-        }
-        $artists = $artistQuery
-            ->getList();
-
-        $artistsSerialized = [];
-        foreach ($artists as $row) {
-            $artistsSerialized[] = $row;
-        }
-
-        return $artistsSerialized;
+        return [];
     }
 
     /**
@@ -76,14 +38,8 @@ class ArtistController extends FOSRestController
      */
     public function getArtistAction(Request $request)
     {
-        $dm = $this->get('doctrine_mongodb')->getManager();
-        $artistQuery = new ArtistQuery($dm);
-        $artist = $artistQuery
-            ->isProcessed()
-            ->setId($request->get('id'))
-            ->getSingle();
 
-        return $artist;
+        return [];
     }
 
 }

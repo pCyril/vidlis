@@ -34,8 +34,6 @@
         "guzzlehttp/guzzle": "^6.2",
         "stof/doctrine-extensions-bundle": "^1.2",
         "doctrine/doctrine-migrations-bundle": "^1.0",
-        "doctrine/mongodb-odm-bundle": "^3.0",
-        "alcaeus/mongo-php-adapter": "^1.0",
         "qandidate/symfony-json-request-transformer": "^1.2"
     },
     "require-dev": {
@@ -60,8 +58,7 @@
     },
     "config": {
         "platform": {
-            "php": "5.5.9",
-            "ext-mongo": "1.6.16"
+            "php": "5.5.9"
         }
     },
     "extra": {
