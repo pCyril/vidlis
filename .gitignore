@@ -2,3 +2,4 @@
 data/
 .data/
 docker-compose.override.yml
+frontend/src/app/parameters.ts
