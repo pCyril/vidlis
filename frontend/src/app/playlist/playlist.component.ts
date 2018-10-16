@@ -42,6 +42,7 @@ export class PlaylistComponent implements OnInit {
 
   public loadPlaylists() {
       this.loadedMore = false;
+      this.loaded = false;
       this.playlistService.getData(this.offset.toString()).subscribe((data:Object[]) => {
           this.loaded = true;
           if (data.length == 12) {

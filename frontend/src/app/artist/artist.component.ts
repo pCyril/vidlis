@@ -67,6 +67,7 @@ export class ArtistComponent implements OnInit {
 
   public loadArtists() {
       this.loadedMore = false;
+      this.loaded = false;
       let sub;
 
       if (this.query) {

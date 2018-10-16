@@ -20,6 +20,10 @@
            routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
             <i class="far fa-list-alt"></i> Playlists
         </a>
+        <a [routerLink]=" ['./radio'] "
+           routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
+            <i class="far fa-broadcast-tower"></i> Radios
+        </a>
         <div class="flex flex-row" *ngIf="signinService.userConnected == false">
             <a [routerLink]="[{ outlets: { popup: ['signin'] } }]"
                routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="flex-1">

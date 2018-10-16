@@ -1,4 +1,4 @@
-FROM php:7-fpm
+FROM php:7.2-fpm
 
 RUN echo "Europe/Paris" > /etc/timezone && \
  dpkg-reconfigure --frontend noninteractive tzdata
@@ -9,7 +9,7 @@ RUN sed -i 's/docker-php-\(ext-$ext.ini\)/\1/' /usr/local/bin/docker-php-ext-ins
 
 # Install memcache extension
 RUN set -x \
-    && apt-get update && apt-get install -y --no-install-recommends unzip libssl-dev libpcre3 libpcre3-dev \
+    && apt-get update && apt-get install -y --no-install-recommends zlib1g-dev unzip libssl-dev libpcre3 libpcre3-dev \
     && cd /tmp \
     && curl -sSL -o php7.zip https://github.com/websupport-sk/pecl-memcache/archive/php7.zip \
     && unzip php7 \
@@ -26,15 +26,11 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libmcrypt-dev \
-        libpng12-dev \
         libpq-dev \
         libxml2-dev \
     && docker-php-ext-install \
         iconv \
-        mcrypt \
-        pdo_pgsql \
         pdo_mysql \
-        pgsql \
         mysqli \
         mbstring \
         xml
