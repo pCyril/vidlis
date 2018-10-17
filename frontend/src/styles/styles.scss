@@ -42,6 +42,12 @@
     width: 150px;
     text-align: center;
   }
+  &.full {
+    z-index: 12;
+    #youtube-player {
+      top: -300px;
+    }
+  }
 }
 
 .playlists {
@@ -64,6 +70,10 @@
       min-width: 80px;
       width: 80px;
     }
+  }
+  &.full {
+    left: 0px;
+    z-index: 11;
   }
 }
 

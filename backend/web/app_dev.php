@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(0);
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Debug\Debug;
 

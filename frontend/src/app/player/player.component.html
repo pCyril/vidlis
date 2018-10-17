@@ -1,5 +1,5 @@
-<div class="player flex items-center">
-    <div id="youtube-player"></div>
+<div class="player flex items-center" [ngClass]="{ 'full': playerService._fullScreenMode == true }">
+    <div id="youtube-player" [ngStyle]="getPlayerStyle()"></div>
     <div class="loading" [ngStyle]="styleLoading()" (click)="goToTime($event)"></div>
     <div class="playing" [ngStyle]="stylePlayed()" (click)="goToTime($event)"></div>
     <a href="javascript:;" (click)="backward()">
@@ -15,6 +15,11 @@
         <i class="fa fa-step-forward" aria-hidden="true"></i>
     </a>
     <div class="px-2 text-black font-bold" *ngIf="playerService._currentIndex != -1"> {{ getCurrentTime() }} / {{ getTotalDuration() }} </div>
+    <div class="separator flex-grow"></div>
+    <a href="javascript:;" (click)="toggleScreenMode()" *ngIf="playerService._videos.length > 0">
+        <i class="far fa-expand-alt" aria-hidden="true" *ngIf="playerService._fullScreenMode === false"></i>
+        <i class="far fa-compress-alt" aria-hidden="true" *ngIf="playerService._fullScreenMode === true"></i>
+    </a>
     <div class="fixed pin-t pin-r bg-teal-lightest border-t-4 border-teal rounded-b text-teal-darkest px-4 py-3 shadow-md" role="alert" *ngIf="latestVideoAdded && showPopup">
         <div class="flex">
             <div class="py-1"><svg class="fill-current h-6 w-6 text-teal mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z"/></svg></div>
@@ -25,7 +30,7 @@
         </div>
     </div>
 </div>
-<div class="playlists px-2 flex flex-row" [ngClass]="{ 'show': playerService._videos.length > 0 }">
+<div class="playlists px-2 flex flex-row" [ngClass]="{ 'show': playerService._videos.length > 0, 'full': playerService._fullScreenMode == true }">
     <div class="actions flex flex-col text-white mr-2">
         <div class="text-center rounded-xs p-2 cursor-pointer" (click)="toggleSuggest()" [ngClass]="{ 'bg-grey-dark-item': showSuggests }">
             <i class="far fa-lightbulb" [ngClass]="{ 'fas': (showSuggests && !suggestsLoading), 'fa-spinner-third fa-spin': suggestsLoading }"></i>

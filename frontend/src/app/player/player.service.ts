@@ -8,6 +8,7 @@ export class PlayerService {
 
     public _videos = [];
     public _currentIndex = -1;
+    public _fullScreenMode = false;
     public subject: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
     constructor(
@@ -44,7 +45,8 @@ export class PlayerService {
         let params = new HttpParams();
 
         this._videos.forEach((video) => {
-            params = params.append('ids[]', video.id);
+            let id = (typeof video.id === 'object') ? video.id.videoId : video.id;
+            params = params.append('ids[]', id);
         });
 
         return this.http.get(`${parameters.apiUrl}/video/next/auto/${youtubeId}`, { params });

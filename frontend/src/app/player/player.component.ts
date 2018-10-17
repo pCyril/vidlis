@@ -82,6 +82,26 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  public toggleScreenMode() {
+      this.playerService._fullScreenMode = !this.playerService._fullScreenMode;
+      if (this.playerService._fullScreenMode) {
+          this.YTPlayer.setSize(window.innerWidth, window.innerHeight - 160);
+      } else {
+          this.YTPlayer.setSize(250, 250);
+      }
+  }
+
+  public getPlayerStyle() {
+      if (this.playerService._fullScreenMode) {
+          document.getElementById('youtube-player').style.top = ((window.innerHeight - 60) * -1) + "px";
+          return {top: window.innerHeight - 160};
+      } else {
+          document.getElementById('youtube-player').style.top = "-250px";
+      }
+
+      return {};
+  }
+
   public removeTrack(index) {
       this.playerService._videos.splice(index, 1);
       if (this.playerService._currentIndex > index) {
