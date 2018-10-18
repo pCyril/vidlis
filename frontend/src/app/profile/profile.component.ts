@@ -49,7 +49,6 @@ export class ProfileComponent implements OnInit {
           });
 
           this.profileService.getPlayed().subscribe((data) => {
-              console.log('data', data);
               this.played = data;
           });
       }

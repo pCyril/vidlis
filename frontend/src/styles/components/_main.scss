@@ -15,6 +15,32 @@ html, body{
   overflow-x: hidden;
 }
 
+.top {
+  position: absolute;
+  top: 0px;
+  height: 75px;
+  right: 0;
+  left: 50px;
+  z-index: 10;
+  display: none;
+  > a {
+    display: block;
+    width: 100%;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    background-color: $red;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.9em;
+  }
+
+  form {
+    background-color: $dark-grey;
+  }
+}
+
 nav {
   display: flex;
   width: 250px;
@@ -121,4 +147,61 @@ nav {
   -ms-transform: translate(-50%, -50%);
   -o-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+}
+
+.desktop {
+  display: block;
+}
+
+@media (max-width: 599px) {
+  .desktop {
+    display: none;
+  }
+
+  .top {
+    display: block;
+  }
+
+  nav {
+    width: 50px;
+
+    form {
+      display: none;
+    }
+
+    a {
+      padding: 20px 0;
+      text-align: center;
+      i {
+        margin-right: 0;
+      }
+
+      span, &:first-child {
+        display: none;
+      }
+
+      &:not(:first-child):hover, &.active {
+        padding-left: 0px;
+        padding: 20px 0;
+      }
+    }
+  }
+
+  .main-content {
+    margin-left: 50px;
+    margin-top: 125px;
+  }
+
+  .images.lite {
+    display: none;
+  }
+
+  .playlists {
+    z-index: 11;
+    left: 0 !important;
+  }
+
+  .player a {
+    width: 60px;
+  }
 }

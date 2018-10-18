@@ -54,7 +54,7 @@
   position: fixed;
   left: 250px;
   right: 0px;
-  bottom: -40px;
+  bottom: -200px;
   height: 100px;
   background: $grey;
 
@@ -97,6 +97,15 @@
   .player {
     a {
       width: 100px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 599px) {
+  .player {
+    a {
+      width: 60px;
     }
   }
 }

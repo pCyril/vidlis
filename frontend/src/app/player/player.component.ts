@@ -55,9 +55,19 @@ export class PlayerComponent implements OnInit {
   }
 
   public ngOnInit() {
+
+      let windowWidth = window.innerWidth;
+
+      let YTHeight = '250';
+      let YTWidth = '250';
+      if (windowWidth < 599) {
+          YTHeight = '50';
+          YTWidth = '50';
+      }
+
       this.YTPlayer = new YT.Player('youtube-player', {
-          height: '250',
-          width: '250',
+          height: YTHeight,
+          width: YTWidth,
           playerVars: {
               controls: 0
           },
@@ -96,7 +106,12 @@ export class PlayerComponent implements OnInit {
           document.getElementById('youtube-player').style.top = ((window.innerHeight - 60) * -1) + "px";
           return {top: window.innerHeight - 160};
       } else {
-          document.getElementById('youtube-player').style.top = "-250px";
+          if (window.innerWidth <= 599) {
+              this.YTPlayer.setSize(50, 50);
+              document.getElementById('youtube-player').style.top = "-50px";
+          } else {
+              document.getElementById('youtube-player').style.top = "-250px";
+          }
       }
 
       return {};
@@ -216,7 +231,6 @@ export class PlayerComponent implements OnInit {
 
       if (save) {
           let videoId = this.playerService._videos[this.playerService._currentIndex].id;
-          console.log('videoId', videoId);
           let id = (typeof videoId === 'object') ? videoId.videoId : videoId;
 
           this.playerService.savePlayed(id).subscribe(() => {

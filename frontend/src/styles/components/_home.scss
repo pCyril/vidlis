@@ -73,3 +73,14 @@
     line-height: 32px;
   }
 }
+
+@media screen and (max-width: 599px) {
+  .images {
+    height: 230px;
+  }
+
+  .titleSearch h2 {
+    font-size: 27px;
+    line-height: 32px;
+  }
+}
