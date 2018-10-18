@@ -38,7 +38,7 @@
            routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}">
             <i class="far fa-broadcast-tower"></i> <span>Radios</span>
         </a>
-        <div class="flex flex-row" *ngIf="signinService.userConnected == false">
+        <div class="flex flex-col sm:flex-row" *ngIf="signinService.userConnected == false">
             <a [routerLink]="[{ outlets: { popup: ['signin'] } }]"
                routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="flex-1">
                 <i class="far fa-sign-in-alt"></i>

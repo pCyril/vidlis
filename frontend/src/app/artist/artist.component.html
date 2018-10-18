@@ -5,7 +5,7 @@
 <div class="w-full flex justify-center bg-grey">
     <form class="w-full max-w-sm p-3" #searchForm="ngForm" (ngSubmit)="search(searchForm)">
         <div class="flex items-center py-2">
-            <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2" ngModel type="text" placeholder="Search" aria-label="Full name" name="query">
+            <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2" ngModel type="text" placeholder="Search your artist" aria-label="Full name" name="query">
             <button class="flex-no-shrink hover:bg-white hover:text-black border-white text-sm border-2 text-white py-1 px-2 rounded" type="submit">
                 <i class="fa fa-search"></i>
             </button>
@@ -13,7 +13,7 @@
     </form>
 </div>
 
-<div class="w-full flex px-8 pt-8 genders-list flex-wrap" *ngIf="query == null">
+<div class="w-full flex px-3 pt-3 md:px-6 md:pt-6 lg:px-8 lg:pt-8 genders-list flex-wrap" *ngIf="query == null">
     <a [routerLink]=" ['/artists/g', gender] "
        routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2" *ngFor="let gender of genders; let i = index;">{{gender}}</a>
 </div>

@@ -154,6 +154,8 @@ nav {
 }
 
 @media (max-width: 599px) {
+
+
   .desktop {
     display: none;
   }
@@ -169,7 +171,12 @@ nav {
       display: none;
     }
 
-    a {
+    & > div > a {
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    & > a {
       padding: 20px 0;
       text-align: center;
       i {

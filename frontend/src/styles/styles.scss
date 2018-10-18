@@ -101,11 +101,24 @@
   }
 }
 
-
 @media screen and (max-width: 599px) {
   .player {
     a {
       width: 60px;
+    }
+  }
+
+  .main-popup {
+
+    .popup-container {
+      top: 0px;
+      left: 0px;
+      bottom: 0px;
+      right: 0px;
+    }
+
+    form {
+      width: 100%;
     }
   }
 }
