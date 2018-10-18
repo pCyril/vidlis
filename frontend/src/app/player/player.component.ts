@@ -69,7 +69,9 @@ export class PlayerComponent implements OnInit {
           height: YTHeight,
           width: YTWidth,
           playerVars: {
-              controls: 0
+              controls: 0,
+              fs: 0,
+              playsinline: 1,
           },
           events: {
               onReady: this.onYTPlayerReady.bind(this),
