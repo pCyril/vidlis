@@ -3,9 +3,9 @@
     <a [routerLink]=" ['./'] ">
         Vidlis
     </a>
-    <form class="w-full p-3" #searchForm="ngForm" (ngSubmit)="search(searchForm)">
+    <form class="w-full p-3" #searchMobileForm="ngForm" (ngSubmit)="searchMobile(searchMobileForm)">
         <div class="flex items-center py-2">
-            <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2" ngModel type="text" placeholder="Search" aria-label="Full name" name="query">
+            <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2" ngModel type="text" placeholder="Search" aria-label="Full name" name="query_mobile">
             <button class="flex-no-shrink hover:bg-white hover:text-black border-white text-sm border-2 text-white py-1 px-2 rounded" type="submit">
                 <i class="fa fa-search"></i>
             </button>

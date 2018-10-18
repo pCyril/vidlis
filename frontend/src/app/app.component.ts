@@ -33,4 +33,8 @@ export class AppComponent implements OnInit {
       this.router.navigate(['/search', form.value.query]);
   }
 
+  public searchMobile(form) {
+      this.router.navigate(['/search', form.value.query_mobile]);
+  }
+
 }
