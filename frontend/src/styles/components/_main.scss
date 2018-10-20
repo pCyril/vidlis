@@ -123,6 +123,16 @@ nav {
     right: 40px;
     bottom: 40px;
     left: 40px;
+
+    .close-modal {
+      top: 40px;
+      right: 40px;
+      left: 40px;
+    }
+
+    .modal-content {
+      padding-top: 60px;
+    }
   }
 }
 

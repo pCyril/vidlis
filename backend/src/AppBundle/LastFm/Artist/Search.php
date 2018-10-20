@@ -27,9 +27,9 @@ class Search extends LastFmAbstract {
      */
     private $limit = 30;
 
-    public function __construct($memcacheService, $apiKey) {
+    public function __construct($memcacheService, $apiKey, $logger) {
         $this->addParam('method', $this->method);
-        parent::__construct($memcacheService, $apiKey);
+        parent::__construct($memcacheService, $apiKey, $logger);
     }
 
     /**

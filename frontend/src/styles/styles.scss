@@ -39,7 +39,7 @@
     color: $dark-grey;
     text-shadow: 0 2px 0 rgba(0,0,0,0.15);
     padding: 10px;
-    width: 150px;
+    width: 70px;
     text-align: center;
   }
   &.full {
@@ -115,6 +115,12 @@
       left: 0px;
       bottom: 0px;
       right: 0px;
+
+      .close-modal {
+        top: 0px;
+        right: 0px;
+        left: 0px;
+      }
     }
 
     form {

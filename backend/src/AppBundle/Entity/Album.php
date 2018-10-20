@@ -24,20 +24,36 @@ class Album
 
     /**
      * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="Track", mappedBy="album", cascade={"remove", "persist"})
      */
     private $tracks;
+
+    /**
+     * @var Artist
+     *
+     * @ORM\ManyToOne(targetEntity="Artist", inversedBy="album")
+     * @ORM\JoinColumn(name="artist_id", referencedColumnName="id")
+     */
+    private $artist;
+
+    /**
+     * @ORM\Column(name="release_date", type="string", length=15, nullable=true)
+     */
+    private $releaseDate;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $mbid;
 
     public function __construct()
     {
         $this->tracks = new ArrayCollection();
-    }
-
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -49,11 +65,15 @@ class Album
     }
 
     /**
-     * @param mixed $name
+     * @param $name
+     *
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -65,70 +85,95 @@ class Album
     }
 
     /**
-     * @param $album
-     * @return $this
+     * @return Artist
      */
-    public function addAlbum($album)
+    public function getArtist()
     {
-        $this->albums->add($album);
-
-        return $this;
+        return $this->artist;
     }
 
     /**
-     * @return ArrayCollection
-     */
-    public function getAlbums()
-    {
-        return $this->albums;
-    }
-
-    /**
-     * @param $tag
-     * @return $this
-     */
-    public function addTags($tag)
-    {
-        $this->tags->add($tag);
-
-        return $this;
-    }
-
-    /**
-     * @param $processed
+     * @param Artist $artist
      *
      * @return $this
      */
-    public function setProcessed($processed)
+    public function setArtist($artist)
     {
-        $this->processed = $processed;
+        $this->artist = $artist;
 
         return $this;
     }
 
     /**
-     * @return bool
+     * @return mixed
      */
-    public function isProcessed()
+    public function getImage()
     {
-        return $this->processed;
+        return $this->image;
     }
 
     /**
-     * @param $disabled
+     * @param $image
+     *
      * @return $this
      */
-    public function setDisabled($disabled)
+    public function setImage($image)
     {
-        $this->disabled = $disabled;
+        $this->image = $image;
+
         return $this;
     }
 
     /**
-     * @return bool
+     * @return mixed
      */
-    public function isDisabled()
+    public function getMbid()
     {
-        return $this->disabled;
+        return $this->mbid;
     }
+
+    /**
+     * @param $mbid
+     *
+     * @return $this
+     */
+    public function setMbid($mbid)
+    {
+        $this->mbid = $mbid;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReleaseDate()
+    {
+        return $this->releaseDate;
+    }
+
+    /**
+     * @param $releaseDate
+     *
+     * @return $this
+     */
+    public function setReleaseDate($releaseDate)
+    {
+        $this->releaseDate = $releaseDate;
+
+        return $this;
+    }
+
+    /**
+     * @param $track
+     *
+     * @return $this
+     */
+    public function addTrack($track)
+    {
+        $this->tracks->add($track);
+
+        return $this;
+    }
+
 }

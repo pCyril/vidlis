@@ -5,7 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Document\ArtistQuery;
 use AppBundle\Entity\Played;
 use AppBundle\Entity\PlayedQuery;
+use AppBundle\LastFm\Artist\Creator;
+use AppBundle\LastFm\Track\Search;
 use AppBundle\Youtube\YoutubeSuggestion;
+use Doctrine\ORM\EntityRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use AppBundle\Youtube\YoutubeVideo;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,6 +86,11 @@ class VideoController extends FOSRestController
      */
     public function postPlayedAction($id)
     {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var EntityRepository $artistRepository */
+        $artistRepository = $em->getRepository('AppBundle:Artist');
+
         $played = new Played();
         $played->setIdVideo($id)
             ->setDatePlayed(new \DateTime());
@@ -92,6 +100,27 @@ class VideoController extends FOSRestController
 
         if ($this->getUser()) {
             $played->setUser($this->getUser());
+        }
+
+
+        $video = $this->get('youtubeVideo')->setId($id)->getResult();
+        $title = $video['items'][0]['snippet']['title'];
+
+        /** @var Search $lastFmMusicSearch */
+        $lastFmMusicSearch = $this->get('lastFmMusicSearch');
+        $result = $lastFmMusicSearch->setTrack($title)->getResults();
+        $trackMatches = $result['results']['trackmatches'];
+
+
+        if (isset($trackMatches['track'])) {
+            $artistName = $trackMatches['track'][0]['artist'];
+            $artist = $artistRepository->findBy(['name' => $artistName]);
+
+            if (!$artist) {
+                /** @var Creator $artistCreator */
+                $artistCreator = $this->get('ArtistCreator');
+                $artistCreator->setArtistName($artistName)->run();
+            }
         }
 
         $playedQuery->persist($played);

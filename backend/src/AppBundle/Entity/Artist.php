@@ -18,47 +18,49 @@ class Artist
     private $id;
 
     /**
-     * @ORM\Column(name="name", type="string", length=100)
+     * @ORM\Column(type="string", length=100)
      */
     private $name;
 
     /**
      * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="Album", mappedBy="artist", cascade={"remove", "persist"})
      */
     private $albums;
 
     /**
-     * @ORM\Column(name="information", type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $information;
 
     /**
-     * @var ArrayCollection
+     * @ORM\Column(type="text", nullable=true)
      */
     private $tags;
 
     /**
-     * @var bool
+     * @ORM\Column(type="boolean")
      */
     private $processed = false;
 
     /**
-     * @var bool
+     * @var \DateTime
+     *
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="boolean")
      */
     private $disabled = false;
 
     public function __construct()
     {
         $this->albums = new ArrayCollection();
-        $this->tags = new ArrayCollection();
-    }
+        $this->createdAt = new \DateTime();
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -70,11 +72,15 @@ class Artist
     }
 
     /**
-     * @param mixed $name
+     * @param $name
+     *
+     * @return $this
      */
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
     }
 
     /**
@@ -142,6 +148,7 @@ class Artist
     public function setDisabled($disabled)
     {
         $this->disabled = $disabled;
+
         return $this;
     }
 
@@ -151,5 +158,45 @@ class Artist
     public function isDisabled()
     {
         return $this->disabled;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getInformation()
+    {
+        return $this->information;
+    }
+
+    /**
+     * @param $information
+     *
+     * @return $this
+     */
+    public function setInformation($information)
+    {
+        $this->information = $information;
+
+        return $this;
+    }
+
+    /**
+     * @param $tags
+     *
+     * @return $this
+     */
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTags()
+    {
+        return $this->tags;
     }
 }

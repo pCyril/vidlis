@@ -23,16 +23,19 @@ services:
         arguments: ["@memcache", "%youtubeAPIKey%"]
     lastFmMusicSearch:
         class: AppBundle\LastFm\Track\Search
-        arguments: ["@memcache", "%lastFmKey%"]
+        arguments: ["@memcache", "%lastFmKey%", "@logger"]
     lastFmArtistSearch:
         class: AppBundle\LastFm\Artist\Search
-        arguments: ["@memcache", "%lastFmKey%"]
+        arguments: ["@memcache", "%lastFmKey%", "@logger"]
     lastFmArtistInfo:
         class: AppBundle\LastFm\Artist\Info
-        arguments: ["@memcache", "%lastFmKey%"]
+        arguments: ["@memcache", "%lastFmKey%", "@logger"]
     lastFmArtistAlbum:
         class: AppBundle\LastFm\Artist\Album
-        arguments: ["@memcache", "%lastFmKey%"]
+        arguments: ["@memcache", "%lastFmKey%", "@logger"]
     lastFmAlbumInfo:
         class: AppBundle\LastFm\Album\Info
-        arguments: ["@memcache", "%lastFmKey%"]
+        arguments: ["@memcache", "%lastFmKey%", "@logger"]
+    ArtistCreator:
+        class: AppBundle\LastFm\Artist\Creator
+        arguments: ["@lastFmArtistInfo", "@lastFmArtistAlbum", "@lastFmAlbumInfo", "@logger", "@doctrine.orm.entity_manager"]

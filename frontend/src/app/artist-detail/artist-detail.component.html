@@ -1,18 +1,27 @@
 <div class="main-popup">
     <div class="popup-container">
-        <div class="p-8 bg-white rounded-sm shadow absolute-centered text-center" *ngIf="loaded == false">
+        <div class="p-8 bg-white rounded-sm shadow text-center" *ngIf="loaded == false">
             <div class="text-xl">Loading</div>
             <div class="text-5xl mt-8"><i class="fa fa-spinner-third fa-w-16 fa-spin fa-lg"></i></div>
         </div>
 
-        <div class="max-w-lg max-h-full overflow-auto w-full bg-white rounded shadow absolute-centered" *ngIf="loaded == true">
+        <div class="absolute max-h-full overflow-auto w-full bg-white rounded shadow modal-content" *ngIf="loaded == true">
+
+            <div class="bg-white fixed flex border-b flex-row p-3 close-modal">
+                <div class="flex-1">
+                </div>
+                <div class="text-3xl cursor-pointer" (click)="closeDetail()">
+                    <i class="far fa-window-close"></i>
+                </div>
+            </div>
+
             <div class="lg:flex border-b">
-                <div class="h-48 lg:h-auto lg:w-48 flex-none bg-center bg-cover rounded-t lg:rounded-t-none lg:rounded-lt text-center overflow-hidden" [ngStyle]="{'background-image': 'url(http://vidlis.fr/images/albums/' + artist.albums[0].image + ')'}" title="{{ artist.name }}">
+                <div class="h-48 lg:h-auto lg:w-48 flex-none bg-center bg-cover rounded-t lg:rounded-t-none lg:rounded-lt text-center overflow-hidden" [ngStyle]="{'background-image': 'url(' + artist.albums[0].image + ')'}" title="{{ artist.name }}">
                 </div>
                 <div class="flex-1 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
                     <div class="mb-8">
                         <div class="text-black font-bold text-xl mb-2">{{ artist.name }}</div>
-                        <p class="text-grey-darker text-base" [innerHTML]="artist.info"></p>
+                        <p class="text-grey-darker text-base" [innerHTML]="artist.information"></p>
                     </div>
                     <div class="flex items-center">
                         <div class="px-6 pb-4">
@@ -23,11 +32,11 @@
             </div>
             <div class="albums rounded-br rounded-bl">
                 <div class="album flex p-4 border-b" *ngFor="let album of artist.albums; let i = index;">
-                    <div class="w-48 h-48 bg-cover text-center overflow-hidden" [ngStyle]="{'background-image': 'url(http://vidlis.fr/images/albums/' + album.image + ')'}" title="{{ album.name }}">
+                    <div class="w-48 h-48 bg-cover text-center overflow-hidden" [ngStyle]="{'background-image': 'url(' + album.image + ')'}" title="{{ album.name }}">
                     </div>
                     <div class="bg-white p-4 flex-1 flex flex-col leading-normal">
                         <div class="text-black font-bold text-xl mb-2">{{ album.name }}</div>
-                        <div class="track flex flex-row" *ngFor="let track of album.tracks; let i = index;" [ngClass]="{'opacity-25': !hasYoutubeId(track), 'cursor-pointer hover:bg-grey-lighter': hasYoutubeId(track) }" (click)="addToPlaylist(track)">
+                        <div class="track flex flex-row" *ngFor="let track of album.tracks; let i = index;" [ngClass]="{'text-grey-light': !hasYoutubeId(track), 'cursor-pointer hover:bg-grey-lighter': hasYoutubeId(track) }" (click)="addToPlaylist(track)">
                             <div class="p-2">{{ i+1 }}</div>
                             <div class="flex-1 p-2 truncate">{{ track.name }}</div>
                             <div class="p-2">{{ getTime(track) }}</div>

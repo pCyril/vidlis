@@ -1,64 +1,67 @@
 import {
-  Component,
-  OnInit
+    Component,
+    OnInit
 } from '@angular/core';
 
-import { PlayerService } from './../player/player.service';
-import { ArtistService } from './../artist/artist.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {PlayerService} from './../player/player.service';
+import {ArtistService} from './../artist/artist.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'artist-detail',
-  templateUrl: './artist-detail.component.html'
+    selector: 'artist-detail',
+    templateUrl: './artist-detail.component.html'
 })
 
 export class ArtistDetailComponent implements OnInit {
 
-  public loaded = false;
+    public loaded = false;
 
-  public artist;
+    public artist;
 
-  constructor(
-      public playerService: PlayerService,
-      public artistService: ArtistService,
-      public router: Router,
-      public route: ActivatedRoute,
-  ) {}
+    constructor(public playerService: PlayerService,
+                public artistService: ArtistService,
+                public router: Router,
+                public route: ActivatedRoute,) {
+    }
 
-  public hasYoutubeId(track) {
-      return (track.youtube_id != undefined)
-  }
+    public hasYoutubeId(track) {
+        return (track.youtube_id != undefined)
+    }
 
-  public getTime(track) {
-      let seconds = track.duration % 60;
-      let secondsString = '';
-      if (seconds < 10) {
-          secondsString = '0' + seconds.toString();
-      } else {
-          secondsString = seconds.toString();
-      }
-      let minutes = Math.floor(track.duration % 3600 / 60);
+    public closeDetail() {
+        this.router.navigate([{outlets: {popup: null}}]);
+    }
 
-      return `${minutes}:${secondsString}`;
-  }
+    public getTime(track) {
+        let seconds = track.duration % 60;
+        let secondsString = '';
+        if (seconds < 10) {
+            secondsString = '0' + seconds.toString();
+        } else {
+            secondsString = seconds.toString();
+        }
+        let minutes = Math.floor(track.duration % 3600 / 60);
 
-  public addToPlaylist(track) {
-      this.playerService.getVideo(track.youtube_id).subscribe((data:{id: ''}) => {
-          if (data != null && data.id != '') {
-              this.playerService.push(data);
-          } else {
-              // TODO add error service
-          }
-      });
-  }
+        return `${minutes}:${secondsString}`;
+    }
 
-  public ngOnInit() {
-      this.route.params
-          .subscribe((data) => {
-              this.artistService.getArtistDetail(data.id).subscribe((data) => {
-                this.loaded = true;
-                this.artist = data;
-              });
-          });
-  }
+    public addToPlaylist(track) {
+        this.playerService.getVideo(track.youtube_id).subscribe((data: { id: '' }) => {
+            if (data != null && data.id != '') {
+                this.playerService.push(data);
+            } else {
+                // TODO add error service
+            }
+        });
+    }
+
+    public ngOnInit() {
+        this.route.params
+            .subscribe((data) => {
+                this.artistService.getArtistDetail(data.id).subscribe((data) => {
+                    this.loaded = true;
+                    this.artist = data;
+                });
+            });
+    }
 }
