@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Artist;
+use AppBundle\Repository\ArtistRepository;
 use Doctrine\ORM\EntityRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,10 +32,10 @@ class ArtistController extends FOSRestController
     public function getArtistsAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-        /** @var EntityRepository $artistRepository */
+        /** @var ArtistRepository $artistRepository */
         $artistRepository = $em->getRepository('AppBundle:Artist');
 
-        return $artistRepository->findBy([], ['name' => 'ASC'], 12, 0);
+        return $artistRepository->findArtists(12, 0);
     }
 
     /**

@@ -19,7 +19,7 @@
 </div>-->
 
 <div class="content px-8 pt-8 flex flex-row flex-wrap" *ngIf="loaded == true">
-    <div class="sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3 cursor-pointer flex" *ngFor="let artist of artists; let i = index;" (click)="showDetail(artist)" *ngIf="artist.albums && artist.albums.length">
+    <div class="sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3 cursor-pointer flex" *ngFor="let artist of artists; let i = index;" (click)="showDetail(artist)">
         <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white flex-1">
             <img class="w-full" src="{{ artist.albums[0].image }}" alt="{{ artist.name }}">
             <div class="px-6 pt-4">

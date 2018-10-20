@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(name="artists")
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArtistRepository")
  */
 class Artist
 {
