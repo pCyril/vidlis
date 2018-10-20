@@ -74,6 +74,10 @@ class Creator {
      */
     public function run()
     {
+        if (empty($this->artistName)) {
+            return;
+        }
+
         $result = $this->serviceArtistInfo->setArtist($this->artistName)->getResults();
         if (!isset($result['error'])) {
             $artist = new ArtistEntity();
@@ -135,6 +139,7 @@ class Creator {
                             }
                         } else {
                             $this->logger->error($albumInfoResult['error']);
+                            return;
                         }
 
                         $album->setArtist($artist);
@@ -145,6 +150,7 @@ class Creator {
                 }
             } else {
                 $this->logger->error($albumResult['error']);
+                return;
             }
 
             $this->entityManager->persist($artist);
@@ -152,6 +158,7 @@ class Creator {
 
         } else {
             $this->logger->error($result['error']);
+            return;
         }
     }
 

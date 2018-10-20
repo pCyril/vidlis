@@ -3,12 +3,10 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Artist;
-use Doctrine\ODM\MongoDB\Cursor;
 use Doctrine\ORM\EntityRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations\Get;
-use AppBundle\Document\ArtistQuery;
 
 
 class ArtistController extends FOSRestController
