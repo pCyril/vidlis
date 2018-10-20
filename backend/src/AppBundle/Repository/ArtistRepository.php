@@ -18,11 +18,13 @@ class ArtistRepository extends EntityRepository
         $qb->select('a')
             ->andWhere('a.disabled = :disabled')->setParameter('disabled', false)
             ->join("a.albums", 'al')
-            ->setFirstResult($offset)
-            ->setMaxResults($limit)
             ->orderBy('a.name', 'ASC');
 
-        $paginator = new Paginator($qb, $fetchJoinCollection = true);
+        $paginator = new Paginator($qb);
+
+        $paginator->getQuery()
+            ->setFirstResult($offset)
+            ->setMaxResults($limit);
 
         return $paginator;
     }
