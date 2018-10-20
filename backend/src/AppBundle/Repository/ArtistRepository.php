@@ -5,6 +5,12 @@ use Doctrine\ORM\EntityRepository;
 
 class ArtistRepository extends EntityRepository
 {
+    /**
+     * @param $limit
+     * @param $offset
+     *
+     * @return array
+     */
     public function findArtists($limit, $offset)
     {
         $qb = $this->createQueryBuilder('a');
@@ -15,6 +21,6 @@ class ArtistRepository extends EntityRepository
             ->setMaxResults($limit)
             ->orderBy('a.name', 'ASC');
 
-
+        return $qb->getQuery()->getResult();
     }
 }
