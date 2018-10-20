@@ -2,6 +2,7 @@
 namespace AppBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 
 class ArtistRepository extends EntityRepository
 {
@@ -9,7 +10,7 @@ class ArtistRepository extends EntityRepository
      * @param $limit
      * @param $offset
      *
-     * @return array
+     * @return Paginator
      */
     public function findArtists($limit, $offset)
     {
@@ -21,6 +22,8 @@ class ArtistRepository extends EntityRepository
             ->setMaxResults($limit)
             ->orderBy('a.name', 'ASC');
 
-        return $qb->getQuery()->getResult();
+        $paginator = new Paginator($qb, $fetchJoinCollection = true);
+
+        return $paginator;
     }
 }
