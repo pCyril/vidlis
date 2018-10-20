@@ -23,11 +23,13 @@
                         <div class="text-black font-bold text-xl mb-2">{{ artist.name }}</div>
                         <p class="text-grey-darker text-base" [innerHTML]="artist.information"></p>
                     </div>
+                    <!--
                     <div class="flex items-center">
                         <div class="px-6 pb-4">
-                            <span class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2" *ngFor="let tag of artist.tags; let i = index;">{{ tag.name }}</span>
+                            <span class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2">{{ artist.tags }}</span>
                         </div>
                     </div>
+                    -->
                 </div>
             </div>
             <div class="albums rounded-br rounded-bl">
