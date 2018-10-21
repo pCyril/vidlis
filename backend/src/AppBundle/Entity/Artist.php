@@ -103,7 +103,7 @@ class Artist
     }
 
     /**
-     * @return ArrayCollection
+     * @return Album[]
      */
     public function getAlbums()
     {

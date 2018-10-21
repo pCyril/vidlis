@@ -176,4 +176,12 @@ class Album
         return $this;
     }
 
+    /**
+     * @return Track[]
+     */
+    public function getTracks()
+    {
+        return $this->tracks;
+    }
+
 }

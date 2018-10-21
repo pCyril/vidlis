@@ -17,6 +17,7 @@ class ArtistRepository extends EntityRepository
         $qb = $this->createQueryBuilder('a');
         $qb->select('a')
             ->andWhere('a.disabled = :disabled')->setParameter('disabled', false)
+            ->andWhere('a.processed = :processed')->setParameter('processed', true)
             ->join("a.albums", 'al')
             ->orderBy('a.name', 'ASC');
 
