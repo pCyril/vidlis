@@ -18,8 +18,8 @@
        routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2" *ngFor="let gender of genders; let i = index;">{{gender}}</a>
 </div>-->
 
-<div class="content px-8 pt-8 flex flex-row flex-wrap" *ngIf="loaded == true">
-    <div class="sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3 cursor-pointer flex" *ngFor="let artist of artists; let i = index;" (click)="showDetail(artist)">
+<div class="content px-3 pt-3 md:px-6 md:pt-6 lg:px-8 lg:pt-8 flex flex-row flex-wrap" *ngIf="loaded == true">
+    <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3 cursor-pointer flex" *ngFor="let artist of artists; let i = index;" (click)="showDetail(artist)">
         <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white flex-1">
             <img class="w-full" src="{{ artist.albums[0].image }}" alt="{{ artist.name }}">
             <div class="px-6 pt-4">
