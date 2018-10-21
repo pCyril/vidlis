@@ -78,10 +78,10 @@ export class ArtistComponent implements OnInit {
 
       sub.subscribe((data:Object[]) => {
           this.loaded = true;
-          if (data.length == 20) {
+          if (data.length == 12) {
               this.loadedMore = true;
           }
-          this.offset += 20;
+          this.offset += 12;
           this.artists = this.artists .concat(data);
       });
   }
