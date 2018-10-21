@@ -25,7 +25,7 @@ class Track
     private $name;
 
     /**
-     * @ORM\Column(name="youtube_id", type="string", length=10, nullable=true)
+     * @ORM\Column(name="youtube_id", type="string", length=15, nullable=true)
      */
     private $youtubeId;
 

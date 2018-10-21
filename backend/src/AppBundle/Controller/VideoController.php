@@ -18,17 +18,15 @@ use FOS\RestBundle\Controller\Annotations\Post;
 class VideoController extends FOSRestController
 {
     /**
-     * @param Request $request
-     *
      * @Get("/video/{id}")
      *
      * @return array
      */
-    public function getVideoDetailAction(Request $request)
+    public function getVideoDetailAction($id)
     {
         /** @var YoutubeVideo $youtubeVideoService */
         $youtubeVideoService  = $this->get('youtubeVideo');
-        $youtubeVideoService->setId($request->get('id'));
+        $youtubeVideoService->setId($id);
 
         return $youtubeVideoService->getResult()['items'][0];
     }
