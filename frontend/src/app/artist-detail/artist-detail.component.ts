@@ -46,7 +46,6 @@ export class ArtistDetailComponent implements OnInit {
     }
 
     public addToPlaylist(track) {
-        console.log('track', track);
         this.playerService.getVideo(track.youtube_id).subscribe((data: { id: '' }) => {
             if (data != null && data.id != '') {
                 this.playerService.push(data);
