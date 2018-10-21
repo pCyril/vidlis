@@ -45,6 +45,10 @@ export class ArtistDetailComponent implements OnInit {
         return `${minutes}:${secondsString}`;
     }
 
+    public getTags(tags) {
+        return tags.split(', ');
+    }
+
     public addToPlaylist(track) {
         this.playerService.getVideo(track.youtube_id).subscribe((data: { id: '' }) => {
             if (data != null && data.id != '') {
