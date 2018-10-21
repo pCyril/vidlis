@@ -7,6 +7,7 @@ use Doctrine\ORM\Tools\Pagination\Paginator;
 class ArtistRepository extends EntityRepository
 {
     /**
+     * @param $gender
      * @param $limit
      * @param $offset
      *
@@ -21,7 +22,7 @@ class ArtistRepository extends EntityRepository
             ->join("a.albums", 'al')
             ->orderBy('a.name', 'ASC');
 
-        if ($gender) {
+        if ($gender !== 'null' && $gender !== null && $gender !== 'all') {
             $qb->andWhere(
                 $qb->expr()->like('lower(a.tags)', ':search')
             )->setParameter('search', '%' . strtolower($gender) . '%');
