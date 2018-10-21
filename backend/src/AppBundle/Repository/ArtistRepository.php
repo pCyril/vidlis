@@ -12,7 +12,7 @@ class ArtistRepository extends EntityRepository
      *
      * @return Paginator
      */
-    public function findArtists($limit, $offset)
+    public function findArtists($gender, $limit, $offset)
     {
         $qb = $this->createQueryBuilder('a');
         $qb->select('a')
@@ -20,6 +20,12 @@ class ArtistRepository extends EntityRepository
             ->andWhere('a.processed = :processed')->setParameter('processed', true)
             ->join("a.albums", 'al')
             ->orderBy('a.name', 'ASC');
+
+        if ($gender) {
+            $qb->andWhere(
+                $qb->expr()->like('lower(a.tags)', ':search')
+            )->setParameter('search', '%' . strtolower($gender) . '%');
+        }
 
         $paginator = new Paginator($qb);
 

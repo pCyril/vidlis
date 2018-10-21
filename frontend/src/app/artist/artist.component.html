@@ -29,20 +29,13 @@
 </div>
 
 <div class="w-full flex justify-center bg-grey">
-    <form class="w-full max-w-sm p-3" #searchForm="ngForm" (ngSubmit)="search(searchForm)">
-        <div class="flex items-center py-2">
-            <input class="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2" ngModel type="text" placeholder="Search your artist" aria-label="Full name" name="query">
-            <button class="flex-no-shrink hover:bg-white hover:text-black border-white text-sm border-2 text-white py-1 px-2 rounded" type="submit">
-                <i class="fa fa-search"></i>
-            </button>
+    <div class="flex items-center">
+        <div class="w-full flex p-3 md:p-6 lg:p-8 genders-list flex-wrap" *ngIf="query == null">
+            <a [routerLink]=" ['/artists/g', gender] "
+               routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2" *ngFor="let gender of genders; let i = index;">{{gender}}</a>
         </div>
-    </form>
+    </div>
 </div>
-
-<!--<div class="w-full flex px-3 pt-3 md:px-6 md:pt-6 lg:px-8 lg:pt-8 genders-list flex-wrap" *ngIf="query == null">
-    <a [routerLink]=" ['/artists/g', gender] "
-       routerLinkActive="active" [routerLinkActiveOptions]= "{exact: true}" class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2" *ngFor="let gender of genders; let i = index;">{{gender}}</a>
-</div>-->
 
 <div class="content px-3 pt-3 md:px-6 md:pt-6 lg:px-8 lg:pt-8 flex flex-row flex-wrap" *ngIf="artists.length">
     <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3 cursor-pointer flex" *ngFor="let artist of artists; let i = index;" (click)="showDetail(artist)">
@@ -51,11 +44,9 @@
             <div class="px-6 pt-4">
                 <div class="font-bold text-xl mb-2">{{ artist.name }}</div>
             </div>
-            <!--
             <div class="px-6 pb-4">
-                <a [routerLink]=" ['/artists/g', tag.name] " class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2" *ngFor="let tag of artist.tags; let i = index;">{{ tag.name }}</a>
+                <a [routerLink]=" ['/artists/g', tag] " class="no-underline inline-block bg-grey-lighter rounded-full px-3 py-1 text-sm font-semibold text-grey-darker mr-2 mt-2" *ngFor="let tag of getTags(artist.tags); let i = index;">{{ tag }}</a>
             </div>
-            -->
         </div>
     </div>
 </div>

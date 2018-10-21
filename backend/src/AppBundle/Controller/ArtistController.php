@@ -35,7 +35,7 @@ class ArtistController extends FOSRestController
         /** @var ArtistRepository $artistRepository */
         $artistRepository = $em->getRepository('AppBundle:Artist');
 
-        return iterator_to_array($artistRepository->findArtists(12, $request->get('offset', 0))->getIterator());
+        return iterator_to_array($artistRepository->findArtists($request->get('gender'),12, $request->get('offset', 0))->getIterator());
     }
 
     /**

@@ -45,10 +45,6 @@ export class ArtistComponent implements OnInit {
       public route: ActivatedRoute,
   ) {}
 
-  public search(form) {
-      this.router.navigate(['artists/q', form.value.query]);
-  }
-
   public showDetail(artist) {
       this.router.navigate([{ outlets: { popup: ['artist-detail', artist.id] }}]);
   }
@@ -63,6 +59,10 @@ export class ArtistComponent implements OnInit {
               this.gender = data.genre? data.genre : null;
               this.loadArtists();
           });
+  }
+
+  public getTags(tags) {
+      return tags.split(', ');
   }
 
   public loadArtists() {
