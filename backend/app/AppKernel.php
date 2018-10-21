@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Config\Loader\LoaderInterface;
 
