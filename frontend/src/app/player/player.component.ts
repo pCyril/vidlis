@@ -28,6 +28,7 @@ export class PlayerComponent implements OnInit {
   public autoLoading = false;
   public playlistCreated = false;
   public popupTimeout;
+  public mute = false;
 
   constructor(
       public playerService: PlayerService,
@@ -143,13 +144,45 @@ export class PlayerComponent implements OnInit {
     return {width: `${width}%`};
   }
 
+  public styleSound() {
+      if (this.ready == false) {
+          return {};
+      }
+      let width = this.YTPlayer.getVolume();
+      return {width: `${width}%`};
+  }
+
   public stylePlayed() {
       if (this.ready == false) {
           return {};
       }
 
       let width = (this.YTPlayer.getCurrentTime() / this.YTPlayer.getDuration()) * 100;
+      if (width > 95) {
+          if (this.modeAuto && !this.autoLoading && this.playerService._currentIndex == this.playerService._videos.length -1) {
+              this.autoLoading = true;
+              let item = this.playerService._videos[this.playerService._currentIndex];
+              let id = (typeof item.id === 'object') ? item.id.videoId : item.id;
+              this.playerService.getNextAuto(id).subscribe((item:{'id': null}) => {
+                  this.autoLoading = false;
+                  if (item && item.id != null) {
+                      this.playerService._videos.push(item);
+                  }
+              });
+          }
+      }
+
       return {width: `${width}%`};
+  }
+
+  public toggleMute() {
+      this.mute = !this.mute;
+
+      if (this.mute) {
+          this.YTPlayer.mute();
+      }else {
+          this.YTPlayer.unMute();
+      }
   }
 
   public getCurrentTime() {
@@ -192,6 +225,11 @@ export class PlayerComponent implements OnInit {
     let eLeft = $event.pageX;
     let windowWidth = window.innerWidth;
       this.YTPlayer.seekTo(Math.round(this.YTPlayer.getDuration() * (eLeft / windowWidth)));
+  }
+
+  public changeVolume($event) {
+      let eLeft = $event.offsetX;
+      this.YTPlayer.setVolume(Math.round(eLeft / 200 * 100));
   }
 
   public toggleSuggest() {

@@ -40,7 +40,7 @@
 <div class="content px-3 pt-3 md:px-6 md:pt-6 lg:px-8 lg:pt-8 flex flex-row flex-wrap" *ngIf="artists.length">
     <div class="w-full md:w-1/2 lg:w-1/3 xl:w-1/4 p-3 cursor-pointer flex" *ngFor="let artist of artists; let i = index;" (click)="showDetail(artist)">
         <div class="max-w-sm rounded overflow-hidden shadow-lg bg-white flex-1">
-            <img class="w-full" src="{{ artist.albums[0].image }}" alt="{{ artist.name }}">
+            <div class="h-48 w-full bg-center bg-cover" [ngStyle]="{'background-image': 'url(' + artist.albums[0].image + ')'}" title="{{ artist.name }}"></div>
             <div class="px-6 pt-4">
                 <div class="font-bold text-xl mb-2">{{ artist.name }}</div>
             </div>

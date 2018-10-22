@@ -16,7 +16,15 @@
     </a>
     <div class="px-2 text-black font-bold" *ngIf="playerService._currentIndex != -1"> {{ getCurrentTime() }} / {{ getTotalDuration() }} </div>
     <div class="separator flex-grow"></div>
-    <a href="javascript:;" class="desktop" (click)="toggleScreenMode()" *ngIf="playerService._videos.length > 0">
+    <a href="javascript:;" class="desktop" (click)="toggleMute()">
+        <i class="far fa-volume" aria-hidden="true" *ngIf="mute === false"></i>
+        <i class="far fa-volume-slash" aria-hidden="true" *ngIf="mute === true"></i>
+    </a>
+    <div class="sound-container hidden md:block" (click)="changeVolume($event)">
+        <div class="sound-background"></div>
+        <div class="sound" [ngStyle]="styleSound()"></div>
+    </div>
+    <a href="javascript:;" class="hidden md:block" (click)="toggleScreenMode()" *ngIf="playerService._videos.length > 0">
         <i class="far fa-expand-alt" aria-hidden="true" *ngIf="playerService._fullScreenMode === false"></i>
         <i class="far fa-compress-alt" aria-hidden="true" *ngIf="playerService._fullScreenMode === true"></i>
     </a>
