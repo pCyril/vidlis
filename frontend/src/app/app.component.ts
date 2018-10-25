@@ -3,6 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { SigninService } from "./signin/signin.service";
 import { PlayerService } from './player/player.service';
+import { SocketService } from './socket/socket.service';
 
 @Component({
   selector: 'app',
@@ -14,10 +15,14 @@ export class AppComponent implements OnInit {
   public constructor(
       public router: Router,
       public signinService: SigninService,
-      public playerService: PlayerService
+      public playerService: PlayerService,
+      public socketService: SocketService
   ) {}
 
   public ngOnInit() {
+
+    this.socketService.initSocket();
+
     if (window.localStorage.getItem('user')) {
       let user = JSON.parse(window.localStorage.getItem('user'));
       this.signinService.connectUser(user).subscribe((response:{token:''}) => {

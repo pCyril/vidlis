@@ -40,6 +40,7 @@ import { SearchService } from './search/search.service';
 import { NoContentComponent } from './no-content';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { SocketService } from './socket/socket.service';
 
 import '../styles/styles.scss';
 import '../styles/headings.css';
@@ -55,6 +56,7 @@ const APP_PROVIDERS = [
     HomeService,
     ArtistService,
     ProfileService,
+    SocketService,
 ];
 
 type StoreType = {

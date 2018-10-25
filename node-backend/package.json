@@ -1,0 +1,32 @@
+{
+  "name": "mlc",
+  "version": "1.0.0",
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.nexenture.fr/nexenture/my-live-company"
+  },
+  "bugs": {
+    "url": "http://gitlab.nexenture.fr/nexenture/my-live-company/issues"
+  },
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "nodemon node app.js"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  },
+  "contributors": [
+    "Nicolas Couet",
+    "Cyril Perraud",
+    "Olivier Balais",
+    "Quentin Fayet"
+  ],
+  "license": "ISC"
+}

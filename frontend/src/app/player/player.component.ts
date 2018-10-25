@@ -5,7 +5,8 @@ import {
   OnInit
 } from '@angular/core';
 import { PlayerService } from './player.service';
-import { SigninService } from './../signin/signin.service'
+import { SocketService } from "../socket/socket.service"
+import { SigninService} from "../signin/signin.service";
 
 @Component({
   selector: 'player',
@@ -32,6 +33,7 @@ export class PlayerComponent implements OnInit {
 
   constructor(
       public playerService: PlayerService,
+      public socketService: SocketService,
       public signinService: SigninService
   ) {
       this.playerService.subject.subscribe(
@@ -86,6 +88,17 @@ export class PlayerComponent implements OnInit {
     this.ready = true;
     setTimeout(this.styleLoading.bind(this), 100);
     setTimeout(this.stylePlayed.bind(this), 100);
+  }
+
+  public updateState() {
+      if (this.ready == false || this.playerService._currentIndex == -1) {
+          return;
+      }
+
+      this.socketService.emit('current', {
+          time: this.getCurrentTime(),
+          video: this.playerService._videos[this.playerService._currentIndex]
+      })
   }
 
   public onYTPlayerStateChange(data) {
@@ -156,6 +169,8 @@ export class PlayerComponent implements OnInit {
       if (this.ready == false) {
           return {};
       }
+
+      this.updateState();
 
       let width = (this.YTPlayer.getCurrentTime() / this.YTPlayer.getDuration()) * 100;
       if (width > 95) {

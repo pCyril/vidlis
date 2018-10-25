@@ -19,9 +19,6 @@ stop_on_failure:
 composer_install:
 	@$(DOCKER_COMPOSE_RUN) tools composer install --prefer-dist --no-interaction || if [ $(STOP_ON_FAILURE) = true ]; then exit 1 ; fi
 
-init_db:
-    @$(DOCKER_COMPOSE_RUN) php ./bin/doctrine.php || if [ $(STOP_ON_FAILURE) = true ]; then exit 1 ; fi
-
 bash:
 	$(eval COMMAND := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS)))
 	$(eval COMMAND=$(shell echo $(COMMAND) | cut -f 1 -d ' '))

@@ -20,6 +20,12 @@ services:
       dockerfile: docker/code/Dockerfile
     entrypoint: '/bin/sh'
 
+  node:
+    build:
+      context: .
+      dockerfile: docker/node/Dockerfile
+    volumes:
+      - ./node-backend:/usr/src/app
 
   nginx:
     build:
