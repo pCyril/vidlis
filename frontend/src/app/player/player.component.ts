@@ -96,7 +96,6 @@ export class PlayerComponent implements OnInit {
       }
 
       this.socketService.emit('current', {
-          time: this.getCurrentTime(),
           video: this.playerService._videos[this.playerService._currentIndex]
       })
   }
@@ -169,8 +168,6 @@ export class PlayerComponent implements OnInit {
       if (this.ready == false) {
           return {};
       }
-
-      this.updateState();
 
       let width = (this.YTPlayer.getCurrentTime() / this.YTPlayer.getDuration()) * 100;
       if (width > 95) {
@@ -283,6 +280,7 @@ export class PlayerComponent implements OnInit {
 
   public play(save = false) {
       this.YTPlayer.playVideo();
+      this.updateState();
 
       if (save) {
           let videoId = this.playerService._videos[this.playerService._currentIndex].id;

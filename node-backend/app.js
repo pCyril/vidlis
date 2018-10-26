@@ -10,10 +10,30 @@ const users = [];
 
 io.on('connection', function (socket) {
 
+    users.push({id: socket.id});
+
     io.emit(`me`, { socket_id : socket.id});
 
     socket.on('current', function(data){
-        console.log(data);
+        users.forEach((user, index) => {
+            if (user.id == data.socket_id) {
+                user.current = data;
+            }
+        });
+        io.emit(`currents`, users);
+    });
+
+    socket.on('currents', function(){
+        io.emit(`currents`, users);
+    });
+
+    socket.on('disconnect', function () {
+        let sockets = Object.keys(io.sockets.sockets);
+        users.forEach((user, index) => {
+           if (sockets.indexOf(user.id) == -1) {
+               users.splice(index, 1);
+           }
+        });
     });
 
 });
