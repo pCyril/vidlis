@@ -5,7 +5,7 @@ import {
   OnInit
 } from '@angular/core';
 import { PlayerService } from './player.service';
-import { SocketService } from "../socket/socket.service"
+import { SocketService } from "../socket/socket.service";
 import { SigninService} from "../signin/signin.service";
 
 @Component({
@@ -30,6 +30,7 @@ export class PlayerComponent implements OnInit {
   public playlistCreated = false;
   public popupTimeout;
   public mute = false;
+  public isRadio = false;
 
   constructor(
       public playerService: PlayerService,
@@ -90,14 +91,9 @@ export class PlayerComponent implements OnInit {
     setTimeout(this.stylePlayed.bind(this), 100);
   }
 
-  public updateState() {
-      if (this.ready == false || this.playerService._currentIndex == -1) {
-          return;
-      }
-
-      this.socketService.emit('current', {
-          video: this.playerService._videos[this.playerService._currentIndex]
-      })
+  public toggleRadio() {
+      this.isRadio = !this.isRadio;
+      this.socketService.emit('toggleRadio', {isRadio: this.isRadio});
   }
 
   public onYTPlayerStateChange(data) {
@@ -178,7 +174,7 @@ export class PlayerComponent implements OnInit {
               this.playerService.getNextAuto(id).subscribe((item:{'id': null}) => {
                   this.autoLoading = false;
                   if (item && item.id != null) {
-                      this.playerService._videos.push(item);
+                      this.playerService.push(item);
                   }
               });
           }
@@ -280,7 +276,6 @@ export class PlayerComponent implements OnInit {
 
   public play(save = false) {
       this.YTPlayer.playVideo();
-      this.updateState();
 
       if (save) {
           let videoId = this.playerService._videos[this.playerService._currentIndex].id;
@@ -316,7 +311,7 @@ export class PlayerComponent implements OnInit {
           this.playerService.getNextAuto(id).subscribe((item:{'id': null}) => {
               this.autoLoading = false;
               if (item && item.id != null) {
-                  this.playerService._videos.push(item);
+                  this.playerService.push(item);
                   this.forward();
               }
           });

@@ -21,11 +21,12 @@ export class SocketService {
       });
 
       this.on('me').subscribe((data) => {
+          console.log('data', data);
           this.me = data;
       });
   }
 
-  public emit(eventName, data){
+  public emit(eventName, data = {}){
       if (this.socket == null) {
           return;
       }
@@ -41,6 +42,13 @@ export class SocketService {
       });
 
       return observable;
+  }
 
+  public removeAllListeners(name) {
+    if (!this.socket) {
+        return;
+    }
+
+    this.socket.removeAllListeners(name);
   }
 }

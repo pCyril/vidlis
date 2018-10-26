@@ -34,6 +34,7 @@ import { SignupService } from './signup/signup.service';
 import { ProfileComponent } from './profile';
 import { ProfileService } from './profile/profile.service';
 import { ArtistComponent } from './artist';
+import { RadioComponent } from './radio';
 import { ArtistDetailComponent } from './artist-detail';
 import { ArtistService } from './artist/artist.service';
 import { SearchService } from './search/search.service';
@@ -80,6 +81,7 @@ type StoreType = {
     ProfileComponent,
     ArtistComponent,
     ArtistDetailComponent,
+    RadioComponent,
     NoContentComponent,
   ],
   /**

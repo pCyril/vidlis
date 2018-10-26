@@ -16,6 +16,9 @@
     </a>
     <div class="px-2 text-black font-bold" *ngIf="playerService._currentIndex != -1"> {{ getCurrentTime() }} / {{ getTotalDuration() }} </div>
     <div class="separator flex-grow"></div>
+    <a href="javascript:;" (click)="toggleRadio()">
+        <i class="fa-tv-retro" aria-hidden="true" [ngClass]="{ 'far': isRadio, 'fas': !isRadio }"></i>
+    </a>
     <a href="javascript:;" class="desktop" (click)="toggleMute()">
         <i class="far fa-volume" aria-hidden="true" *ngIf="mute === false"></i>
         <i class="far fa-volume-slash" aria-hidden="true" *ngIf="mute === true"></i>
@@ -69,8 +72,7 @@
         <div class="flex flex-row playlist-content" *ngIf="showSuggests == false">
             <div class="item flex flex-row p-2 my-2 mr-2 cursor-pointer text-white text-sm relative" *ngFor="let item of playerService._videos; let i =index;"
                  [ngClass]="{ 'bg-grey-light-item': (i == playerService._currentIndex), 'bg-grey-dark-item': (i != playerService._currentIndex) }"
-                 (click)="changeTrack(i)"
-            >
+                 (click)="changeTrack(i)">
                 <div class="absolute pin-t pin-r text-white p-1" (click)="removeTrack(i)">
                     <i class="far fa-times-circle"></i>
                 </div>

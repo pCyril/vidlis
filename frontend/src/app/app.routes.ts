@@ -8,12 +8,14 @@ import { SearchComponent } from './search';
 import { SigninComponent } from './signin';
 import { SignupComponent } from './signup';
 import { NoContentComponent } from './no-content';
+import { RadioComponent } from './radio';
 
 export const ROUTES: Routes = [
   { path: '',      component: HomeComponent },
   { path: 'home',  component: HomeComponent },
   { path: 'playlists',  component: PlaylistComponent },
   { path: 'profile',  component: ProfileComponent },
+  { path: 'radio',  component: RadioComponent },
   { path: 'artists',  component: ArtistComponent },
   { path: 'artists/g/:genre',  component: ArtistComponent },
   { path: 'artists/q/:query',  component: ArtistComponent },

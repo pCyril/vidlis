@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { parameters } from '../parameters';
+import { SocketService } from "../socket/socket.service";
 
 @Injectable()
 export class PlayerService {
@@ -12,12 +13,20 @@ export class PlayerService {
     public subject: BehaviorSubject<any> = new BehaviorSubject<any>({});
 
     constructor(
-        public http: HttpClient
+        public http: HttpClient,
+        public socketService: SocketService
     ) { }
 
     public push(video) {
         this._videos.push(video);
         this.subject.next(this._videos);
+
+
+        this.socketService.emit('current', {
+            video: this._videos[this._currentIndex],
+            playlist: this._videos,
+            currentIndex: this._currentIndex,
+        });
     }
 
     public next() {

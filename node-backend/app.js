@@ -10,16 +10,17 @@ const users = [];
 
 io.on('connection', function (socket) {
 
-    users.push({id: socket.id});
+    users.push({socket_id: socket.id, isRadio: false});
 
-    io.emit(`me`, { socket_id : socket.id});
+    socket.emit(`me`, { socket_id : socket.id});
 
     socket.on('current', function(data){
         users.forEach((user, index) => {
-            if (user.id == data.socket_id) {
+            if (user.socket_id == data.socket_id) {
                 user.current = data;
             }
         });
+
         io.emit(`currents`, users);
     });
 
@@ -27,13 +28,24 @@ io.on('connection', function (socket) {
         io.emit(`currents`, users);
     });
 
+    socket.on('toggleRadio', function(data){
+        users.forEach((user, index) => {
+            if (user.socket_id == data.socket_id) {
+                user.isRadio = data.isRadio;
+            }
+        });
+        io.emit(`currents`, users);
+    });
+
     socket.on('disconnect', function () {
         let sockets = Object.keys(io.sockets.sockets);
         users.forEach((user, index) => {
-           if (sockets.indexOf(user.id) == -1) {
+           if (sockets.indexOf(user.socket_id) == -1) {
                users.splice(index, 1);
            }
         });
+
+        io.emit(`currents`, users);
     });
 
 });
