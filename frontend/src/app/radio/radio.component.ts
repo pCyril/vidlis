@@ -15,6 +15,8 @@ export class RadioComponent implements OnInit, OnDestroy {
 
   public radios = [];
 
+  public data;
+
   constructor(
       public socketService: SocketService
   ) {}
@@ -22,11 +24,18 @@ export class RadioComponent implements OnInit, OnDestroy {
   public ngOnInit() {
       this.socketService.emit('currents');
       this.socketService.on('currents').subscribe((data) => {
-          this.radios = data;
+          this.data = data;
+          this.getRadios();
       })
   }
 
   public ngOnDestroy() {
       this.socketService.removeAllListeners('currents');
+  }
+
+  public getRadios() {
+      this.radios = this.data.filter((row) => {
+          return row.isRadio;
+      });
   }
 }

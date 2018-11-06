@@ -15,13 +15,15 @@ export class SocketService {
   ) { }
 
   public initSocket(){
+      if (this.socket !== null) {
+          return;
+      }
       this.socket = io.connect(parameters.socket, {
           path: '/socket',
           timeout: 2000,
       });
 
       this.on('me').subscribe((data) => {
-          console.log('data', data);
           this.me = data;
       });
   }

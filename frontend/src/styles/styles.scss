@@ -96,6 +96,12 @@
   height: 100px;
   background: $grey;
 
+  &.radios {
+    position: inherit;
+    height: auto;
+    padding: 0 10px;
+  }
+
   &.show {
     bottom: 60px;
   }
