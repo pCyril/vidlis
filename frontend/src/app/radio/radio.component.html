@@ -37,7 +37,7 @@
 
 <div class="content px-3 pt-3 md:px-6 md:pt-6 lg:px-8 lg:pt-8 flex flex-wrap">
     <div class="w-full cursor-pointer w-full" *ngFor="let radio of radios;">
-        <div class="playlists show radios" *ngIf="radio.current && radio.current.playlist.length">
+        <div class="playlists show radios mb-3" *ngIf="radio.current && radio.current.playlist.length">
             <perfect-scrollbar>
                 <div class="flex flex-row playlist-content">
                     <div class="item flex flex-row p-2 my-2 mr-2 cursor-pointer text-white text-sm relative" *ngFor="let item of radio.current.playlist; let i = index;"
