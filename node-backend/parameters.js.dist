@@ -1,5 +1,0 @@
-var parameters = {
-    "backend_url": "http://nginx/api/",
-}
-
-module.exports = parameters;
