@@ -138,7 +138,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^2.0.4",
     "ngc-webpack": "^4.0.2",
-    "node-sass": "^4.5.2",
+    "node-sass": "^7.0.0",
     "npm-run-all": "^4.0.2",
     "optimize-js-plugin": "0.0.4",
     "parse5": "^3.0.2",
