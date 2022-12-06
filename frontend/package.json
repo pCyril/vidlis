@@ -91,7 +91,7 @@
     "@angular/platform-server": "~5.1.0",
     "@angular/router": "~5.1.0",
     "core-js": "^2.5.1",
-    "http-server": "^0.10.0",
+    "http-server": "^14.1.1",
     "ie-shim": "^0.1.0",
     "ngx-perfect-scrollbar": "^5.3.1",
     "reflect-metadata": "^0.1.10",
